@@ -10,10 +10,16 @@
 
 @implementation HNAppDelegate
 
+@synthesize window, articleListVC;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    
+    articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    self.window.rootViewController = articleListVC;
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

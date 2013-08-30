@@ -7,9 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HNArticleListVC.h""
+
+@class HNArticleListVC;
 
 @interface HNAppDelegate : UIResponder <UIApplicationDelegate>
+{    
+    UIWindow *window;
+    HNArticleListVC *articleListVC;
+    
+}
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) HNArticleListVC *articleListVC;
 
 @end
