@@ -10,13 +10,16 @@
 
 @implementation HNAppDelegate
 
-@synthesize window, articleListVC;
+@synthesize window, articleListVC, webBrowserVC;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    webBrowserVC = [[HNWebBrowserVC alloc] init];
     articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    
     
     self.window.rootViewController = articleListVC;
     

@@ -18,6 +18,7 @@
 		782784D617C9814500CAD559 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 782784D517C9814500CAD559 /* Default@2x.png */; };
 		782784D817C9814500CAD559 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 782784D717C9814500CAD559 /* Default-568h@2x.png */; };
 		78E4076417D04B4400DC8CE0 /* HNArticleListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076317D04B4400DC8CE0 /* HNArticleListVC.m */; };
+		78E4076817D278B100DC8CE0 /* HNWebBrowserVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,8 @@
 		782784D717C9814500CAD559 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		78E4076217D04B4400DC8CE0 /* HNArticleListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNArticleListVC.h; path = ViewControllers/HNArticleListVC.h; sourceTree = "<group>"; };
 		78E4076317D04B4400DC8CE0 /* HNArticleListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNArticleListVC.m; path = ViewControllers/HNArticleListVC.m; sourceTree = "<group>"; };
+		78E4076617D278B100DC8CE0 /* HNWebBrowserVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNWebBrowserVC.h; path = ViewControllers/HNWebBrowserVC.h; sourceTree = "<group>"; };
+		78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNWebBrowserVC.m; path = ViewControllers/HNWebBrowserVC.m; sourceTree = "<group>"; };
 		C70DA83392594FF4B0113C30 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -92,6 +95,8 @@
 				782784C817C9814500CAD559 /* Supporting Files */,
 				78E4076217D04B4400DC8CE0 /* HNArticleListVC.h */,
 				78E4076317D04B4400DC8CE0 /* HNArticleListVC.m */,
+				78E4076617D278B100DC8CE0 /* HNWebBrowserVC.h */,
+				78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */,
 			);
 			path = HackerNews;
 			sourceTree = "<group>";
@@ -214,6 +219,7 @@
 				782784CE17C9814500CAD559 /* main.m in Sources */,
 				782784D217C9814500CAD559 /* HNAppDelegate.m in Sources */,
 				78E4076417D04B4400DC8CE0 /* HNArticleListVC.m in Sources */,
+				78E4076817D278B100DC8CE0 /* HNWebBrowserVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
