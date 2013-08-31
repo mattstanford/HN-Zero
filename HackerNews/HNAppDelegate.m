@@ -10,18 +10,17 @@
 
 @implementation HNAppDelegate
 
-@synthesize window, articleListVC, webBrowserVC;
+@synthesize window, navController, articleListVC, webBrowserVC;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     webBrowserVC = [[HNWebBrowserVC alloc] init];
-    articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStyleGrouped];
+    articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStyleGrouped withWebBrowserVC:webBrowserVC];
     
-    
-    
-    self.window.rootViewController = articleListVC;
+    navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
+    [self.window setRootViewController:navController];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

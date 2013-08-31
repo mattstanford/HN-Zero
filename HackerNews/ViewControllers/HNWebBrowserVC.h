@@ -14,6 +14,8 @@
     NSString *currentURL;
 }
 
+- (void) setURL:(NSString *)newUrl;
+
 @property (strong, nonatomic) UIWebView *webView;
 @property (strong, nonatomic) NSString *currentURL;
 

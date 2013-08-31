@@ -14,15 +14,19 @@
 
 @implementation HNArticleListVC
 
-@synthesize frontPageURL, articles;
+@synthesize frontPageURL, articles, webBrowserVC;
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC
 {
     self = [super initWithStyle:style];
     if (self) {
         
+        webBrowserVC = webVC;
         frontPageURL = @"http://api.ihackernews.com/page";
         articles = [[NSArray alloc] init];
+        
+
+        
         
     }
     return self;
@@ -32,6 +36,13 @@
 {
     [super viewDidLoad];
     
+    UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc]
+                                     initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                     target:self
+                                     action:@selector(reloadButtonPressed)];
+    //[[self.navigationController navigationItem] setRightBarButtonItem:reloadButton];
+    self.navigationItem.rightBarButtonItem = reloadButton;
+    
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
 }
@@ -40,6 +51,11 @@
 {
     [self downloadFrontPageArticles];
     
+}
+
+- (void)reloadButtonPressed
+{
+    [self downloadFrontPageArticles];
 }
 
 
@@ -94,8 +110,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSString *selectedUrl = [[self.articles objectAtIndex:indexPath.row] objectForKey:@"url"];
     
-    
+    [webBrowserVC setURL:selectedUrl];
+    [self.navigationController pushViewController:webBrowserVC animated:YES];
+
 }
 
 @end
