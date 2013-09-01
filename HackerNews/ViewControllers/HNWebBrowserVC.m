@@ -25,6 +25,8 @@
         
         webView = [[UIWebView alloc] initWithFrame:screenBounds];
         webView.delegate = self;
+        [self.view addSubview:webView];
+        
         currentURL = @"http://news.ycombinator.com";
         
     }
