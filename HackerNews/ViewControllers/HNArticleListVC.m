@@ -7,6 +7,8 @@
 //
 
 #import "HNArticleListVC.h"
+#import "HNArticleCell.h"
+#import "AFHTTPRequestOperation.h"
 
 @interface HNArticleListVC ()
 
@@ -22,7 +24,8 @@
     if (self) {
         
         webBrowserVC = webVC;
-        frontPageURL = @"http://api.ihackernews.com/page";
+        //frontPageURL = @"http://api.ihackernews.com/page";
+        frontPageURL = @"http://news.ycombinator.com";
         articles = [[NSArray alloc] init];
         
 
@@ -43,7 +46,7 @@
     //[[self.navigationController navigationItem] setRightBarButtonItem:reloadButton];
     self.navigationItem.rightBarButtonItem = reloadButton;
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    [self.tableView registerClass:[HNArticleCell class] forCellReuseIdentifier:@"Cell"];
     
 }
 
@@ -64,20 +67,20 @@
     NSURL *url = [NSURL URLWithString:self.frontPageURL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
-    AFJSONRequestOperation *operation =
-    [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                    success:^
-     (NSURLRequest *request, NSHTTPURLResponse *response, id JSON)
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    [operation setCompletionBlockWithSuccess:
+    ^(AFHTTPRequestOperation *operation, id responseObject)
      {
-         NSLog(@"JSON Retrieved");
-         self.articles = [(NSDictionary *)JSON objectForKey:@"items"];
-         [self.tableView reloadData];
+         NSString *responseString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+         
+         NSLog(@"URL request success: %@", responseString );
      }
-                                                    failure:^
-     (NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON)
+    failure:^(AFHTTPRequestOperation *operation, NSError *erro)
      {
-         NSLog(@"Error retrieving JSON!");
+         NSLog(@"URL request failed!");
      }];
+
     
     [operation start];
     
@@ -99,12 +102,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    HNArticleCell *cell = (HNArticleCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if(cell == nil)
+    {
+        cell = [[HNArticleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     
-    // Configure the cell...
+    NSString *articleText = [[self.articles objectAtIndex:indexPath.row] objectForKey:@"title"];
+    cell.articleTitleLabel.text = articleText;
     
-    cell.textLabel.text = [[self.articles objectAtIndex:indexPath.row] objectForKey:@"title"];
     return cell;
 }
 
