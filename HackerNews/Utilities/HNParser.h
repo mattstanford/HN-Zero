@@ -10,7 +10,7 @@
 
 @interface HNParser : NSObject
 
-+ (NSArray *) parseArticles:(NSData *)htmlData
++ (NSArray *) parseArticles:(NSData *)htmlData;
 + (NSArray *) parseComments:(NSData *)htmlData;
 
 @end

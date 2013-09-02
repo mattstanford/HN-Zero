@@ -21,7 +21,7 @@
         TFHppleElement *titleDataElement = [self getTitleElement:row];
         if (titleDataElement)
         {
-            NSLog(@"%@", [self getArticleTitle:titleDataElement]);
+            NSLog(@"%@, URL: %@", [self getArticleTitle:titleDataElement], [self getArticleURL:titleDataElement]);
         }
         
     }
@@ -60,9 +60,19 @@
     }
     
     return returnTitle;
+}
 
++ (NSString *) getArticleURL:(TFHppleElement *)titleElement
+{
+    NSString *returnUrl;
+    TFHppleElement *titleAnchor = [titleElement firstChildWithTagName:@"a"];
+    NSDictionary *titleAttributes = [titleAnchor attributes];
     
+    if (titleAttributes) {
+        returnUrl = [titleAttributes objectForKey:@"href"];
+    }
     
+    return returnUrl;
 }
 
 /*
