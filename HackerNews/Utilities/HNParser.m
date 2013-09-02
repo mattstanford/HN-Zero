@@ -21,7 +21,7 @@
         TFHppleElement *titleDataElement = [self getTitleElement:row];
         if (titleDataElement)
         {
-            NSLog(@"%@, URL: %@", [self getArticleTitle:titleDataElement], [self getArticleURL:titleDataElement]);
+            NSLog(@"%@, URL: %@, Domain: %@", [self getArticleTitle:titleDataElement], [self getArticleURL:titleDataElement], [self getArticleDomain:titleDataElement]);
         }
         
     }
@@ -64,7 +64,7 @@
 
 + (NSString *) getArticleURL:(TFHppleElement *)titleElement
 {
-    NSString *returnUrl;
+    NSString *returnUrl = nil;
     TFHppleElement *titleAnchor = [titleElement firstChildWithTagName:@"a"];
     NSDictionary *titleAttributes = [titleAnchor attributes];
     
@@ -73,6 +73,24 @@
     }
     
     return returnUrl;
+}
+
++ (NSString *) getArticleDomain:(TFHppleElement *)titleElement
+{
+    NSString *returnDomain = nil;
+    TFHppleElement *titleSpan = [titleElement firstChildWithTagName:@"span"];
+    
+    if(titleSpan)
+    {
+        //The first child in an anchor tag should be the text, which is our title
+        TFHppleElement *titleElement = [titleSpan firstChildWithTagName:@"text"];
+        
+        if (titleElement) {
+            returnDomain = [titleElement content];
+        }
+    }
+    
+    return returnDomain;
 }
 
 /*
