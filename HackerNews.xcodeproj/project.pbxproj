@@ -20,6 +20,7 @@
 		78E4076417D04B4400DC8CE0 /* HNArticleListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076317D04B4400DC8CE0 /* HNArticleListVC.m */; };
 		78E4076817D278B100DC8CE0 /* HNWebBrowserVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */; };
 		78E4076B17D2D11800DC8CE0 /* HNArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076A17D2D11700DC8CE0 /* HNArticleCell.m */; };
+		78E4077517D3D32000DC8CE0 /* HNParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4077417D3D32000DC8CE0 /* HNParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,8 @@
 		78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNWebBrowserVC.m; path = ViewControllers/HNWebBrowserVC.m; sourceTree = "<group>"; };
 		78E4076917D2D11700DC8CE0 /* HNArticleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNArticleCell.h; path = Views/HNArticleCell.h; sourceTree = "<group>"; };
 		78E4076A17D2D11700DC8CE0 /* HNArticleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNArticleCell.m; path = Views/HNArticleCell.m; sourceTree = "<group>"; };
+		78E4077317D3D32000DC8CE0 /* HNParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNParser.h; path = Utilities/HNParser.h; sourceTree = "<group>"; };
+		78E4077417D3D32000DC8CE0 /* HNParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNParser.m; path = Utilities/HNParser.m; sourceTree = "<group>"; };
 		C70DA83392594FF4B0113C30 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -93,15 +96,13 @@
 		782784C717C9814500CAD559 /* HackerNews */ = {
 			isa = PBXGroup;
 			children = (
+				78E4076F17D3D1F600DC8CE0 /* Models */,
+				78E4077117D3D22200DC8CE0 /* Views */,
+				78E4077017D3D1FE00DC8CE0 /* ViewControllers */,
+				78E4077217D3D27600DC8CE0 /* Utilities */,
+				782784C817C9814500CAD559 /* Supporting Files */,
 				782784D017C9814500CAD559 /* HNAppDelegate.h */,
 				782784D117C9814500CAD559 /* HNAppDelegate.m */,
-				782784C817C9814500CAD559 /* Supporting Files */,
-				78E4076217D04B4400DC8CE0 /* HNArticleListVC.h */,
-				78E4076317D04B4400DC8CE0 /* HNArticleListVC.m */,
-				78E4076617D278B100DC8CE0 /* HNWebBrowserVC.h */,
-				78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */,
-				78E4076917D2D11700DC8CE0 /* HNArticleCell.h */,
-				78E4076A17D2D11700DC8CE0 /* HNArticleCell.m */,
 			);
 			path = HackerNews;
 			sourceTree = "<group>";
@@ -118,6 +119,42 @@
 				782784D717C9814500CAD559 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		78E4076F17D3D1F600DC8CE0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		78E4077017D3D1FE00DC8CE0 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				78E4076217D04B4400DC8CE0 /* HNArticleListVC.h */,
+				78E4076317D04B4400DC8CE0 /* HNArticleListVC.m */,
+				78E4076617D278B100DC8CE0 /* HNWebBrowserVC.h */,
+				78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		78E4077117D3D22200DC8CE0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				78E4076917D2D11700DC8CE0 /* HNArticleCell.h */,
+				78E4076A17D2D11700DC8CE0 /* HNArticleCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		78E4077217D3D27600DC8CE0 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				78E4077317D3D32000DC8CE0 /* HNParser.h */,
+				78E4077417D3D32000DC8CE0 /* HNParser.m */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,6 +263,7 @@
 				78E4076417D04B4400DC8CE0 /* HNArticleListVC.m in Sources */,
 				78E4076817D278B100DC8CE0 /* HNWebBrowserVC.m in Sources */,
 				78E4076B17D2D11800DC8CE0 /* HNArticleCell.m in Sources */,
+				78E4077517D3D32000DC8CE0 /* HNParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

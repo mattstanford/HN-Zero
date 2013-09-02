@@ -9,6 +9,7 @@
 #import "HNArticleListVC.h"
 #import "HNArticleCell.h"
 #import "AFHTTPRequestOperation.h"
+#import "HNParser.h"
 
 @interface HNArticleListVC ()
 
@@ -72,9 +73,10 @@
     [operation setCompletionBlockWithSuccess:
     ^(AFHTTPRequestOperation *operation, id responseObject)
      {
-         NSString *responseString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
          
-         NSLog(@"URL request success: %@", responseString );
+         [HNParser parseArticles:responseObject];
+         
+         //NSLog(@"URL request success: %@", responseString );
      }
     failure:^(AFHTTPRequestOperation *operation, NSError *erro)
      {
