@@ -16,13 +16,30 @@
     NSMutableArray *articles = [[NSMutableArray alloc] initWithCapacity:0];
     NSArray *htmlRows = [self parseHtmlRows:htmlData];
     
-    for (TFHppleElement *row in htmlRows) {
+    for (int i=0; i < [htmlRows count]; i++) {
         
-        TFHppleElement *titleDataElement = [self getTitleElement:row];
-        if (titleDataElement)
-        {
-            NSLog(@"%@, URL: %@, Domain: %@", [self getArticleTitle:titleDataElement], [self getArticleURL:titleDataElement], [self getArticleDomain:titleDataElement]);
+        TFHppleElement *titleDataElement = [self getTitleElement:[htmlRows objectAtIndex:i]];
+        TFHppleElement *subtextDataElement = nil;
+        
+        if (titleDataElement) {
+            
+            if ([htmlRows objectAtIndex:i+1])
+            {
+                subtextDataElement = [self getSubtextElement:[htmlRows objectAtIndex:i+1]];
+                
+                if (titleDataElement && subtextDataElement)
+                {
+                    //Advance the counter one more since we're already using that row
+                    i++;
+                    
+                    NSLog(@"%@, URL: %@, Domain: %@", [self getArticleTitle:titleDataElement], [self getArticleURL:titleDataElement], [self getArticleDomain:titleDataElement]);
+                    
+                    titleDataElement = nil;
+                    subtextDataElement = nil;
+                }
+            }
         }
+        
         
     }
     
@@ -116,6 +133,27 @@
             }
             
         }
+    }
+    
+    return nil;
+    
+}
+
++ (TFHppleElement *) getSubtextElement:(TFHppleElement *)htmlRow
+{
+    NSArray *elements = [htmlRow children];
+    
+    for (TFHppleElement *element in elements)
+    {
+        NSDictionary *attributes = [element attributes];
+        
+        //Element must have class="subtext"
+        if([attributes objectForKey:@"class"] && [[attributes objectForKey:@"class"] isEqualToString:@"subtext"])
+        {
+            return element;
+        
+        }
+        
     }
     
     return nil;
