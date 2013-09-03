@@ -61,6 +61,38 @@
     
 }
 
+/*
+  Returns an element with class="title" which contains:
+        - an anchor with the Article name
+        - an anchor with the URL
+        - a span with the domain name to display
+ */
++ (TFHppleElement *) getTitleElement:(TFHppleElement *)htmlRow
+{
+    NSArray *elements = [htmlRow children];
+    
+    for (TFHppleElement *element in elements)
+    {
+        NSDictionary *attributes = [element attributes];
+        
+        //Element must have class="title"
+        if([attributes objectForKey:@"class"] && [[attributes objectForKey:@"class"] isEqualToString:@"title"])
+        {
+            
+            //There is one tag where the only info is the article rank.  We must throw this away.
+            //we can tell if this is a "bad" tag its child is a text tag.  A "good" element has a span
+            //and an anchor tag
+            if (![element firstChildWithTagName:@"text"]) {
+                return element;
+            }
+            
+        }
+    }
+    
+    return nil;
+    
+}
+
 + (NSString *) getArticleTitle:(TFHppleElement *)titleElement
 {
     NSString *returnTitle = nil;
@@ -111,34 +143,11 @@
 }
 
 /*
- * Element with class="title" contains data for Article name, URL, and the domain name to display
+  Returns the element with class "subtext".  This element has three child nodes we care about:
+       - a span, which has the article score
+       - an anchor, which has the username of the submitter
+       - an anchor, which has the number of comments AND the id of the comment page
  */
-+ (TFHppleElement *) getTitleElement:(TFHppleElement *)htmlRow
-{
-    NSArray *elements = [htmlRow children];
-    
-    for (TFHppleElement *element in elements)
-    {
-        NSDictionary *attributes = [element attributes];
-        
-        //Element must have class="title"
-        if([attributes objectForKey:@"class"] && [[attributes objectForKey:@"class"] isEqualToString:@"title"])
-        {
-            
-            //There is one tag where the only info is the article rank.  We must throw this away.
-            //we can tell if this is a "bad" tag its child is a text tag.  A "good" element has a span
-            //and an anchor tag
-            if (![element firstChildWithTagName:@"text"]) {
-                return element;
-            }
-            
-        }
-    }
-    
-    return nil;
-    
-}
-
 + (TFHppleElement *) getSubtextElement:(TFHppleElement *)htmlRow
 {
     NSArray *elements = [htmlRow children];
