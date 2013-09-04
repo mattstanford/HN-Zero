@@ -32,7 +32,7 @@
                     //Advance the counter one more since we're already using that row
                     i++;
                     
-                    NSLog(@"%@, URL: %@, Domain: %@, User: %@, page id: %@, score:%@", [self getArticleTitle:titleDataElement], [self getArticleURL:titleDataElement], [self getArticleDomain:titleDataElement], [self getUser:subtextDataElement], [self getCommentPageId:subtextDataElement], [self getScore:subtextDataElement]);
+                    NSLog(@"%@, URL: %@, Domain: %@, User: %@, page id: %@, score:%@, %@ comments", [self getArticleTitle:titleDataElement], [self getArticleURL:titleDataElement], [self getArticleDomain:titleDataElement], [self getUser:subtextDataElement], [self getCommentPageId:subtextDataElement], [self getScore:subtextDataElement], [self getNumberOfComments:subtextDataElement]);
                     [self getUser:subtextDataElement];
                     
                     titleDataElement = nil;
@@ -152,16 +152,26 @@
 + (NSString *) getUser:(TFHppleElement *) subTextElement
 {
     NSString *userPattern = @"\\buser\\?id=(.*)\\b";
+    NSArray *anchors = [subTextElement childrenWithTagName:@"a"];
 
-    return [self getSubtextAnchorElement:subTextElement withRegex:userPattern];
-    
+    return [self getAttributeFromArray:anchors withRegex:userPattern];
 }
 
 + (NSString *) getCommentPageId:(TFHppleElement *)subTextElement
 {
     NSString *commentPagePattern = @"\\bitem\\?id=(.*)\\b";
+    NSArray *anchors = [subTextElement childrenWithTagName:@"a"];
     
-    return [self getSubtextAnchorElement:subTextElement withRegex:commentPagePattern];
+    return [self getAttributeFromArray:anchors withRegex:commentPagePattern];
+    
+}
+
++ (NSString *) getNumberOfComments:(TFHppleElement *)subTextElement
+{
+    NSString *commentPattern = @"\\b(\\d+) comments\\b";
+    NSArray *anchors = [subTextElement childrenWithTagName:@"a"];
+    
+    return [self getChildFromArray:anchors withRegex:commentPattern];
 }
 
 + (NSString *) getGrandChildofElement:(TFHppleElement *)element firstTag:(NSString *)firstTag secondTag:(NSString *)secondTag
@@ -182,28 +192,50 @@
     
 }
 
-+ (NSString * ) getSubtextAnchorElement:(TFHppleElement *) subTextElement withRegex:(NSString *)pattern
++ (NSString * ) getAttributeFromArray:(NSArray *) array withRegex:(NSString *)pattern
 {
     NSString *result = nil;
     
-    NSArray *anchors = [subTextElement childrenWithTagName:@"a"];
-    
-    for (TFHppleElement *anchorElement in anchors)
+    for (TFHppleElement *element in array)
     {
-        NSString *href = [[anchorElement attributes] objectForKey:@"href"];
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:NULL];
+        NSString *stringToMatch = [[element attributes] objectForKey:@"href"];
+        result = [self getMatch:stringToMatch fromRegex:pattern];
         
-        NSTextCheckingResult *match = [regex firstMatchInString:href options:0 range:NSMakeRange(0, [href length])];
-        
-        if ([match numberOfRanges] > 0) {
-            result = [href substringWithRange:[match rangeAtIndex:1]];
-            break;
-        }
-        
-        
+        if (result) break;
     }
     
     return result;
 }
+
++ (NSString *) getChildFromArray:(NSArray *) array withRegex:(NSString *)pattern
+{
+    NSString *result = nil;
+    
+    for (TFHppleElement *element in array)
+    {
+        TFHppleElement *textElement = [element firstChildWithTagName:@"text"];
+        result = [self getMatch:[textElement content] fromRegex:pattern];
+        
+        if (result) break;
+    }
+    
+    return result;
+}
+
++ (NSString *) getMatch:(NSString *)stringToMatch fromRegex:(NSString *)pattern
+{
+    NSString *result = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:NULL];
+    
+    NSTextCheckingResult *match = [regex firstMatchInString:stringToMatch options:0 range:NSMakeRange(0, [stringToMatch length])];
+    
+    if ([match numberOfRanges] > 0) {
+        result = [stringToMatch substringWithRange:[match rangeAtIndex:1]];
+    }
+    
+    return result;
+}
+
+
 
 @end
