@@ -32,7 +32,7 @@
                     //Advance the counter one more since we're already using that row
                     i++;
                     
-                    NSLog(@"%@, URL: %@, Domain: %@, User: %@, page id: %@", [self getArticleTitle:titleDataElement], [self getArticleURL:titleDataElement], [self getArticleDomain:titleDataElement], [self getUser:subtextDataElement], [self getCommentPageId:subtextDataElement]);
+                    NSLog(@"%@, URL: %@, Domain: %@, User: %@, page id: %@, score:%@", [self getArticleTitle:titleDataElement], [self getArticleURL:titleDataElement], [self getArticleDomain:titleDataElement], [self getUser:subtextDataElement], [self getCommentPageId:subtextDataElement], [self getScore:subtextDataElement]);
                     [self getUser:subtextDataElement];
                     
                     titleDataElement = nil;
@@ -96,20 +96,7 @@
 
 + (NSString *) getArticleTitle:(TFHppleElement *)titleElement
 {
-    NSString *returnTitle = nil;
-    TFHppleElement *titleAnchor = [titleElement firstChildWithTagName:@"a"];
-    
-    if (titleAnchor)
-    {
-        //The first child in an anchor tag should be the text, which is our title
-        TFHppleElement *titleElement = [titleAnchor firstChildWithTagName:@"text"];
-        
-        if (titleElement) {
-            returnTitle = [titleElement content];
-        }
-    }
-    
-    return returnTitle;
+    return [self getGrandChildofElement:titleElement firstTag:@"a" secondTag:@"text"];
 }
 
 + (NSString *) getArticleURL:(TFHppleElement *)titleElement
@@ -127,20 +114,7 @@
 
 + (NSString *) getArticleDomain:(TFHppleElement *)titleElement
 {
-    NSString *returnDomain = nil;
-    TFHppleElement *titleSpan = [titleElement firstChildWithTagName:@"span"];
-    
-    if(titleSpan)
-    {
-        //The first child in an anchor tag should be the text, which is our title
-        TFHppleElement *titleElement = [titleSpan firstChildWithTagName:@"text"];
-        
-        if (titleElement) {
-            returnDomain = [titleElement content];
-        }
-    }
-    
-    return returnDomain;
+    return [self getGrandChildofElement:titleElement firstTag:@"span" secondTag:@"text"];
 }
 
 /*
@@ -172,19 +146,7 @@
 
 + (NSString *) getScore:(TFHppleElement *) subTextElement
 {
-    NSString *score = nil;
-    TFHppleElement *scoreSpanElement = [subTextElement firstChildWithTagName:@"span"];
-    
-    if (scoreSpanElement) {
-        
-        TFHppleElement *scoreElement = [scoreSpanElement firstChildWithTagName:@"text"];
-        
-        if (scoreElement) {
-            score = [scoreElement content];
-        }
-    }
-    
-    return score;
+    return [self getGrandChildofElement:subTextElement firstTag:@"span" secondTag:@"text"];
 }
 
 + (NSString *) getUser:(TFHppleElement *) subTextElement
@@ -200,6 +162,24 @@
     NSString *commentPagePattern = @"\\bitem\\?id=(.*)\\b";
     
     return [self getSubtextAnchorElement:subTextElement withRegex:commentPagePattern];
+}
+
++ (NSString *) getGrandChildofElement:(TFHppleElement *)element firstTag:(NSString *)firstTag secondTag:(NSString *)secondTag
+{
+    NSString *result = nil;
+    TFHppleElement *firstTagElement = [element firstChildWithTagName:firstTag];
+    
+    if (firstTagElement) {
+        
+        TFHppleElement *secondTagElement = [firstTagElement firstChildWithTagName:secondTag];
+        
+        if (secondTagElement) {
+            result = [secondTagElement content];
+        }
+    }
+    
+    return result;
+    
 }
 
 + (NSString * ) getSubtextAnchorElement:(TFHppleElement *) subTextElement withRegex:(NSString *)pattern
