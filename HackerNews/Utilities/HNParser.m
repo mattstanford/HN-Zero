@@ -32,7 +32,7 @@
                     //Advance the counter one more since we're already using that row
                     i++;
                     
-                    NSLog(@"%@, URL: %@, Domain: %@", [self getArticleTitle:titleDataElement], [self getArticleURL:titleDataElement], [self getArticleDomain:titleDataElement]);
+                    NSLog(@"%@, URL: %@, Domain: %@, User: %@, page id: %@", [self getArticleTitle:titleDataElement], [self getArticleURL:titleDataElement], [self getArticleDomain:titleDataElement], [self getUser:subtextDataElement], [self getCommentPageId:subtextDataElement]);
                     [self getUser:subtextDataElement];
                     
                     titleDataElement = nil;
@@ -187,29 +187,43 @@
     return score;
 }
 
-+ (NSString * ) getUser:(TFHppleElement *) subTextElement
++ (NSString *) getUser:(TFHppleElement *) subTextElement
 {
-    NSString *user = nil;
+    NSString *userPattern = @"\\buser\\?id=(.*)\\b";
+
+    return [self getSubtextAnchorElement:subTextElement withRegex:userPattern];
+    
+}
+
++ (NSString *) getCommentPageId:(TFHppleElement *)subTextElement
+{
+    NSString *commentPagePattern = @"\\bitem\\?id=(.*)\\b";
+    
+    return [self getSubtextAnchorElement:subTextElement withRegex:commentPagePattern];
+}
+
++ (NSString * ) getSubtextAnchorElement:(TFHppleElement *) subTextElement withRegex:(NSString *)pattern
+{
+    NSString *result = nil;
     
     NSArray *anchors = [subTextElement childrenWithTagName:@"a"];
     
     for (TFHppleElement *anchorElement in anchors)
     {
         NSString *href = [[anchorElement attributes] objectForKey:@"href"];
-        NSString *userPattern = @"\\buser\\?id=(.*)\\b";
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:userPattern options:NSRegularExpressionCaseInsensitive error:NULL];
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:NULL];
         
         NSTextCheckingResult *match = [regex firstMatchInString:href options:0 range:NSMakeRange(0, [href length])];
         
         if ([match numberOfRanges] > 0) {
-            user = [href substringWithRange:[match rangeAtIndex:1]];
+            result = [href substringWithRange:[match rangeAtIndex:1]];
             break;
         }
         
         
     }
     
-    return user;
+    return result;
 }
 
 @end
