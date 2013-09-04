@@ -11,6 +11,8 @@
 
 @implementation HNParser
 
+#pragma mark Public functions
+
 + (NSArray *) parseArticles:(NSData *)htmlData
 {
     NSMutableArray *articles = [[NSMutableArray alloc] initWithCapacity:0];
@@ -52,6 +54,11 @@
     return nil;
 }
 
+
+
+#pragma mark Main element getters
+
+
 + (NSArray *) parseHtmlRows:(NSData *)htmlData
 {
     
@@ -63,10 +70,10 @@
 }
 
 /*
-  Returns an element with class="title" which contains:
-        - an anchor with the Article name
-        - an anchor with the URL
-        - a span with the domain name to display
+ Returns an element with class="title" which contains:
+ - an anchor with the Article name
+ - an anchor with the URL
+ - a span with the domain name to display
  */
 + (TFHppleElement *) getTitleElement:(TFHppleElement *)htmlRow
 {
@@ -94,29 +101,6 @@
     
 }
 
-+ (NSString *) getArticleTitle:(TFHppleElement *)titleElement
-{
-    return [self getGrandChildofElement:titleElement firstTag:@"a" secondTag:@"text"];
-}
-
-+ (NSString *) getArticleURL:(TFHppleElement *)titleElement
-{
-    NSString *returnUrl = nil;
-    TFHppleElement *titleAnchor = [titleElement firstChildWithTagName:@"a"];
-    NSDictionary *titleAttributes = [titleAnchor attributes];
-    
-    if (titleAttributes) {
-        returnUrl = [titleAttributes objectForKey:@"href"];
-    }
-    
-    return returnUrl;
-}
-
-+ (NSString *) getArticleDomain:(TFHppleElement *)titleElement
-{
-    return [self getGrandChildofElement:titleElement firstTag:@"span" secondTag:@"text"];
-}
-
 /*
   Returns the element with class "subtext".  This element has three child nodes we care about:
        - a span, which has the article score
@@ -142,6 +126,31 @@
     
     return nil;
     
+}
+
+#pragma mark Attribute parsers
+
++ (NSString *) getArticleTitle:(TFHppleElement *)titleElement
+{
+    return [self getGrandChildofElement:titleElement firstTag:@"a" secondTag:@"text"];
+}
+
++ (NSString *) getArticleURL:(TFHppleElement *)titleElement
+{
+    NSString *returnUrl = nil;
+    TFHppleElement *titleAnchor = [titleElement firstChildWithTagName:@"a"];
+    NSDictionary *titleAttributes = [titleAnchor attributes];
+    
+    if (titleAttributes) {
+        returnUrl = [titleAttributes objectForKey:@"href"];
+    }
+    
+    return returnUrl;
+}
+
++ (NSString *) getArticleDomain:(TFHppleElement *)titleElement
+{
+    return [self getGrandChildofElement:titleElement firstTag:@"span" secondTag:@"text"];
 }
 
 + (NSString *) getScore:(TFHppleElement *) subTextElement
@@ -173,6 +182,8 @@
     
     return [self getChildFromArray:anchors withRegex:commentPattern];
 }
+
+#pragma mark Helper functions
 
 + (NSString *) getGrandChildofElement:(TFHppleElement *)element firstTag:(NSString *)firstTag secondTag:(NSString *)secondTag
 {
