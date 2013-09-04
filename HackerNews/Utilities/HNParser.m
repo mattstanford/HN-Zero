@@ -33,6 +33,7 @@
                     i++;
                     
                     NSLog(@"%@, URL: %@, Domain: %@", [self getArticleTitle:titleDataElement], [self getArticleURL:titleDataElement], [self getArticleDomain:titleDataElement]);
+                    [self getUser:subtextDataElement];
                     
                     titleDataElement = nil;
                     subtextDataElement = nil;
@@ -169,6 +170,46 @@
     
 }
 
++ (NSString *) getScore:(TFHppleElement *) subTextElement
+{
+    NSString *score = nil;
+    TFHppleElement *scoreSpanElement = [subTextElement firstChildWithTagName:@"span"];
+    
+    if (scoreSpanElement) {
+        
+        TFHppleElement *scoreElement = [scoreSpanElement firstChildWithTagName:@"text"];
+        
+        if (scoreElement) {
+            score = [scoreElement content];
+        }
+    }
+    
+    return score;
+}
 
++ (NSString * ) getUser:(TFHppleElement *) subTextElement
+{
+    NSString *user = nil;
+    
+    NSArray *anchors = [subTextElement childrenWithTagName:@"a"];
+    
+    for (TFHppleElement *anchorElement in anchors)
+    {
+        NSString *href = [[anchorElement attributes] objectForKey:@"href"];
+        NSString *userPattern = @"\\buser\\?id=(.*)\\b";
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:userPattern options:NSRegularExpressionCaseInsensitive error:NULL];
+        
+        NSTextCheckingResult *match = [regex firstMatchInString:href options:0 range:NSMakeRange(0, [href length])];
+        
+        if ([match numberOfRanges] > 0) {
+            user = [href substringWithRange:[match rangeAtIndex:1]];
+            break;
+        }
+        
+        
+    }
+    
+    return user;
+}
 
 @end
