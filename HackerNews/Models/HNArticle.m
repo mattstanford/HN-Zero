@@ -10,4 +10,7 @@
 
 @implementation HNArticle
 
+@synthesize title, url, domainName, score, user, timePosted, numComments, commentLinkId;
+
+
 @end

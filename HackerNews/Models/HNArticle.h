@@ -9,5 +9,24 @@
 #import <Foundation/Foundation.h>
 
 @interface HNArticle : NSObject
+{
+    NSString *title;
+    NSString *url;
+    NSString *domainName;
+    NSString *score;
+    NSString *user;
+    NSNumber *timePosted;
+    NSString *numComments;
+    NSString *commentLinkId;
+}
+
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *domainName;
+@property (nonatomic, strong) NSString *score;
+@property (nonatomic, strong) NSString *user;
+@property (nonatomic, strong) NSNumber *timePosted;
+@property (nonatomic, strong) NSString *numComments;
+@property (nonatomic, strong) NSString *commentLinkId;
 
 @end
