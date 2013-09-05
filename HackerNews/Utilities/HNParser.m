@@ -7,7 +7,9 @@
 //
 
 #import "HNParser.h"
+#import "HNArticle.h"
 #import "TFHpple.h"
+
 
 @implementation HNParser
 
@@ -27,15 +29,28 @@
             
             if ([htmlRows objectAtIndex:i+1])
             {
+                /*
+                 If we get the "title" row, that means there should be a row below it with
+                 class = "subtext".  This row contains other info like the user, number of
+                 comments, score, time posted, and the comment link ID
+                */
                 subtextDataElement = [self getSubtextElement:[htmlRows objectAtIndex:i+1]];
                 
                 if (titleDataElement && subtextDataElement)
                 {
+                    HNArticle *article = [[HNArticle alloc] init];
                     //Advance the counter one more since we're already using that row
                     i++;
                     
-                    NSLog(@"%@, URL: %@, Domain: %@, User: %@, page id: %@, score:%@, %@ comments", [self getArticleTitle:titleDataElement], [self getArticleURL:titleDataElement], [self getArticleDomain:titleDataElement], [self getUser:subtextDataElement], [self getCommentPageId:subtextDataElement], [self getScore:subtextDataElement], [self getNumberOfComments:subtextDataElement]);
-                    [self getUser:subtextDataElement];
+                    article.title = [self getArticleTitle:titleDataElement];
+                    article.url = [self getArticleURL:titleDataElement];
+                    article.domainName = [self getArticleDomain:titleDataElement];
+                    article.user = [self getUser:subtextDataElement];
+                    article.score = [self getScore:subtextDataElement];
+                    article.numComments = [self getNumberOfComments:subtextDataElement];
+                    article.commentLinkId = [self getCommentPageId:subtextDataElement];
+                
+                    [articles addObject:article];
                     
                     titleDataElement = nil;
                     subtextDataElement = nil;

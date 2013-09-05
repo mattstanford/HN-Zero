@@ -22,6 +22,7 @@
 		78E4076B17D2D11800DC8CE0 /* HNArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076A17D2D11700DC8CE0 /* HNArticleCell.m */; };
 		78E4077517D3D32000DC8CE0 /* HNParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4077417D3D32000DC8CE0 /* HNParser.m */; };
 		78E570CF17D817FB00D53F99 /* HNDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E570CE17D817FB00D53F99 /* HNDownloadController.m */; };
+		78E570D417D81C2C00D53F99 /* HNArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E570D317D81C2C00D53F99 /* HNArticle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,8 @@
 		78E4077417D3D32000DC8CE0 /* HNParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNParser.m; path = Utilities/HNParser.m; sourceTree = "<group>"; };
 		78E570CD17D817FB00D53F99 /* HNDownloadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNDownloadController.h; path = Controllers/HNDownloadController.h; sourceTree = "<group>"; };
 		78E570CE17D817FB00D53F99 /* HNDownloadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNDownloadController.m; path = Controllers/HNDownloadController.m; sourceTree = "<group>"; };
+		78E570D217D81C2C00D53F99 /* HNArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNArticle.h; path = Models/HNArticle.h; sourceTree = "<group>"; };
+		78E570D317D81C2C00D53F99 /* HNArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNArticle.m; path = Models/HNArticle.m; sourceTree = "<group>"; };
 		C70DA83392594FF4B0113C30 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -128,6 +131,8 @@
 		78E4076F17D3D1F600DC8CE0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				78E570D217D81C2C00D53F99 /* HNArticle.h */,
+				78E570D317D81C2C00D53F99 /* HNArticle.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -278,6 +283,7 @@
 				78E4076B17D2D11800DC8CE0 /* HNArticleCell.m in Sources */,
 				78E4077517D3D32000DC8CE0 /* HNParser.m in Sources */,
 				78E570CF17D817FB00D53F99 /* HNDownloadController.m in Sources */,
+				78E570D417D81C2C00D53F99 /* HNArticle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
