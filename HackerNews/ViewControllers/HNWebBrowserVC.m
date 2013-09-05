@@ -34,6 +34,11 @@
     return self;
 }
 
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [self setURL:@"about:blank"];
+}
+
 - (void) setURL:(NSString *)newUrl
 {
     if(![newUrl isEqualToString:self.currentURL])
