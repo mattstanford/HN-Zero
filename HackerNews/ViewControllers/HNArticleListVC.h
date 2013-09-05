@@ -10,7 +10,7 @@
 #import "HNWebBrowserVC.h"
 #import "HNDownloadController.h"
 
-@interface HNArticleListVC : UITableViewController 
+@interface HNArticleListVC : UITableViewController  <downloadControllerDelegate>
 {
     NSArray *articles;
     HNWebBrowserVC *webBrowserVC;

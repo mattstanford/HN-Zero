@@ -106,7 +106,6 @@
 				78E4077117D3D22200DC8CE0 /* Views */,
 				78E4077017D3D1FE00DC8CE0 /* ViewControllers */,
 				78E570D117D8181600D53F99 /* Controllers */,
-				78E4077217D3D27600DC8CE0 /* Utilities */,
 				782784C817C9814500CAD559 /* Supporting Files */,
 				782784D017C9814500CAD559 /* HNAppDelegate.h */,
 				782784D117C9814500CAD559 /* HNAppDelegate.m */,
@@ -157,18 +156,11 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		78E4077217D3D27600DC8CE0 /* Utilities */ = {
+		78E570D117D8181600D53F99 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				78E4077317D3D32000DC8CE0 /* HNParser.h */,
 				78E4077417D3D32000DC8CE0 /* HNParser.m */,
-			);
-			name = Utilities;
-			sourceTree = "<group>";
-		};
-		78E570D117D8181600D53F99 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
 				78E570CD17D817FB00D53F99 /* HNDownloadController.h */,
 				78E570CE17D817FB00D53F99 /* HNDownloadController.m */,
 			);

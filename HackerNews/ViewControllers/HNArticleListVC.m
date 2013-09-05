@@ -28,6 +28,7 @@
         articles = [[NSArray alloc] init];
         
         downloadController = [[HNDownloadController alloc] init];
+        downloadController.downloadDelegate = self;
         
         
     }
@@ -67,6 +68,17 @@
     
 }
 
+-(void) downloadDidComplete:(NSArray *)data
+{
+    self.articles = data;
+    [self.tableView reloadData];
+}
+
+-(void) downloadFailed
+{
+    NSLog(@"Download failed!");
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -89,7 +101,7 @@
         cell = [[HNArticleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    NSString *articleText = [[self.articles objectAtIndex:indexPath.row] objectForKey:@"title"];
+    NSString *articleText = [[self.articles objectAtIndex:indexPath.row] title];
     cell.articleTitleLabel.text = articleText;
     
     return cell;

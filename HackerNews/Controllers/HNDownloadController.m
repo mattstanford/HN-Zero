@@ -12,9 +12,10 @@
 
 @implementation HNDownloadController
 
-- (NSArray *) getFrontPageArticles
+@synthesize downloadDelegate;
+
+- (void) getFrontPageArticles
 {
-    NSArray *articles = nil;
     NSString *frontPageURL = @"http://news.ycombinator.com";
     
     NSURL *url = [NSURL URLWithString:frontPageURL];
@@ -25,21 +26,16 @@
     [operation setCompletionBlockWithSuccess:
      ^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         [downloadDelegate downloadDidComplete:[HNParser parseArticles:responseObject]];
          
-         [HNParser parseArticles:responseObject];
-         
-         //NSLog(@"URL request success: %@", responseString );
      }
-                                     failure:^(AFHTTPRequestOperation *operation, NSError *erro)
+    failure:^(AFHTTPRequestOperation *operation, NSError *erro)
      {
-         NSLog(@"URL request failed!");
+         [downloadDelegate downloadFailed];
      }];
     
     
     [operation start];
-    
-    return articles;
-    
 }
 
 @end

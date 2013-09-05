@@ -8,8 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol downloadControllerDelegate
+@required
+-(void) downloadDidComplete:(NSArray *)data;
+-(void) downloadFailed;
+@end
+
 @interface HNDownloadController : NSObject
 
-- (NSArray *) getFrontPageArticles;
+@property (nonatomic, assign)  id<downloadControllerDelegate> downloadDelegate;
+
+- (void) getFrontPageArticles;
 
 @end
