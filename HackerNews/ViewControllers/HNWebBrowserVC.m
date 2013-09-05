@@ -25,6 +25,7 @@
         
         webView = [[UIWebView alloc] initWithFrame:screenBounds];
         webView.delegate = self;
+        webView.scalesPageToFit = YES;
         [self.view addSubview:webView];
         
         currentURL = @"http://news.ycombinator.com";
