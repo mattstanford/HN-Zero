@@ -7,22 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AFNetworking.h>
-#include "HNWebBrowserVC.h"
+#import "HNWebBrowserVC.h"
+#import "HNDownloadController.h"
 
 @interface HNArticleListVC : UITableViewController 
 {
-    NSString *frontPageURL;
     NSArray *articles;
     HNWebBrowserVC *webBrowserVC;
+    HNDownloadController *downloadController;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC;
 - (void) downloadFrontPageArticles;
 - (void) reloadButtonPressed;
 
-@property (strong, nonatomic) NSString *frontPageURL;
 @property (strong, nonatomic) NSArray *articles;
 @property (strong, nonatomic) HNWebBrowserVC *webBrowserVC;
+@property (strong, nonatomic) HNDownloadController *downloadController;
 
 @end

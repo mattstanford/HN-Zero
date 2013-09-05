@@ -17,7 +17,7 @@
 
 @implementation HNArticleListVC
 
-@synthesize frontPageURL, articles, webBrowserVC;
+@synthesize articles, webBrowserVC, downloadController;
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC
 {
@@ -25,11 +25,9 @@
     if (self) {
         
         webBrowserVC = webVC;
-        //frontPageURL = @"http://api.ihackernews.com/page";
-        frontPageURL = @"http://news.ycombinator.com";
         articles = [[NSArray alloc] init];
         
-
+        downloadController = [[HNDownloadController alloc] init];
         
         
     }
@@ -65,26 +63,7 @@
 
 - (void) downloadFrontPageArticles
 {
-    NSURL *url = [NSURL URLWithString:self.frontPageURL];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    
-    [operation setCompletionBlockWithSuccess:
-    ^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         
-         [HNParser parseArticles:responseObject];
-         
-         //NSLog(@"URL request success: %@", responseString );
-     }
-    failure:^(AFHTTPRequestOperation *operation, NSError *erro)
-     {
-         NSLog(@"URL request failed!");
-     }];
-
-    
-    [operation start];
+    [downloadController getFrontPageArticles];
     
 }
 
