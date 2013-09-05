@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HNArticleCell : UITableViewCell
+@interface HNArticleCell : UITableViewCell <UIGestureRecognizerDelegate>
 {
     
     UILabel *articleTitleLabel;
@@ -19,8 +19,8 @@
     
 }
 
-- (void) articleTapped;
-- (void) commentTapped;
+- (void) articleTapped:(UIGestureRecognizer *)recognizer;
+- (void) commentTapped:(UIGestureRecognizer *)recognizer;
 
 @property (strong, nonatomic) UILabel *articleTitleLabel;
 @property (strong, nonatomic) UIView *commentView;

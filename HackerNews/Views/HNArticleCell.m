@@ -16,18 +16,23 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         articleTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [articleTitleLabel setLineBreakMode:NSLineBreakByWordWrapping];
 		[articleTitleLabel setNumberOfLines:0];
+        articleTitleLabel.userInteractionEnabled = TRUE;
         
         commentView = [[UIView alloc] initWithFrame:CGRectZero];
         
-        articleGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(articleTapped)];
+        articleGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
+        articleGR.delegate = self;
         [articleTitleLabel addGestureRecognizer:articleGR];
         
-        commentGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentTapped)];
+        commentGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentTapped:)];
+        commentGR.delegate = self;
         [commentView addGestureRecognizer:commentGR];
+        
         
         [self addSubview:articleTitleLabel];
         [self addSubview:commentView];
@@ -36,12 +41,24 @@
     return self;
 }
 
-- (void) articleTapped
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    ///Need to catch the GR before it "receives" the touch so that the touch is received by the table view
+    if (gestureRecognizer == self.articleGR)
+    {
+        [self articleTapped:gestureRecognizer];
+        return NO;
+    }
+
+    return YES;
+}
+
+- (void) articleTapped:(UITapGestureRecognizer *)recognizer
 {
     NSLog(@"Article tapped!");
 }
 
-- (void) commentTapped
+- (void) commentTapped:(UITapGestureRecognizer *)recognizer
 {
     NSLog(@"Comment tapped!");
 }

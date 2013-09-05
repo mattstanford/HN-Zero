@@ -10,6 +10,7 @@
 #import "HNArticleCell.h"
 #import "AFHTTPRequestOperation.h"
 #import "HNParser.h"
+#import "HNArticle.h"
 
 @interface HNArticleListVC ()
 
@@ -109,11 +110,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *selectedUrl = [[self.articles objectAtIndex:indexPath.row] objectForKey:@"url"];
+    HNArticle *article = [self.articles objectAtIndex:indexPath.row];
+    NSString *selectedUrl = article.url;
     
     [webBrowserVC setURL:selectedUrl];
     [self.navigationController pushViewController:webBrowserVC animated:YES];
-
+    
 }
 
 @end
