@@ -7,7 +7,6 @@
 //
 
 #import "HNArticleListVC.h"
-#import "HNArticleCell.h"
 #import "AFHTTPRequestOperation.h"
 #import "HNParser.h"
 #import "HNArticle.h"
@@ -104,8 +103,20 @@
     
     NSString *articleText = [[self.articles objectAtIndex:indexPath.row] title];
     cell.articleTitleLabel.text = articleText;
+    cell.delegate = self;
+    cell.tag = indexPath.row;
     
     return cell;
+}
+
+- (void) didTapArticle
+{
+    NSLog(@"article tapped!");
+}
+
+- (void) didTapComment
+{
+    NSLog(@"comment tapped!");
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

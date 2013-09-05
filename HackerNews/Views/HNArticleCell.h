@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol HNArticleCellDelegate
+@required
+-(void) didTapArticle;
+-(void) didTapComment;
+@end
+
 @interface HNArticleCell : UITableViewCell <UIGestureRecognizerDelegate>
 {
     
@@ -22,6 +28,7 @@
 - (void) articleTapped:(UIGestureRecognizer *)recognizer;
 - (void) commentTapped:(UIGestureRecognizer *)recognizer;
 
+@property (nonatomic, assign) id<HNArticleCellDelegate> delegate;
 @property (strong, nonatomic) UILabel *articleTitleLabel;
 @property (strong, nonatomic) UIView *commentView;
 @property (strong, nonatomic) UITapGestureRecognizer *articleGR;

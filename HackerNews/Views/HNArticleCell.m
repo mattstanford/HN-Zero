@@ -10,7 +10,7 @@
 
 @implementation HNArticleCell
 
-@synthesize articleTitleLabel, commentView, articleGR, commentGR;
+@synthesize delegate, articleTitleLabel, commentView, articleGR, commentGR;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -41,6 +41,7 @@
     return self;
 }
 
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     ///Need to catch the GR before it "receives" the touch so that the touch is received by the table view
@@ -55,12 +56,12 @@
 
 - (void) articleTapped:(UITapGestureRecognizer *)recognizer
 {
-    NSLog(@"Article tapped!");
+    [delegate didTapArticle];
 }
 
 - (void) commentTapped:(UITapGestureRecognizer *)recognizer
 {
-    NSLog(@"Comment tapped!");
+    [delegate didTapComment];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

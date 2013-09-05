@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "HNWebBrowserVC.h"
 #import "HNDownloadController.h"
+#import "HNArticleCell.h"
 
-@interface HNArticleListVC : UITableViewController  <downloadControllerDelegate>
+@interface HNArticleListVC : UITableViewController  <downloadControllerDelegate, HNArticleCellDelegate>
 {
     NSArray *articles;
     HNWebBrowserVC *webBrowserVC;
