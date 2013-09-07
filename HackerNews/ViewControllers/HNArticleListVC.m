@@ -68,6 +68,8 @@
     
 }
 
+#pragma mark HNDownloadControllerDelegate
+
 -(void) downloadDidComplete:(NSArray *)data
 {
     self.articles = data;
@@ -77,6 +79,18 @@
 -(void) downloadFailed
 {
     NSLog(@"Download failed!");
+}
+
+#pragma mark HNArticleCellDelegate
+
+- (void) didTapArticle
+{
+    NSLog(@"article tapped!");
+}
+
+- (void) didTapComment
+{
+    NSLog(@"comment tapped!");
 }
 
 #pragma mark - Table view data source
@@ -107,16 +121,6 @@
     cell.tag = indexPath.row;
     
     return cell;
-}
-
-- (void) didTapArticle
-{
-    NSLog(@"article tapped!");
-}
-
-- (void) didTapComment
-{
-    NSLog(@"comment tapped!");
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
