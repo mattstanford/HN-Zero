@@ -70,10 +70,10 @@
 
 }
 
--(void)layoutSubviews {
+- (void)layoutSubviews {
 	[super layoutSubviews];
     
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
+    CGRect screenBounds = [self getScreenBoundsForOrientation];
     
     CGFloat commentViewWidth = 100;
     CGFloat articleViewWidth = screenBounds.size.width - commentViewWidth;
@@ -81,6 +81,28 @@
     
     [articleTitleLabel setFrame:CGRectMake(0, 0, articleViewWidth, cellHeight)];
     [commentView setFrame:CGRectMake(articleViewWidth, 0, commentViewWidth, cellHeight)];
+    
+}
+
+- (CGRect)getScreenBoundsForOrientation
+{
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    CGFloat width = 0;
+    CGFloat height = 0;
+    CGRect realScreenBounds = [[UIScreen mainScreen] bounds];
+    
+    if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
+    {
+        width = realScreenBounds.size.height;
+        height = realScreenBounds.size.width;
+    }
+    else
+    {
+        width = realScreenBounds.size.width;
+        height = realScreenBounds.size.height;
+    }
+    
+    return CGRectMake(0, 0, width, height);
     
 }
 

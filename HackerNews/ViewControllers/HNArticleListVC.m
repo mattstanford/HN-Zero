@@ -56,6 +56,16 @@
     
 }
 
+- (BOOL) shouldAutorotate
+{
+    return YES;
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
 - (void)reloadButtonPressed
 {
     [self downloadFrontPageArticles];
