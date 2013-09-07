@@ -39,6 +39,21 @@
     [self setURL:@"about:blank"];
 }
 
+- (BOOL) shouldAutorotate
+{
+    return YES;
+}
+
+- (NSUInteger) supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+- (void) viewWillLayoutSubviews
+{   
+    self.webView.frame = self.view.frame;
+}
+
 - (void) setURL:(NSString *)newUrl
 {
     if(![newUrl isEqualToString:self.currentURL])
