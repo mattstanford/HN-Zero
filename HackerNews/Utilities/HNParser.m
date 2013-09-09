@@ -225,7 +225,11 @@
     for (TFHppleElement *element in array)
     {
         NSString *stringToMatch = [[element attributes] objectForKey:@"href"];
-        result = [self getMatch:stringToMatch fromRegex:pattern];
+        result = nil;
+        
+        if (stringToMatch) {
+            result = [self getMatch:stringToMatch fromRegex:pattern];
+        }
         
         if (result) break;
     }
@@ -240,7 +244,11 @@
     for (TFHppleElement *element in array)
     {
         TFHppleElement *textElement = [element firstChildWithTagName:@"text"];
-        result = [self getMatch:[textElement content] fromRegex:pattern];
+        result = nil;
+        
+        if (textElement) {
+            result = [self getMatch:[textElement content] fromRegex:pattern];
+        }
         
         if (result) break;
     }
