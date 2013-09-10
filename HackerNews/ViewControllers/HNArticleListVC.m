@@ -93,12 +93,12 @@
 
 #pragma mark HNArticleCellDelegate
 
-- (void) didTapArticle
+-(void) didTapArticle:(HNArticleCell *)cellTapped
 {
     NSLog(@"article tapped!");
 }
 
-- (void) didTapComment
+-(void) didTapComment:(HNArticleCell *)cellTapped
 {
     NSLog(@"comment tapped!");
 }

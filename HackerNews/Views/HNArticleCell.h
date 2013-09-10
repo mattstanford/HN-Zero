@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class HNArticleCell;
+
 @protocol HNArticleCellDelegate
 @required
--(void) didTapArticle;
--(void) didTapComment;
+-(void) didTapArticle:(HNArticleCell *)cellTapped;
+-(void) didTapComment:(HNArticleCell *)cellTapped;
 @end
 
 @interface HNArticleCell : UITableViewCell <UIGestureRecognizerDelegate>

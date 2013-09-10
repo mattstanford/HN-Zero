@@ -56,12 +56,12 @@
 
 - (void) articleTapped:(UITapGestureRecognizer *)recognizer
 {
-    [delegate didTapArticle];
+    [delegate didTapArticle:self];
 }
 
 - (void) commentTapped:(UITapGestureRecognizer *)recognizer
 {
-    [delegate didTapComment];
+    [delegate didTapComment:self];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
