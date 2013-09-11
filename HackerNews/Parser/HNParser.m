@@ -64,14 +64,7 @@
     return articles;
 }
 
-+ (NSArray *) parseComments:(NSData *)htmlData
-{
-    return nil;
-}
-
-
-
-#pragma mark Main element getters
+#pragma mark Main Article element getters
 
 
 + (NSArray *) parseHtmlRows:(NSData *)htmlData
@@ -143,7 +136,7 @@
     
 }
 
-#pragma mark Attribute parsers
+#pragma mark Article attribute parsers
 
 + (NSString *) getArticleTitle:(TFHppleElement *)titleElement
 {
