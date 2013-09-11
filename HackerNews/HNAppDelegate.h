@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "HNArticleListVC.h"
 #import "HNWebBrowserVC.h"
+#import "HNCommentVC.h"
 
 @class HNArticleListVC;
 @class HNWebBrowserVC;
+@class HNCommentVC;
 
 @interface HNAppDelegate : UIResponder <UIApplicationDelegate>
 {    
@@ -19,6 +21,7 @@
     UINavigationController *navController;
     HNArticleListVC *articleListVC;
     HNWebBrowserVC *webBrowserVC;
+    HNCommentVC *commentVC;
     
 }
 
@@ -26,5 +29,6 @@
 @property (strong, nonatomic) UINavigationController *navController;
 @property (strong, nonatomic) HNArticleListVC *articleListVC;
 @property (strong, nonatomic) HNWebBrowserVC *webBrowserVC;
+@property (strong, nonatomic) HNCommentVC *commentVC;
 
 @end

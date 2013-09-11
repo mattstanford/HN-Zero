@@ -17,14 +17,16 @@
 
 @implementation HNArticleListVC
 
-@synthesize articles, webBrowserVC, downloadController;
+@synthesize articles, webBrowserVC, commentVC, downloadController;
 
-- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC
+- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC;
 {
     self = [super initWithStyle:style];
     if (self) {
         
         webBrowserVC = webVC;
+        commentVC = commVC;
+        
         articles = [[NSArray alloc] init];
         
         downloadController = [[HNDownloadController alloc] initWithUrl:@"https://news.ycombinator.com"];
@@ -104,12 +106,9 @@
     
     if (index >= 0 && index <= [articles count])
     {
-        NSString *url = [NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", [[articles objectAtIndex:index] commentLinkId]];
-        
-        NSLog(@"url: %@", url);
-        
-        [self pushWebVCWithUrl:url];
-        
+        NSString *commentId = [[articles objectAtIndex:index] commentLinkId];
+        self.commentVC.currentCommentId = commentId;
+        [self.navigationController pushViewController:commentVC animated:YES];
     }
 }
 
