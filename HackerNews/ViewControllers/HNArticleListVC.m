@@ -100,7 +100,23 @@
 
 -(void) didTapComment:(HNArticleCell *)cellTapped
 {
-    NSLog(@"comment tapped!");
+    NSInteger index = [cellTapped tag];
+    
+    if (index >= 0 && index <= [articles count])
+    {
+        NSString *url = [NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", [[articles objectAtIndex:index] commentLinkId]];
+        
+        NSLog(@"url: %@", url);
+        
+        [self pushWebVCWithUrl:url];
+        
+    }
+}
+
+-(void) pushWebVCWithUrl:(NSString *)url
+{
+    [webBrowserVC setURL:url];
+    [self.navigationController pushViewController:webBrowserVC animated:YES];
 }
 
 #pragma mark - Table view data source
@@ -138,8 +154,7 @@
     HNArticle *article = [self.articles objectAtIndex:indexPath.row];
     NSString *selectedUrl = article.url;
     
-    [webBrowserVC setURL:selectedUrl];
-    [self.navigationController pushViewController:webBrowserVC animated:YES];
+    [self pushWebVCWithUrl:selectedUrl];
     
 }
 
