@@ -27,7 +27,7 @@
         webBrowserVC = webVC;
         articles = [[NSArray alloc] init];
         
-        downloadController = [[HNDownloadController alloc] init];
+        downloadController = [[HNDownloadController alloc] initWithUrl:@"https://news.ycombinator.com"];
         downloadController.downloadDelegate = self;
         
         
@@ -74,7 +74,7 @@
 
 - (void) downloadFrontPageArticles
 {
-    [downloadController getFrontPageArticles];
+    [downloadController beginDownload];
     
 }
 

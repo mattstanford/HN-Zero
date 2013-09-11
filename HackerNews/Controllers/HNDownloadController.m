@@ -12,14 +12,24 @@
 
 @implementation HNDownloadController
 
-@synthesize downloadDelegate;
+@synthesize downloadDelegate, url;
 
-- (void) getFrontPageArticles
+- (id) initWithUrl:(NSString *)initUrl
 {
-    NSString *frontPageURL = @"http://news.ycombinator.com";
+    self = [super init];
+    if (self)
+    {
+        self.url = initUrl;
+    }
     
-    NSURL *url = [NSURL URLWithString:frontPageURL];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    return self;
+}
+
+- (void) beginDownload
+{
+    
+    NSURL *urlObject = [NSURL URLWithString:self.url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:urlObject];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     

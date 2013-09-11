@@ -15,9 +15,14 @@
 @end
 
 @interface HNDownloadController : NSObject
+{
+    NSString *url;
+}
 
 @property (nonatomic, assign)  id<downloadControllerDelegate> downloadDelegate;
+@property (nonatomic, strong) NSString *url;
 
-- (void) getFrontPageArticles;
+- (id) initWithUrl:(NSString *)initUrl;
+- (void) beginDownload;
 
 @end
