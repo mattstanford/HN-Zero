@@ -36,7 +36,7 @@
     [operation setCompletionBlockWithSuccess:
      ^(AFHTTPRequestOperation *operation, id responseObject)
      {
-         [downloadDelegate downloadDidComplete:[HNParser parseArticles:responseObject]];
+         [downloadDelegate downloadDidComplete:responseObject];
          
      }
     failure:^(AFHTTPRequestOperation *operation, NSError *erro)

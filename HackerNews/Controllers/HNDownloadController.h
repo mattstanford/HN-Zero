@@ -10,7 +10,7 @@
 
 @protocol downloadControllerDelegate
 @required
--(void) downloadDidComplete:(NSArray *)data;
+-(void) downloadDidComplete:(id)data;
 -(void) downloadFailed;
 @end
 

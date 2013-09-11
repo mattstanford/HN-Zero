@@ -82,9 +82,11 @@
 
 #pragma mark HNDownloadControllerDelegate
 
--(void) downloadDidComplete:(NSArray *)data
+-(void) downloadDidComplete:(id)data
 {
-    self.articles = data;
+    NSArray *parsedArticles = [HNParser parseArticles:data];
+    
+    self.articles = parsedArticles;
     [self.tableView reloadData];
 }
 
