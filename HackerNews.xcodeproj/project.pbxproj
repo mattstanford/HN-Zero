@@ -23,7 +23,6 @@
 		78E4076417D04B4400DC8CE0 /* HNArticleListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076317D04B4400DC8CE0 /* HNArticleListVC.m */; };
 		78E4076817D278B100DC8CE0 /* HNWebBrowserVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */; };
 		78E4076B17D2D11800DC8CE0 /* HNArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076A17D2D11700DC8CE0 /* HNArticleCell.m */; };
-		78E4077517D3D32000DC8CE0 /* HNParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4077417D3D32000DC8CE0 /* HNParser.m */; };
 		78E570CF17D817FB00D53F99 /* HNDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E570CE17D817FB00D53F99 /* HNDownloadController.m */; };
 		78E570D417D81C2C00D53F99 /* HNArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E570D317D81C2C00D53F99 /* HNArticle.m */; };
 /* End PBXBuildFile section */
@@ -55,8 +54,6 @@
 		78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNWebBrowserVC.m; path = ViewControllers/HNWebBrowserVC.m; sourceTree = "<group>"; };
 		78E4076917D2D11700DC8CE0 /* HNArticleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNArticleCell.h; path = Views/HNArticleCell.h; sourceTree = "<group>"; };
 		78E4076A17D2D11700DC8CE0 /* HNArticleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNArticleCell.m; path = Views/HNArticleCell.m; sourceTree = "<group>"; };
-		78E4077317D3D32000DC8CE0 /* HNParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNParser.h; path = Utilities/HNParser.h; sourceTree = "<group>"; };
-		78E4077417D3D32000DC8CE0 /* HNParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNParser.m; path = Utilities/HNParser.m; sourceTree = "<group>"; };
 		78E570CD17D817FB00D53F99 /* HNDownloadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNDownloadController.h; path = Controllers/HNDownloadController.h; sourceTree = "<group>"; };
 		78E570CE17D817FB00D53F99 /* HNDownloadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNDownloadController.m; path = Controllers/HNDownloadController.m; sourceTree = "<group>"; };
 		78E570D217D81C2C00D53F99 /* HNArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNArticle.h; path = Models/HNArticle.h; sourceTree = "<group>"; };
@@ -142,8 +139,6 @@
 			children = (
 				78393F9E17E026D50003017F /* HNParser.h */,
 				78393F9F17E026D50003017F /* HNParser.m */,
-				78E4077317D3D32000DC8CE0 /* HNParser.h */,
-				78E4077417D3D32000DC8CE0 /* HNParser.m */,
 			);
 			name = Parser;
 			sourceTree = "<group>";
@@ -296,7 +291,6 @@
 				78E4076417D04B4400DC8CE0 /* HNArticleListVC.m in Sources */,
 				78E4076817D278B100DC8CE0 /* HNWebBrowserVC.m in Sources */,
 				78E4076B17D2D11800DC8CE0 /* HNArticleCell.m in Sources */,
-				78E4077517D3D32000DC8CE0 /* HNParser.m in Sources */,
 				78E570CF17D817FB00D53F99 /* HNDownloadController.m in Sources */,
 				78E570D417D81C2C00D53F99 /* HNArticle.m in Sources */,
 				78DF55E417D9513000FC3014 /* HNComment.m in Sources */,
