@@ -7,10 +7,7 @@
 //
 
 #import "HNCommentVC.h"
-
-@interface HNCommentVC ()
-
-@end
+#import "HNCommentParser.h"
 
 @implementation HNCommentVC
 
@@ -40,9 +37,12 @@
 
 #pragma mark HNDownloadController delgate
 
-- (void) downloadDidComplete:(NSArray *)data
+- (void) downloadDidComplete:(id)data
 {
-    NSLog(@"comment download complete!");
+    NSArray *parsedComments = [HNCommentParser parseComments:data];
+    
+    NSLog(@"download complete!");
+    
 }
 
 - (void) downloadFailed
