@@ -8,19 +8,21 @@
 
 #import "HNCommentParser.h"
 #import "TFHpple.h"
+#import "HNComment.h"
 
 @implementation HNCommentParser
 
 + (NSArray *)parseComments:(NSData *)htmlData
 {
-    NSArray *parsedComments = nil;
-    TFHpple *parser = [TFHpple hppleWithHTMLData:htmlData];
+    NSArray *commentRows = [self getCommentRows:htmlData];    
+    NSMutableArray *parsedComments = [[NSMutableArray alloc] initWithCapacity:0];
     
-    NSArray *commentRows = [self getCommentRows:htmlData];
-    
-    
-    
-    
+    for (TFHppleElement *commentRow in commentRows)
+    {
+        HNComment *commentObject = [self parseCommentObjectFromRow:commentRow];
+        
+        [parsedComments addObject:commentObject];
+    }
     
     
     return parsedComments;
@@ -62,6 +64,15 @@
      */
     
     return [commentsTable children];
+    
+}
+
++ (HNComment *) parseCommentObjectFromRow:(TFHppleElement *)commentRow
+{
+    HNComment *commentObject = nil;
+    
+    
+    return commentObject;
     
 }
 
