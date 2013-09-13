@@ -69,14 +69,14 @@
 
 + (HNComment *) parseCommentObjectFromRow:(TFHppleElement *)commentRow
 {
-    HNComment *commentObject = nil;
+    HNComment *commentObject = [[HNComment alloc] init];
     
     TFHppleElement *defaultElement = [self getDefaultTdFromRow:commentRow];
     
     if (defaultElement) {
         TFHppleElement *comheadElement = [self getComheadElementFromDefaulTdRow:defaultElement];
         
-        
+        commentObject.author = [self getUserFromComheadElement:comheadElement];
     }
        
     return commentObject;
@@ -131,6 +131,18 @@
     }
     
     return comheadElement;
+}
+
++ (NSString *) getUserFromComheadElement:(TFHppleElement *)comheadElement
+{
+    NSString *userName = nil;
+    TFHppleElement *anchorElement = [comheadElement firstChildWithTagName:@"a"];
+    
+    if (anchorElement) {
+        userName = [[anchorElement firstTextChild] content];
+    }
+    
+    return userName;
 }
 
 @end
