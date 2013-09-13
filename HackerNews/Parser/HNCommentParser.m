@@ -75,8 +75,16 @@
     
     if (defaultElement) {
         TFHppleElement *comheadElement = [self getComheadElementFromDefaulTdRow:defaultElement];
+        TFHppleElement *commentElement = [defaultElement firstChildWithClassName:@"comment"];
         
-        commentObject.author = [self getUserFromComheadElement:comheadElement];
+        if (comheadElement && commentElement) {
+            
+            commentObject.author = [self getUserFromComheadElement:comheadElement];
+            commentObject.dateWritten = [self getTimeStringFromComHeadElement:comheadElement];
+            
+        }
+        
+        
     }
        
     return commentObject;
@@ -143,6 +151,13 @@
     }
     
     return userName;
+}
+
++ (NSString *) getTimeStringFromComHeadElement:(TFHppleElement *)comheadElement
+{
+    TFHppleElement *timeElement = [comheadElement firstTextChild];
+    
+    return [timeElement content];
 }
 
 @end

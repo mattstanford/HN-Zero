@@ -12,12 +12,12 @@
 {
     NSString *text;
     NSString *author;
-    NSDate *dateWritten;
+    NSString *dateWritten;
     
 }
 
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) NSString *author;
-@property (nonatomic, strong) NSDate *dateWritten;
+@property (nonatomic, strong) NSString *dateWritten;
 
 @end
