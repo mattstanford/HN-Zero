@@ -10,6 +10,6 @@
 
 @implementation HNComment
 
-@synthesize text, author, dateWritten;
+@synthesize textBlocks, author, dateWritten;
 
 @end

@@ -81,6 +81,7 @@
             
             commentObject.author = [self getUserFromComheadElement:comheadElement];
             commentObject.dateWritten = [self getTimeStringFromComHeadElement:comheadElement];
+            commentObject.textBlocks = [self getTextBlocksFromCommentElement:commentElement];
             
         }
         
@@ -158,6 +159,41 @@
     TFHppleElement *timeElement = [comheadElement firstTextChild];
     
     return [timeElement content];
+}
+
++ (NSArray *) getTextBlocksFromCommentElement:(TFHppleElement *)commentElement
+{
+    NSArray *commentBlocks = nil;
+    NSMutableArray *mutableBlocks = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    // The font element contains all the text blocks we want
+    TFHppleElement *fontElement = [commentElement firstChildWithTagName:@"font"];
+    
+    if (fontElement)
+    {
+        for (TFHppleElement *block in [fontElement children]) {
+            
+            NSString *blockContent = nil;
+                
+            if ([block content]) {
+                blockContent = [block content];
+            }
+            else if([block firstTextChild])
+            {
+                blockContent = [[block firstTextChild] content];
+            }
+                
+            if (blockContent) {
+                [mutableBlocks addObject:blockContent];
+            }
+            
+        }
+        
+        commentBlocks = [[NSArray alloc] initWithArray:mutableBlocks];
+        
+    }
+    
+    return commentBlocks;
 }
 
 @end

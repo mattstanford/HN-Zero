@@ -10,13 +10,13 @@
 
 @interface HNComment : NSObject
 {
-    NSString *text;
+    NSArray *textBlocks;
     NSString *author;
     NSString *dateWritten;
     
 }
 
-@property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSArray *textBlocks;
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) NSString *dateWritten;
 
