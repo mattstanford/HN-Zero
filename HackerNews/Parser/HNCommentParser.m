@@ -71,9 +71,66 @@
 {
     HNComment *commentObject = nil;
     
+    TFHppleElement *defaultElement = [self getDefaultTdFromRow:commentRow];
     
+    if (defaultElement) {
+        TFHppleElement *comheadElement = [self getComheadElementFromDefaulTdRow:defaultElement];
+        
+        
+    }
+       
     return commentObject;
     
+}
+
++ (TFHppleElement *) getDefaultTdFromRow:(TFHppleElement *)commentRow
+{
+    TFHppleElement *defaultTdElement = nil;
+    
+    /*
+     The comment row contains a single TD, with a single table inside that has a single row
+     */
+    TFHppleElement *commentTdElement = [commentRow firstChildWithTagName:@"td"];
+    
+    if (commentTdElement)
+    {
+        TFHppleElement *commentTableElement = [commentTdElement firstChildWithTagName:@"table"];
+        
+        if (commentTableElement) {
+            TFHppleElement *commentInteriorRow = [commentTableElement firstChildWithTagName:@"tr"];
+            
+            if (commentInteriorRow) {
+                
+                /*
+                 The interior comment row has several TDs.  We want the TD with class="default"
+                 The "default" TD will have several children. 
+                 */
+                defaultTdElement = [commentInteriorRow firstChildWithClassName:@"default"];
+                
+            }
+        }
+    }
+    
+    return defaultTdElement;
+}
+
++ (TFHppleElement *)getComheadElementFromDefaulTdRow:(TFHppleElement *)defaultTdRow
+{
+    TFHppleElement *comheadElement = nil;
+    
+    /*
+     The "comhead" element is located in the first child of the "default td row" which
+     should have been passed in.
+     
+     It is located in the first "div" element from the "default td row".
+     */
+    TFHppleElement *firstDivElement = [defaultTdRow firstChildWithTagName:@"div"];
+    
+    if (firstDivElement) {
+        comheadElement = [firstDivElement firstChildWithClassName:@"comhead"];
+    }
+    
+    return comheadElement;
 }
 
 @end
