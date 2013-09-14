@@ -8,10 +8,11 @@
 
 #import "HNCommentVC.h"
 #import "HNCommentParser.h"
+#import "HNComment.h"
 
 @implementation HNCommentVC
 
-@synthesize downloadController, currentCommentId;
+@synthesize downloadController, currentCommentId, comments;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -22,8 +23,15 @@
         
         currentCommentId = @"0";
         
+        comments = [[NSArray alloc] init];
+        
     }
     return self;
+}
+
+- (void) viewDidLoad
+{
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -41,8 +49,8 @@
 {
     NSArray *parsedComments = [HNCommentParser parseComments:data];
     
-    NSLog(@"download complete!");
-    
+    self.comments = parsedComments;
+    [self.tableView reloadData];
 }
 
 - (void) downloadFailed
@@ -54,16 +62,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+
+    return [comments count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -71,7 +76,11 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
+    HNComment *comment = [comments objectAtIndex:[indexPath row]];
+    
+    NSString *commentBlock = [comment.textBlocks objectAtIndex:0];
+    
+    cell.textLabel.text = commentBlock;
     
     return cell;
 }

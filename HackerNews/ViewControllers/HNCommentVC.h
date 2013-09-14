@@ -13,9 +13,11 @@
 {
     HNDownloadController *downloadController;
     NSString *currentCommentId;
+    NSArray *comments;
 }
 
 @property (nonatomic, strong) HNDownloadController *downloadController;
 @property (nonatomic, strong) NSString *currentCommentId;
+@property (nonatomic, strong) NSArray *comments;
 
 @end
