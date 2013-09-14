@@ -43,6 +43,20 @@
     [downloadController beginDownload];
 }
 
+- (NSString *) prepareCommentStringForCell:(HNComment *)comment
+{
+    NSMutableString *commentBlock = [[NSMutableString alloc] initWithCapacity:0];
+    
+    for (NSString *block in comment.textBlocks)
+    {
+        [commentBlock appendFormat:@"%@\n\n", block];
+    }
+    
+    NSLog(@"%@", commentBlock);
+    return commentBlock;
+    
+}
+
 #pragma mark HNDownloadController delgate
 
 - (void) downloadDidComplete:(id)data
@@ -78,11 +92,27 @@
     
     HNComment *comment = [comments objectAtIndex:[indexPath row]];
     
-    NSString *commentBlock = [comment.textBlocks objectAtIndex:0];
+    NSString *commentBlock = [self prepareCommentStringForCell:comment];
     
     cell.textLabel.text = commentBlock;
+    cell.textLabel.font = [UIFont systemFontOfSize:12];
+    [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [cell.textLabel setNumberOfLines:0];
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    HNComment *comment = [comments objectAtIndex:[indexPath row]];
+    
+    NSString *commentBlock = [self prepareCommentStringForCell:comment];
+    CGSize constraint = CGSizeMake(320, 1000);
+    
+    CGSize commentSize = [commentBlock sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+    
+    return commentSize.height;
+    
 }
 
 /*
