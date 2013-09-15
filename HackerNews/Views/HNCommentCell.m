@@ -13,6 +13,10 @@
 @synthesize nestedLevel;
 
 static const int FONT_SIZE = 12;
+static const CGFloat LEFT_MARGIN = 10;
+static const CGFloat RIGHT_MARGIN = 30;
+static const CGFloat TOP_MARGIN = 10;
+static const CGFloat BOTTOM_MARGIN = 10;
 
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -34,14 +38,18 @@ static const int FONT_SIZE = 12;
 {
     [super layoutSubviews];
     
+    CGFloat nestMargin = 10;
+
+    
     CGFloat indentUnit = 20;
-    CGFloat margin = 10;
-    CGFloat indentAmount = margin + ([self.nestedLevel floatValue] * indentUnit);
+    CGFloat indentAmount = nestMargin + ([self.nestedLevel floatValue] * indentUnit);
     
-    CGFloat labelWidth = self.frame.size.width - indentAmount;
-    CGFloat labelHeight = self.frame.size.height;
+    CGFloat labelX = indentAmount + LEFT_MARGIN;
+    CGFloat labelY = TOP_MARGIN;
+    CGFloat labelWidth = self.frame.size.width - labelX - RIGHT_MARGIN;
+    CGFloat labelHeight = self.frame.size.height - labelY - BOTTOM_MARGIN;
     
-    self.textLabel.frame = CGRectMake(indentAmount, 0, labelWidth, labelHeight);
+    self.textLabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
     
 }
 
@@ -53,7 +61,7 @@ static const int FONT_SIZE = 12;
     CGSize commentSize = [cellText sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
 
     
-    return commentSize.height;
+    return commentSize.height + BOTTOM_MARGIN + TOP_MARGIN;
     
 }
 
