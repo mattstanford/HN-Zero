@@ -71,30 +71,50 @@
 {
     HNComment *commentObject = [[HNComment alloc] init];
     
-    TFHppleElement *defaultElement = [self getDefaultTdFromRow:commentRow];
+    TFHppleElement *commentInteriorRow = [self getInteriorTdFromRow:commentRow];
     
-    if (defaultElement) {
-        TFHppleElement *comheadElement = [self getComheadElementFromDefaulTdRow:defaultElement];
-        TFHppleElement *commentElement = [defaultElement firstChildWithClassName:@"comment"];
+    
+    if (commentInteriorRow) {
+
+        /*
+         The interior comment row has several TDs.  We want the TD with class="default"
+         The "default" TD will have several children.
+         */
+        TFHppleElement *defaultElement = [commentInteriorRow firstChildWithClassName:@"default"];
+
         
-        if (comheadElement && commentElement) {
+        if (defaultElement) {
+            TFHppleElement *comheadElement = [self getComheadElementFromDefaulTdRow:defaultElement];
+            TFHppleElement *commentElement = [defaultElement firstChildWithClassName:@"comment"];
             
-            commentObject.author = [self getUserFromComheadElement:comheadElement];
-            commentObject.dateWritten = [self getTimeStringFromComHeadElement:comheadElement];
-            commentObject.textBlocks = [self getTextBlocksFromCommentElement:commentElement];
+            if (comheadElement && commentElement) {
+                
+                commentObject.author = [self getUserFromComheadElement:comheadElement];
+                commentObject.dateWritten = [self getTimeStringFromComHeadElement:comheadElement];
+                commentObject.textBlocks = [self getTextBlocksFromCommentElement:commentElement];
+                commentObject.nestedLevel = [self getNestedLevelFromCommentInterior:commentInteriorRow];
+                
+            }
+            
             
         }
-        
-        
     }
-       
+    
     return commentObject;
     
 }
-
-+ (TFHppleElement *) getDefaultTdFromRow:(TFHppleElement *)commentRow
+/*
+ 
+ The "comment interior" element has these three TDs:
+ 
+ 1. An "img" tag that acts as a spacer for the indent of the comment
+ 2. A bock for the upvote arrow
+ 3. The "default" block, where the comment content lives.
+ 
+ */
++ (TFHppleElement *) getInteriorTdFromRow:(TFHppleElement *)commentRow
 {
-    TFHppleElement *defaultTdElement = nil;
+     TFHppleElement *commentInteriorRow = nil;
     
     /*
      The comment row contains a single TD, with a single table inside that has a single row
@@ -106,21 +126,13 @@
         TFHppleElement *commentTableElement = [commentTdElement firstChildWithTagName:@"table"];
         
         if (commentTableElement) {
-            TFHppleElement *commentInteriorRow = [commentTableElement firstChildWithTagName:@"tr"];
             
-            if (commentInteriorRow) {
-                
-                /*
-                 The interior comment row has several TDs.  We want the TD with class="default"
-                 The "default" TD will have several children. 
-                 */
-                defaultTdElement = [commentInteriorRow firstChildWithClassName:@"default"];
-                
-            }
+            commentInteriorRow = [commentTableElement firstChildWithTagName:@"tr"];
+            
         }
     }
     
-    return defaultTdElement;
+    return commentInteriorRow;
 }
 
 + (TFHppleElement *)getComheadElementFromDefaulTdRow:(TFHppleElement *)defaultTdRow
@@ -194,6 +206,35 @@
     }
     
     return commentBlocks;
+}
+
++ (NSNumber *) getNestedLevelFromCommentInterior:(TFHppleElement *)commentInterior
+{
+    /*
+        The amount the comment is indented (the "nested" level) is in the first TD
+        as an "img" tag which is being used as a spacer.
+     */
+    NSNumber *nestedLevel = nil;
+    TFHppleElement *nestedLevelElement = [commentInterior firstChildWithTagName:@"td"];
+    
+    if (nestedLevelElement) {
+        TFHppleElement *imgElement = [nestedLevelElement firstChildWithTagName:@"img"];
+        
+        if (imgElement)
+        {
+            NSDictionary *imgAttrs = [imgElement attributes];
+            
+            if ([imgAttrs objectForKey:@"width"]) {
+                
+                //Currently the nested level is in multiples of 40 on the page
+                int level = [(NSNumber *)[imgAttrs objectForKey:@"width"] intValue] / 40;
+                nestedLevel = [[NSNumber alloc] initWithInt:level];
+            }
+        }
+    }
+    
+    return nestedLevel;
+    
 }
 
 @end

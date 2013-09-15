@@ -13,11 +13,13 @@
     NSArray *textBlocks;
     NSString *author;
     NSString *dateWritten;
+    NSNumber *nestedLevel;
     
 }
 
 @property (nonatomic, strong) NSArray *textBlocks;
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) NSString *dateWritten;
+@property (nonatomic, strong) NSNumber *nestedLevel;
 
 @end
