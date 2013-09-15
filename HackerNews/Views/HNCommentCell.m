@@ -12,6 +12,8 @@
 
 @synthesize nestedLevel;
 
+static const int FONT_SIZE = 12;
+
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
@@ -19,7 +21,7 @@
         
         self.nestedLevel = [[NSNumber alloc] initWithInt:0];
         
-        self.textLabel.font = [UIFont systemFontOfSize:12];
+        self.textLabel.font = [UIFont systemFontOfSize:FONT_SIZE];
         [self.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
         [self.textLabel setNumberOfLines:0];
 
@@ -36,11 +38,46 @@
     CGFloat margin = 10;
     CGFloat indentAmount = margin + ([self.nestedLevel floatValue] * indentUnit);
     
-    CGFloat cellWidth = self.frame.size.width - indentAmount;
-    CGFloat cellHeight = self.frame.size.height;
+    CGFloat labelWidth = self.frame.size.width - indentAmount;
+    CGFloat labelHeight = self.frame.size.height;
     
-    self.textLabel.frame = CGRectMake(indentAmount, 0, cellWidth, cellHeight);
+    self.textLabel.frame = CGRectMake(indentAmount, 0, labelWidth, labelHeight);
     
 }
+
++ (CGFloat) calculateHeightWithString:(NSString *)cellText
+{
+    CGRect screenBounds = [self getScreenBoundsForOrientation];
+    CGSize constraint = CGSizeMake(screenBounds.size.width, 10000);
+    
+    CGSize commentSize = [cellText sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+
+    
+    return commentSize.height;
+    
+}
+
++ (CGRect)getScreenBoundsForOrientation
+{
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    CGFloat width = 0;
+    CGFloat height = 0;
+    CGRect realScreenBounds = [[UIScreen mainScreen] bounds];
+    
+    if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight)
+    {
+        width = realScreenBounds.size.height;
+        height = realScreenBounds.size.width;
+    }
+    else
+    {
+        width = realScreenBounds.size.width;
+        height = realScreenBounds.size.height;
+    }
+    
+    return CGRectMake(0, 0, width, height);
+    
+}
+
 
 @end

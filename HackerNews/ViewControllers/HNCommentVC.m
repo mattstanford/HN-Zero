@@ -103,11 +103,8 @@
     HNComment *comment = [comments objectAtIndex:[indexPath row]];
     
     NSString *commentBlock = [self prepareCommentStringForCell:comment];
-    CGSize constraint = CGSizeMake(320, 1000);
     
-    CGSize commentSize = [commentBlock sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-    
-    return commentSize.height;
+    return [HNCommentCell calculateHeightWithString:commentBlock];
     
 }
 

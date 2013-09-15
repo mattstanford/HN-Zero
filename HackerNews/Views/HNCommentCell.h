@@ -15,4 +15,6 @@
 
 @property (nonatomic, strong) NSNumber *nestedLevel;
 
++ (CGFloat) calculateHeightWithString:(NSString *)cellText;
+
 @end
