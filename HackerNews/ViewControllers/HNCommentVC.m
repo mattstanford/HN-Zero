@@ -9,6 +9,7 @@
 #import "HNCommentVC.h"
 #import "HNCommentParser.h"
 #import "HNComment.h"
+#import "HNCommentCell.h"
 
 @implementation HNCommentVC
 
@@ -31,7 +32,7 @@
 
 - (void) viewDidLoad
 {
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    [self.tableView registerClass:[HNCommentCell class] forCellReuseIdentifier:@"Cell"];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -39,7 +40,6 @@
     [super viewDidAppear:animated];
     
     downloadController.url = [NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", currentCommentId];
-    NSLog(@"url: %@", downloadController.url);
     [downloadController beginDownload];
 }
 
@@ -52,9 +52,7 @@
         [commentBlock appendFormat:@"%@\n\n", block];
     }
     
-    NSLog(@"%@", commentBlock);
     return commentBlock;
-    
 }
 
 #pragma mark HNDownloadController delgate
@@ -88,17 +86,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    HNCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     HNComment *comment = [comments objectAtIndex:[indexPath row]];
     
     NSString *commentBlock = [self prepareCommentStringForCell:comment];
     
     cell.textLabel.text = commentBlock;
-    cell.textLabel.font = [UIFont systemFontOfSize:12];
-    [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
-    [cell.textLabel setNumberOfLines:0];
-    
+    cell.nestedLevel = comment.nestedLevel;
+ 
     return cell;
 }
 
