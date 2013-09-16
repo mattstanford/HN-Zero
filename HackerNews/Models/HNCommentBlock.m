@@ -17,12 +17,12 @@
     NSMutableString *blockString = [[NSMutableString alloc] initWithCapacity:0];
     
     if (self.text) {
-        [blockString appendFormat:@"%@", self.text];
+        [blockString appendFormat:@"%@\n\n", self.text];
     }
     
     for (HNCommentBlock *child in childBlocks)
     {
-        [blockString appendFormat:@"\n%@", [child getStringRepresentation]];
+        [blockString appendFormat:@"%@", [child getStringRepresentation]];
     }
     
     return blockString;
