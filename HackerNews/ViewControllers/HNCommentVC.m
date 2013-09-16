@@ -43,20 +43,6 @@
     [downloadController beginDownload];
 }
 
-/*
-- (NSString *) prepareCommentStringForCell:(HNComment *)comment
-{
-    NSMutableString *commentBlock = [[NSMutableString alloc] initWithCapacity:0];
-    
-    for (NSString *block in comment.textBlocks)
-    {
-        [commentBlock appendFormat:@"%@\n\n", block];
-    }
-    
-    return commentBlock;
-}
- */
-
 #pragma mark HNDownloadController delgate
 
 - (void) downloadDidComplete:(id)data
@@ -106,7 +92,6 @@
     
     NSString *commentBlock = [comment getStringRepresentationOfBlocks];
     
-    NSLog(@"cell height: %f", [HNCommentCell calculateHeightWithString:commentBlock withIndentLevel:[comment nestedLevel]]);
     return [HNCommentCell calculateHeightWithString:commentBlock withIndentLevel:[comment nestedLevel]];
     
 }

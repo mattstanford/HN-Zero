@@ -40,13 +40,11 @@ static const int INDENT_PER_LEVEL = 20;
 {
     [super layoutSubviews];
     
-    CGFloat nestMargin = 10;
-
-    CGFloat indentAmount = nestMargin + [HNCommentCell getIndentWidth:[self nestedLevel]];
+    CGFloat indentAmount = [HNCommentCell getIndentWidth:[self nestedLevel]];
     
     CGFloat labelX = indentAmount + LEFT_MARGIN;
     CGFloat labelY = TOP_MARGIN;
-    CGFloat labelWidth = self.frame.size.width - labelX - RIGHT_MARGIN;
+    CGFloat labelWidth = [HNCommentCell getLabelWidth:self.nestedLevel];
     CGFloat labelHeight = self.frame.size.height - labelY - BOTTOM_MARGIN;
     
     self.textLabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
@@ -58,14 +56,20 @@ static const int INDENT_PER_LEVEL = 20;
     return INDENT_PER_LEVEL * [level floatValue];
 }
 
-+ (CGFloat) calculateHeightWithString:(NSString *)cellText withIndentLevel:(NSNumber *)indentLevel
++ (CGFloat) getLabelWidth:(NSNumber *)indentLevel
 {
     CGRect screenBounds = [self getScreenBoundsForOrientation];
-    CGFloat labelWidth = screenBounds.size.width - [self getIndentWidth:indentLevel] - LEFT_MARGIN - RIGHT_MARGIN;
-    CGSize constraint = CGSizeMake(labelWidth, 10000);
+    
+    return screenBounds.size.width - [self getIndentWidth:indentLevel] - LEFT_MARGIN - RIGHT_MARGIN;
+}
+
++ (CGFloat) calculateHeightWithString:(NSString *)cellText withIndentLevel:(NSNumber *)indentLevel
+{
+    CGFloat labelWidth = [self getLabelWidth:indentLevel];
+    
+    CGSize constraint = CGSizeMake(labelWidth, CGFLOAT_MAX);
 
     CGSize commentSize = [cellText sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-    /*CGSize commentSize = [cellText sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] forWidth:labelWidth lineBreakMode:NSLineBreakByWordWrapping];*/
 
     return commentSize.height + BOTTOM_MARGIN + TOP_MARGIN;
     
