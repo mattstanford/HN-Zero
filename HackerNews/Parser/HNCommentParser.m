@@ -233,6 +233,8 @@
         commentBlock.text = [commentElement content];
     }
     
+    commentBlock.tagName = commentElement.tagName;
+    
     return commentBlock;
 }
 

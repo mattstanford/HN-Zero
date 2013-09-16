@@ -16,13 +16,19 @@
 {
     NSMutableString *blockString = [[NSMutableString alloc] initWithCapacity:0];
     
-    if (self.text) {
-        [blockString appendFormat:@"%@\n\n", self.text];
+    if ([self.tagName isEqualToString:@"text"] && self.text) {
+        return self.text;
+    }
+    
+    if ([self.tagName isEqualToString:@"p"])
+    {
+        [blockString appendFormat:@"\n\n"];
     }
     
     for (HNCommentBlock *child in childBlocks)
     {
         [blockString appendFormat:@"%@", [child getStringRepresentation]];
+        
     }
     
     return blockString;
