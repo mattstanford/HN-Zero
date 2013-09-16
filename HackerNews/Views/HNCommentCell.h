@@ -15,6 +15,6 @@
 
 @property (nonatomic, strong) NSNumber *nestedLevel;
 
-+ (CGFloat) calculateHeightWithString:(NSString *)cellText;
++ (CGFloat) calculateHeightWithString:(NSString *)cellText withIndentLevel:(NSNumber *)indentLevel;
 
 @end

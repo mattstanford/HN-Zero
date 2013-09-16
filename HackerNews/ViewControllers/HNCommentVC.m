@@ -106,7 +106,8 @@
     
     NSString *commentBlock = [comment getStringRepresentationOfBlocks];
     
-    return [HNCommentCell calculateHeightWithString:commentBlock];
+    NSLog(@"cell height: %f", [HNCommentCell calculateHeightWithString:commentBlock withIndentLevel:[comment nestedLevel]]);
+    return [HNCommentCell calculateHeightWithString:commentBlock withIndentLevel:[comment nestedLevel]];
     
 }
 

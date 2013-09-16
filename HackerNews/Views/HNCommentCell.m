@@ -18,6 +18,8 @@ static const CGFloat RIGHT_MARGIN = 30;
 static const CGFloat TOP_MARGIN = 10;
 static const CGFloat BOTTOM_MARGIN = 10;
 
+static const int INDENT_PER_LEVEL = 20;
+
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
@@ -40,9 +42,7 @@ static const CGFloat BOTTOM_MARGIN = 10;
     
     CGFloat nestMargin = 10;
 
-    
-    CGFloat indentUnit = 20;
-    CGFloat indentAmount = nestMargin + ([self.nestedLevel floatValue] * indentUnit);
+    CGFloat indentAmount = nestMargin + [HNCommentCell getIndentWidth:[self nestedLevel]];
     
     CGFloat labelX = indentAmount + LEFT_MARGIN;
     CGFloat labelY = TOP_MARGIN;
@@ -53,14 +53,20 @@ static const CGFloat BOTTOM_MARGIN = 10;
     
 }
 
-+ (CGFloat) calculateHeightWithString:(NSString *)cellText
++ (CGFloat) getIndentWidth:(NSNumber *)level
+{
+    return INDENT_PER_LEVEL * [level floatValue];
+}
+
++ (CGFloat) calculateHeightWithString:(NSString *)cellText withIndentLevel:(NSNumber *)indentLevel
 {
     CGRect screenBounds = [self getScreenBoundsForOrientation];
-    CGSize constraint = CGSizeMake(screenBounds.size.width, 10000);
-    
-    CGSize commentSize = [cellText sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+    CGFloat labelWidth = screenBounds.size.width - [self getIndentWidth:indentLevel] - LEFT_MARGIN - RIGHT_MARGIN;
+    CGSize constraint = CGSizeMake(labelWidth, 10000);
 
-    
+    CGSize commentSize = [cellText sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+    /*CGSize commentSize = [cellText sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] forWidth:labelWidth lineBreakMode:NSLineBreakByWordWrapping];*/
+
     return commentSize.height + BOTTOM_MARGIN + TOP_MARGIN;
     
 }
