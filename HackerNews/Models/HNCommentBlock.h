@@ -9,5 +9,16 @@
 #import <Foundation/Foundation.h>
 
 @interface HNCommentBlock : NSObject
+{
+    NSArray *childBlocks;
+    NSString *tagName;
+    NSString *text;
+}
+
+@property (nonatomic, strong) NSArray *childBlocks;
+@property (nonatomic, strong) NSString *tagName;
+@property (nonatomic, strong) NSString *text;
+
+- (NSString *) getStringRepresentation;
 
 @end
