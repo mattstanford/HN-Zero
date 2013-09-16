@@ -7,9 +7,15 @@
 //
 
 #import "HNComment.h"
+#import "HNCommentBlock.h"
 
 @implementation HNComment
 
-@synthesize textBlocks, author, dateWritten, nestedLevel;
+@synthesize commentBlock, author, dateWritten, nestedLevel;
+
+- (NSString *) getStringRepresentationOfBlocks
+{
+    return [self.commentBlock getStringRepresentation];
+}
 
 @end

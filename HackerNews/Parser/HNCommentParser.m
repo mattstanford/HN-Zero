@@ -9,6 +9,7 @@
 #import "HNCommentParser.h"
 #import "TFHpple.h"
 #import "HNComment.h"
+#import "HNCommentBlock.h"
 
 @implementation HNCommentParser
 
@@ -91,7 +92,7 @@
                 
                 commentObject.author = [self getUserFromComheadElement:comheadElement];
                 commentObject.dateWritten = [self getTimeStringFromComHeadElement:comheadElement];
-                commentObject.textBlocks = [self getTextBlocksFromCommentElement:commentElement];
+                commentObject.commentBlock = [self getCommentBlockFromCommentElement:commentElement];
                 commentObject.nestedLevel = [self getNestedLevelFromCommentInterior:commentInteriorRow];
                 
             }
@@ -173,16 +174,16 @@
     return [timeElement content];
 }
 
-+ (NSArray *) getTextBlocksFromCommentElement:(TFHppleElement *)commentElement
++ (HNCommentBlock *) getCommentBlockFromCommentElement:(TFHppleElement *)commentElement
 {
-    NSArray *commentBlocks = nil;
-    NSMutableArray *mutableBlocks = [[NSMutableArray alloc] initWithCapacity:0];
+    HNCommentBlock *commentBlock = nil;
     
     // The font element contains all the text blocks we want
     TFHppleElement *fontElement = [commentElement firstChildWithTagName:@"font"];
     
     if (fontElement)
     {
+        /*
         for (TFHppleElement *block in [fontElement children]) {
             
             NSString *blockContent = nil;
@@ -199,13 +200,40 @@
                 [mutableBlocks addObject:blockContent];
             }
             
-        }
+            [mutableBlocks addObject:[self getCommentBlockFromElement:block]];
+            
+        }*/
         
-        commentBlocks = [[NSArray alloc] initWithArray:mutableBlocks];
+        commentBlock = [self getCommentBlockFromElement:fontElement];
         
     }
     
-    return commentBlocks;
+    return commentBlock;
+}
+
++ (HNCommentBlock *) getCommentBlockFromElement:(TFHppleElement *)commentElement
+{
+    HNCommentBlock *commentBlock = [[HNCommentBlock alloc] init];
+    NSMutableArray *childBlocks = nil;
+ 
+    if ([commentElement hasChildren]) {
+        
+        NSArray *blockChildren = [commentElement children];
+        childBlocks = [[NSMutableArray alloc] initWithCapacity:[blockChildren count]];
+        
+        for (TFHppleElement *child in blockChildren)
+        {
+            [childBlocks addObject:[self getCommentBlockFromElement:child]];
+        }
+        
+        commentBlock.childBlocks = childBlocks;
+    }
+    
+    if ([commentElement content]) {
+        commentBlock.text = [commentElement content];
+    }
+    
+    return commentBlock;
 }
 
 + (NSNumber *) getNestedLevelFromCommentInterior:(TFHppleElement *)commentInterior

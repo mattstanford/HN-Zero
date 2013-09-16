@@ -8,18 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+@class HNCommentBlock;
+
 @interface HNComment : NSObject
 {
-    NSArray *textBlocks;
+    HNCommentBlock *commentBlock;
     NSString *author;
     NSString *dateWritten;
     NSNumber *nestedLevel;
     
 }
 
-@property (nonatomic, strong) NSArray *textBlocks;
+@property (nonatomic, strong) HNCommentBlock *commentBlock;
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) NSString *dateWritten;
 @property (nonatomic, strong) NSNumber *nestedLevel;
+
+- (NSString *) getStringRepresentationOfBlocks;
 
 @end
