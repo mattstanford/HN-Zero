@@ -144,6 +144,10 @@
             //Underline too
             [blockString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:styleRange];
         }
+        else if([styleType isEqualToString:@"i"])
+        {
+            [blockString addAttribute:NSFontAttributeName value:[UIFont italicSystemFontOfSize:12] range:styleRange];
+        }
     }
     
     
