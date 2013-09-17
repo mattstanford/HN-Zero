@@ -12,26 +12,5 @@
 
 @synthesize childBlocks, tagName, text;
 
-- (NSAttributedString *) getStringRepresentation
-{
-    NSMutableAttributedString *blockString = [[NSMutableAttributedString alloc] init];
-    
-    if ([self.tagName isEqualToString:@"text"] && self.text) {
-        return [[NSAttributedString alloc] initWithString:self.text];
-    }
-    
-    if ([self.tagName isEqualToString:@"p"])
-    {
-        [blockString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
-    }
-    
-    for (HNCommentBlock *child in childBlocks)
-    {
-        [blockString appendAttributedString:[child getStringRepresentation]];
-        
-    }
-    
-    return blockString;
-}
 
 @end
