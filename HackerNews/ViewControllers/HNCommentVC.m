@@ -9,6 +9,7 @@
 #import "HNCommentVC.h"
 #import "HNCommentParser.h"
 #import "HNComment.h"
+#import "HNCommentBlock.h"
 #import "HNCommentCell.h"
 
 @implementation HNCommentVC
@@ -80,7 +81,7 @@
     
     //NSString *commentBlock = [self prepareCommentStringForCell:comment];
     
-    cell.textLabel.attributedText = [comment getStringRepresentationOfBlocks];
+    cell.textLabel.attributedText = [self convertToAttributedString:comment.commentBlock];// [comment getStringRepresentationOfBlocks];
     cell.nestedLevel = comment.nestedLevel;
  
     return cell;
@@ -90,10 +91,63 @@
 {
     HNComment *comment = [comments objectAtIndex:[indexPath row]];
     
-    NSString *commentBlock = [[comment getStringRepresentationOfBlocks] string];
+    NSString *commentBlock = [[self convertToAttributedString:comment.commentBlock] string];
     
     return [HNCommentCell calculateHeightWithString:commentBlock withIndentLevel:[comment nestedLevel]];
     
+}
+
+#pragma mark Helper functions
+
+- (NSAttributedString *) convertToAttributedString:(HNCommentBlock *)block
+{
+    NSMutableAttributedString *blockString = [[NSMutableAttributedString alloc] init];
+    int styleStringStart = 0;
+    int styleStringLen = 0;
+    NSString *styleType = nil;
+    
+    if ([block.tagName isEqualToString:@"text"] && block.text) {
+        return [[NSAttributedString alloc] initWithString:block.text];
+    }
+    
+    if ([block.tagName isEqualToString:@"p"])
+    {
+        [blockString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
+    }
+    
+    //We are setting the child elements to have a specific style according to the parent tag here
+    if ([block.tagName isEqualToString:@"a"] || [block.tagName isEqualToString:@"i"])
+    {
+        styleStringStart = [blockString length];
+        styleType = block.tagName;
+    }
+    
+    for (HNCommentBlock *child in block.childBlocks)
+    {
+        [blockString appendAttributedString:[self convertToAttributedString:child]];
+        
+    }
+    
+    /*
+     If the current element has a style type (underline, italics, etc) we set the end of the range
+     here
+     */
+    if (styleType)
+    {
+        styleStringLen = [blockString length] - styleStringStart;
+        NSRange styleRange = NSMakeRange(styleStringStart, styleStringLen);
+        
+        if ([styleType isEqualToString:@"a"])
+        {
+            //Add blue color to link
+            [blockString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:styleRange];
+            //Underline too
+            [blockString addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:styleRange];
+        }
+    }
+    
+    
+    return blockString;
 }
 
 /*
