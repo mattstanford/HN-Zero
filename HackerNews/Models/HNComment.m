@@ -13,7 +13,7 @@
 
 @synthesize commentBlock, author, dateWritten, nestedLevel;
 
-- (NSString *) getStringRepresentationOfBlocks
+- (NSAttributedString *) getStringRepresentationOfBlocks
 {
     return [self.commentBlock getStringRepresentation];
 }

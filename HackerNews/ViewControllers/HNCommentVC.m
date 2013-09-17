@@ -80,7 +80,7 @@
     
     //NSString *commentBlock = [self prepareCommentStringForCell:comment];
     
-    cell.textLabel.text = [comment getStringRepresentationOfBlocks];
+    cell.textLabel.attributedText = [comment getStringRepresentationOfBlocks];
     cell.nestedLevel = comment.nestedLevel;
  
     return cell;
@@ -90,7 +90,7 @@
 {
     HNComment *comment = [comments objectAtIndex:[indexPath row]];
     
-    NSString *commentBlock = [comment getStringRepresentationOfBlocks];
+    NSString *commentBlock = [[comment getStringRepresentationOfBlocks] string];
     
     return [HNCommentCell calculateHeightWithString:commentBlock withIndentLevel:[comment nestedLevel]];
     

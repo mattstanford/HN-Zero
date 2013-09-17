@@ -24,6 +24,6 @@
 @property (nonatomic, strong) NSString *dateWritten;
 @property (nonatomic, strong) NSNumber *nestedLevel;
 
-- (NSString *) getStringRepresentationOfBlocks;
+- (NSAttributedString *) getStringRepresentationOfBlocks;
 
 @end

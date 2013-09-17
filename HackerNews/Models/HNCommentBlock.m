@@ -12,22 +12,22 @@
 
 @synthesize childBlocks, tagName, text;
 
-- (NSString *) getStringRepresentation
+- (NSAttributedString *) getStringRepresentation
 {
-    NSMutableString *blockString = [[NSMutableString alloc] initWithCapacity:0];
+    NSMutableAttributedString *blockString = [[NSMutableAttributedString alloc] init];
     
     if ([self.tagName isEqualToString:@"text"] && self.text) {
-        return self.text;
+        return [[NSAttributedString alloc] initWithString:self.text];
     }
     
     if ([self.tagName isEqualToString:@"p"])
     {
-        [blockString appendFormat:@"\n\n"];
+        [blockString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
     }
     
     for (HNCommentBlock *child in childBlocks)
     {
-        [blockString appendFormat:@"%@", [child getStringRepresentation]];
+        [blockString appendAttributedString:[child getStringRepresentation]];
         
     }
     

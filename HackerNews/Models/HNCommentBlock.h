@@ -19,6 +19,6 @@
 @property (nonatomic, strong) NSString *tagName;
 @property (nonatomic, strong) NSString *text;
 
-- (NSString *) getStringRepresentation;
+- (NSAttributedString *) getStringRepresentation;
 
 @end
