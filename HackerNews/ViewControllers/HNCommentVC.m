@@ -106,10 +106,12 @@
     int styleStringLen = 0;
     NSString *styleType = nil;
     
+    //This is a recursive funciton.  This is our base case.
     if ([block.tagName isEqualToString:@"text"] && block.text) {
         return [[NSAttributedString alloc] initWithString:block.text];
     }
     
+    //We need to add some whitespace when we have a "p" element
     if ([block.tagName isEqualToString:@"p"])
     {
         [blockString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n"]];
@@ -122,6 +124,7 @@
         styleType = block.tagName;
     }
     
+    //Recurse this function until we get to the base case (tag="text")
     for (HNCommentBlock *child in block.childBlocks)
     {
         [blockString appendAttributedString:[self convertToAttributedString:child]];
@@ -146,7 +149,11 @@
         }
         else if([styleType isEqualToString:@"i"])
         {
-            [blockString addAttribute:NSFontAttributeName value:[UIFont italicSystemFontOfSize:12] range:styleRange];
+            [blockString addAttribute:NSFontAttributeName value:[HNCommentCell getFontItalic] range:styleRange];
+        }
+        else if([styleType isEqualToString:@"b"])
+        {
+            [blockString addAttribute:NSFontAttributeName value:[HNCommentCell getFontBold] range:styleRange];
         }
     }
     

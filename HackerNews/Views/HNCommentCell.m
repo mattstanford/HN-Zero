@@ -12,6 +12,10 @@
 
 @synthesize nestedLevel;
 
+#define CELL_FONT @"Helvetica"
+#define CELL_FONT_ITALIC  @"Helvetica-Oblique"
+#define CELL_FONT_BOLD @"Helvetica-Bold"
+
 static const int FONT_SIZE = 12;
 static const CGFloat LEFT_MARGIN = 10;
 static const CGFloat RIGHT_MARGIN = 30;
@@ -34,6 +38,21 @@ static const int INDENT_PER_LEVEL = 20;
     }
     
     return self;
+}
+
++ (UIFont *) getFont
+{
+    return [UIFont fontWithName:CELL_FONT size:FONT_SIZE];
+}
+
++ (UIFont *) getFontItalic
+{
+    return [UIFont fontWithName:CELL_FONT_ITALIC size:FONT_SIZE];
+}
+
++ (UIFont *) getFontBold
+{
+    return [UIFont fontWithName:CELL_FONT_BOLD size:FONT_SIZE];
 }
 
 -(void) layoutSubviews

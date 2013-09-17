@@ -11,10 +11,14 @@
 @interface HNCommentCell : UITableViewCell
 {
     NSNumber *nestedLevel;
+    
 }
 
 @property (nonatomic, strong) NSNumber *nestedLevel;
 
 + (CGFloat) calculateHeightWithString:(NSString *)cellText withIndentLevel:(NSNumber *)indentLevel;
++ (UIFont *) getFont;
++ (UIFont *) getFontItalic;
++ (UIFont *) getFontBold;
 
 @end
