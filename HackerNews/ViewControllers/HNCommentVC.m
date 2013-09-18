@@ -131,14 +131,21 @@
         
     }
     
-    /*
-     If the current element has a style type (underline, italics, etc) we set the end of the range
-     here
-     */
+    //Set any styles on the string
+    if (styleType) {
+        [self setStringStyle:blockString withStyle:styleType startPos:styleStringStart];
+    }
+    
+    return blockString;
+}
+
+- (void) setStringStyle:(NSMutableAttributedString *)blockString withStyle:(NSString *)styleType startPos:(int)startPos
+{
+    
     if (styleType)
     {
-        styleStringLen = [blockString length] - styleStringStart;
-        NSRange styleRange = NSMakeRange(styleStringStart, styleStringLen);
+        int styleStringLen = [blockString length] - startPos;
+        NSRange styleRange = NSMakeRange(startPos, styleStringLen);
         
         if ([styleType isEqualToString:@"a"])
         {
@@ -156,9 +163,7 @@
             [blockString addAttribute:NSFontAttributeName value:[HNCommentCell getFontBold] range:styleRange];
         }
     }
-    
-    
-    return blockString;
+
 }
 
 /*
