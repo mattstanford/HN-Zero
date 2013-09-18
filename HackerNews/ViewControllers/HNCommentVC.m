@@ -81,6 +81,7 @@
     
     //NSString *commentBlock = [self prepareCommentStringForCell:comment];
     
+    cell.nameLabel.text = comment.author;
     cell.textLabel.attributedText = [self convertToAttributedString:comment.commentBlock];// [comment getStringRepresentationOfBlocks];
     cell.nestedLevel = comment.nestedLevel;
  
@@ -103,7 +104,6 @@
 {
     NSMutableAttributedString *blockString = [[NSMutableAttributedString alloc] init];
     int styleStringStart = 0;
-    int styleStringLen = 0;
     NSString *styleType = nil;
     
     //This is a recursive funciton.  This is our base case.

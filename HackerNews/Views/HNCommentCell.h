@@ -12,9 +12,12 @@
 {
     NSNumber *nestedLevel;
     
+    UILabel *nameLabel;
+    
 }
 
 @property (nonatomic, strong) NSNumber *nestedLevel;
+@property (nonatomic, strong) UILabel *nameLabel;
 
 + (CGFloat) calculateHeightWithString:(NSString *)cellText withIndentLevel:(NSNumber *)indentLevel;
 + (UIFont *) getFont;
