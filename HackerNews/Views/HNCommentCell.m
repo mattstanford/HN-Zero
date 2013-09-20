@@ -76,7 +76,7 @@ static const int INDENT_PER_LEVEL = 20;
     CGFloat labelX = indentAmount;
     CGFloat labelY = nameLabelY + nameLabelHeight;
     CGFloat labelWidth = [HNCommentCell getLabelWidth:self.nestedLevel];
-    CGFloat labelHeight = self.frame.size.height - labelY - nameLabelHeight - BOTTOM_MARGIN;
+    CGFloat labelHeight = self.frame.size.height - labelY - BOTTOM_MARGIN;
     
     self.nameLabel.frame = CGRectMake(nameLabelX, nameLabelY, nameLabelWidth, nameLabelHeight);
     self.textLabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
