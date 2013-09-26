@@ -21,6 +21,7 @@
     
     UILabel *articleTitleLabel;
     UIView *commentView;
+    UILabel *numCommentsLabel;
     
     UITapGestureRecognizer *articleGR;
     UITapGestureRecognizer *commentGR;
@@ -39,6 +40,7 @@
 @property (nonatomic, assign) id<HNArticleCellDelegate> delegate;
 @property (strong, nonatomic) UILabel *articleTitleLabel;
 @property (strong, nonatomic) UIView *commentView;
+@property (strong, nonatomic) UILabel *numCommentsLabel;
 @property (strong, nonatomic) UITapGestureRecognizer *articleGR;
 @property (strong, nonatomic) UITapGestureRecognizer *commentGR;
 @property (assign, nonatomic) int topMargin;

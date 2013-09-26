@@ -22,7 +22,7 @@ static const CGFloat CELL_BOTTOM_MARGIN = 10;
 static const CGFloat CELL_LEFT_MARGIN = 10;
 static const CGFloat COMMENT_BUTTON_WIDTH = 100;
 
-@synthesize articles, webBrowserVC, commentVC, downloadController, cellFont;
+@synthesize articles, webBrowserVC, commentVC, downloadController, cellFont, numCommentsFont;
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC;
 {
@@ -38,6 +38,7 @@ static const CGFloat COMMENT_BUTTON_WIDTH = 100;
         downloadController.downloadDelegate = self;
         
         self.cellFont = [UIFont systemFontOfSize:14];
+        self.numCommentsFont = [UIFont systemFontOfSize:12];
         
     }
     return self;
@@ -160,12 +161,14 @@ static const CGFloat COMMENT_BUTTON_WIDTH = 100;
         cell = [[HNArticleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     HNArticle *article = [self.articles objectAtIndex:indexPath.row];
-    NSLog(@"comments: %@", article.numComments);
     cell.articleTitleLabel.text = article.title;
     cell.delegate = self;
     cell.tag = indexPath.row;
     
+    cell.numCommentsLabel.text = article.numComments;
+    
     cell.articleTitleLabel.font = self.cellFont;
+    cell.numCommentsLabel.font = self.numCommentsFont;
     cell.topMargin = CELL_TOP_MARGIN;
     cell.bottomMargin = CELL_BOTTOM_MARGIN;
     cell.leftMargin = CELL_LEFT_MARGIN;

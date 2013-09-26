@@ -10,7 +10,7 @@
 
 @implementation HNArticleCell
 
-@synthesize delegate, articleTitleLabel, commentView, articleGR, commentGR, topMargin, bottomMargin, leftMargin, commentButtonWidth;
+@synthesize delegate, articleTitleLabel, commentView, numCommentsLabel, articleGR, commentGR, topMargin, bottomMargin, leftMargin, commentButtonWidth;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -26,6 +26,11 @@
         articleTitleLabel.userInteractionEnabled = TRUE;
         
         commentView = [[UIView alloc] initWithFrame:CGRectZero];
+        
+        numCommentsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        numCommentsLabel.backgroundColor = [UIColor clearColor];
+        [numCommentsLabel setTextAlignment:UITextAlignmentCenter];
+        [commentView addSubview:numCommentsLabel];
         
         articleGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
         articleGR.delegate = self;
@@ -87,6 +92,9 @@
     
     [articleTitleLabel setFrame:CGRectMake(self.leftMargin, self.topMargin, articleLabelWidth, labelHeight)];
     [commentView setFrame:CGRectMake(articleLabelWidth, self.topMargin, commentViewWidth, labelHeight)];
+    
+    NSLog(@"layoutSubview: %@", numCommentsLabel.text);
+    [numCommentsLabel setFrame:CGRectMake(0, 0, commentView.frame.size.width, commentView.frame.size.height)];
     
 }
 
