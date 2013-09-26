@@ -29,6 +29,8 @@ static const CGFloat COMMENT_BUTTON_WIDTH = 100;
     self = [super initWithStyle:style];
     if (self) {
         
+        self.title = @"Hacker News";
+        
         webBrowserVC = webVC;
         commentVC = commVC;
         
@@ -115,8 +117,10 @@ static const CGFloat COMMENT_BUTTON_WIDTH = 100;
     
     if (index >= 0 && index <= [articles count])
     {
-        NSString *commentId = [[articles objectAtIndex:index] commentLinkId];
+        HNArticle *article = [articles objectAtIndex:index];
+        NSString *commentId = article.commentLinkId;
         self.commentVC.currentCommentId = commentId;
+        self.commentVC.title = article.title;
         [self.navigationController pushViewController:commentVC animated:YES];
     }
 }
@@ -181,6 +185,7 @@ static const CGFloat COMMENT_BUTTON_WIDTH = 100;
 {
     HNArticle *article = [self.articles objectAtIndex:indexPath.row];
     NSString *selectedUrl = article.url;
+    self.webBrowserVC.title = article.title;
     
     [self pushWebVCWithUrl:selectedUrl];
     

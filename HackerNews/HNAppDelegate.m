@@ -21,6 +21,7 @@
     articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:webBrowserVC andCommentVC:commentVC];
     
     navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
+    navController.navigationBar.tintColor = [UIColor orangeColor];
     [self.window setRootViewController:navController];
     
     self.window.backgroundColor = [UIColor whiteColor];
