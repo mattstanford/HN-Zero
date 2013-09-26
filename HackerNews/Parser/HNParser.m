@@ -187,8 +187,17 @@
 {
     NSString *commentPattern = @"\\b(\\d+) comments\\b";
     NSArray *anchors = [subTextElement childrenWithTagName:@"a"];
+    NSString *returnString = nil;
     
-    return [self getChildFromArray:anchors withRegex:commentPattern];
+    returnString = [self getChildFromArray:anchors withRegex:commentPattern];
+    
+    if (returnString) {
+        return returnString;
+    }
+    else
+    {
+        return @"0";
+    }
 }
 
 #pragma mark Helper functions

@@ -159,9 +159,9 @@ static const CGFloat COMMENT_BUTTON_WIDTH = 100;
     {
         cell = [[HNArticleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
-    NSString *articleText = [[self.articles objectAtIndex:indexPath.row] title];
-    cell.articleTitleLabel.text = articleText;
+    HNArticle *article = [self.articles objectAtIndex:indexPath.row];
+    NSLog(@"comments: %@", article.numComments);
+    cell.articleTitleLabel.text = article.title;
     cell.delegate = self;
     cell.tag = indexPath.row;
     
