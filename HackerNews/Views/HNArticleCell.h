@@ -27,6 +27,8 @@
     
     int topMargin;
     int bottomMargin;
+    int leftMargin;
+    int commentButtonWidth;
     
 }
 
@@ -41,5 +43,7 @@
 @property (strong, nonatomic) UITapGestureRecognizer *commentGR;
 @property (assign, nonatomic) int topMargin;
 @property (assign, nonatomic) int bottomMargin;
+@property (assign, nonatomic) int leftMargin;
+@property (assign, nonatomic) int commentButtonWidth;
 
 @end

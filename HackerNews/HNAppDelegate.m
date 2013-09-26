@@ -17,8 +17,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     webBrowserVC = [[HNWebBrowserVC alloc] init];
-    commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStyleGrouped];
-    articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStyleGrouped withWebBrowserVC:webBrowserVC andCommentVC:commentVC];
+    commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStylePlain];
+    articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:webBrowserVC andCommentVC:commentVC];
     
     navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
     [self.window setRootViewController:navController];

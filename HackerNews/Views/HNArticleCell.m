@@ -10,7 +10,7 @@
 
 @implementation HNArticleCell
 
-@synthesize delegate, articleTitleLabel, commentView, articleGR, commentGR, topMargin, bottomMargin;
+@synthesize delegate, articleTitleLabel, commentView, articleGR, commentGR, topMargin, bottomMargin, leftMargin, commentButtonWidth;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -42,7 +42,8 @@
         //These values should be set by the view controller
         self.topMargin = 0;
         self.bottomMargin = 0;
-        
+        self.leftMargin = 0;
+        self.commentButtonWidth = 0;
         
     }
     return self;
@@ -80,12 +81,12 @@
 - (void)layoutSubviews {
 	[super layoutSubviews];
     
-    CGFloat commentViewWidth = 100;
-    CGFloat articleViewWidth = self.frame.size.width - commentViewWidth;
+    CGFloat commentViewWidth = self.commentButtonWidth;
+    CGFloat articleLabelWidth = self.frame.size.width - commentViewWidth - self.leftMargin;
     CGFloat labelHeight = self.frame.size.height - self.topMargin - self.bottomMargin;
     
-    [articleTitleLabel setFrame:CGRectMake(0, self.topMargin, articleViewWidth, labelHeight)];
-    [commentView setFrame:CGRectMake(articleViewWidth, self.topMargin, commentViewWidth, labelHeight)];
+    [articleTitleLabel setFrame:CGRectMake(self.leftMargin, self.topMargin, articleLabelWidth, labelHeight)];
+    [commentView setFrame:CGRectMake(articleLabelWidth, self.topMargin, commentViewWidth, labelHeight)];
     
 }
 

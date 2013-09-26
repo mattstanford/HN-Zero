@@ -19,6 +19,8 @@
 
 static const CGFloat CELL_TOP_MARGIN = 10;
 static const CGFloat CELL_BOTTOM_MARGIN = 10;
+static const CGFloat CELL_LEFT_MARGIN = 10;
+static const CGFloat COMMENT_BUTTON_WIDTH = 100;
 
 @synthesize articles, webBrowserVC, commentVC, downloadController, cellFont;
 
@@ -141,7 +143,7 @@ static const CGFloat CELL_BOTTOM_MARGIN = 10;
 {
     NSString *articleText = [[self.articles objectAtIndex:indexPath.row] title];
 
-    CGSize constraint = CGSizeMake(self.view.frame.size.width, CGFLOAT_MAX);
+    CGSize constraint = CGSizeMake(self.view.frame.size.width - COMMENT_BUTTON_WIDTH, CGFLOAT_MAX);
     
     CGSize textSize = [articleText sizeWithFont:self.cellFont constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
     
@@ -166,6 +168,8 @@ static const CGFloat CELL_BOTTOM_MARGIN = 10;
     cell.articleTitleLabel.font = self.cellFont;
     cell.topMargin = CELL_TOP_MARGIN;
     cell.bottomMargin = CELL_BOTTOM_MARGIN;
+    cell.leftMargin = CELL_LEFT_MARGIN;
+    cell.commentButtonWidth = COMMENT_BUTTON_WIDTH;
     
     return cell;
 }
