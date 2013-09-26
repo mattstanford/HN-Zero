@@ -10,7 +10,8 @@
 
 @implementation HNArticleCell
 
-@synthesize delegate, articleTitleLabel, commentView, articleGR, commentGR;
+@synthesize delegate, articleTitleLabel, commentView, articleGR, commentGR, topMargin, bottomMargin;
+
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -21,6 +22,7 @@
         articleTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [articleTitleLabel setLineBreakMode:NSLineBreakByWordWrapping];
 		[articleTitleLabel setNumberOfLines:0];
+        articleTitleLabel.backgroundColor = [UIColor clearColor];
         articleTitleLabel.userInteractionEnabled = TRUE;
         
         commentView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -36,6 +38,11 @@
         
         [self addSubview:articleTitleLabel];
         [self addSubview:commentView];
+        
+        //These values should be set by the view controller
+        self.topMargin = 0;
+        self.bottomMargin = 0;
+        
         
     }
     return self;
@@ -75,10 +82,10 @@
     
     CGFloat commentViewWidth = 100;
     CGFloat articleViewWidth = self.frame.size.width - commentViewWidth;
-    CGFloat cellHeight = 40;
+    CGFloat labelHeight = self.frame.size.height - self.topMargin - self.bottomMargin;
     
-    [articleTitleLabel setFrame:CGRectMake(0, 0, articleViewWidth, cellHeight)];
-    [commentView setFrame:CGRectMake(articleViewWidth, 0, commentViewWidth, cellHeight)];
+    [articleTitleLabel setFrame:CGRectMake(0, self.topMargin, articleViewWidth, labelHeight)];
+    [commentView setFrame:CGRectMake(articleViewWidth, self.topMargin, commentViewWidth, labelHeight)];
     
 }
 

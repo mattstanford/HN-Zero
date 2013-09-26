@@ -18,6 +18,8 @@
     HNWebBrowserVC *webBrowserVC;
     HNCommentVC *commentVC;
     HNDownloadController *downloadController;
+    
+    UIFont *cellFont;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC;
@@ -28,5 +30,6 @@
 @property (strong, nonatomic) HNWebBrowserVC *webBrowserVC;
 @property (strong, nonatomic) HNCommentVC *commentVC;
 @property (strong, nonatomic) HNDownloadController *downloadController;
+@property (strong, nonatomic) UIFont *cellFont;
 
 @end

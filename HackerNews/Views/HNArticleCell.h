@@ -25,8 +25,12 @@
     UITapGestureRecognizer *articleGR;
     UITapGestureRecognizer *commentGR;
     
+    int topMargin;
+    int bottomMargin;
+    
 }
 
+//- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withFontSize:(int)fontSize;
 - (void) articleTapped:(UIGestureRecognizer *)recognizer;
 - (void) commentTapped:(UIGestureRecognizer *)recognizer;
 
@@ -35,5 +39,7 @@
 @property (strong, nonatomic) UIView *commentView;
 @property (strong, nonatomic) UITapGestureRecognizer *articleGR;
 @property (strong, nonatomic) UITapGestureRecognizer *commentGR;
+@property (assign, nonatomic) int topMargin;
+@property (assign, nonatomic) int bottomMargin;
 
 @end

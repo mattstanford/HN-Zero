@@ -17,7 +17,10 @@
 
 @implementation HNArticleListVC
 
-@synthesize articles, webBrowserVC, commentVC, downloadController;
+static const CGFloat CELL_TOP_MARGIN = 10;
+static const CGFloat CELL_BOTTOM_MARGIN = 10;
+
+@synthesize articles, webBrowserVC, commentVC, downloadController, cellFont;
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC;
 {
@@ -32,6 +35,7 @@
         downloadController = [[HNDownloadController alloc] initWithUrl:@"https://news.ycombinator.com"];
         downloadController.downloadDelegate = self;
         
+        self.cellFont = [UIFont systemFontOfSize:14];
         
     }
     return self;
@@ -129,8 +133,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"count: %d", [articles count]);
     return [articles count];
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *articleText = [[self.articles objectAtIndex:indexPath.row] title];
+
+    CGSize constraint = CGSizeMake(self.view.frame.size.width, CGFLOAT_MAX);
+    
+    CGSize textSize = [articleText sizeWithFont:self.cellFont constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+    
+    return textSize.height + CELL_TOP_MARGIN + CELL_BOTTOM_MARGIN;
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -146,6 +162,10 @@
     cell.articleTitleLabel.text = articleText;
     cell.delegate = self;
     cell.tag = indexPath.row;
+    
+    cell.articleTitleLabel.font = self.cellFont;
+    cell.topMargin = CELL_TOP_MARGIN;
+    cell.bottomMargin = CELL_BOTTOM_MARGIN;
     
     return cell;
 }
