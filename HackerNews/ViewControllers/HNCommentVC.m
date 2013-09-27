@@ -14,7 +14,16 @@
 
 @implementation HNCommentVC
 
-@synthesize downloadController, currentCommentId, comments;
+static const int FONT_SIZE = 12;
+static const CGFloat CELL_LEFT_MARGIN = 10;
+static const CGFloat CELL_RIGHT_MARGIN = 30;
+static const CGFloat CELL_TOP_MARGIN = 10;
+static const CGFloat CELL_BOTTOM_MARGIN = 10;
+static const CGFloat NAME_LABEL_HEIGHT = 20;
+
+static const int INDENT_PER_LEVEL = 20;
+
+@synthesize downloadController, currentCommentId, comments, normalFont, italicFont, boldFont, fontSize;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -25,7 +34,12 @@
         
         currentCommentId = @"0";
         
-        comments = [[NSArray alloc] init];
+        self.comments = [[NSArray alloc] init];
+        
+        self.fontSize = 12.0;
+        self.normalFont = [UIFont fontWithName:@"Helvetica" size:self.fontSize];
+        self.boldFont = [UIFont fontWithName:@"Helvetica-Bold" size:self.fontSize];
+        self.italicFont = [UIFont fontWithName:@"Helvetica-Oblique" size:self.fontSize];
         
     }
     return self;
@@ -79,13 +93,26 @@
     
     HNComment *comment = [comments objectAtIndex:[indexPath row]];
     
-    //NSString *commentBlock = [self prepareCommentStringForCell:comment];
+    cell.textLabel.font = self.normalFont;
+    cell.nameLabel.font = self.boldFont;
     
     cell.nameLabel.text = comment.author;
-    cell.textLabel.attributedText = [self convertToAttributedString:comment.commentBlock];// [comment getStringRepresentationOfBlocks];
+    cell.textLabel.attributedText = [self convertToAttributedString:comment.commentBlock];
     cell.nestedLevel = comment.nestedLevel;
- 
+    
+    cell.topMargin = CELL_TOP_MARGIN;
+    cell.bottomMargin = CELL_BOTTOM_MARGIN;
+    cell.leftMargin = CELL_LEFT_MARGIN;
+    cell.rightMargin = CELL_RIGHT_MARGIN;
+    cell.nameLabelHeight = NAME_LABEL_HEIGHT;
+    cell.indentPerLevel = INDENT_PER_LEVEL;
+    
     return cell;
+}
+
+- (CGFloat) getIndentWidth:(NSNumber *)level
+{
+    return INDENT_PER_LEVEL * [level floatValue];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -94,8 +121,14 @@
     
     NSString *commentBlock = [[self convertToAttributedString:comment.commentBlock] string];
     
-    return [HNCommentCell calculateHeightWithString:commentBlock withIndentLevel:[comment nestedLevel]];
+    //CGFloat labelWidth = [self getLabelWidth:indentLevel];
+    CGFloat labelWidth = self.view.frame.size.width - [self getIndentWidth:comment.nestedLevel] - CELL_LEFT_MARGIN - CELL_RIGHT_MARGIN;
     
+    CGSize constraint = CGSizeMake(labelWidth, CGFLOAT_MAX);
+    
+    CGSize commentSize = [commentBlock sizeWithFont:[UIFont systemFontOfSize:self.fontSize] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+    
+    return commentSize.height + NAME_LABEL_HEIGHT + CELL_BOTTOM_MARGIN + CELL_TOP_MARGIN;
 }
 
 #pragma mark Helper functions
@@ -156,11 +189,11 @@
         }
         else if([styleType isEqualToString:@"i"])
         {
-            [blockString addAttribute:NSFontAttributeName value:[HNCommentCell getFontItalic] range:styleRange];
+            [blockString addAttribute:NSFontAttributeName value:self.italicFont range:styleRange];
         }
         else if([styleType isEqualToString:@"b"])
         {
-            [blockString addAttribute:NSFontAttributeName value:[HNCommentCell getFontBold] range:styleRange];
+            [blockString addAttribute:NSFontAttributeName value:self.boldFont range:styleRange];
         }
     }
 

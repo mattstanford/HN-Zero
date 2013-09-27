@@ -10,7 +10,7 @@
 
 @implementation HNArticleCell
 
-@synthesize delegate, articleTitleLabel, commentView, numCommentsLabel, articleGR, commentGR, topMargin, bottomMargin, leftMargin, commentButtonWidth;
+@synthesize delegate, articleTitleLabel, commentView, numCommentsLabel, articleGR, commentGR,commentButtonWidth;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HNTableViewCell.h"
 
 @class HNArticleCell;
 
@@ -16,7 +17,7 @@
 -(void) didTapComment:(HNArticleCell *)cellTapped;
 @end
 
-@interface HNArticleCell : UITableViewCell <UIGestureRecognizerDelegate>
+@interface HNArticleCell : HNTableViewCell <UIGestureRecognizerDelegate>
 {
     
     UILabel *articleTitleLabel;
@@ -26,14 +27,10 @@
     UITapGestureRecognizer *articleGR;
     UITapGestureRecognizer *commentGR;
     
-    int topMargin;
-    int bottomMargin;
-    int leftMargin;
     int commentButtonWidth;
     
 }
 
-//- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withFontSize:(int)fontSize;
 - (void) articleTapped:(UIGestureRecognizer *)recognizer;
 - (void) commentTapped:(UIGestureRecognizer *)recognizer;
 
@@ -43,9 +40,7 @@
 @property (strong, nonatomic) UILabel *numCommentsLabel;
 @property (strong, nonatomic) UITapGestureRecognizer *articleGR;
 @property (strong, nonatomic) UITapGestureRecognizer *commentGR;
-@property (assign, nonatomic) int topMargin;
-@property (assign, nonatomic) int bottomMargin;
-@property (assign, nonatomic) int leftMargin;
+
 @property (assign, nonatomic) int commentButtonWidth;
 
 @end

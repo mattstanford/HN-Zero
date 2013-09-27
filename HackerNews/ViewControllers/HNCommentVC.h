@@ -14,10 +14,20 @@
     HNDownloadController *downloadController;
     NSString *currentCommentId;
     NSArray *comments;
+    
+    UIFont *normalFont;
+    UIFont *italicFont;
+    UIFont *boldFont;
+    CGFloat fontSize;
+    
 }
 
 @property (nonatomic, strong) HNDownloadController *downloadController;
 @property (nonatomic, strong) NSString *currentCommentId;
 @property (nonatomic, strong) NSArray *comments;
+@property (nonatomic, strong) UIFont *normalFont;
+@property (nonatomic, strong) UIFont *italicFont;
+@property (nonatomic, strong) UIFont *boldFont;
+@property (nonatomic, assign) CGFloat fontSize;
 
 @end
