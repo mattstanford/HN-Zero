@@ -37,6 +37,10 @@ static const CGFloat COMMENT_BUTTON_WIDTH = 100;
         articles = [[NSArray alloc] init];
         
         downloadController = [[HNDownloadController alloc] initWithUrl:@"https://news.ycombinator.com"];
+        
+        //This is an example of the site when there is a "black bar" on the header (i.e. a famous tech person died
+        //downloadController = [[HNDownloadController alloc] initWithUrl:@"http://www.waybackletter.com/archive/20111005.html"];
+        
         downloadController.downloadDelegate = self;
         
         self.cellFont = [UIFont systemFontOfSize:14];
