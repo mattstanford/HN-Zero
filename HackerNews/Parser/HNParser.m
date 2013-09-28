@@ -185,7 +185,7 @@
 
 + (NSString *) getNumberOfComments:(TFHppleElement *)subTextElement
 {
-    NSString *commentPattern = @"\\b(\\d+) comments\\b";
+    NSString *commentPattern = @"\\b(\\d+) comment.*\\b";
     NSArray *anchors = [subTextElement childrenWithTagName:@"a"];
     NSString *returnString = nil;
     
