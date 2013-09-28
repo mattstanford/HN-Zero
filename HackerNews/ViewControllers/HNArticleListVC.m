@@ -148,7 +148,7 @@ static const CGFloat COMMENT_BUTTON_WIDTH = 100;
 {
     NSString *articleText = [[self.articles objectAtIndex:indexPath.row] title];
 
-    CGSize constraint = CGSizeMake(self.view.frame.size.width - COMMENT_BUTTON_WIDTH, CGFLOAT_MAX);
+    CGSize constraint = CGSizeMake(self.view.frame.size.width - COMMENT_BUTTON_WIDTH - CELL_LEFT_MARGIN, CGFLOAT_MAX);
     
     CGSize textSize = [articleText sizeWithFont:self.cellFont constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
     
