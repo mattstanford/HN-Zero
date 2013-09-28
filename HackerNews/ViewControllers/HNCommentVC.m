@@ -14,7 +14,6 @@
 
 @implementation HNCommentVC
 
-static const int FONT_SIZE = 12;
 static const CGFloat CELL_LEFT_MARGIN = 10;
 static const CGFloat CELL_RIGHT_MARGIN = 30;
 static const CGFloat CELL_TOP_MARGIN = 10;
@@ -36,7 +35,7 @@ static const int INDENT_PER_LEVEL = 20;
         
         self.comments = [[NSArray alloc] init];
         
-        self.fontSize = 12.0;
+        self.fontSize = 14.0;
         self.normalFont = [UIFont fontWithName:@"Helvetica" size:self.fontSize];
         self.boldFont = [UIFont fontWithName:@"Helvetica-Bold" size:self.fontSize];
         self.italicFont = [UIFont fontWithName:@"Helvetica-Oblique" size:self.fontSize];
@@ -48,6 +47,14 @@ static const int INDENT_PER_LEVEL = 20;
 - (void) viewDidLoad
 {
     [self.tableView registerClass:[HNCommentCell class] forCellReuseIdentifier:@"Cell"];
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.comments = nil;
+    [self.tableView reloadData];
 }
 
 - (void) viewDidAppear:(BOOL)animated

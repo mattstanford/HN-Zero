@@ -17,7 +17,7 @@
     
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
     {
-        
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.nestedLevel = [[NSNumber alloc] initWithInt:0];
         
         [self.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
