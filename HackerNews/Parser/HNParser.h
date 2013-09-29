@@ -11,5 +11,6 @@
 @interface HNParser : NSObject
 
 + (NSArray *) parseArticles:(NSData *)htmlData;
++ (NSString *) getMatch:(NSString *)stringToMatch fromRegex:(NSString *)pattern;
 
 @end

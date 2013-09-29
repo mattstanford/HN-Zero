@@ -276,7 +276,7 @@
     
     NSTextCheckingResult *match = [regex firstMatchInString:stringToMatch options:0 range:NSMakeRange(0, [stringToMatch length])];
     
-    if ([match numberOfRanges] > 0) {
+    if ([match numberOfRanges] > 1) {
         result = [stringToMatch substringWithRange:[match rangeAtIndex:1]];
     }
     

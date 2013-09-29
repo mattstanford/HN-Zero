@@ -7,6 +7,7 @@
 //
 
 #import "HNCommentParser.h"
+#import "HNParser.h"
 #import "TFHpple.h"
 #import "HNComment.h"
 #import "HNCommentBlock.h"
@@ -178,9 +179,14 @@
 
 + (NSString *) getTimeStringFromComHeadElement:(TFHppleElement *)comheadElement
 {
+    NSString *timeString = nil;
     TFHppleElement *timeElement = [comheadElement firstTextChild];
     
-    return [timeElement content];
+    if (timeElement) {
+       timeString = [HNParser getMatch:[timeElement content] fromRegex:@"(\\d+ \\w+)"];
+    }
+    
+    return timeString;
 }
 
 + (HNCommentBlock *) getCommentBlockFromCommentElement:(TFHppleElement *)commentElement
@@ -192,26 +198,6 @@
     
     if (fontElement)
     {
-        /*
-        for (TFHppleElement *block in [fontElement children]) {
-            
-            NSString *blockContent = nil;
-                
-            if ([block content]) {
-                blockContent = [block content];
-            }
-            else if([block firstTextChild])
-            {
-                blockContent = [[block firstTextChild] content];
-            }
-                
-            if (blockContent) {
-                [mutableBlocks addObject:blockContent];
-            }
-            
-            [mutableBlocks addObject:[self getCommentBlockFromElement:block]];
-            
-        }*/
         
         commentBlock = [self getCommentBlockFromElement:fontElement];
         
