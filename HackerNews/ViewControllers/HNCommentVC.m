@@ -176,7 +176,7 @@ static const int INDENT_PER_LEVEL = 20;
     }
     
     //We are setting the child elements to have a specific style according to the parent tag here
-    if ([block.tagName isEqualToString:@"a"] || [block.tagName isEqualToString:@"i"] || [block.tagName isEqualToString:@"code"])
+    if ([block.tagName isEqualToString:@"a"] || [block.tagName isEqualToString:@"i"] || [block.tagName isEqualToString:@"b"] || [block.tagName isEqualToString:@"code"])
     {
         styleStringStart = [blockString length];
         styleType = block.tagName;
