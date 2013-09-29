@@ -20,7 +20,7 @@
 static const CGFloat CELL_TOP_MARGIN = 10;
 static const CGFloat CELL_BOTTOM_MARGIN = 10;
 static const CGFloat CELL_LEFT_MARGIN = 10;
-static const CGFloat COMMENT_BUTTON_WIDTH = 100;
+static const CGFloat COMMENT_BUTTON_WIDTH = 80;
 static const CGFloat ARTICLE_INFO_PADDING = 5;
 
 @synthesize articles, webBrowserVC, commentVC, downloadController, cellFont, infoFont, numCommentsFont;
@@ -45,7 +45,7 @@ static const CGFloat ARTICLE_INFO_PADDING = 5;
         downloadController.downloadDelegate = self;
         
         self.cellFont = [UIFont systemFontOfSize:14];
-        self.infoFont = [UIFont systemFontOfSize:10];
+        self.infoFont = [UIFont systemFontOfSize:12];
         self.numCommentsFont = [UIFont systemFontOfSize:12];
         
     }
@@ -97,7 +97,33 @@ static const CGFloat ARTICLE_INFO_PADDING = 5;
 
 - (NSString *) getInfoText:(HNArticle *)article
 {
-    return [NSString stringWithFormat:@"%@ - %@ - %@",article.score, article.user, article.domainName];
+    NSMutableString *infoString = [[NSMutableString alloc] init];
+    
+    if (article.score) {
+        [infoString appendFormat:@"%@", article.score];
+    }
+    
+    if (article.user) {
+        
+        if (infoString.length > 0)
+        {
+            [infoString appendFormat:@" - "];
+        }
+        
+        [infoString appendFormat:@"%@", article.user];
+        
+    }
+    
+    if (article.domainName) {
+        
+        if (infoString.length > 0) {
+            [infoString appendFormat:@" - "];
+        }
+        
+        [infoString appendFormat:@"%@", article.domainName];
+    }
+    
+    return infoString;
 }
 
 #pragma mark HNDownloadControllerDelegate
@@ -185,7 +211,7 @@ static const CGFloat ARTICLE_INFO_PADDING = 5;
     cell.numCommentsLabel.text = article.numComments;
     
     cell.articleTitleLabel.font = self.cellFont;
-    cell.infoLabel.font = self.cellFont;
+    cell.infoLabel.font = self.infoFont;
     cell.numCommentsLabel.font = self.numCommentsFont;
     cell.topMargin = CELL_TOP_MARGIN;
     cell.bottomMargin = CELL_BOTTOM_MARGIN;
