@@ -10,7 +10,7 @@
 
 @implementation HNArticleCell
 
-@synthesize delegate, articleTitleLabel, commentView, numCommentsLabel, articleGR, commentGR,commentButtonWidth;
+@synthesize delegate, articleTitleLabel, commentView, numCommentsLabel, infoLabel, articleGR, commentGR,commentButtonWidth, articleInfoPadding;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -24,6 +24,10 @@
 		[articleTitleLabel setNumberOfLines:0];
         articleTitleLabel.backgroundColor = [UIColor clearColor];
         articleTitleLabel.userInteractionEnabled = TRUE;
+        
+        infoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        infoLabel.backgroundColor = [UIColor clearColor];
+        infoLabel.textColor = [UIColor lightGrayColor];
         
         commentView = [[UIView alloc] initWithFrame:CGRectZero];
         
@@ -42,14 +46,9 @@
         
         
         [self addSubview:articleTitleLabel];
+        [self addSubview:infoLabel];
         [self addSubview:commentView];
-        
-        //These values should be set by the view controller
-        self.topMargin = 0;
-        self.bottomMargin = 0;
-        self.leftMargin = 0;
-        self.commentButtonWidth = 0;
-        
+
     }
     return self;
 }
@@ -83,17 +82,40 @@
 
 }
 
++ (CGFloat) getArticleLabelHeight:(NSString *)text withFont:(UIFont *)font forWidth:(CGFloat)width
+{
+    CGSize labelConstraint = CGSizeMake(width, CGFLOAT_MAX);
+    
+    return [text sizeWithFont:font constrainedToSize:labelConstraint lineBreakMode:NSLineBreakByWordWrapping].height;
+}
+
++ (CGFloat) getInfoLabelHeight:(NSString *)text withFont:(UIFont *)font forWidth:(CGFloat)width
+{
+    return [text sizeWithFont:font forWidth:width lineBreakMode:NSLineBreakByCharWrapping].height;
+}
+
 - (void)layoutSubviews {
 	[super layoutSubviews];
     
-    CGFloat commentViewWidth = self.commentButtonWidth;
-    CGFloat articleLabelWidth = self.frame.size.width - commentViewWidth - self.leftMargin;
-    CGFloat labelHeight = self.frame.size.height - self.topMargin - self.bottomMargin;
+    CGFloat labelWidth = self.frame.size.width - self.commentButtonWidth - self.leftMargin;
     
-    [articleTitleLabel setFrame:CGRectMake(self.leftMargin, self.topMargin, articleLabelWidth, labelHeight)];
-    [commentView setFrame:CGRectMake(articleLabelWidth, self.topMargin, commentViewWidth, labelHeight)];
     
-    NSLog(@"layoutSubview: %@", numCommentsLabel.text);
+    //CGFloat labelHeight = self.frame.size.height - self.topMargin - self.bottomMargin;
+    
+    //Article title label
+    CGFloat articleLabelHeight = [HNArticleCell getArticleLabelHeight:self.articleTitleLabel.text withFont:self.articleTitleLabel.font forWidth:labelWidth];
+    [articleTitleLabel setFrame:CGRectMake(self.leftMargin, self.topMargin, labelWidth, articleLabelHeight)];
+    
+    //Info label
+    CGFloat infoLabelHeight = [HNArticleCell getInfoLabelHeight:self.infoLabel.text withFont:self.infoLabel.font forWidth:labelWidth];
+    CGFloat infoLabelY = articleTitleLabel.frame.origin.y + articleLabelHeight + self.articleInfoPadding;
+    [infoLabel setFrame:CGRectMake(self.leftMargin, infoLabelY, labelWidth, infoLabelHeight)];
+    
+    //Comment View
+    CGFloat commentViewHeight = articleLabelHeight + infoLabelHeight + self.topMargin + self.bottomMargin;
+        [commentView setFrame:CGRectMake(labelWidth, self.topMargin, self.commentButtonWidth, commentViewHeight)];
+
+    //Num comments view
     [numCommentsLabel setFrame:CGRectMake(0, 0, commentView.frame.size.width, commentView.frame.size.height)];
     
 }

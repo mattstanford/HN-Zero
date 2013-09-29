@@ -21,8 +21,9 @@ static const CGFloat CELL_TOP_MARGIN = 10;
 static const CGFloat CELL_BOTTOM_MARGIN = 10;
 static const CGFloat CELL_LEFT_MARGIN = 10;
 static const CGFloat COMMENT_BUTTON_WIDTH = 100;
+static const CGFloat ARTICLE_INFO_PADDING = 5;
 
-@synthesize articles, webBrowserVC, commentVC, downloadController, cellFont, numCommentsFont;
+@synthesize articles, webBrowserVC, commentVC, downloadController, cellFont, infoFont, numCommentsFont;
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC;
 {
@@ -44,6 +45,7 @@ static const CGFloat COMMENT_BUTTON_WIDTH = 100;
         downloadController.downloadDelegate = self;
         
         self.cellFont = [UIFont systemFontOfSize:14];
+        self.infoFont = [UIFont systemFontOfSize:10];
         self.numCommentsFont = [UIFont systemFontOfSize:12];
         
     }
@@ -91,6 +93,11 @@ static const CGFloat COMMENT_BUTTON_WIDTH = 100;
 {
     [downloadController beginDownload];
     
+}
+
+- (NSString *) getInfoText:(HNArticle *)article
+{
+    return [NSString stringWithFormat:@"%@ - %@ - %@",article.score, article.user, article.domainName];
 }
 
 #pragma mark HNDownloadControllerDelegate
@@ -150,13 +157,14 @@ static const CGFloat COMMENT_BUTTON_WIDTH = 100;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *articleText = [[self.articles objectAtIndex:indexPath.row] title];
+    HNArticle *article = [self.articles objectAtIndex:indexPath.row];
 
-    CGSize constraint = CGSizeMake(self.view.frame.size.width - COMMENT_BUTTON_WIDTH - CELL_LEFT_MARGIN, CGFLOAT_MAX);
+    CGFloat articleWidth = self.view.frame.size.width - COMMENT_BUTTON_WIDTH - CELL_LEFT_MARGIN;
     
-    CGSize textSize = [articleText sizeWithFont:self.cellFont constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-    
-    return textSize.height + CELL_TOP_MARGIN + CELL_BOTTOM_MARGIN;
+    CGFloat articleTextHeight = [HNArticleCell getArticleLabelHeight:article.title withFont:self.cellFont forWidth:articleWidth];
+    CGFloat infoTextHeight = [HNArticleCell getInfoLabelHeight:[self getInfoText:article] withFont:self.cellFont forWidth:articleWidth];
+ 
+    return articleTextHeight + infoTextHeight + CELL_TOP_MARGIN + CELL_BOTTOM_MARGIN + ARTICLE_INFO_PADDING;
 
 }
 
@@ -170,17 +178,20 @@ static const CGFloat COMMENT_BUTTON_WIDTH = 100;
     }
     HNArticle *article = [self.articles objectAtIndex:indexPath.row];
     cell.articleTitleLabel.text = article.title;
+    cell.infoLabel.text = [self getInfoText:article];
     cell.delegate = self;
     cell.tag = indexPath.row;
     
     cell.numCommentsLabel.text = article.numComments;
     
     cell.articleTitleLabel.font = self.cellFont;
+    cell.infoLabel.font = self.cellFont;
     cell.numCommentsLabel.font = self.numCommentsFont;
     cell.topMargin = CELL_TOP_MARGIN;
     cell.bottomMargin = CELL_BOTTOM_MARGIN;
     cell.leftMargin = CELL_LEFT_MARGIN;
     cell.commentButtonWidth = COMMENT_BUTTON_WIDTH;
+    cell.articleInfoPadding = ARTICLE_INFO_PADDING;
     
     return cell;
 }

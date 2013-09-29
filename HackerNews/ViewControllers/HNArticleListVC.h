@@ -20,6 +20,7 @@
     HNDownloadController *downloadController;
     
     UIFont *cellFont;
+    UIFont *infoFont;
     UIFont *numCommentsFont;
 }
 
@@ -32,6 +33,7 @@
 @property (strong, nonatomic) HNCommentVC *commentVC;
 @property (strong, nonatomic) HNDownloadController *downloadController;
 @property (strong, nonatomic) UIFont *cellFont;
+@property (strong, nonatomic) UIFont *infoFont;
 @property (strong, nonatomic) UIFont *numCommentsFont;
 
 @end
