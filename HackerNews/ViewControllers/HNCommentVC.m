@@ -22,7 +22,7 @@ static const CGFloat NAME_LABEL_HEIGHT = 20;
 
 static const int INDENT_PER_LEVEL = 20;
 
-@synthesize downloadController, currentCommentId, comments, normalFont, italicFont, boldFont, fontSize;
+@synthesize downloadController, currentCommentId, comments, normalFont, italicFont, boldFont, codeFont, fontSize;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -39,6 +39,7 @@ static const int INDENT_PER_LEVEL = 20;
         self.normalFont = [UIFont fontWithName:@"Helvetica" size:self.fontSize];
         self.boldFont = [UIFont fontWithName:@"Helvetica-Bold" size:self.fontSize];
         self.italicFont = [UIFont fontWithName:@"Helvetica-Oblique" size:self.fontSize];
+        self.codeFont = [UIFont fontWithName:@"Courier" size:self.fontSize];
         
     }
     return self;
@@ -175,7 +176,7 @@ static const int INDENT_PER_LEVEL = 20;
     }
     
     //We are setting the child elements to have a specific style according to the parent tag here
-    if ([block.tagName isEqualToString:@"a"] || [block.tagName isEqualToString:@"i"])
+    if ([block.tagName isEqualToString:@"a"] || [block.tagName isEqualToString:@"i"] || [block.tagName isEqualToString:@"code"])
     {
         styleStringStart = [blockString length];
         styleType = block.tagName;
@@ -218,6 +219,10 @@ static const int INDENT_PER_LEVEL = 20;
         else if([styleType isEqualToString:@"b"])
         {
             [blockString addAttribute:NSFontAttributeName value:self.boldFont range:styleRange];
+        }
+        else if([styleType isEqualToString:@"code"])
+        {
+            [blockString addAttribute:NSFontAttributeName value:self.codeFont range:styleRange];
         }
     }
 

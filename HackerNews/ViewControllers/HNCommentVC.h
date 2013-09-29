@@ -18,6 +18,7 @@
     UIFont *normalFont;
     UIFont *italicFont;
     UIFont *boldFont;
+    UIFont *codeFont;
     CGFloat fontSize;
     
 }
@@ -28,6 +29,7 @@
 @property (nonatomic, strong) UIFont *normalFont;
 @property (nonatomic, strong) UIFont *italicFont;
 @property (nonatomic, strong) UIFont *boldFont;
+@property (nonatomic, strong) UIFont *codeFont;
 @property (nonatomic, assign) CGFloat fontSize;
 
 @end
