@@ -166,7 +166,15 @@
 
 + (NSString *) getScore:(TFHppleElement *) subTextElement
 {
-    return [self getGrandChildofElement:subTextElement firstTag:@"span" secondTag:@"text"];
+    NSString *returnString = nil;
+    NSString *scoreString = [self getGrandChildofElement:subTextElement firstTag:@"span" secondTag:@"text"];
+    
+    if (scoreString) {
+        //Only get the number from the string (we don't need the "points" word)
+        returnString = [self getMatch:scoreString fromRegex:@"(\\d+) points"];
+    }
+    
+    return returnString;
 }
 
 + (NSString *) getUser:(TFHppleElement *) subTextElement
