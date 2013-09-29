@@ -17,8 +17,8 @@
 
 @implementation HNArticleListVC
 
-static const CGFloat CELL_TOP_MARGIN = 10;
-static const CGFloat CELL_BOTTOM_MARGIN = 10;
+static const CGFloat CELL_TOP_MARGIN = 5;
+static const CGFloat CELL_BOTTOM_MARGIN = 5;
 static const CGFloat CELL_LEFT_MARGIN = 10;
 static const CGFloat COMMENT_BUTTON_WIDTH = 80;
 static const CGFloat ARTICLE_INFO_PADDING = 5;

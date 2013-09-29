@@ -158,7 +158,10 @@
 
 + (NSString *) getArticleDomain:(TFHppleElement *)titleElement
 {
-    return [self getGrandChildofElement:titleElement firstTag:@"span" secondTag:@"text"];
+    NSString *domainString = [self getGrandChildofElement:titleElement firstTag:@"span" secondTag:@"text"];
+    
+    //The domain name will be enclosed by parentheses.  We'll strip these off
+    return [domainString substringWithRange:NSMakeRange(2, domainString.length - 4)];
 }
 
 + (NSString *) getScore:(TFHppleElement *) subTextElement
