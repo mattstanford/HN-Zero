@@ -172,6 +172,11 @@
     
     if (anchorElement) {
         userName = [[anchorElement firstTextChild] content];
+        
+        //Case where user name is "green" indicating a low - score comment
+        if (userName == nil && [anchorElement firstChildWithTagName:@"font"]) {
+            userName = [[[anchorElement firstChildWithTagName:@"font"] firstTextChild] content];
+        }
     }
     
     return userName;
