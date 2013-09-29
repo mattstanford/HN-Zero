@@ -148,7 +148,16 @@ static const CGFloat ARTICLE_INFO_PADDING = 5;
 
 -(void) didTapArticle:(HNArticleCell *)cellTapped
 {
-    NSLog(@"article tapped!");
+    NSInteger index = [cellTapped tag];
+    
+    if (index >= 0 && index <= [articles count])
+    {
+        HNArticle *article = [articles objectAtIndex:index];
+        NSString *selectedUrl = article.url;
+        self.webBrowserVC.title = article.title;
+        
+        [self pushWebVCWithUrl:selectedUrl];
+    }
 }
 
 -(void) didTapComment:(HNArticleCell *)cellTapped
@@ -223,16 +232,6 @@ static const CGFloat ARTICLE_INFO_PADDING = 5;
     cell.articleInfoPadding = ARTICLE_INFO_PADDING;
     
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    HNArticle *article = [self.articles objectAtIndex:indexPath.row];
-    NSString *selectedUrl = article.url;
-    self.webBrowserVC.title = article.title;
-    
-    [self pushWebVCWithUrl:selectedUrl];
-    
 }
 
 @end

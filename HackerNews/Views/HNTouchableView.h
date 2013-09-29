@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class HNTouchableView;
+
 @protocol HNTouchableViewDelegate
 @required
--(void) viewDidTouchDown;
--(void) viewDidTouchUp;
--(void) viewDidCancelTouches;
+-(void) viewDidTouchDown:(HNTouchableView *)viewTouched;
+-(void) viewDidTouchUp:(HNTouchableView *)viewTouched;
+-(void) viewDidCancelTouches:(HNTouchableView *)viewTouched;
 @end
 
 @interface HNTouchableView : UIView

@@ -14,17 +14,17 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [viewDelegate viewDidTouchDown];
+    [viewDelegate viewDidTouchDown:self];
 }
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [viewDelegate viewDidCancelTouches];
+    [viewDelegate viewDidCancelTouches:self];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [viewDelegate viewDidTouchUp];
+    [viewDelegate viewDidTouchUp:self];
 }
 
 @end
