@@ -103,7 +103,7 @@ static const int INDENT_PER_LEVEL = 20;
     cell.textLabel.font = self.normalFont;
     cell.nameLabel.font = self.boldFont;
     
-    cell.nameLabel.text = comment.author;
+    cell.nameLabel.attributedText = [self getCommentHeaderWithUser:comment.author timeString:comment.dateWritten];
     cell.textLabel.attributedText = [self convertToAttributedString:comment.commentBlock];
     cell.nestedLevel = comment.nestedLevel;
     
@@ -117,10 +117,7 @@ static const int INDENT_PER_LEVEL = 20;
     return cell;
 }
 
-- (CGFloat) getIndentWidth:(NSNumber *)level
-{
-    return INDENT_PER_LEVEL * [level floatValue];
-}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -139,6 +136,26 @@ static const int INDENT_PER_LEVEL = 20;
 }
 
 #pragma mark Helper functions
+
+- (CGFloat) getIndentWidth:(NSNumber *)level
+{
+    return INDENT_PER_LEVEL * [level floatValue];
+}
+
+- (NSAttributedString *) getCommentHeaderWithUser:(NSString *)user timeString:(NSString *)timeString
+{
+    NSMutableAttributedString *headerString = nil;
+    NSString *baseString = [NSString stringWithFormat:@"%@ • %@", user, timeString];
+    
+    NSRange timeStringRange = NSMakeRange(baseString.length - timeString.length - 2, timeString.length + 2);
+    
+    headerString = [[NSMutableAttributedString alloc] initWithString:baseString];
+    [headerString addAttribute:NSFontAttributeName value:self.boldFont range:NSMakeRange(0, user.length)];
+    [headerString addAttribute:NSFontAttributeName value:self.normalFont range:timeStringRange];
+    [headerString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:timeStringRange];
+    
+    return headerString;
+}
 
 - (NSAttributedString *) convertToAttributedString:(HNCommentBlock *)block
 {

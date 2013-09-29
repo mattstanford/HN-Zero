@@ -182,8 +182,14 @@
     NSString *timeString = nil;
     TFHppleElement *timeElement = [comheadElement firstTextChild];
     
-    if (timeElement) {
-       timeString = [HNParser getMatch:[timeElement content] fromRegex:@"(\\d+ \\w+)"];
+    if (timeElement)
+    {
+        /*
+        Format of the time string should be the number of days, hours, etc, followed by
+        the first letter of the unit.  So "8 minutes" would be "8m"
+        */
+        NSString *matchedString = [HNParser getMatch:[timeElement content] fromRegex:@"(\\d+ \\w)"];
+        timeString = [matchedString stringByReplacingOccurrencesOfString:@" " withString:@""];
     }
     
     return timeString;
