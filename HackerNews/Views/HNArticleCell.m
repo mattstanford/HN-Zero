@@ -10,7 +10,7 @@
 
 @implementation HNArticleCell
 
-@synthesize delegate, articleTitleLabel, commentView, numCommentsLabel, infoLabel, articleGR, commentGR,commentButtonWidth, articleInfoPadding;
+@synthesize delegate, articleTitleLabel, commentView, numCommentsLabel, infoLabel, articleGR,commentButtonWidth, articleInfoPadding;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -29,7 +29,8 @@
         infoLabel.backgroundColor = [UIColor clearColor];
         infoLabel.textColor = [UIColor lightGrayColor];
         
-        commentView = [[UIView alloc] initWithFrame:CGRectZero];
+        commentView = [[HNTouchableView alloc] initWithFrame:CGRectZero];
+        commentView.viewDelegate = self;
         
         numCommentsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         numCommentsLabel.backgroundColor = [UIColor clearColor];
@@ -39,11 +40,6 @@
         articleGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:nil];
         articleGR.delegate = self;
         [articleTitleLabel addGestureRecognizer:articleGR];
-        
-        commentGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentTapped:)];
-        commentGR.delegate = self;
-        [commentView addGestureRecognizer:commentGR];
-        
         
         [self addSubview:articleTitleLabel];
         [self addSubview:infoLabel];
@@ -118,6 +114,24 @@
     //Num comments view
     [numCommentsLabel setFrame:CGRectMake(0, 0, commentView.frame.size.width, commentView.frame.size.height)];
     
+}
+
+#pragma mark HNTouchableView delegate
+
+-(void) viewDidTouchDown
+{
+    commentView.backgroundColor = [UIColor lightGrayColor];
+}
+
+-(void) viewDidTouchUp
+{
+    [delegate didTapComment:self];
+    commentView.backgroundColor = [UIColor clearColor];
+}
+
+-(void) viewDidCancelTouches
+{
+    commentView.backgroundColor = [UIColor clearColor];
 }
 
 

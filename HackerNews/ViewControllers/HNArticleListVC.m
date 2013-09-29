@@ -32,6 +32,9 @@ static const CGFloat ARTICLE_INFO_PADDING = 5;
         
         self.title = @"Hacker News";
         
+        //Set this so custom "HNTouchableView" won't have delays when calling "touchesBegan"
+        self.tableView.delaysContentTouches = NO;
+        
         webBrowserVC = webVC;
         commentVC = commVC;
         
