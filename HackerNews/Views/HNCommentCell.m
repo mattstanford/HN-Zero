@@ -10,7 +10,7 @@
 
 @implementation HNCommentCell
 
-@synthesize nestedLevel, nameLabel, nameLabelHeight, indentPerLevel;
+@synthesize nestedLevel, nameLabel, nameLabelHeight, indentPerLevel, maxIndentWidth;
 
 
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -36,7 +36,7 @@
 {
     [super layoutSubviews];
     
-    CGFloat indentAmount = [self getIndentWidth:self.nestedLevel] + self.leftMargin;
+    CGFloat indentAmount = [HNCommentCell getIndentWidth:self.nestedLevel perLevel:self.indentPerLevel maxWidth:self.maxIndentWidth] + self.leftMargin;
     
     
     CGFloat nameLabelX = indentAmount;
@@ -53,14 +53,35 @@
 
 }
 
-- (CGFloat) getIndentWidth:(NSNumber *)level
++ (CGFloat) getIndentWidth:(NSNumber *)level perLevel:(CGFloat)indentPerLevel maxWidth:(CGFloat)maxWidth
 {
-    return self.indentPerLevel * [level floatValue];
+    CGFloat indentWidth = indentPerLevel * [level floatValue];
+    
+    //If over max width, make it the closest indent level to the max
+    if (indentWidth > maxWidth)
+    {
+        int overFlowLevels = [HNCommentCell getOverflowIndentLevels:level perLevel:indentPerLevel maxWidth:maxWidth];
+        
+        indentWidth = indentWidth - (overFlowLevels * indentPerLevel);
+    }
+        
+    return indentWidth;
+}
+
++ (int) getOverflowIndentLevels:(NSNumber *)level perLevel:(CGFloat)indentPerLevel maxWidth:(CGFloat)maxWidth
+{
+    CGFloat indentWidth = indentPerLevel * [level floatValue];
+    
+    CGFloat overflow = indentWidth - maxWidth;
+    int overflowLevels = ceilf(overflow / indentPerLevel);
+    
+    return overflowLevels;
 }
 
 - (CGFloat) getLabelWidth:(NSNumber *)indentLevel
 {
-    return self.frame.size.width - [self getIndentWidth:indentLevel] - self.leftMargin - self.rightMargin;
+    CGFloat indentWidth = [HNCommentCell getIndentWidth:self.nestedLevel perLevel:self.indentPerLevel maxWidth:self.maxIndentWidth];
+    return self.frame.size.width - indentWidth - self.leftMargin - self.rightMargin;
 }
 
 

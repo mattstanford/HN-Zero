@@ -123,14 +123,15 @@
 		782784C717C9814500CAD559 /* HackerNews */ = {
 			isa = PBXGroup;
 			children = (
-				78E4076F17D3D1F600DC8CE0 /* Models */,
-				78E4077117D3D22200DC8CE0 /* Views */,
-				78E4077017D3D1FE00DC8CE0 /* ViewControllers */,
 				78E570D117D8181600D53F99 /* Controllers */,
-				78393F9D17E026030003017F /* Parser */,
-				782784C817C9814500CAD559 /* Supporting Files */,
 				782784D017C9814500CAD559 /* HNAppDelegate.h */,
 				782784D117C9814500CAD559 /* HNAppDelegate.m */,
+				78E4076F17D3D1F600DC8CE0 /* Models */,
+				78393F9D17E026030003017F /* Parser */,
+				78EAD07B17F8CF970023287A /* Resources */,
+				782784C817C9814500CAD559 /* Supporting Files */,
+				78E4077017D3D1FE00DC8CE0 /* ViewControllers */,
+				78E4077117D3D22200DC8CE0 /* Views */,
 			);
 			path = HackerNews;
 			sourceTree = "<group>";
@@ -208,6 +209,13 @@
 				78E570CE17D817FB00D53F99 /* HNDownloadController.m */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		78EAD07B17F8CF970023287A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

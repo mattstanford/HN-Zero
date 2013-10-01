@@ -21,6 +21,7 @@ static const CGFloat CELL_BOTTOM_MARGIN = 10;
 static const CGFloat NAME_LABEL_HEIGHT = 20;
 
 static const int INDENT_PER_LEVEL = 20;
+static const int MAX_INDENT_WIDTH = 80;
 
 @synthesize downloadController, currentCommentId, comments, normalFont, italicFont, boldFont, codeFont, fontSize;
 
@@ -104,7 +105,7 @@ static const int INDENT_PER_LEVEL = 20;
     cell.textLabel.font = self.normalFont;
     cell.nameLabel.font = self.boldFont;
     
-    cell.nameLabel.attributedText = [self getCommentHeaderWithUser:comment.author timeString:comment.dateWritten];
+    cell.nameLabel.attributedText = [self getCommentHeader:comment];
     cell.textLabel.attributedText = [self convertToAttributedString:comment.commentBlock];
     cell.nestedLevel = comment.nestedLevel;
     
@@ -114,6 +115,7 @@ static const int INDENT_PER_LEVEL = 20;
     cell.rightMargin = CELL_RIGHT_MARGIN;
     cell.nameLabelHeight = NAME_LABEL_HEIGHT;
     cell.indentPerLevel = INDENT_PER_LEVEL;
+    cell.maxIndentWidth = MAX_INDENT_WIDTH;
     
     return cell;
 }
@@ -126,8 +128,8 @@ static const int INDENT_PER_LEVEL = 20;
     
     NSString *commentBlock = [[self convertToAttributedString:comment.commentBlock] string];
     
-    //CGFloat labelWidth = [self getLabelWidth:indentLevel];
-    CGFloat labelWidth = self.view.frame.size.width - [self getIndentWidth:comment.nestedLevel] - CELL_LEFT_MARGIN - CELL_RIGHT_MARGIN;
+    CGFloat indentWidth = [HNCommentCell getIndentWidth:comment.nestedLevel perLevel:INDENT_PER_LEVEL maxWidth:MAX_INDENT_WIDTH];
+    CGFloat labelWidth = self.view.frame.size.width - indentWidth - CELL_LEFT_MARGIN - CELL_RIGHT_MARGIN;
     
     CGSize constraint = CGSizeMake(labelWidth, CGFLOAT_MAX);
     
@@ -143,15 +145,35 @@ static const int INDENT_PER_LEVEL = 20;
     return INDENT_PER_LEVEL * [level floatValue];
 }
 
-- (NSAttributedString *) getCommentHeaderWithUser:(NSString *)user timeString:(NSString *)timeString
+- (NSString *) getOverflowIndentString:(HNComment *)comment
 {
-    NSMutableAttributedString *headerString = nil;
-    NSString *baseString = [NSString stringWithFormat:@"%@ • %@", user, timeString];
+    NSMutableString *overflowString = [[NSMutableString alloc] initWithCapacity:0];
+    int overflowLevels = [HNCommentCell getOverflowIndentLevels:comment.nestedLevel perLevel:INDENT_PER_LEVEL maxWidth:MAX_INDENT_WIDTH];
     
+    for (int i=0; i < overflowLevels; i++)
+    {
+        [overflowString appendString:@"• "];
+    }
+    
+    return overflowString;
+                                       
+}
+
+- (NSAttributedString *) getCommentHeader:(HNComment *)comment;
+{    
+    NSMutableAttributedString *headerString = nil;
+    
+    NSString *user = comment.author;
+    NSString *timeString = comment.dateWritten;
+    
+    NSString *indentOverflowString = [self getOverflowIndentString:comment];
+    NSString *baseString = [NSString stringWithFormat:@"%@%@ • %@", indentOverflowString, user, timeString];
+    
+    NSRange userStringRange = NSMakeRange(indentOverflowString.length +1, user.length);
     NSRange timeStringRange = NSMakeRange(baseString.length - timeString.length - 2, timeString.length + 2);
     
     headerString = [[NSMutableAttributedString alloc] initWithString:baseString];
-    [headerString addAttribute:NSFontAttributeName value:self.boldFont range:NSMakeRange(0, user.length)];
+    [headerString addAttribute:NSFontAttributeName value:self.boldFont range:userStringRange];
     [headerString addAttribute:NSFontAttributeName value:self.normalFont range:timeStringRange];
     [headerString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:timeStringRange];
     

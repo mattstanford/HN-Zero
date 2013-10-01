@@ -14,6 +14,7 @@
     NSNumber *nestedLevel;
     CGFloat nameLabelHeight;
     CGFloat indentPerLevel;
+    CGFloat maxIndentWidth;
     
     UILabel *nameLabel;
     
@@ -23,7 +24,9 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, assign) CGFloat nameLabelHeight;
 @property (nonatomic, assign) CGFloat indentPerLevel;
+@property (nonatomic, assign) CGFloat maxIndentWidth;
 
-//+ (CGFloat) calculateHeightWithString:(NSString *)cellText withIndentLevel:(NSNumber *)indentLevel;
++ (CGFloat) getIndentWidth:(NSNumber *)level perLevel:(CGFloat)indentPerLevel maxWidth:(CGFloat)minWidth;
++ (int) getOverflowIndentLevels:(NSNumber *)level perLevel:(CGFloat)indentPerLevel maxWidth:(CGFloat)maxWidth;
 
 @end
