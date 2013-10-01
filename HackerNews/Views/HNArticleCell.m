@@ -98,7 +98,7 @@
 
 -(void) viewDidTouchDown:(HNTouchableView *)viewTouched
 {
-    UIColor *highlightColor = [UIColor orangeColor];
+    UIColor *highlightColor = [UIColor colorWithRed:1.0 green:0.647 blue:0 alpha:0.15];
     
     if (viewTouched == self.commentView)
     {
