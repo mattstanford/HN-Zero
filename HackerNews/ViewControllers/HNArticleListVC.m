@@ -102,11 +102,24 @@ static const CGFloat ARTICLE_INFO_PADDING = 5;
 {
     NSMutableString *infoString = [[NSMutableString alloc] init];
     
-    if (article.score) {
+    if (article.score)
+    {
         [infoString appendFormat:@"%@ points", article.score];
     }
     
-    if (article.domainName) {
+    if (article.timePosted)
+    {
+        
+        if (infoString.length > 0)
+        {
+            [infoString appendFormat:@" • "];
+        }
+        
+        [infoString appendString:article.timePosted];
+    }
+    
+    if (article.domainName)
+    {
         
         if (infoString.length > 0)
         {
@@ -117,9 +130,11 @@ static const CGFloat ARTICLE_INFO_PADDING = 5;
         
     }
     
-    if (article.user) {
+    if (article.user)
+    {
         
-        if (infoString.length > 0) {
+        if (infoString.length > 0)
+        {
             [infoString appendFormat:@" • "];
         }
         
