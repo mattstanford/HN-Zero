@@ -49,6 +49,7 @@
                     article.score = [self getScore:subtextDataElement];
                     article.numComments = [self getNumberOfComments:subtextDataElement];
                     article.commentLinkId = [self getCommentPageId:subtextDataElement];
+                    article.timePosted = [self getTimePosted:subtextDataElement];
                 
                     [articles addObject:article];
                     
@@ -209,6 +210,24 @@
     {
         return @"0";
     }
+}
+
++ (NSString *)getTimePosted:(TFHppleElement *)subTextElement
+{
+    NSString *timePosted = nil;
+    NSString *timePattern = @"(\\d+ .+) ago";
+    
+    NSArray *textElements = [subTextElement childrenWithTagName:@"text"];
+    
+    for (TFHppleElement *textElement in textElements)
+    {
+        timePosted = [self getMatch:textElement.content fromRegex:timePattern];
+        
+        if (timePosted) break;
+    }
+    
+    return timePosted;
+    
 }
 
 #pragma mark Helper functions

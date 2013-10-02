@@ -15,7 +15,7 @@
     NSString *domainName;
     NSString *score;
     NSString *user;
-    NSNumber *timePosted;
+    NSString *timePosted;
     NSString *numComments;
     NSString *commentLinkId;
 }
@@ -25,7 +25,7 @@
 @property (nonatomic, strong) NSString *domainName;
 @property (nonatomic, strong) NSString *score;
 @property (nonatomic, strong) NSString *user;
-@property (nonatomic, strong) NSNumber *timePosted;
+@property (nonatomic, strong) NSString *timePosted;
 @property (nonatomic, strong) NSString *numComments;
 @property (nonatomic, strong) NSString *commentLinkId;
 
