@@ -17,12 +17,6 @@
 
 @implementation HNArticleListVC
 
-static const CGFloat CELL_TOP_MARGIN = 5;
-static const CGFloat CELL_BOTTOM_MARGIN = 5;
-static const CGFloat CELL_LEFT_MARGIN = 10;
-static const CGFloat COMMENT_BUTTON_WIDTH = 80;
-static const CGFloat ARTICLE_INFO_PADDING = 5;
-
 @synthesize articles, webBrowserVC, commentVC, downloadController, cellFont, infoFont, numCommentsFont;
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC;
@@ -211,13 +205,9 @@ static const CGFloat ARTICLE_INFO_PADDING = 5;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HNArticle *article = [self.articles objectAtIndex:indexPath.row];
-
-    CGFloat articleWidth = self.view.frame.size.width - COMMENT_BUTTON_WIDTH - CELL_LEFT_MARGIN;
+    NSString *infoText = [self getInfoText:article];
     
-    CGFloat articleTextHeight = [HNArticleCell getArticleLabelHeight:article.title withFont:self.cellFont forWidth:articleWidth];
-    CGFloat infoTextHeight = [HNArticleCell getInfoLabelHeight:[self getInfoText:article] withFont:self.cellFont forWidth:articleWidth];
- 
-    return articleTextHeight + infoTextHeight + CELL_TOP_MARGIN + CELL_BOTTOM_MARGIN + ARTICLE_INFO_PADDING;
+    return [HNArticleCell getCellHeightForWidth:self.view.frame.size.width withArticleTitle:article.title withInfoText:infoText withTitleFont:self.cellFont withInfoFont:self.infoFont];
 
 }
 
@@ -240,12 +230,7 @@ static const CGFloat ARTICLE_INFO_PADDING = 5;
     cell.articleTitleLabel.font = self.cellFont;
     cell.infoLabel.font = self.infoFont;
     cell.numCommentsLabel.font = self.numCommentsFont;
-    cell.topMargin = CELL_TOP_MARGIN;
-    cell.bottomMargin = CELL_BOTTOM_MARGIN;
-    cell.leftMargin = CELL_LEFT_MARGIN;
-    cell.commentButtonWidth = COMMENT_BUTTON_WIDTH;
-    cell.articleInfoPadding = ARTICLE_INFO_PADDING;
-    
+        
     return cell;
 }
 

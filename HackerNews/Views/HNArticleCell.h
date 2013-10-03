@@ -18,7 +18,7 @@
 -(void) didTapComment:(HNArticleCell *)cellTapped;
 @end
 
-@interface HNArticleCell : HNTableViewCell <HNTouchableViewDelegate>
+@interface HNArticleCell : UITableViewCell <HNTouchableViewDelegate>
 {
     HNTouchableView *articleView;
     UILabel *articleTitleLabel;
@@ -27,13 +27,14 @@
     HNTouchableView *commentView;
     UILabel *numCommentsLabel;
     
-    int commentButtonWidth;
-    CGFloat articleInfoPadding;
+   // int commentButtonWidth;
+   // CGFloat articleInfoPadding;
     
 }
 
 + (CGFloat) getArticleLabelHeight:(NSString *)text withFont:(UIFont *)font forWidth:(CGFloat)width;
 + (CGFloat) getInfoLabelHeight:(NSString *)text withFont:(UIFont *)font forWidth:(CGFloat)width;
++ (CGFloat) getCellHeightForWidth:(CGFloat)cellWidth withArticleTitle:(NSString *)title withInfoText:(NSString *)infoText withTitleFont:(UIFont *)cellFont withInfoFont:(UIFont *)infoFont;
 
 @property (nonatomic, assign) id<HNArticleCellDelegate> delegate;
 @property (strong, nonatomic) HNTouchableView *articleView;
@@ -42,7 +43,7 @@
 @property (strong, nonatomic) UILabel *numCommentsLabel;
 @property (strong, nonatomic) UILabel *infoLabel;
 
-@property (assign, nonatomic) int commentButtonWidth;
-@property (assign, nonatomic) CGFloat articleInfoPadding;
+//@property (assign, nonatomic) int commentButtonWidth;
+//@property (assign, nonatomic) CGFloat articleInfoPadding;
 
 @end
