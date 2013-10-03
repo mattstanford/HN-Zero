@@ -14,15 +14,6 @@
 
 @implementation HNCommentVC
 
-static const CGFloat CELL_LEFT_MARGIN = 10;
-static const CGFloat CELL_RIGHT_MARGIN = 30;
-static const CGFloat CELL_TOP_MARGIN = 10;
-static const CGFloat CELL_BOTTOM_MARGIN = 10;
-static const CGFloat NAME_LABEL_HEIGHT = 20;
-
-static const int INDENT_PER_LEVEL = 20;
-static const int MAX_INDENT_WIDTH = 80;
-
 @synthesize downloadController, currentCommentId, comments, normalFont, italicFont, boldFont, codeFont, fontSize;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -109,14 +100,6 @@ static const int MAX_INDENT_WIDTH = 80;
     cell.textLabel.attributedText = [self convertToAttributedString:comment.commentBlock];
     cell.nestedLevel = comment.nestedLevel;
     
-    cell.topMargin = CELL_TOP_MARGIN;
-    cell.bottomMargin = CELL_BOTTOM_MARGIN;
-    cell.leftMargin = CELL_LEFT_MARGIN;
-    cell.rightMargin = CELL_RIGHT_MARGIN;
-    cell.nameLabelHeight = NAME_LABEL_HEIGHT;
-    cell.indentPerLevel = INDENT_PER_LEVEL;
-    cell.maxIndentWidth = MAX_INDENT_WIDTH;
-    
     return cell;
 }
 
@@ -127,28 +110,17 @@ static const int MAX_INDENT_WIDTH = 80;
     HNComment *comment = [comments objectAtIndex:[indexPath row]];
     
     NSString *commentBlock = [[self convertToAttributedString:comment.commentBlock] string];
+
     
-    CGFloat indentWidth = [HNCommentCell getIndentWidth:comment.nestedLevel perLevel:INDENT_PER_LEVEL maxWidth:MAX_INDENT_WIDTH];
-    CGFloat labelWidth = self.view.frame.size.width - indentWidth - CELL_LEFT_MARGIN - CELL_RIGHT_MARGIN;
-    
-    CGSize constraint = CGSizeMake(labelWidth, CGFLOAT_MAX);
-    
-    CGSize commentSize = [commentBlock sizeWithFont:[UIFont systemFontOfSize:self.fontSize] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-    
-    return commentSize.height + NAME_LABEL_HEIGHT + CELL_BOTTOM_MARGIN + CELL_TOP_MARGIN;
+    return [HNCommentCell getCellHeightForText:commentBlock width:self.view.frame.size.width nestLevel:comment.nestedLevel withFont:self.normalFont];
 }
 
 #pragma mark Helper functions
 
-- (CGFloat) getIndentWidth:(NSNumber *)level
-{
-    return INDENT_PER_LEVEL * [level floatValue];
-}
-
 - (NSString *) getOverflowIndentString:(HNComment *)comment
 {
     NSMutableString *overflowString = [[NSMutableString alloc] initWithCapacity:0];
-    int overflowLevels = [HNCommentCell getOverflowIndentLevels:comment.nestedLevel perLevel:INDENT_PER_LEVEL maxWidth:MAX_INDENT_WIDTH];
+    int overflowLevels = [HNCommentCell getOverflowIndentLevels:comment.nestedLevel];
     
     for (int i=0; i < overflowLevels; i++)
     {

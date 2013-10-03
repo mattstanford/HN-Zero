@@ -9,24 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "HNTableViewCell.h"
 
-@interface HNCommentCell : HNTableViewCell
+@interface HNCommentCell : UITableViewCell
 {
-    NSNumber *nestedLevel;
-    CGFloat nameLabelHeight;
-    CGFloat indentPerLevel;
-    CGFloat maxIndentWidth;
-    
+    NSNumber *nestedLevel;    
     UILabel *nameLabel;
-    
 }
 
 @property (nonatomic, strong) NSNumber *nestedLevel;
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, assign) CGFloat nameLabelHeight;
-@property (nonatomic, assign) CGFloat indentPerLevel;
-@property (nonatomic, assign) CGFloat maxIndentWidth;
 
-+ (CGFloat) getIndentWidth:(NSNumber *)level perLevel:(CGFloat)indentPerLevel maxWidth:(CGFloat)minWidth;
-+ (int) getOverflowIndentLevels:(NSNumber *)level perLevel:(CGFloat)indentPerLevel maxWidth:(CGFloat)maxWidth;
++ (CGFloat) getIndentWidth:(NSNumber *)level;
++ (int) getOverflowIndentLevels:(NSNumber *)level;
++ (CGFloat) getCellHeightForText:(NSString *)text width:(CGFloat)cellWidth nestLevel:(NSNumber *)nestedLevel withFont:(UIFont *)cellFont;
 
 @end
