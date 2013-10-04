@@ -10,4 +10,6 @@
 
 @implementation HNTheme
 
+@synthesize commentNormalFont, commentBoldFont, commentItalicFont, commentCodeFont, commentFontSize;
+
 @end
