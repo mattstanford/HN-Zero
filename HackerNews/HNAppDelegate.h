@@ -14,6 +14,7 @@
 @class HNArticleListVC;
 @class HNWebBrowserVC;
 @class HNCommentVC;
+@class HNTheme;
 
 @interface HNAppDelegate : UIResponder <UIApplicationDelegate>
 {    
@@ -22,6 +23,7 @@
     HNArticleListVC *articleListVC;
     HNWebBrowserVC *webBrowserVC;
     HNCommentVC *commentVC;
+    HNTheme *theme;
     
 }
 
@@ -30,5 +32,6 @@
 @property (strong, nonatomic) HNArticleListVC *articleListVC;
 @property (strong, nonatomic) HNWebBrowserVC *webBrowserVC;
 @property (strong, nonatomic) HNCommentVC *commentVC;
+@property (strong, nonatomic) HNTheme *theme;
 
 @end

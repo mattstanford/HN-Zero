@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class HNCommentBlock;
+@class HNTheme;
 
 @interface HNComment : NSObject
 {
@@ -23,5 +24,9 @@
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) NSString *dateWritten;
 @property (nonatomic, strong) NSNumber *nestedLevel;
+
+- (NSAttributedString *) getCommentHeaderWithTheme:(HNTheme *)theme;
+- (NSAttributedString *) convertToAttributedString:(HNCommentBlock *)block withTheme:(HNTheme *)theme;
+
 
 @end

@@ -9,27 +9,21 @@
 #import <UIKit/UIKit.h>
 #import "HNDownloadController.h"
 
+@class HNTheme;
+
 @interface HNCommentVC : UITableViewController <downloadControllerDelegate>
 {
     HNDownloadController *downloadController;
     NSString *currentCommentId;
     NSArray *comments;
-    
-    UIFont *normalFont;
-    UIFont *italicFont;
-    UIFont *boldFont;
-    UIFont *codeFont;
-    CGFloat fontSize;
-    
+    HNTheme *theme;
 }
 
 @property (nonatomic, strong) HNDownloadController *downloadController;
 @property (nonatomic, strong) NSString *currentCommentId;
 @property (nonatomic, strong) NSArray *comments;
-@property (nonatomic, strong) UIFont *normalFont;
-@property (nonatomic, strong) UIFont *italicFont;
-@property (nonatomic, strong) UIFont *boldFont;
-@property (nonatomic, strong) UIFont *codeFont;
-@property (nonatomic, assign) CGFloat fontSize;
+@property (nonatomic, strong) HNTheme *theme;
+
+- (id)initWithStyle:(UITableViewStyle)style withTheme:(HNTheme *)appTheme;
 
 @end

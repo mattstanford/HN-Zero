@@ -7,17 +7,21 @@
 //
 
 #import "HNAppDelegate.h"
+#import "HNTheme.h"
 
 @implementation HNAppDelegate
 
-@synthesize window, navController, articleListVC, webBrowserVC, commentVC;
+@synthesize window, navController, articleListVC, webBrowserVC, commentVC, theme;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    self.theme = [[HNTheme alloc] init];
+    [self setDefaultTheme:self.theme];
+    
     webBrowserVC = [[HNWebBrowserVC alloc] init];
-    commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStylePlain];
+    commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStylePlain withTheme:self.theme];
     articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:webBrowserVC andCommentVC:commentVC];
     
     navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
@@ -27,6 +31,18 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void) setDefaultTheme:(HNTheme *)appTheme
+{
+    CGFloat defaultFontSize = 14.0;
+    
+    appTheme.commentFontSize = defaultFontSize;
+    appTheme.commentNormalFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
+    appTheme.commentBoldFont = [UIFont fontWithName:@"Helvetica-Bold" size:defaultFontSize];
+    appTheme.commentItalicFont = [UIFont fontWithName:@"Helvetica-Oblique" size:defaultFontSize];
+    appTheme.commentCodeFont = [UIFont fontWithName:@"Courier" size:defaultFontSize];
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
