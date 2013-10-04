@@ -50,6 +50,11 @@
     return headerString;
 }
 
+- (NSAttributedString *) convertToAttributedStringWithTheme:(HNTheme *)theme
+{
+    return [self convertToAttributedString:self.commentBlock withTheme:theme];
+}
+
 - (NSAttributedString *) convertToAttributedString:(HNCommentBlock *)block withTheme:(HNTheme *)theme
 {
     NSMutableAttributedString *blockString = [[NSMutableAttributedString alloc] init];

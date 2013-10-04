@@ -94,7 +94,7 @@
     cell.nameLabel.font = self.theme.commentBoldFont;
 
     cell.nameLabel.attributedText = [comment getCommentHeaderWithTheme:self.theme];
-    cell.textLabel.attributedText = [comment convertToAttributedString:comment.commentBlock withTheme:self.theme];
+    cell.textLabel.attributedText = [comment convertToAttributedStringWithTheme:self.theme];
     cell.nestedLevel = comment.nestedLevel;
     
     return cell;
@@ -106,7 +106,7 @@
 {
     HNComment *comment = [comments objectAtIndex:[indexPath row]];
     
-    NSString *commentBlock = [[comment convertToAttributedString:comment.commentBlock withTheme:self.theme] string];
+    NSString *commentBlock = [[comment convertToAttributedStringWithTheme:self.theme] string];
     
     return [HNCommentCell getCellHeightForText:commentBlock width:self.view.frame.size.width nestLevel:comment.nestedLevel withFont:self.theme.commentNormalFont];
 }

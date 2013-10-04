@@ -26,7 +26,7 @@
 @property (nonatomic, strong) NSNumber *nestedLevel;
 
 - (NSAttributedString *) getCommentHeaderWithTheme:(HNTheme *)theme;
-- (NSAttributedString *) convertToAttributedString:(HNCommentBlock *)block withTheme:(HNTheme *)theme;
+- (NSAttributedString *) convertToAttributedStringWithTheme:(HNTheme *)theme;
 
 
 @end
