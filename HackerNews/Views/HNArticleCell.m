@@ -10,13 +10,14 @@
 
 @implementation HNArticleCell
 
-@synthesize delegate, articleView, articleTitleLabel, commentView, numCommentsLabel, infoLabel;
+@synthesize delegate, articleView, articleTitleLabel, commentView, numCommentsLabel, commentBubbleIcon, infoLabel;
 
 static const CGFloat CELL_TOP_MARGIN = 5;
 static const CGFloat CELL_BOTTOM_MARGIN = 5;
 static const CGFloat CELL_LEFT_MARGIN = 10;
-static const CGFloat COMMENT_BUTTON_WIDTH = 80;
+static const CGFloat COMMENT_BUTTON_WIDTH = 50;
 static const CGFloat ARTICLE_INFO_PADDING = 5;
+static const CGFloat COMMENT_BUBBLE_SIZE = 15;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -41,6 +42,10 @@ static const CGFloat ARTICLE_INFO_PADDING = 5;
         
         commentView = [[HNTouchableView alloc] initWithFrame:CGRectZero];
         commentView.viewDelegate = self;
+        
+        commentBubbleIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chat.png"]];
+        commentBubbleIcon.contentMode = UIViewContentModeScaleAspectFit;
+        [commentView addSubview:commentBubbleIcon];
         
         numCommentsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         numCommentsLabel.backgroundColor = [UIColor clearColor];
@@ -106,10 +111,16 @@ static const CGFloat ARTICLE_INFO_PADDING = 5;
 
     
     //Comment View
-    [commentView setFrame:CGRectMake(labelWidth, 0, COMMENT_BUTTON_WIDTH, self.frame.size.height)];
+     [commentView setFrame:CGRectMake(CELL_LEFT_MARGIN + labelWidth, 0, COMMENT_BUTTON_WIDTH, self.frame.size.height)];
+    
+    CGSize maxNumCommentsSize = CGSizeMake(commentView.frame.size.width, CGFLOAT_MAX);
+    CGSize numCommentsSize = [numCommentsLabel sizeThatFits:maxNumCommentsSize];
+    [numCommentsLabel setFrame:CGRectMake(0, 0, commentView.frame.size.width, numCommentsSize.height)];
+    
+    CGFloat commentBubbleX = (commentView.frame.size.width / 2) - (COMMENT_BUBBLE_SIZE / 2);
+    CGFloat commentBubbleY = numCommentsLabel.frame.origin.y + numCommentsLabel.frame.size.height;
+    [commentBubbleIcon setFrame:CGRectMake(commentBubbleX, commentBubbleY, COMMENT_BUBBLE_SIZE, COMMENT_BUBBLE_SIZE)];
 
-    //Num comments view
-    [numCommentsLabel setFrame:CGRectMake(0, 0, commentView.frame.size.width, commentView.frame.size.height)];
     
 }
 

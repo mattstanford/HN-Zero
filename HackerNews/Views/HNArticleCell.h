@@ -25,6 +25,7 @@
     UILabel *infoLabel;
     
     HNTouchableView *commentView;
+    UIImageView *commentBubbleIcon;
     UILabel *numCommentsLabel;
     
    // int commentButtonWidth;
@@ -40,6 +41,7 @@
 @property (strong, nonatomic) HNTouchableView *articleView;
 @property (strong, nonatomic) UILabel *articleTitleLabel;
 @property (strong, nonatomic) HNTouchableView *commentView;
+@property (strong, nonatomic) UIImageView *commentBubbleIcon;
 @property (strong, nonatomic) UILabel *numCommentsLabel;
 @property (strong, nonatomic) UILabel *infoLabel;
 
