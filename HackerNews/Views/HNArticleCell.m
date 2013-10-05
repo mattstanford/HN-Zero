@@ -97,7 +97,7 @@ static const CGFloat COMMENT_BUBBLE_SIZE = 15;
     
     CGFloat labelWidth = [HNArticleCell getLabelWidth:self.frame.size.width];
     //Article view (contains article title and info view)
-    [articleView setFrame:CGRectMake(0, 0, labelWidth, self.frame.size.height)];
+    [articleView setFrame:CGRectMake(0, 0, labelWidth + CELL_LEFT_MARGIN, self.frame.size.height)];
     
     //Article title label
     CGFloat articleLabelHeight = [HNArticleCell getArticleLabelHeight:self.articleTitleLabel.text withFont:self.articleTitleLabel.font forWidth:labelWidth];
