@@ -7,7 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HNArticleListVC.h"
+
+@class HNArticle;
+@class HNWebBrowserVC;
+@class HNCommentVC;
 
 @interface HNArticleContainerVC : UIViewController
+{
+    HNWebBrowserVC *articleVC;
+    HNCommentVC *commentsVC;
+    HNArticle *currentArticle;
+}
+
+@property (nonatomic, strong) HNWebBrowserVC *articleVC;
+@property (nonatomic, strong) HNCommentVC *commentsVC;
+@property (nonatomic, weak) UIViewController *currentVC;
+@property (nonatomic, strong) HNArticle *currentArticle;
+
+-(id) initWithArticleVC:(HNWebBrowserVC *)theArticleVC andCommentsVC:(HNCommentVC *)theCommentsVC;
+-(void) didTapArticle:(HNArticle *)article;
+-(void) didTapCommentForArticle:(HNArticle *)article;
 
 @end
