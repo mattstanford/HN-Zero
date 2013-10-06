@@ -75,6 +75,8 @@
 
     if (animated) {
         
+        newVc.view.frame = oldVc.view.bounds;
+        
         [self transitionFromViewController:oldVc
                           toViewController:newVc
                                   duration:0.5
@@ -98,7 +100,7 @@
 
 -(void) showViewController:(UIViewController *)vc
 {
-    vc.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    vc.view.frame = self.view.bounds;
     [self.view addSubview:vc.view];
     
 }
