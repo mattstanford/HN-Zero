@@ -160,7 +160,7 @@
     if (index >= 0 && index <= [articles count])
     {
         HNArticle *article = [articles objectAtIndex:index];
-        [articleContainerVC didTapArticle:article];
+        [articleContainerVC doPresentArticle:article];
 
         [self.navigationController pushViewController:articleContainerVC animated:YES];
 
@@ -175,7 +175,7 @@
     {
         HNArticle *article = [articles objectAtIndex:index];
 
-        [articleContainerVC didTapCommentForArticle:article];        
+        [articleContainerVC doPresentCommentForArticle:article];
         [self.navigationController pushViewController:articleContainerVC animated:YES];
         
     }

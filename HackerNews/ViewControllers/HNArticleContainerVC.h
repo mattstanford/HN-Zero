@@ -26,7 +26,7 @@
 @property (nonatomic, strong) HNArticle *currentArticle;
 
 -(id) initWithArticleVC:(HNWebBrowserVC *)theArticleVC andCommentsVC:(HNCommentVC *)theCommentsVC;
--(void) didTapArticle:(HNArticle *)article;
--(void) didTapCommentForArticle:(HNArticle *)article;
+-(void) doPresentArticle:(HNArticle *)article;
+-(void) doPresentCommentForArticle:(HNArticle *)article;
 
 @end

@@ -105,7 +105,7 @@
     
 }
 
--(void) didTapArticle:(HNArticle *)article
+-(void) doPresentArticle:(HNArticle *)article
 {
     self.currentArticle = article;
     
@@ -119,7 +119,7 @@
     
 }
 
--(void) didTapCommentForArticle:(HNArticle *)article
+-(void) doPresentCommentForArticle:(HNArticle *)article
 {
     self.currentArticle = article;
     
