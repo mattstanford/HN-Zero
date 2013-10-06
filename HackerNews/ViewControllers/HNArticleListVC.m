@@ -10,16 +10,13 @@
 #import "AFHTTPRequestOperation.h"
 #import "HNParser.h"
 #import "HNArticle.h"
-
-@interface HNArticleListVC ()
-
-@end
+#import "HNArticleContainerVC.h"
 
 @implementation HNArticleListVC
 
-@synthesize articles, webBrowserVC, commentVC, downloadController, cellFont, infoFont, numCommentsFont;
+@synthesize articles, webBrowserVC, commentVC, downloadController, cellFont, infoFont, numCommentsFont, articleContainerVC;
 
-- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC;
+- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -31,6 +28,7 @@
         
         webBrowserVC = webVC;
         commentVC = commVC;
+        articleContainerVC = articleContainer;
         
         articles = [[NSArray alloc] init];
         
@@ -162,10 +160,10 @@
     if (index >= 0 && index <= [articles count])
     {
         HNArticle *article = [articles objectAtIndex:index];
-        NSString *selectedUrl = article.url;
-        self.webBrowserVC.title = article.title;
-        
-        [self pushWebVCWithUrl:selectedUrl];
+        [articleContainerVC didTapArticle:article];
+
+        [self.navigationController pushViewController:articleContainerVC animated:YES];
+
     }
 }
 
@@ -176,17 +174,11 @@
     if (index >= 0 && index <= [articles count])
     {
         HNArticle *article = [articles objectAtIndex:index];
-        NSString *commentId = article.commentLinkId;
-        self.commentVC.currentCommentId = commentId;
-        self.commentVC.title = article.title;
-        [self.navigationController pushViewController:commentVC animated:YES];
-    }
-}
 
--(void) pushWebVCWithUrl:(NSString *)url
-{
-    [webBrowserVC setURL:url];
-    [self.navigationController pushViewController:webBrowserVC animated:YES];
+        [articleContainerVC didTapCommentForArticle:article];        
+        [self.navigationController pushViewController:articleContainerVC animated:YES];
+        
+    }
 }
 
 #pragma mark - Table view data source

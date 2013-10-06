@@ -12,23 +12,27 @@
 #import "HNArticleCell.h"
 #import "HNCommentVC.h"
 
+@class HNArticleContainerVC;
+
 @interface HNArticleListVC : UITableViewController  <downloadControllerDelegate, HNArticleCellDelegate>
 {
     NSArray *articles;
     HNWebBrowserVC *webBrowserVC;
     HNCommentVC *commentVC;
     HNDownloadController *downloadController;
+    HNArticleContainerVC *articleContainerVC;
     
     UIFont *cellFont;
     UIFont *infoFont;
     UIFont *numCommentsFont;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC;
+- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer;
 - (void) downloadFrontPageArticles;
 - (void) reloadButtonPressed;
 
 @property (strong, nonatomic) NSArray *articles;
+@property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;
 @property (strong, nonatomic) HNWebBrowserVC *webBrowserVC;
 @property (strong, nonatomic) HNCommentVC *commentVC;
 @property (strong, nonatomic) HNDownloadController *downloadController;

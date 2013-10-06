@@ -8,10 +8,11 @@
 
 #import "HNAppDelegate.h"
 #import "HNTheme.h"
+#import "HNArticleContainerVC.h"
 
 @implementation HNAppDelegate
 
-@synthesize window, navController, articleListVC, webBrowserVC, commentVC, theme;
+@synthesize window, navController, articleListVC, webBrowserVC, commentVC, theme, articleContainerVC;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -20,13 +21,17 @@
     self.theme = [[HNTheme alloc] init];
     [self setDefaultTheme:self.theme];
     
-    webBrowserVC = [[HNWebBrowserVC alloc] init];
-    commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStylePlain withTheme:self.theme];
-    articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:webBrowserVC andCommentVC:commentVC];
+    self.webBrowserVC = [[HNWebBrowserVC alloc] init];
+    self.commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStylePlain withTheme:self.theme];
     
-    navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
-    navController.navigationBar.tintColor = [UIColor orangeColor];
-    [self.window setRootViewController:navController];
+    self.articleContainerVC = [[HNArticleContainerVC alloc] initWithArticleVC:self.webBrowserVC andCommentsVC:self.commentVC];
+    
+    //self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC];
+    self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:articleContainerVC];
+    
+    self.navController = [[UINavigationController alloc] initWithRootViewController:self.articleListVC];
+    self.navController.navigationBar.tintColor = [UIColor orangeColor];
+    [self.window setRootViewController:self.navController];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

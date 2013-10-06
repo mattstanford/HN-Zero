@@ -189,14 +189,14 @@
 		78E4077017D3D1FE00DC8CE0 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				789CC10D1800CA63004BB8E7 /* HNArticleContainerVC.h */,
+				789CC10E1800CA63004BB8E7 /* HNArticleContainerVC.m */,
 				78E4076217D04B4400DC8CE0 /* HNArticleListVC.h */,
 				78E4076317D04B4400DC8CE0 /* HNArticleListVC.m */,
 				78393F9A17E01C0B0003017F /* HNCommentVC.h */,
 				78393F9B17E01C0B0003017F /* HNCommentVC.m */,
 				78E4076617D278B100DC8CE0 /* HNWebBrowserVC.h */,
 				78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */,
-				789CC10D1800CA63004BB8E7 /* HNArticleContainerVC.h */,
-				789CC10E1800CA63004BB8E7 /* HNArticleContainerVC.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
