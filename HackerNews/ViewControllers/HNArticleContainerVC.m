@@ -84,6 +84,8 @@
         [oldVc.view removeFromSuperview];
         newVc.view.frame = self.view.frame;
         [self.view addSubview:newVc.view];
+        
+        self.currentVC = newVc;
     }
     
 }
