@@ -23,8 +23,6 @@
         self.articleVC = theArticleVC;
         self.commentsVC = theCommentsVC;
         
-        [self addChildViewController:self.articleVC];
-        [self addChildViewController:self.commentsVC];
     
     }
     return self;
@@ -34,6 +32,13 @@
 
 -(void) viewDidLoad
 {
+    
+    [self addChildViewController:self.articleVC];
+    [self addChildViewController:self.commentsVC];
+    
+    [self.articleVC didMoveToParentViewController:self];
+    [self.commentsVC didMoveToParentViewController:self];
+    
     UIBarButtonItem *swapButton = [[UIBarButtonItem alloc]
                                      initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                      target:self
@@ -74,7 +79,9 @@
                           toViewController:newVc
                                   duration:0.5
                                    options:UIViewAnimationOptionTransitionCrossDissolve
-                                animations:nil
+                                animations:^{
+                                    
+                                }
                                 completion:^(BOOL finished) {
                                     self.currentVC = newVc;
                                 }];
@@ -82,8 +89,7 @@
     else
     {
         [oldVc.view removeFromSuperview];
-        newVc.view.frame = self.view.frame;
-        [self.view addSubview:newVc.view];
+        [self showViewController:newVc];
         
         self.currentVC = newVc;
     }
@@ -92,10 +98,9 @@
 
 -(void) showViewController:(UIViewController *)vc
 {
-    vc.view.frame = self.view.frame;
+    vc.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [self.view addSubview:vc.view];
     
-    [vc didMoveToParentViewController:self];
 }
 
 -(void) didTapArticle:(HNArticle *)article
