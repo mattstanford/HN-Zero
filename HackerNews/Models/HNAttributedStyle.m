@@ -10,15 +10,14 @@
 
 @implementation HNAttributedStyle
 
-@synthesize styleType, value, range;
+@synthesize styleType, range;
 
--(id) initWithStyleType:(NSString *)theStyleType value:(NSObject *)theValue range:(NSRange)theRange
+-(id) initWithStyleType:(HNSTYLETYPE)theStyleType range:(NSRange)theRange
 {
     self = [super init];
-    if (self) {
-        
+    if (self)
+    {
         self.styleType = theStyleType;
-        self.value = theValue;
         self.range = theRange;
     }
     

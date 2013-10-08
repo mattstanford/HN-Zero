@@ -55,13 +55,13 @@
 - (NSAttributedString *) convertToAttributedStringWithTheme:(HNTheme *)theme
 {
     
-    HNCommentString *commentString = [self convertToCommentString:self.commentBlock withTheme:theme];
+    HNCommentString *commentString = [self convertToCommentString:self.commentBlock];
     
     return [commentString getAttributedStringWithTheme:theme];
 }
 
 
-- (HNCommentString *) convertToCommentString:(HNCommentBlock *)block withTheme:(HNTheme *)theme
+- (HNCommentString *) convertToCommentString:(HNCommentBlock *)block
 {
     HNCommentString *commentString = [[HNCommentString alloc] init];
     int styleStringStart = 0;
@@ -92,14 +92,13 @@
     //Recurse this function until we get to the base case (tag="text")
     for (HNCommentBlock *child in block.childBlocks)
     {
-        //[blockString appendAttributedString:[self convertToAttributedString:child withTheme:theme]];
-        [commentString appendCommentString:[self convertToCommentString:child withTheme:theme]];
+        [commentString appendCommentString:[self convertToCommentString:child]];
     }
     
     //Set any styles on the string
     if (styleType) {
         int styleStringLen = commentString.text.length - styleStringStart;
-        NSMutableArray *styles = [self getStylesForType:styleType startPos:styleStringStart length:styleStringLen withTheme:theme];
+        NSMutableArray *styles = [self getStylesForType:styleType startPos:styleStringStart length:styleStringLen];
         
         [commentString.styles addObjectsFromArray:styles];
     }
@@ -107,7 +106,7 @@
     return commentString;
 }
 
-- (NSMutableArray *) getStylesForType:(NSString *)styleType startPos:(int)startPos length:(int)styleStringLen withTheme:(HNTheme *)theme
+- (NSMutableArray *) getStylesForType:(NSString *)styleType startPos:(int)startPos length:(int)styleStringLen
 {
     NSMutableArray *stringStyles = [[NSMutableArray alloc] initWithCapacity:0];
     
@@ -117,26 +116,22 @@
         
         if ([styleType isEqualToString:@"a"])
         {
-            //Add blue color to link
-            HNAttributedStyle *colorStyle = [[HNAttributedStyle alloc] initWithStyleType:NSForegroundColorAttributeName value:[UIColor blueColor] range:styleRange];
-            [stringStyles addObject:colorStyle];
-            //Underline too
-            HNAttributedStyle *underLineStyle = [[HNAttributedStyle alloc] initWithStyleType:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:styleRange];
-            [stringStyles addObject:underLineStyle];
+            HNAttributedStyle *linkStyle = [[HNAttributedStyle alloc] initWithStyleType:HNSTYLE_LINK range:styleRange];
+            [stringStyles addObject:linkStyle];
         }
         else if([styleType isEqualToString:@"i"])
         {
-            HNAttributedStyle *italicStyle = [[HNAttributedStyle alloc] initWithStyleType:NSFontAttributeName value:theme.commentItalicFont range:styleRange];
+            HNAttributedStyle *italicStyle = [[HNAttributedStyle alloc] initWithStyleType:HNSTYLE_ITALIC range:styleRange];
             [stringStyles addObject:italicStyle];
         }
         else if([styleType isEqualToString:@"b"])
         {
-            HNAttributedStyle *boldStyle = [[HNAttributedStyle alloc] initWithStyleType:NSFontAttributeName value:theme.commentBoldFont range:styleRange];
+            HNAttributedStyle *boldStyle = [[HNAttributedStyle alloc] initWithStyleType:HNSTYLE_BOLD range:styleRange];
             [stringStyles addObject:boldStyle];
         }
         else if([styleType isEqualToString:@"code"])
         {
-            HNAttributedStyle *codeStyle = [[HNAttributedStyle alloc] initWithStyleType:NSFontAttributeName value:theme.commentCodeFont range:styleRange];
+            HNAttributedStyle *codeStyle = [[HNAttributedStyle alloc] initWithStyleType:HNSTYLE_CODE range:styleRange];
             [stringStyles addObject:codeStyle];
 
         }

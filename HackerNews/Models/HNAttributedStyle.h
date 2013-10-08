@@ -8,16 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HNAttributedStyle : NSObject
-{
-    NSString *styleType;
-    NSObject *value;
-}
+typedef enum {
+    
+    HNSTYLE_LINK,
+    HNSTYLE_ITALIC,
+    HNSTYLE_BOLD,
+    HNSTYLE_CODE
+    
+} HNSTYLETYPE;
 
-@property (nonatomic, strong) NSString *styleType;
-@property (nonatomic, strong) NSObject *value;
+@interface HNAttributedStyle : NSObject
+
+@property (nonatomic, assign) HNSTYLETYPE styleType;
 @property (nonatomic, assign) NSRange range;
 
--(id) initWithStyleType:(NSString *)theStyleType value:(NSObject *)theValue range:(NSRange)theRange;
+-(id) initWithStyleType:(HNSTYLETYPE)theStyleType range:(NSRange)theRange;
 
 @end

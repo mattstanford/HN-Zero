@@ -61,7 +61,7 @@
         int newStartPos = self.text.length + style.range.location;
         NSRange newRange = NSMakeRange(newStartPos, style.range.length);
         
-        HNAttributedStyle *newStyle = [[HNAttributedStyle alloc] initWithStyleType:style.styleType value:style.value range:newRange];
+        HNAttributedStyle *newStyle = [[HNAttributedStyle alloc] initWithStyleType:style.styleType range:newRange];
         
         [stylesToAdd addObject:newStyle];
         
@@ -77,8 +77,9 @@
     
     for (HNAttributedStyle *style in self.styles)
     {
-        if (style.range.location + style.range.length <= string.length) {
-            [string addAttribute:style.styleType value:style.value range:style.range];
+        if (style.range.location + style.range.length <= string.length)
+        {
+            [self applyStyle:style toAttributedString:string withTheme:theme];
         }
         else
         {
@@ -87,6 +88,31 @@
     }
     
     return string;
+}
+
+-(void) applyStyle:(HNAttributedStyle *)style toAttributedString:(NSMutableAttributedString *)string withTheme:(HNTheme *)theme
+{
+    
+    switch (style.styleType) {
+        case HNSTYLE_BOLD:
+            [string addAttribute:NSFontAttributeName value:theme.commentBoldFont range:style.range];
+            break;
+            
+        case HNSTYLE_ITALIC:
+            [string addAttribute:NSFontAttributeName value:theme.commentItalicFont range:style.range];
+            break;
+            
+        case HNSTYLE_CODE:
+            [string addAttribute:NSFontAttributeName value:theme.commentCodeFont range:style.range];
+            break;
+            
+        case HNSTYLE_LINK:
+            [string addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:style.range];
+            [string addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:style.range];
+            break;
+            
+    }
+    
 }
 
 @end
