@@ -119,9 +119,9 @@
 
 #pragma mark TTTAttributedLabel functions
 
--(void) attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithAddress:(NSDictionary *)addressComponents
+-(void) attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url
 {
-    NSLog(@"tapped link!!");
+    NSLog(@"tapped link at %@", [url absoluteString]);
 }
 
 #pragma mark Helper functions
@@ -132,7 +132,6 @@
     
     for (HNAttributedStyle *link in links)
     {
-        NSLog(@"adding link");
         [label addLinkToURL:[NSURL URLWithString:@"http://test.com"] withRange:link.range];
     }
 }

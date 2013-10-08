@@ -35,6 +35,7 @@ static const int MAX_INDENT_WIDTH = 80;
         contentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         [contentLabel setNumberOfLines:0];
         [contentLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        contentLabel.userInteractionEnabled = TRUE;
         [self.contentView addSubview:self.contentLabel];
         
         
