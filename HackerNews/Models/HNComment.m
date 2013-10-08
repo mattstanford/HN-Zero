@@ -113,7 +113,6 @@
     
     if (styleType)
     {
-        //int styleStringLen = [blockString length] - startPos;
         NSRange styleRange = NSMakeRange(startPos, styleStringLen);
         
         if ([styleType isEqualToString:@"a"])

@@ -21,7 +21,6 @@
 
 -(id) initWithString:(NSString *)theString styles:(NSArray *)theStyles;
 -(void) appendCommentString:(HNCommentString *)commentString;
--(void) appendStyles:(NSArray *)theStyles;
 -(NSAttributedString *) getAttributedStringWithTheme:(HNTheme *)theme;
 
 

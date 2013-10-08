@@ -70,21 +70,6 @@
     [self.text appendString:commentString.text];
 }
 
--(void) appendStyles:(NSArray *)theStyles
-{
-    for (HNAttributedStyle *style in theStyles)
-    {
-        int newStartPos = self.text.length + style.range.location;
-        NSRange newRange = NSMakeRange(newStartPos, style.range.length);
-        
-        HNAttributedStyle *newStyle = [[HNAttributedStyle alloc] initWithStyleType:style.styleType value:style.value range:newRange];
-        
-        [self.styles addObject:newStyle];
-        
-    }
-    
-}
-
 -(NSAttributedString *) getAttributedStringWithTheme:(HNTheme *)theme
 {
     NSDictionary *defaultFont = [NSDictionary dictionaryWithObjectsAndKeys:theme.commentNormalFont, NSFontAttributeName, nil];
