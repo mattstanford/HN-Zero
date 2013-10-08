@@ -10,6 +10,7 @@
 
 @class HNCommentBlock;
 @class HNTheme;
+@class HNCommentString;
 
 @interface HNComment : NSObject
 {
@@ -27,6 +28,7 @@
 
 - (NSAttributedString *) getCommentHeaderWithTheme:(HNTheme *)theme;
 - (NSAttributedString *) convertToAttributedStringWithTheme:(HNTheme *)theme;
+- (HNCommentString *) convertToCommentString;
 
 
 @end

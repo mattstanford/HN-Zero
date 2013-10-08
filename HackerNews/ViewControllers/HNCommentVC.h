@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "HNDownloadController.h"
+#import <TTTAttributedLabel.h>
 
 @class HNTheme;
 
-@interface HNCommentVC : UITableViewController <downloadControllerDelegate>
+@interface HNCommentVC : UITableViewController <downloadControllerDelegate, TTTAttributedLabelDelegate>
 {
     HNDownloadController *downloadController;
     NSString *currentCommentId;

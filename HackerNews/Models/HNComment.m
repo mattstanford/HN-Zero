@@ -60,6 +60,10 @@
     return [commentString getAttributedStringWithTheme:theme];
 }
 
+- (HNCommentString *) convertToCommentString
+{
+    return [self convertToCommentString:self.commentBlock];
+}
 
 - (HNCommentString *) convertToCommentString:(HNCommentBlock *)block
 {

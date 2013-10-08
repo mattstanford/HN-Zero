@@ -115,4 +115,20 @@
     
 }
 
+-(NSArray *) getLinks
+{
+    NSMutableArray *links = [[NSMutableArray alloc] init];
+    
+    for (HNAttributedStyle *style in self.styles)
+    {
+        if (style.styleType == HNSTYLE_LINK)
+        {
+            [links addObject:style];
+        }
+        
+    }
+    
+    return links;
+}
+
 @end

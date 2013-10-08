@@ -12,6 +12,8 @@
 #import "HNCommentBlock.h"
 #import "HNCommentCell.h"
 #import "HNTheme.h"
+#import "HNCommentString.h"
+#import "HNAttributedStyle.h"
 
 @implementation HNCommentVC
 
@@ -89,6 +91,7 @@
     HNCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     HNComment *comment = [comments objectAtIndex:[indexPath row]];
+    HNCommentString *commentString = [comment convertToCommentString];
     
     cell.contentLabel.font = self.theme.commentNormalFont;
     cell.contentLabel.font = self.theme.commentBoldFont;
@@ -96,6 +99,9 @@
     cell.nameLabel.attributedText = [comment getCommentHeaderWithTheme:self.theme];
     cell.contentLabel.text = [comment convertToAttributedStringWithTheme:self.theme];
     cell.nestedLevel = comment.nestedLevel;
+    
+    [self addLinksToLabel:cell.contentLabel withCommentString:commentString];
+    cell.contentLabel.delegate = self;
     
     return cell;
 }
@@ -111,7 +117,25 @@
     return [HNCommentCell getCellHeightForText:commentBlock width:self.view.frame.size.width nestLevel:comment.nestedLevel];
 }
 
+#pragma mark TTTAttributedLabel functions
+
+-(void) attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithAddress:(NSDictionary *)addressComponents
+{
+    NSLog(@"tapped link!!");
+}
+
 #pragma mark Helper functions
+
+- (void) addLinksToLabel:(TTTAttributedLabel *)label withCommentString:(HNCommentString *)commentString
+{
+    NSArray *links = [commentString getLinks];
+    
+    for (HNAttributedStyle *link in links)
+    {
+        NSLog(@"adding link");
+        [label addLinkToURL:[NSURL URLWithString:@"http://test.com"] withRange:link.range];
+    }
+}
 
 
 @end
