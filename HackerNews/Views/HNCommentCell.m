@@ -19,8 +19,7 @@ static const CGFloat NAME_LABEL_HEIGHT = 20;
 static const int INDENT_PER_LEVEL = 20;
 static const int MAX_INDENT_WIDTH = 80;
 
-@synthesize nestedLevel, nameLabel;
-
+@synthesize nestedLevel, nameLabel, contentLabel;
 
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -29,12 +28,16 @@ static const int MAX_INDENT_WIDTH = 80;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.nestedLevel = [[NSNumber alloc] initWithInt:0];
         
-        [self.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
-        [self.textLabel setNumberOfLines:0];
-        
         nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         nameLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:nameLabel];
+        
+        contentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+        [contentLabel setNumberOfLines:0];
+        [contentLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        [self.contentView addSubview:self.contentLabel];
+        
+        
 
     }
     
@@ -58,7 +61,7 @@ static const int MAX_INDENT_WIDTH = 80;
     CGFloat labelHeight = self.frame.size.height - labelY - CELL_BOTTOM_MARGIN;
     
     self.nameLabel.frame = CGRectMake(nameLabelX, nameLabelY, nameLabelWidth, NAME_LABEL_HEIGHT);
-    self.textLabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
+    self.contentLabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
 
 }
 
@@ -94,14 +97,16 @@ static const int MAX_INDENT_WIDTH = 80;
     return self.frame.size.width - indentWidth - CELL_LEFT_MARGIN - CELL_RIGHT_MARGIN;
 }
 
-+ (CGFloat) getCellHeightForText:(NSString *)text width:(CGFloat)cellWidth nestLevel:(NSNumber *)nestedLevel withFont:(UIFont *)cellFont
++ (CGFloat) getCellHeightForText:(NSAttributedString *)text width:(CGFloat)cellWidth nestLevel:(NSNumber *)nestedLevel
 {
     CGFloat indentWidth = [HNCommentCell getIndentWidth:nestedLevel];
     CGFloat labelWidth = cellWidth - indentWidth - CELL_LEFT_MARGIN - CELL_RIGHT_MARGIN;
     
+    //Create temporary label to get accurate label height
+    TTTAttributedLabel *tempLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+    tempLabel.text = text;
     CGSize constraint = CGSizeMake(labelWidth, CGFLOAT_MAX);
-    
-    CGSize commentSize = [text sizeWithFont:cellFont constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize commentSize = [tempLabel sizeThatFits:constraint];
     
     return commentSize.height + NAME_LABEL_HEIGHT + CELL_BOTTOM_MARGIN + CELL_TOP_MARGIN;
 }

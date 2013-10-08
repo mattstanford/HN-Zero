@@ -90,11 +90,11 @@
     
     HNComment *comment = [comments objectAtIndex:[indexPath row]];
     
-    cell.textLabel.font = self.theme.commentNormalFont;
-    cell.nameLabel.font = self.theme.commentBoldFont;
+    cell.contentLabel.font = self.theme.commentNormalFont;
+    cell.contentLabel.font = self.theme.commentBoldFont;
 
     cell.nameLabel.attributedText = [comment getCommentHeaderWithTheme:self.theme];
-    cell.textLabel.attributedText = [comment convertToAttributedStringWithTheme:self.theme];
+    cell.contentLabel.text = [comment convertToAttributedStringWithTheme:self.theme];
     cell.nestedLevel = comment.nestedLevel;
     
     return cell;
@@ -106,9 +106,9 @@
 {
     HNComment *comment = [comments objectAtIndex:[indexPath row]];
     
-    NSString *commentBlock = [[comment convertToAttributedStringWithTheme:self.theme] string];
+    NSAttributedString *commentBlock = [comment convertToAttributedStringWithTheme:self.theme];
     
-    return [HNCommentCell getCellHeightForText:commentBlock width:self.view.frame.size.width nestLevel:comment.nestedLevel withFont:self.theme.commentNormalFont];
+    return [HNCommentCell getCellHeightForText:commentBlock width:self.view.frame.size.width nestLevel:comment.nestedLevel];
 }
 
 #pragma mark Helper functions

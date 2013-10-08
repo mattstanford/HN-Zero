@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1DA0B613D518468C9A6A02A4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C70DA83392594FF4B0113C30 /* libPods.a */; };
 		780F09B21801B88F00B9C5C3 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 780F09B11801B88F00B9C5C3 /* CoreText.framework */; };
+		780F09C018021ABD00B9C5C3 /* HNAttributedStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 780F09BD18021ABD00B9C5C3 /* HNAttributedStyle.m */; };
+		780F09C118021ABD00B9C5C3 /* HNCommentString.m in Sources */ = {isa = PBXBuildFile; fileRef = 780F09BF18021ABD00B9C5C3 /* HNCommentString.m */; };
 		782784C217C9814500CAD559 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 782784C117C9814500CAD559 /* UIKit.framework */; };
 		782784C417C9814500CAD559 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 782784C317C9814500CAD559 /* Foundation.framework */; };
 		782784C617C9814500CAD559 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 782784C517C9814500CAD559 /* CoreGraphics.framework */; };
@@ -40,6 +42,10 @@
 /* Begin PBXFileReference section */
 		095A44AB58404E64A01006F0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		780F09B11801B88F00B9C5C3 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		780F09BC18021ABD00B9C5C3 /* HNAttributedStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNAttributedStyle.h; path = Models/HNAttributedStyle.h; sourceTree = "<group>"; };
+		780F09BD18021ABD00B9C5C3 /* HNAttributedStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNAttributedStyle.m; path = Models/HNAttributedStyle.m; sourceTree = "<group>"; };
+		780F09BE18021ABD00B9C5C3 /* HNCommentString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNCommentString.h; path = Models/HNCommentString.h; sourceTree = "<group>"; };
+		780F09BF18021ABD00B9C5C3 /* HNCommentString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNCommentString.m; path = Models/HNCommentString.m; sourceTree = "<group>"; };
 		782784BD17C9814500CAD559 /* HackerNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		782784C117C9814500CAD559 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		782784C317C9814500CAD559 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -180,10 +186,14 @@
 			children = (
 				78E570D217D81C2C00D53F99 /* HNArticle.h */,
 				78E570D317D81C2C00D53F99 /* HNArticle.m */,
+				780F09BC18021ABD00B9C5C3 /* HNAttributedStyle.h */,
+				780F09BD18021ABD00B9C5C3 /* HNAttributedStyle.m */,
 				78DF55E217D9513000FC3014 /* HNComment.h */,
 				78DF55E317D9513000FC3014 /* HNComment.m */,
 				789B916C17E676070027BB74 /* HNCommentBlock.h */,
 				789B916D17E676070027BB74 /* HNCommentBlock.m */,
+				780F09BE18021ABD00B9C5C3 /* HNCommentString.h */,
+				780F09BF18021ABD00B9C5C3 /* HNCommentString.m */,
 				78705CEF17FE714D006D9C84 /* HNTheme.h */,
 				78705CF017FE714D006D9C84 /* HNTheme.m */,
 			);
@@ -358,6 +368,8 @@
 				78C7663817F7E9B6008A31F5 /* HNTouchableView.m in Sources */,
 				78705CF117FE714D006D9C84 /* HNTheme.m in Sources */,
 				789CC10F1800CA63004BB8E7 /* HNArticleContainerVC.m in Sources */,
+				780F09C018021ABD00B9C5C3 /* HNAttributedStyle.m in Sources */,
+				780F09C118021ABD00B9C5C3 /* HNCommentString.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

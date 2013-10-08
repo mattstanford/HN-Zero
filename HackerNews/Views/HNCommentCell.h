@@ -8,18 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import "HNTableViewCell.h"
+#import <TTTAttributedLabel.h>
 
 @interface HNCommentCell : UITableViewCell
 {
     NSNumber *nestedLevel;    
     UILabel *nameLabel;
+    TTTAttributedLabel *contentLabel;
 }
 
 @property (nonatomic, strong) NSNumber *nestedLevel;
 @property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) TTTAttributedLabel *contentLabel;
 
 + (CGFloat) getIndentWidth:(NSNumber *)level;
 + (int) getOverflowIndentLevels:(NSNumber *)level;
-+ (CGFloat) getCellHeightForText:(NSString *)text width:(CGFloat)cellWidth nestLevel:(NSNumber *)nestedLevel withFont:(UIFont *)cellFont;
++ (CGFloat) getCellHeightForText:(NSAttributedString *)text width:(CGFloat)cellWidth nestLevel:(NSNumber *)nestedLevel;
 
 @end
