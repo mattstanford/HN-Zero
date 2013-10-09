@@ -240,6 +240,7 @@
     }
     
     commentBlock.tagName = commentElement.tagName;
+    commentBlock.attributes = commentElement.attributes;
     
     return commentBlock;
 }

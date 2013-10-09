@@ -13,10 +13,12 @@
     NSArray *childBlocks;
     NSString *tagName;
     NSString *text;
+    NSDictionary *attributes;
 }
 
 @property (nonatomic, strong) NSArray *childBlocks;
 @property (nonatomic, strong) NSString *tagName;
 @property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSDictionary *attributes;
 
 @end
