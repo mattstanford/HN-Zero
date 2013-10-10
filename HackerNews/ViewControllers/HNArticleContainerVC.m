@@ -22,8 +22,6 @@
     {
         self.articleVC = theArticleVC;
         self.commentsVC = theCommentsVC;
-        
-    
     }
     return self;
     
@@ -32,23 +30,12 @@
 
 -(void) viewDidLoad
 {
-    
-    [self addChildViewController:self.articleVC];
-    [self addChildViewController:self.commentsVC];
-    
-    [self.articleVC didMoveToParentViewController:self];
-    [self.commentsVC didMoveToParentViewController:self];
-    
     UIBarButtonItem *swapButton = [[UIBarButtonItem alloc]
                                      initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                      target:self
                                      action:@selector(swapButtonPressed)];
 
     self.navigationItem.rightBarButtonItem = swapButton;
-
-    
-    [self showViewController:self.articleVC];
-    self.currentVC = self.articleVC;
     
 }
 
@@ -75,34 +62,59 @@
 
     if (animated) {
         
-        newVc.view.frame = oldVc.view.bounds;
+        [oldVc willMoveToParentViewController:nil];
+        [self addChildViewController:newVc];
         
         [self transitionFromViewController:oldVc
                           toViewController:newVc
                                   duration:0.5
                                    options:UIViewAnimationOptionTransitionCrossDissolve
                                 animations:^{
+                                    newVc.view.frame = oldVc.view.bounds;
                                     
                                 }
                                 completion:^(BOOL finished) {
+                                    
+                                    [oldVc removeFromParentViewController];
+                                    [newVc didMoveToParentViewController:self];
+                                    
                                     self.currentVC = newVc;
                                 }];
     }
     else
     {
-        [oldVc.view removeFromSuperview];
-        [self showViewController:newVc];
+        if (currentVC == oldVc)
+        {
+            [self removeViewController:oldVc];
+        }
         
-        self.currentVC = newVc;
+        if (currentVC != newVc)
+        {
+            [self addViewController:newVc];
+        }
+
     }
     
 }
 
--(void) showViewController:(UIViewController *)vc
+-(void) addViewController:(UIViewController *)vc
 {
+    [self addChildViewController:vc];
     vc.view.frame = self.view.bounds;
     [self.view addSubview:vc.view];
+    [vc didMoveToParentViewController:self];
     
+    self.currentVC = vc;
+    
+}
+
+-(void) removeViewController:(UIViewController *)vc
+{
+    [vc willMoveToParentViewController:nil];
+    [vc.view removeFromSuperview];
+    [vc removeFromParentViewController];
+    
+    self.currentVC = nil;
 }
 
 -(void) doPresentArticle:(HNArticle *)article

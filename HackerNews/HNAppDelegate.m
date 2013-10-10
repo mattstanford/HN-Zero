@@ -12,7 +12,7 @@
 
 @implementation HNAppDelegate
 
-@synthesize window, navController, articleListVC, webBrowserVC, commentVC, theme, articleContainerVC;
+@synthesize window, navController, articleListVC, webBrowserVC, commentWebBrowserVC, commentVC, theme, articleContainerVC;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -22,11 +22,12 @@
     [self setDefaultTheme:self.theme];
     
     self.webBrowserVC = [[HNWebBrowserVC alloc] init];
-    self.commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStylePlain withTheme:self.theme webBrowser:self.webBrowserVC];
+    self.commentWebBrowserVC = [[HNWebBrowserVC alloc] init];
+    
+    self.commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStylePlain withTheme:self.theme webBrowser:self.commentWebBrowserVC];
     
     self.articleContainerVC = [[HNArticleContainerVC alloc] initWithArticleVC:self.webBrowserVC andCommentsVC:self.commentVC];
     
-    //self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC];
     self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:articleContainerVC];
     
     self.navController = [[UINavigationController alloc] initWithRootViewController:self.articleListVC];

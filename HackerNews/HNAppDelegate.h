@@ -23,6 +23,7 @@
     UINavigationController *navController;
     HNArticleListVC *articleListVC;
     HNWebBrowserVC *webBrowserVC;
+    HNWebBrowserVC *commentWebBrowserVC;
     HNCommentVC *commentVC;
     HNTheme *theme;
     HNArticleContainerVC *articleContainerVC;
@@ -33,6 +34,7 @@
 @property (strong, nonatomic) UINavigationController *navController;
 @property (strong, nonatomic) HNArticleListVC *articleListVC;
 @property (strong, nonatomic) HNWebBrowserVC *webBrowserVC;
+@property (strong, nonatomic) HNWebBrowserVC *commentWebBrowserVC;
 @property (strong, nonatomic) HNCommentVC *commentVC;
 @property (strong, nonatomic) HNTheme *theme;
 @property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;
