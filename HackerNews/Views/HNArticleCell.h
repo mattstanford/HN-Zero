@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HNTableViewCell.h"
 #import "HNTouchableView.h"
 
 @class HNArticleCell;

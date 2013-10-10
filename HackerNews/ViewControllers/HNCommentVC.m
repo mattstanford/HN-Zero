@@ -95,9 +95,6 @@
     
     HNComment *comment = [comments objectAtIndex:[indexPath row]];
     HNCommentString *commentString = [comment convertToCommentString];
-    
-    cell.contentLabel.font = self.theme.commentNormalFont;
-    cell.contentLabel.font = self.theme.commentBoldFont;
 
     cell.nameLabel.attributedText = [comment getCommentHeaderWithTheme:self.theme];
     cell.contentLabel.text = [comment convertToAttributedStringWithTheme:self.theme];

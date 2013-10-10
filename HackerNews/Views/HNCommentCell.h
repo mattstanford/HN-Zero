@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HNTableViewCell.h"
 #import <TTTAttributedLabel.h>
 
 @interface HNCommentCell : UITableViewCell
