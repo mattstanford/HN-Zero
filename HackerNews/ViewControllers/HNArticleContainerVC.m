@@ -13,7 +13,7 @@
 
 @implementation HNArticleContainerVC
 
-@synthesize articleVC, commentsVC, currentVC, currentArticle;
+@synthesize articleVC, commentsVC, currentVC, currentArticle, rightButtonTitle;
 
 -(id) initWithArticleVC:(HNWebBrowserVC *)theArticleVC andCommentsVC:(HNCommentVC *)theCommentsVC
 {
@@ -30,13 +30,20 @@
 
 -(void) viewDidLoad
 {
+
     UIBarButtonItem *swapButton = [[UIBarButtonItem alloc]
-                                     initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                     target:self
-                                     action:@selector(swapButtonPressed)];
+                                   initWithTitle:@""
+                                   style:UIBarButtonItemStylePlain
+                                   target:self
+                                   action:@selector(swapButtonPressed)];
 
     self.navigationItem.rightBarButtonItem = swapButton;
     
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [self setRightButtonTitle];
 }
 
 -(void)swapButtonPressed
@@ -48,12 +55,13 @@
         newVC = self.commentsVC;
         [self loadComments:self.currentArticle];
     }
-    else
+    else if(self.currentVC == self.commentsVC)
     {
         newVC = self.articleVC;
         [self loadArticle:self.currentArticle];
     }
     
+    [self setRightButtonTitle];
     [self swapViewControllerFrom:self.currentVC to:newVC withAnimation:YES];
 }
 
@@ -147,6 +155,8 @@
 -(void) loadArticle:(HNArticle *)article
 {
     [self.articleVC setURL:article.url];
+    
+    self.rightButtonTitle = @"Comments";
 }
 
 -(void) loadComments:(HNArticle *)article
@@ -155,6 +165,14 @@
     self.commentsVC.currentCommentId = commentId;
     self.commentsVC.title = article.title;
     
+   self.rightButtonTitle = @"Article";
+    
+}
+
+-(void) setRightButtonTitle
+{
+    UIBarButtonItem *rightButton = self.navigationItem.rightBarButtonItem;    
+    rightButton.title = self.rightButtonTitle;
 }
 
 
