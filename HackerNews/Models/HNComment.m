@@ -102,7 +102,7 @@
     //Set any styles on the string
     if (styleType) {
         int styleStringLen = commentString.text.length - styleStringStart;
-        NSMutableArray *styles = [self getStylesForType:styleType startPos:styleStringStart length:styleStringLen];
+        NSMutableArray *styles = [self getStylesForType:styleType startPos:styleStringStart length:styleStringLen attributes:block.attributes];
         
         [commentString.styles addObjectsFromArray:styles];
     }
@@ -110,7 +110,7 @@
     return commentString;
 }
 
-- (NSMutableArray *) getStylesForType:(NSString *)styleType startPos:(int)startPos length:(int)styleStringLen
+- (NSMutableArray *) getStylesForType:(NSString *)styleType startPos:(int)startPos length:(int)styleStringLen attributes:(NSDictionary *)attributes
 {
     NSMutableArray *stringStyles = [[NSMutableArray alloc] initWithCapacity:0];
     
@@ -120,7 +120,7 @@
         
         if ([styleType isEqualToString:@"a"])
         {
-            HNAttributedStyle *linkStyle = [[HNAttributedStyle alloc] initWithStyleType:HNSTYLE_LINK range:styleRange];
+            HNAttributedStyle *linkStyle = [[HNAttributedStyle alloc] initWithStyleType:HNSTYLE_LINK range:styleRange attributes:attributes];
             [stringStyles addObject:linkStyle];
         }
         else if([styleType isEqualToString:@"i"])

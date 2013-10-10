@@ -132,7 +132,11 @@
     
     for (HNAttributedStyle *link in links)
     {
-        [label addLinkToURL:[NSURL URLWithString:@"http://test.com"] withRange:link.range];
+        if (link.attributes && [link.attributes objectForKey:@"href"])
+        {
+            NSString *urlString = [link.attributes objectForKey:@"href"];
+            [label addLinkToURL:[NSURL URLWithString:urlString] withRange:link.range];
+        }
     }
 }
 

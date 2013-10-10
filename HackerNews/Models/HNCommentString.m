@@ -61,7 +61,7 @@
         int newStartPos = self.text.length + style.range.location;
         NSRange newRange = NSMakeRange(newStartPos, style.range.length);
         
-        HNAttributedStyle *newStyle = [[HNAttributedStyle alloc] initWithStyleType:style.styleType range:newRange];
+        HNAttributedStyle *newStyle = [[HNAttributedStyle alloc] initWithStyleType:style.styleType range:newRange attributes:style.attributes];
         
         [stylesToAdd addObject:newStyle];
         

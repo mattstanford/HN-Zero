@@ -21,7 +21,9 @@ typedef enum {
 
 @property (nonatomic, assign) HNSTYLETYPE styleType;
 @property (nonatomic, assign) NSRange range;
+@property (nonatomic, assign) NSDictionary *attributes;
 
 -(id) initWithStyleType:(HNSTYLETYPE)theStyleType range:(NSRange)theRange;
+-(id) initWithStyleType:(HNSTYLETYPE)theStyleType range:(NSRange)theRange attributes:(NSDictionary *)attributes;
 
 @end
