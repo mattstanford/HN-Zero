@@ -22,7 +22,7 @@
     [self setDefaultTheme:self.theme];
     
     self.webBrowserVC = [[HNWebBrowserVC alloc] init];
-    self.commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStylePlain withTheme:self.theme];
+    self.commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStylePlain withTheme:self.theme webBrowser:self.webBrowserVC];
     
     self.articleContainerVC = [[HNArticleContainerVC alloc] initWithArticleVC:self.webBrowserVC andCommentsVC:self.commentVC];
     

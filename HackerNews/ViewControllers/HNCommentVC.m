@@ -14,19 +14,22 @@
 #import "HNTheme.h"
 #import "HNCommentString.h"
 #import "HNAttributedStyle.h"
+#import "HNWebBrowserVC.h"
 
 @implementation HNCommentVC
 
-@synthesize downloadController, currentCommentId, comments, theme;
+@synthesize downloadController, currentCommentId, comments, theme, webBrowserVC;
 
-- (id)initWithStyle:(UITableViewStyle)style withTheme:(HNTheme *)appTheme
+- (id)initWithStyle:(UITableViewStyle)style withTheme:(HNTheme *)appTheme webBrowser:(HNWebBrowserVC *)webBrowser
 {
     self = [super initWithStyle:style];
     if (self) {
-        downloadController = [[HNDownloadController alloc] init];
-        downloadController.downloadDelegate = self;
+        self.webBrowserVC = webBrowser;
         
-        currentCommentId = @"0";
+        self.downloadController = [[HNDownloadController alloc] init];
+        self.downloadController.downloadDelegate = self;
+        
+        self.currentCommentId = @"0";
         
         self.comments = [[NSArray alloc] init];
         
@@ -122,6 +125,8 @@
 -(void) attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url
 {
     NSLog(@"tapped link at %@", [url absoluteString]);
+    [self.webBrowserVC setURL:[url absoluteString]];
+    [self.navigationController pushViewController:self.webBrowserVC animated:YES];
 }
 
 #pragma mark Helper functions
