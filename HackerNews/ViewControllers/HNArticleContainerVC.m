@@ -161,9 +161,7 @@
 
 -(void) loadComments:(HNArticle *)article
 {
-    NSString *commentId = article.commentLinkId;
-    self.commentsVC.currentCommentId = commentId;
-    self.commentsVC.title = article.title;
+    [self.commentsVC setArticle:article];
     
    self.rightButtonTitle = @"Go to article";
     

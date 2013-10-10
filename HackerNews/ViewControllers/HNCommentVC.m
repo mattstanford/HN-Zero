@@ -16,10 +16,11 @@
 #import "HNAttributedStyle.h"
 #import "HNWebBrowserVC.h"
 #import "HNCommentInfoCell.h"
+#import "HNArticle.h"
 
 @implementation HNCommentVC
 
-@synthesize downloadController, currentCommentId, comments, theme, webBrowserVC;
+@synthesize downloadController, currentArticle, comments, theme, webBrowserVC;
 
 - (id)initWithStyle:(UITableViewStyle)style withTheme:(HNTheme *)appTheme webBrowser:(HNWebBrowserVC *)webBrowser
 {
@@ -29,8 +30,6 @@
         
         self.downloadController = [[HNDownloadController alloc] init];
         self.downloadController.downloadDelegate = self;
-        
-        self.currentCommentId = @"0";
         
         self.comments = [[NSArray alloc] init];
         
@@ -58,7 +57,7 @@
 {
     [super viewDidAppear:animated];
     
-    downloadController.url = [NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", currentCommentId];
+    downloadController.url = [NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", self.currentArticle.commentLinkId];
     [downloadController beginDownload];
 }
 
@@ -159,6 +158,12 @@
 }
 
 #pragma mark Helper functions
+
+-(void) setArticle:(HNArticle *)article
+{
+    self.currentArticle = article;
+    self.title = article.title;
+}
 
 -(NSArray *) buildTableWithData:(NSArray *)data
 {
