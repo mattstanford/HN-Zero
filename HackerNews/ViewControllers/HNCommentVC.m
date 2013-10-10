@@ -15,6 +15,7 @@
 #import "HNCommentString.h"
 #import "HNAttributedStyle.h"
 #import "HNWebBrowserVC.h"
+#import "HNCommentInfoCell.h"
 
 @implementation HNCommentVC
 
@@ -41,7 +42,8 @@
 
 - (void) viewDidLoad
 {
-    [self.tableView registerClass:[HNCommentCell class] forCellReuseIdentifier:@"Cell"];
+    [self.tableView registerClass:[HNCommentInfoCell class] forCellReuseIdentifier:@"Info"];
+    [self.tableView registerClass:[HNCommentCell class] forCellReuseIdentifier:@"Comment"];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -66,7 +68,8 @@
 {
     NSArray *parsedComments = [HNCommentParser parseComments:data];
     
-    self.comments = parsedComments;
+    //self.comments = parsedComments;
+    self.comments = [self buildTableWithData:parsedComments];
     [self.tableView reloadData];
 }
 
@@ -90,31 +93,60 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    HNCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *returnCell = nil;
+    NSString *CellIdentifier = nil;
     
-    HNComment *comment = [comments objectAtIndex:[indexPath row]];
-    HNCommentString *commentString = [comment convertToCommentString];
+    if ([indexPath row] == 0)
+    {
+        CellIdentifier = @"Info";
+        HNCommentInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        
+        cell.articleTitleLabel.text = @"Title";
+        cell.articleTitleLabel.font = [UIFont systemFontOfSize:12];
+        cell.infoLabel.text = @"Info";
+        cell.infoLabel.font = [UIFont systemFontOfSize:12];
+        
+        returnCell = cell;
+        
+    }
+    else
+    {
+        //static NSString *CellIdentifier = @"Comment";
+        CellIdentifier = @"Comment";
+        HNCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        
+        HNComment *comment = [comments objectAtIndex:[indexPath row]];
+        HNCommentString *commentString = [comment convertToCommentString];
 
-    cell.nameLabel.attributedText = [comment getCommentHeaderWithTheme:self.theme];
-    cell.contentLabel.text = [comment convertToAttributedStringWithTheme:self.theme];
-    cell.nestedLevel = comment.nestedLevel;
+        cell.nameLabel.attributedText = [comment getCommentHeaderWithTheme:self.theme];
+        cell.contentLabel.text = [comment convertToAttributedStringWithTheme:self.theme];
+        cell.nestedLevel = comment.nestedLevel;
+        
+        [self addLinksToLabel:cell.contentLabel withCommentString:commentString];
+        cell.contentLabel.delegate = self;
+        
+        returnCell = cell;
+    }
     
-    [self addLinksToLabel:cell.contentLabel withCommentString:commentString];
-    cell.contentLabel.delegate = self;
-    
-    return cell;
+    return returnCell;
 }
 
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HNComment *comment = [comments objectAtIndex:[indexPath row]];
-    
-    NSAttributedString *commentBlock = [comment convertToAttributedStringWithTheme:self.theme];
-    
-    return [HNCommentCell getCellHeightForText:commentBlock width:self.view.frame.size.width nestLevel:comment.nestedLevel];
+    if (indexPath.row == 0)
+    {
+        return [HNCommentInfoCell getCellHeightForText:@"Title" forWidth:self.view.frame.size.width titleFont:[UIFont systemFontOfSize:12] infoFont:[UIFont systemFontOfSize:12]];
+    }
+    else
+    {
+        HNComment *comment = [comments objectAtIndex:[indexPath row]];
+        
+        NSAttributedString *commentBlock = [comment convertToAttributedStringWithTheme:self.theme];
+        
+        return [HNCommentCell getCellHeightForText:commentBlock width:self.view.frame.size.width nestLevel:comment.nestedLevel];
+    }
 }
 
 #pragma mark TTTAttributedLabel functions
@@ -127,6 +159,20 @@
 }
 
 #pragma mark Helper functions
+
+-(NSArray *) buildTableWithData:(NSArray *)data
+{
+    NSMutableArray *returnData = [[NSMutableArray alloc] init];
+    
+    //The first element is the article info
+    [returnData addObject:@"test"];
+    
+    //Then add the comment data
+    [returnData addObjectsFromArray:data];
+    
+    return returnData;
+    
+}
 
 - (void) addLinksToLabel:(TTTAttributedLabel *)label withCommentString:(HNCommentString *)commentString
 {
