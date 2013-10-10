@@ -88,52 +88,6 @@
     
 }
 
-- (NSString *) getInfoText:(HNArticle *)article
-{
-    NSMutableString *infoString = [[NSMutableString alloc] init];
-    
-    if (article.score)
-    {
-        [infoString appendFormat:@"%@ points", article.score];
-    }
-    
-    if (article.timePosted)
-    {
-        
-        if (infoString.length > 0)
-        {
-            [infoString appendFormat:@" • "];
-        }
-        
-        [infoString appendString:article.timePosted];
-    }
-    
-    if (article.domainName)
-    {
-        
-        if (infoString.length > 0)
-        {
-            [infoString appendFormat:@" • "];
-        }
-        
-        [infoString appendFormat:@"%@", article.domainName];
-        
-    }
-    
-    if (article.user)
-    {
-        
-        if (infoString.length > 0)
-        {
-            [infoString appendFormat:@" • "];
-        }
-        
-        [infoString appendFormat:@"%@", article.user];
-    }
-    
-    return infoString;
-}
-
 #pragma mark HNDownloadControllerDelegate
 
 -(void) downloadDidComplete:(id)data
@@ -195,7 +149,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HNArticle *article = [self.articles objectAtIndex:indexPath.row];
-    NSString *infoText = [self getInfoText:article];
+    NSString *infoText = [article getInfoText];
     
     return [HNArticleCell getCellHeightForWidth:self.view.frame.size.width withArticleTitle:article.title withInfoText:infoText withTitleFont:self.theme.articleTitleFont withInfoFont:self.theme.articleInfoFont];
 
@@ -211,7 +165,7 @@
     }
     HNArticle *article = [self.articles objectAtIndex:indexPath.row];
     cell.articleTitleLabel.text = article.title;
-    cell.infoLabel.text = [self getInfoText:article];
+    cell.infoLabel.text = [article getInfoText];
     cell.delegate = self;
     cell.tag = indexPath.row;
     

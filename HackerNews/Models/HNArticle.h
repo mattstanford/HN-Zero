@@ -29,4 +29,6 @@
 @property (nonatomic, strong) NSString *numComments;
 @property (nonatomic, strong) NSString *commentLinkId;
 
+-(NSString *) getInfoText;
+
 @end
