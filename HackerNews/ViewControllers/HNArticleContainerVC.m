@@ -156,7 +156,7 @@
 {
     [self.articleVC setURL:article.url];
     
-    self.rightButtonTitle = @"Comments";
+    self.rightButtonTitle = @"Go to comments";
 }
 
 -(void) loadComments:(HNArticle *)article
@@ -165,7 +165,7 @@
     self.commentsVC.currentCommentId = commentId;
     self.commentsVC.title = article.title;
     
-   self.rightButtonTitle = @"Article";
+   self.rightButtonTitle = @"Go to article";
     
 }
 
