@@ -93,38 +93,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *returnCell = nil;
-    NSString *CellIdentifier = nil;
     
     if ([indexPath row] == 0)
     {
-        CellIdentifier = @"Info";
-        HNCommentInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-        
-        cell.articleTitleLabel.text = @"Title";
-        cell.articleTitleLabel.font = [UIFont systemFontOfSize:12];
-        cell.infoLabel.text = @"Info";
-        cell.infoLabel.font = [UIFont systemFontOfSize:12];
-        
-        returnCell = cell;
+        returnCell = [self getInfoCellForIndexPath:indexPath];
         
     }
     else
-    {
-        //static NSString *CellIdentifier = @"Comment";
-        CellIdentifier = @"Comment";
-        HNCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-        
-        HNComment *comment = [comments objectAtIndex:[indexPath row]];
-        HNCommentString *commentString = [comment convertToCommentString];
-
-        cell.nameLabel.attributedText = [comment getCommentHeaderWithTheme:self.theme];
-        cell.contentLabel.text = [comment convertToAttributedStringWithTheme:self.theme];
-        cell.nestedLevel = comment.nestedLevel;
-        
-        [self addLinksToLabel:cell.contentLabel withCommentString:commentString];
-        cell.contentLabel.delegate = self;
-        
-        returnCell = cell;
+    {        
+        returnCell = [self getCommentCellForIndexPath:indexPath];
     }
     
     return returnCell;
@@ -191,6 +168,37 @@
             [label addLinkToURL:[NSURL URLWithString:urlString] withRange:link.range];
         }
     }
+}
+
+-(UITableViewCell *) getCommentCellForIndexPath:(NSIndexPath *)indexPath
+{
+    HNCommentCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Comment" forIndexPath:indexPath];
+    
+    HNComment *comment = [comments objectAtIndex:[indexPath row]];
+    HNCommentString *commentString = [comment convertToCommentString];
+    
+    cell.nameLabel.attributedText = [comment getCommentHeaderWithTheme:self.theme];
+    cell.contentLabel.text = [comment convertToAttributedStringWithTheme:self.theme];
+    cell.nestedLevel = comment.nestedLevel;
+    
+    [self addLinksToLabel:cell.contentLabel withCommentString:commentString];
+    cell.contentLabel.delegate = self;
+    
+    return cell;
+
+}
+
+-(UITableViewCell *) getInfoCellForIndexPath:(NSIndexPath *)indexPath
+{
+    HNCommentInfoCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Info" forIndexPath:indexPath];
+    
+    cell.articleTitleLabel.text = @"Title";
+    cell.articleTitleLabel.font = [UIFont systemFontOfSize:12];
+    cell.infoLabel.text = @"Info";
+    cell.infoLabel.font = [UIFont systemFontOfSize:12];
+    
+    return cell;
+    
 }
 
 
