@@ -28,7 +28,7 @@
     
     self.articleContainerVC = [[HNArticleContainerVC alloc] initWithArticleVC:self.webBrowserVC andCommentsVC:self.commentVC];
     
-    self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:articleContainerVC];
+    self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:articleContainerVC withTheme:self.theme];
     
     self.navController = [[UINavigationController alloc] initWithRootViewController:self.articleListVC];
     self.navController.navigationBar.tintColor = [UIColor orangeColor];
@@ -41,7 +41,12 @@
 
 - (void) setDefaultTheme:(HNTheme *)appTheme
 {
-    CGFloat defaultFontSize = 14.0;
+    CGFloat defaultFontSize = 12.0;
+    CGFloat defaultTitleSize = 14.0;
+    
+    appTheme.articleTitleFont = [UIFont fontWithName:@"Helvetica" size:defaultTitleSize];
+    appTheme.articleInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
+    appTheme.articleNumCommentsFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
     
     appTheme.commentFontSize = defaultFontSize;
     appTheme.commentNormalFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];

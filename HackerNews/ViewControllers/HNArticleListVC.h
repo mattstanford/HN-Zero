@@ -13,6 +13,7 @@
 #import "HNCommentVC.h"
 
 @class HNArticleContainerVC;
+@class HNTheme;
 
 @interface HNArticleListVC : UITableViewController  <downloadControllerDelegate, HNArticleCellDelegate>
 {
@@ -22,12 +23,10 @@
     HNDownloadController *downloadController;
     HNArticleContainerVC *articleContainerVC;
     
-    UIFont *cellFont;
-    UIFont *infoFont;
-    UIFont *numCommentsFont;
+    HNTheme *theme;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer;
+- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme;
 - (void) downloadFrontPageArticles;
 - (void) reloadButtonPressed;
 
@@ -36,8 +35,6 @@
 @property (strong, nonatomic) HNWebBrowserVC *webBrowserVC;
 @property (strong, nonatomic) HNCommentVC *commentVC;
 @property (strong, nonatomic) HNDownloadController *downloadController;
-@property (strong, nonatomic) UIFont *cellFont;
-@property (strong, nonatomic) UIFont *infoFont;
-@property (strong, nonatomic) UIFont *numCommentsFont;
+@property (strong, nonatomic) HNTheme *theme;
 
 @end

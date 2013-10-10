@@ -11,12 +11,13 @@
 #import "HNParser.h"
 #import "HNArticle.h"
 #import "HNArticleContainerVC.h"
+#import "HNTheme.h"
 
 @implementation HNArticleListVC
 
-@synthesize articles, webBrowserVC, commentVC, downloadController, cellFont, infoFont, numCommentsFont, articleContainerVC;
+@synthesize articles, webBrowserVC, commentVC, downloadController, articleContainerVC, theme;
 
-- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer
+- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -38,10 +39,7 @@
         //downloadController = [[HNDownloadController alloc] initWithUrl:@"http://www.waybackletter.com/archive/20111005.html"];
         
         downloadController.downloadDelegate = self;
-        
-        self.cellFont = [UIFont systemFontOfSize:14];
-        self.infoFont = [UIFont systemFontOfSize:12];
-        self.numCommentsFont = [UIFont systemFontOfSize:12];
+        self.theme = theTheme;
         
     }
     return self;
@@ -199,7 +197,7 @@
     HNArticle *article = [self.articles objectAtIndex:indexPath.row];
     NSString *infoText = [self getInfoText:article];
     
-    return [HNArticleCell getCellHeightForWidth:self.view.frame.size.width withArticleTitle:article.title withInfoText:infoText withTitleFont:self.cellFont withInfoFont:self.infoFont];
+    return [HNArticleCell getCellHeightForWidth:self.view.frame.size.width withArticleTitle:article.title withInfoText:infoText withTitleFont:self.theme.articleTitleFont withInfoFont:self.theme.articleInfoFont];
 
 }
 
@@ -219,9 +217,9 @@
     
     cell.numCommentsLabel.text = article.numComments;
     
-    cell.articleTitleLabel.font = self.cellFont;
-    cell.infoLabel.font = self.infoFont;
-    cell.numCommentsLabel.font = self.numCommentsFont;
+    cell.articleTitleLabel.font = self.theme.articleTitleFont;
+    cell.infoLabel.font = self.theme.articleInfoFont;
+    cell.numCommentsLabel.font = self.theme.articleNumCommentsFont;
         
     return cell;
 }

@@ -10,6 +10,10 @@
 
 @interface HNTheme : NSObject
 {
+    UIFont *articleTitleFont;
+    UIFont *articleInfoFont;
+    UIFont *articleNumCommentsFont;
+    
     UIFont *commentNormalFont;
     UIFont *commentBoldFont;
     UIFont *commentItalicFont;
@@ -18,6 +22,9 @@
     CGFloat commentFontSize;
 }
 
+@property (nonatomic, strong) UIFont *articleTitleFont;
+@property (nonatomic, strong) UIFont *articleInfoFont;
+@property (nonatomic, strong) UIFont *articleNumCommentsFont;
 @property (nonatomic, strong) UIFont *commentNormalFont;
 @property (nonatomic, strong) UIFont *commentBoldFont;
 @property (nonatomic, strong) UIFont *commentItalicFont;
