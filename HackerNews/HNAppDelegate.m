@@ -41,8 +41,8 @@
 
 - (void) setDefaultTheme:(HNTheme *)appTheme
 {
-    CGFloat defaultFontSize = 12.0;
-    CGFloat defaultTitleSize = 14.0;
+    CGFloat defaultFontSize = 13.0;
+    CGFloat defaultTitleSize = 15.0;
     
     appTheme.articleTitleFont = [UIFont fontWithName:@"Helvetica" size:defaultTitleSize];
     appTheme.articleInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
