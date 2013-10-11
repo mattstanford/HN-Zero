@@ -45,14 +45,6 @@
     [self.tableView registerClass:[HNCommentCell class] forCellReuseIdentifier:@"Comment"];
 }
 
-- (void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    self.comments = nil;
-    [self.tableView reloadData];
-}
-
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -67,7 +59,6 @@
 {
     NSArray *parsedComments = [HNCommentParser parseComments:data];
     
-    //self.comments = parsedComments;
     self.comments = [self buildTableWithData:parsedComments];
     [self.tableView reloadData];
 }
@@ -140,6 +131,9 @@
 {
     self.currentArticle = article;
     self.title = article.title;
+    
+    self.comments = [self buildTableWithData:nil];
+    [self.tableView reloadData];
 }
 
 -(NSArray *) buildTableWithData:(NSArray *)data
