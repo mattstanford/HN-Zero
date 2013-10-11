@@ -49,13 +49,6 @@
 {
     [super viewDidLoad];
     
-    //Setup the right bar button
-    UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc]
-                                     initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                     target:self
-                                     action:@selector(reloadButtonPressed)];
-    self.navigationItem.rightBarButtonItem = reloadButton;
-    
     //Setup the pull-to-refresh control
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
     refresh.attributedTitle = [self getTimeUpdatedString];
@@ -103,7 +96,7 @@
     NSDate *currentDateTime = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
-    [dateFormatter setDateFormat:@"H:mm a MM/dd/yy"];
+    [dateFormatter setDateFormat:@"h:mm a MM/dd/yy"];
     
     NSString *dateString = [[NSString alloc] initWithFormat:@"Updated at %@",[dateFormatter stringFromDate:currentDateTime]];
     
