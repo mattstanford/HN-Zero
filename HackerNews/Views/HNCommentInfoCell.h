@@ -12,10 +12,12 @@
 {
     UILabel *articleTitleLabel;
     UILabel *infoLabel;
+    UIView *separatorView;
 }
 
 @property (nonatomic, strong) UILabel *articleTitleLabel;
 @property (nonatomic, strong) UILabel *infoLabel;
+@property (nonatomic, strong) UIView *separatorView;
 
 +(CGFloat) getCellHeightForText:(NSString *)titleText forWidth:(CGFloat)cellWidth titleFont:(UIFont *)titleFont infoFont:(UIFont *)infoFont;
 

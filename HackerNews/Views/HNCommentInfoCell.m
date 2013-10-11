@@ -10,7 +10,7 @@
 
 @implementation HNCommentInfoCell
 
-@synthesize articleTitleLabel, infoLabel;
+@synthesize articleTitleLabel, infoLabel, separatorView;
 
 static const int LEFT_MARGIN = 10;
 static const int RIGHT_MARGIN = 10;
@@ -18,6 +18,7 @@ static const int TOP_MARGIN = 20;
 static const int BOTTOM_MARGIN = 20;
 
 static const int TITLE_INFO_PADDING = 10;
+static const int SEPARATOR_HEIGHT = 5;
 
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -36,6 +37,10 @@ static const int TITLE_INFO_PADDING = 10;
         self.infoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.infoLabel.text = @"info";
         [self.contentView addSubview:infoLabel];
+        
+        self.separatorView = [[UIView alloc] initWithFrame:CGRectZero];
+        self.separatorView.backgroundColor = [UIColor lightGrayColor];
+        [self addSubview:separatorView];
     }
     
     return self;
@@ -84,8 +89,12 @@ static const int TITLE_INFO_PADDING = 10;
     CGFloat infoLabelY = TOP_MARGIN + titleHeight + TITLE_INFO_PADDING;
     CGFloat infoHeight = [HNCommentInfoCell getInfoHeightForText:self.infoLabel.text forWidth:labelWidth infoFont:self.infoLabel.font];
     
+    CGFloat separatorY = self.frame.size.height - SEPARATOR_HEIGHT;
+    
     self.articleTitleLabel.frame = CGRectMake(titleX, titleY, labelWidth, titleHeight);
     self.infoLabel.frame = CGRectMake(infoLabelX, infoLabelY, labelWidth, infoHeight);
+    self.separatorView.frame = CGRectMake(0, separatorY, self.frame.size.width, SEPARATOR_HEIGHT);
+    
 }
 
 @end
