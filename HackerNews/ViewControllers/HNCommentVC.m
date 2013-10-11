@@ -113,7 +113,7 @@
 {
     if (indexPath.row == 0)
     {
-        return [HNCommentInfoCell getCellHeightForText:@"Title" forWidth:self.view.frame.size.width titleFont:[UIFont systemFontOfSize:12] infoFont:[UIFont systemFontOfSize:12]];
+        return [HNCommentInfoCell getCellHeightForText:self.currentArticle.title forWidth:self.view.frame.size.width titleFont:self.theme.articleTitleFont infoFont:self.theme.articleInfoFont];
     }
     else
     {
@@ -192,10 +192,11 @@
 {
     HNCommentInfoCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Info" forIndexPath:indexPath];
     
-    cell.articleTitleLabel.text = @"Title";
-    cell.articleTitleLabel.font = [UIFont systemFontOfSize:12];
-    cell.infoLabel.text = @"Info";
-    cell.infoLabel.font = [UIFont systemFontOfSize:12];
+    cell.articleTitleLabel.text = self.currentArticle.title;
+    cell.articleTitleLabel.font = self.theme.commentTitleFont;
+    cell.infoLabel.text = [NSString stringWithFormat:@"%@ comments • %@ • %@", self.currentArticle.numComments, self.currentArticle.domainName, self.currentArticle.user];
+    cell.infoLabel.font = self.theme.commentInfoFont;
+    cell.infoLabel.textColor = [UIColor lightGrayColor];
     
     return cell;
     

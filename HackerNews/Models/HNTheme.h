@@ -18,6 +18,8 @@
     UIFont *commentBoldFont;
     UIFont *commentItalicFont;
     UIFont *commentCodeFont;
+    UIFont *commentTitleFont;
+    UIFont *commentInfoFont;
     
     CGFloat commentFontSize;
 }
@@ -30,6 +32,8 @@
 @property (nonatomic, strong) UIFont *commentItalicFont;
 @property (nonatomic, strong) UIFont *commentCodeFont;
 @property (nonatomic, assign) CGFloat commentFontSize;
+@property (nonatomic, strong) UIFont *commentTitleFont;
+@property (nonatomic, strong) UIFont *commentInfoFont;
 
 
 @end

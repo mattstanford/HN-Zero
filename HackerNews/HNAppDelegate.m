@@ -54,6 +54,9 @@
     appTheme.commentItalicFont = [UIFont fontWithName:@"Helvetica-Oblique" size:defaultFontSize];
     appTheme.commentCodeFont = [UIFont fontWithName:@"Courier" size:defaultFontSize];
     
+    appTheme.commentTitleFont = [UIFont fontWithName:@"Helvetica-Bold" size:defaultTitleSize];
+    appTheme.commentInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

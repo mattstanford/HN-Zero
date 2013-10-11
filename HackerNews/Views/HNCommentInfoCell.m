@@ -12,6 +12,11 @@
 
 @synthesize articleTitleLabel, infoLabel;
 
+static const int LEFT_MARGIN = 10;
+static const int RIGHT_MARGIN = 10;
+static const int TOP_MARGIN = 20;
+static const int BOTTOM_MARGIN = 20;
+
 static const int TITLE_INFO_PADDING = 10;
 
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -38,40 +43,46 @@ static const int TITLE_INFO_PADDING = 10;
 
 +(CGFloat) getCellHeightForText:(NSString *)titleText forWidth:(CGFloat)cellWidth titleFont:(UIFont *)titleFont infoFont:(UIFont *)infoFont
 {
-    CGFloat titleHeight = [HNCommentInfoCell getTitleHeightForText:titleText forWidth:cellWidth titleFont:titleFont];
+    CGFloat width = [HNCommentInfoCell getLabelWidth:cellWidth];
+    CGFloat titleHeight = [HNCommentInfoCell getTitleHeightForText:titleText forWidth:width titleFont:titleFont];
 
     //Sample string for info label.  The info label will always be one line
     NSString *tempString = @"test string";
-    CGFloat infoHeight = [HNCommentInfoCell getInfoHeightForText:tempString forWidth:cellWidth infoFont:infoFont];
+    CGFloat infoHeight = [HNCommentInfoCell getInfoHeightForText:tempString forWidth:width infoFont:infoFont];
     
-    return titleHeight + TITLE_INFO_PADDING + infoHeight;
+    return TOP_MARGIN + titleHeight + TITLE_INFO_PADDING + infoHeight + BOTTOM_MARGIN;
 }
 
-+(CGFloat) getTitleHeightForText:(NSString *)titleText forWidth:(CGFloat)cellWidth titleFont:(UIFont *)font
++(CGFloat) getTitleHeightForText:(NSString *)titleText forWidth:(CGFloat)width titleFont:(UIFont *)font
 {
-    CGSize labelConstraint = CGSizeMake(cellWidth, CGFLOAT_MAX);
+    CGSize labelConstraint = CGSizeMake(width, CGFLOAT_MAX);
     
     return [titleText sizeWithFont:font constrainedToSize:labelConstraint lineBreakMode:NSLineBreakByWordWrapping].height;
 }
 
-+(CGFloat) getInfoHeightForText:(NSString *)infoText forWidth:(CGFloat)cellWidth infoFont:(UIFont *)font
++(CGFloat) getInfoHeightForText:(NSString *)infoText forWidth:(CGFloat)width infoFont:(UIFont *)font
 {
-    return [infoText sizeWithFont:font forWidth:cellWidth lineBreakMode:NSLineBreakByClipping].height;
+    return [infoText sizeWithFont:font forWidth:width lineBreakMode:NSLineBreakByClipping].height;
+}
+
++(CGFloat) getLabelWidth:(CGFloat)cellWidth
+{
+    return cellWidth - LEFT_MARGIN - RIGHT_MARGIN;
 }
 
 -(void) layoutSubviews
 {
     [super layoutSubviews];
     
-    CGFloat labelWidth = self.frame.size.width;
+    CGFloat labelWidth = [HNCommentInfoCell getLabelWidth:self.frame.size.width];
     
-    CGFloat titleX = 0;
-    CGFloat titleY = 0;
+    CGFloat titleX = LEFT_MARGIN;
+    CGFloat titleY = TOP_MARGIN;
     CGFloat titleHeight = [HNCommentInfoCell getTitleHeightForText:self.articleTitleLabel.text forWidth:labelWidth titleFont:self.articleTitleLabel.font];
     
-    CGFloat infoLabelX = 0;
-    CGFloat infoLabelY = titleHeight + TITLE_INFO_PADDING;
-    CGFloat infoHeight = [HNCommentInfoCell getInfoHeightForText:self.infoLabel.text forWidth:self.frame.size.width infoFont:self.infoLabel.font];
+    CGFloat infoLabelX = LEFT_MARGIN;
+    CGFloat infoLabelY = TOP_MARGIN + titleHeight + TITLE_INFO_PADDING;
+    CGFloat infoHeight = [HNCommentInfoCell getInfoHeightForText:self.infoLabel.text forWidth:labelWidth infoFont:self.infoLabel.font];
     
     self.articleTitleLabel.frame = CGRectMake(titleX, titleY, labelWidth, titleHeight);
     self.infoLabel.frame = CGRectMake(infoLabelX, infoLabelY, labelWidth, infoHeight);
