@@ -49,13 +49,20 @@
 {
     [super viewDidLoad];
     
+    //Setup the right bar button
     UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc]
                                      initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                      target:self
                                      action:@selector(reloadButtonPressed)];
-    //[[self.navigationController navigationItem] setRightBarButtonItem:reloadButton];
     self.navigationItem.rightBarButtonItem = reloadButton;
     
+    //Setup the pull-to-refresh control
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    refresh.attributedTitle = [self getTimeUpdatedString];
+    [refresh addTarget:self action:@selector(downloadFrontPageArticles) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refresh;
+    
+    //Register custom tableviewcell class with tableview
     [self.tableView registerClass:[HNArticleCell class] forCellReuseIdentifier:@"Cell"];
     
 }
@@ -84,8 +91,26 @@
 
 - (void) downloadFrontPageArticles
 {
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating..."];
     [downloadController beginDownload];
     
+}
+
+- (NSAttributedString *) getTimeUpdatedString
+{
+    NSAttributedString *returnString = nil;
+
+    NSDate *currentDateTime = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:@"H:mm a MM/dd/yy"];
+    
+    NSString *dateString = [[NSString alloc] initWithFormat:@"Updated at %@",[dateFormatter stringFromDate:currentDateTime]];
+    
+    returnString = [[NSAttributedString alloc] initWithString:dateString];
+    
+    
+    return returnString;
 }
 
 #pragma mark HNDownloadControllerDelegate
@@ -96,6 +121,10 @@
     
     self.articles = parsedArticles;
     [self.tableView reloadData];
+    
+    //Update refresh control
+    [self.refreshControl endRefreshing];
+    self.refreshControl.attributedTitle = [self getTimeUpdatedString];
 }
 
 -(void) downloadFailed
