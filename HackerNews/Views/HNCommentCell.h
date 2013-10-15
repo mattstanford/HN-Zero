@@ -14,11 +14,13 @@
     NSNumber *nestedLevel;    
     UILabel *nameLabel;
     TTTAttributedLabel *contentLabel;
+    UIView *separatorView;
 }
 
 @property (nonatomic, strong) NSNumber *nestedLevel;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) TTTAttributedLabel *contentLabel;
+@property (nonatomic, strong) UIView *separatorView;
 
 + (CGFloat) getIndentWidth:(NSNumber *)level;
 + (int) getOverflowIndentLevels:(NSNumber *)level;

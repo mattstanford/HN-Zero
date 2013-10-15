@@ -18,7 +18,7 @@ static const int TOP_MARGIN = 20;
 static const int BOTTOM_MARGIN = 20;
 
 static const int TITLE_INFO_PADDING = 10;
-static const int SEPARATOR_HEIGHT = 5;
+static const int SEPARATOR_HEIGHT = 3;
 
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -39,7 +39,7 @@ static const int SEPARATOR_HEIGHT = 5;
         [self.contentView addSubview:infoLabel];
         
         self.separatorView = [[UIView alloc] initWithFrame:CGRectZero];
-        self.separatorView.backgroundColor = [UIColor lightGrayColor];
+        self.separatorView.backgroundColor = [UIColor orangeColor];
         [self addSubview:separatorView];
     }
     

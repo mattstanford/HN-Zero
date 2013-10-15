@@ -26,6 +26,8 @@
 {
     self = [super initWithStyle:style];
     if (self) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
         self.webBrowserVC = webBrowser;
         
         self.downloadController = [[HNDownloadController alloc] init];

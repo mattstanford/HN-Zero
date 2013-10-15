@@ -15,11 +15,12 @@ static const CGFloat CELL_RIGHT_MARGIN = 30;
 static const CGFloat CELL_TOP_MARGIN = 10;
 static const CGFloat CELL_BOTTOM_MARGIN = 10;
 static const CGFloat NAME_LABEL_HEIGHT = 20;
+static const CGFloat SEPARATOR_HEIGHT = .5;
 
 static const int INDENT_PER_LEVEL = 20;
 static const int MAX_INDENT_WIDTH = 80;
 
-@synthesize nestedLevel, nameLabel, contentLabel;
+@synthesize nestedLevel, nameLabel, contentLabel, separatorView;
 
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -38,7 +39,9 @@ static const int MAX_INDENT_WIDTH = 80;
         contentLabel.userInteractionEnabled = TRUE;
         [self.contentView addSubview:self.contentLabel];
         
-        
+        self.separatorView = [[UIView alloc] initWithFrame:CGRectZero];
+        self.separatorView.backgroundColor = [UIColor colorWithRed:.6666 green:.6666 blue:.6666 alpha:.5];
+        [self addSubview:separatorView];
 
     }
     
@@ -63,6 +66,7 @@ static const int MAX_INDENT_WIDTH = 80;
     
     self.nameLabel.frame = CGRectMake(nameLabelX, nameLabelY, nameLabelWidth, NAME_LABEL_HEIGHT);
     self.contentLabel.frame = CGRectMake(labelX, labelY, labelWidth, labelHeight);
+    self.separatorView.frame = CGRectMake(0, self.frame.size.height - SEPARATOR_HEIGHT, self.frame.size.width, SEPARATOR_HEIGHT);
 
 }
 
