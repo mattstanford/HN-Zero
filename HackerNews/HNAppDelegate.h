@@ -16,6 +16,7 @@
 @class HNCommentVC;
 @class HNTheme;
 @class HNArticleContainerVC;
+@class HNMainMenu;
 
 @interface HNAppDelegate : UIResponder <UIApplicationDelegate>
 {    
@@ -27,6 +28,7 @@
     HNCommentVC *commentVC;
     HNTheme *theme;
     HNArticleContainerVC *articleContainerVC;
+    HNMainMenu *mainMenuVC;
     
 }
 
@@ -38,5 +40,6 @@
 @property (strong, nonatomic) HNCommentVC *commentVC;
 @property (strong, nonatomic) HNTheme *theme;
 @property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;
+@property (strong, nonatomic) HNMainMenu *mainMenuVC;
 
 @end

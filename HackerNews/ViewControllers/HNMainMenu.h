@@ -8,6 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HNMainMenu : UIViewController
+@class HNArticleListVC;
+
+@interface HNMainMenu : UITableViewController
+{
+    HNArticleListVC *articleListVC;
+    NSArray *mainItems;
+}
+
+@property (nonatomic, strong) HNArticleListVC *articleListVC;
+@property (nonatomic, strong) NSArray *mainItems;
+
+-(id) initWithStyle:(UITableViewStyle)style withArticleVC:(HNArticleListVC *)theArticleListVC;
 
 @end

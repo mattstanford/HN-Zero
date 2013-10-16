@@ -29,6 +29,7 @@
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme;
 - (void) downloadFrontPageArticles;
 - (void) reloadButtonPressed;
+- (void) setUrl:(NSString *)url;
 
 @property (strong, nonatomic) NSArray *articles;
 @property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;

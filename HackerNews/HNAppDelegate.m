@@ -9,10 +9,11 @@
 #import "HNAppDelegate.h"
 #import "HNTheme.h"
 #import "HNArticleContainerVC.h"
+#import "HNMainMenu.h"
 
 @implementation HNAppDelegate
 
-@synthesize window, navController, articleListVC, webBrowserVC, commentWebBrowserVC, commentVC, theme, articleContainerVC;
+@synthesize window, navController, articleListVC, webBrowserVC, commentWebBrowserVC, commentVC, theme, articleContainerVC, mainMenuVC;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -30,7 +31,9 @@
     
     self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:articleContainerVC withTheme:self.theme];
     
-    self.navController = [[UINavigationController alloc] initWithRootViewController:self.articleListVC];
+    self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withArticleVC:self.articleListVC];
+    
+    self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuVC];
     self.navController.navigationBar.tintColor = [UIColor orangeColor];
     [self.window setRootViewController:self.navController];
     

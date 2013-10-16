@@ -7,32 +7,83 @@
 //
 
 #import "HNMainMenu.h"
-
-@interface HNMainMenu ()
-
-@end
+#import "HNArticleListVC.h"
 
 @implementation HNMainMenu
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+@synthesize articleListVC, mainItems;
+
+-(id) initWithStyle:(UITableViewStyle)style withArticleVC:(HNArticleListVC *)theArticleListVC
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    self = [super initWithStyle:style];
+    if (self)
+    {
+        self.articleListVC = theArticleListVC;
+        
+        NSDictionary *frontPage = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                   @"https://news.ycombinator.com", @"url",
+                                   @"Front Page", @"title"
+                                   , nil];
+        NSDictionary *askHN = [[NSDictionary alloc] initWithObjectsAndKeys:
+                               @"https://news.ycombinator.com/ask", @"url",
+                               @"Ask HN", @"title"
+                               , nil];
+        NSDictionary *newHN = [[NSDictionary alloc] initWithObjectsAndKeys:
+                               @"https://news.ycombinator.com/newest", @"url",
+                               @"New", @"title"
+                               , nil];
+        
+        self.mainItems = [[NSArray alloc] initWithObjects:frontPage, askHN, newHN, nil];
     }
+    
     return self;
 }
 
-- (void)viewDidLoad
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    return 1;
 }
 
-- (void)didReceiveMemoryWarning
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    return [mainItems count];
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if(cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    NSDictionary *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
+    
+    if ([menuItem objectForKey:@"title"])
+    {
+        cell.textLabel.text = (NSString *)[menuItem objectForKey:@"title"];
+    }
+    
+    return cell;
+
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
+    NSString *url = nil;
+    
+    if ([menuItem objectForKey:@"url"])
+    {
+        url = [menuItem objectForKey:@"url"];
+        [self.articleListVC setUrl:url];
+        
+        [self.navigationController pushViewController:self.articleListVC animated:YES];
+        
+    }
+    
+}
 @end
