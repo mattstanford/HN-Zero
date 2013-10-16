@@ -28,6 +28,7 @@
 		78705CF417FE7C47006D9C84 /* chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78705CF317FE7C47006D9C84 /* chat@2x.png */; };
 		78705CFA17FE7DAA006D9C84 /* chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 78705CF917FE7DAA006D9C84 /* chat.png */; };
 		78981A4A18074E8C000A44A8 /* HNCommentInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78981A4918074E8C000A44A8 /* HNCommentInfoCell.m */; };
+		789B4F17180E3FB800119C83 /* HNMainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 789B4F16180E3FB800119C83 /* HNMainMenu.m */; };
 		789B916E17E676070027BB74 /* HNCommentBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 789B916D17E676070027BB74 /* HNCommentBlock.m */; };
 		789CC10F1800CA63004BB8E7 /* HNArticleContainerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 789CC10E1800CA63004BB8E7 /* HNArticleContainerVC.m */; };
 		78C7663817F7E9B6008A31F5 /* HNTouchableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C7663717F7E9B6008A31F5 /* HNTouchableView.m */; };
@@ -73,6 +74,8 @@
 		78705CF917FE7DAA006D9C84 /* chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat.png; path = Resources/chat.png; sourceTree = "<group>"; };
 		78981A4818074E8C000A44A8 /* HNCommentInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNCommentInfoCell.h; path = Views/HNCommentInfoCell.h; sourceTree = "<group>"; };
 		78981A4918074E8C000A44A8 /* HNCommentInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNCommentInfoCell.m; path = Views/HNCommentInfoCell.m; sourceTree = "<group>"; };
+		789B4F15180E3FB800119C83 /* HNMainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNMainMenu.h; path = ViewControllers/HNMainMenu.h; sourceTree = "<group>"; };
+		789B4F16180E3FB800119C83 /* HNMainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNMainMenu.m; path = ViewControllers/HNMainMenu.m; sourceTree = "<group>"; };
 		789B916C17E676070027BB74 /* HNCommentBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNCommentBlock.h; path = Models/HNCommentBlock.h; sourceTree = "<group>"; };
 		789B916D17E676070027BB74 /* HNCommentBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNCommentBlock.m; path = Models/HNCommentBlock.m; sourceTree = "<group>"; };
 		789CC10D1800CA63004BB8E7 /* HNArticleContainerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNArticleContainerVC.h; path = ViewControllers/HNArticleContainerVC.h; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 				78393F9B17E01C0B0003017F /* HNCommentVC.m */,
 				78E4076617D278B100DC8CE0 /* HNWebBrowserVC.h */,
 				78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */,
+				789B4F15180E3FB800119C83 /* HNMainMenu.h */,
+				789B4F16180E3FB800119C83 /* HNMainMenu.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -370,6 +375,7 @@
 				780F09C018021ABD00B9C5C3 /* HNAttributedStyle.m in Sources */,
 				780F09C118021ABD00B9C5C3 /* HNCommentString.m in Sources */,
 				78981A4A18074E8C000A44A8 /* HNCommentInfoCell.m in Sources */,
+				789B4F17180E3FB800119C83 /* HNMainMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
