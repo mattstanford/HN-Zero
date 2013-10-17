@@ -30,19 +30,30 @@
     return parsedComments;
 }
 
-+ (NSArray *)getCommentRows:(NSData *)htmlData
++ (NSArray *) getMainCommentPageElements:(NSData *)htmlData
 {
-    NSArray *commentRows = nil;
     TFHpple *parser = [TFHpple hppleWithHTMLData:htmlData];
     
     NSString *xpathQueryString = @"//table";
+    
+    return [parser searchWithXPathQuery:xpathQueryString];
+    
+}
+
++ (TFHppleElement *)getElementWithCommentsAndSubmitBox:(NSData *)htmlData
+{
+    TFHppleElement *elementWithCommentsAndSubmitBox = nil;
+    
+    TFHpple *parser = [TFHpple hppleWithHTMLData:htmlData];
+    NSString *xpathQueryString = @"//table";
+    
     NSArray *mainCommentPageElements = [parser searchWithXPathQuery:xpathQueryString];
     
     if (mainCommentPageElements) {
         
         TFHppleElement *mainCommentPageTable = [mainCommentPageElements objectAtIndex:0];
         NSArray *mainCommentPageTableRows = [mainCommentPageTable children];
-    
+        
         
         if (mainCommentPageTableRows && mainCommentPageTableRows.count >= 3) {
             
@@ -52,27 +63,37 @@
              
              This element has a single 'td' element in it that contains two more tables
              */
-            TFHppleElement *tdWithCommentsAndSubmitBox = [[mainCommentPageTableRows objectAtIndex:2] firstChildWithTagName:@"td"];
-            
-            if (tdWithCommentsAndSubmitBox && tdWithCommentsAndSubmitBox.children.count > 4)
-            {
-                /*
-                 The TD with the comments and submit box has these elements as children:
-                 
-                  - Table (The submit box)
-                  - br
-                  - br
-                  - Table (The comments)
-                 
-                 Using this layout, we will get index 3 of the children of this element
-                 */
-                
-                TFHppleElement *commentsTable = [[tdWithCommentsAndSubmitBox children] objectAtIndex:3];
-                
-                commentRows = [commentsTable children];
-            }
+            elementWithCommentsAndSubmitBox = [[mainCommentPageTableRows objectAtIndex:2] firstChildWithTagName:@"td"];
         }
     }
+    
+    return elementWithCommentsAndSubmitBox;
+}
+
++ (NSArray *)getCommentRows:(NSData *)htmlData
+{
+    NSArray *commentRows = nil;
+        
+    TFHppleElement *tdWithCommentsAndSubmitBox = [self getElementWithCommentsAndSubmitBox:htmlData];
+    
+    if (tdWithCommentsAndSubmitBox && tdWithCommentsAndSubmitBox.children.count > 4)
+    {
+        /*
+         The TD with the comments and submit box has these elements as children:
+
+          - Table (The submit box)
+          - br
+          - br
+          - Table (The comments)
+
+         Using this layout, we will get index 3 of the children of this element
+         */
+
+        TFHppleElement *commentsTable = [[tdWithCommentsAndSubmitBox children] objectAtIndex:3];
+        
+        commentRows = [commentsTable children];
+    }
+
     
     return commentRows;
     
