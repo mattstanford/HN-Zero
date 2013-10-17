@@ -30,6 +30,56 @@
     return parsedComments;
 }
 
++ (NSString *)getPostFromCommentPage:(NSData *)htmlData
+{
+    NSMutableString *commentPost = [[NSMutableString alloc] init];
+    TFHppleElement *tdWithCommentsAndSubmitBox = [self getElementWithCommentsAndSubmitBox:htmlData];
+    
+    //The first element has the header info.  Then 2nd and 3rd elements are just line breaks
+    TFHppleElement *commentHeaderElement = [tdWithCommentsAndSubmitBox firstChild];
+    
+    //The comment header has a bunch of rows:
+    // 0 - Title
+    // 1 - Meta info (score, time posted, etc)
+    // 2 - Style tag
+    // 3 - Post body
+    TFHppleElement *postBodyElement = [[commentHeaderElement children] objectAtIndex:3];
+    
+    //The post body has the following TDs:
+    // 0 - Empty row
+    // 1 - Post body TD
+    TFHppleElement *postBodyTD = [[postBodyElement children] objectAtIndex:1];
+    
+    for (int i=0; i < postBodyTD.children.count; i++)
+    {
+        //First element is raw text, proceeding elements are "p" tags
+        NSString *content = nil;
+        if (i==0)
+        {
+            content = [[postBodyTD firstTextChild] content];
+        }
+        else
+        {
+            content = [[[[postBodyTD children] objectAtIndex:i] firstTextChild] content];
+        }
+        
+        //Don't add trailing line breaks on last element
+        if (i == postBodyTD.children.count - 1)
+        {
+            [commentPost appendFormat:@"%@",content];
+        }
+        else
+        {
+            [commentPost appendFormat:@"%@\n\n",content];
+        }
+        
+    }
+    
+    NSLog(@"post: %@", commentPost);
+    
+    return commentPost;
+}
+
 + (NSArray *) getMainCommentPageElements:(NSData *)htmlData
 {
     TFHpple *parser = [TFHpple hppleWithHTMLData:htmlData];

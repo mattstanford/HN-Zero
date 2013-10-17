@@ -11,5 +11,6 @@
 @interface HNCommentParser : NSObject
 
 + (NSArray *)parseComments:(NSData *)htmlData;
++ (NSString *)getPostFromCommentPage:(NSData *)htmlData;
 
 @end
