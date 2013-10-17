@@ -74,12 +74,13 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
-    NSString *url = nil;
     
-    if ([menuItem objectForKey:@"url"])
+    if ([menuItem objectForKey:@"url"] && [menuItem objectForKey:@"title"])
     {
-        url = [menuItem objectForKey:@"url"];
-        [self.articleListVC setUrl:url];
+        NSString *url = [menuItem objectForKey:@"url"];
+        NSString *title = [menuItem objectForKey:@"title"];
+        
+        [self.articleListVC setUrl:url andTitle:title];
         
         [self.navigationController pushViewController:self.articleListVC animated:YES];
         

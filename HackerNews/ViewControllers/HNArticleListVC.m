@@ -81,9 +81,10 @@
     [self downloadFrontPageArticles];
 }
 
--(void) setUrl:(NSString *)url
+-(void) setUrl:(NSString *)url andTitle:(NSString *)title
 {
     self.downloadController.url = url;
+    self.title = title;
 }
 
 - (void) downloadFrontPageArticles
