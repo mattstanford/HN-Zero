@@ -34,6 +34,8 @@
     self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withArticleVC:self.articleListVC];
     
     self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuVC];
+    [self.navController pushViewController:self.articleListVC animated:NO];
+    
     self.navController.navigationBar.tintColor = [UIColor orangeColor];
     [self.window setRootViewController:self.navController];
     

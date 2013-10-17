@@ -18,6 +18,8 @@
     self = [super initWithStyle:style];
     if (self)
     {
+        self.title = @"Main Menu";
+        
         self.articleListVC = theArticleListVC;
         
         NSDictionary *frontPage = [[NSDictionary alloc] initWithObjectsAndKeys:
