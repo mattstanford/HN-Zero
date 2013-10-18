@@ -20,7 +20,7 @@
 
 @implementation HNCommentVC
 
-@synthesize downloadController, currentArticle, comments, theme, webBrowserVC;
+@synthesize downloadController, currentArticle, postText, comments, theme, webBrowserVC;
 
 - (id)initWithStyle:(UITableViewStyle)style withTheme:(HNTheme *)appTheme webBrowser:(HNWebBrowserVC *)webBrowser
 {
@@ -34,6 +34,7 @@
         self.downloadController.downloadDelegate = self;
         
         self.comments = [[NSArray alloc] init];
+        self.postText = nil;
         
         self.theme = appTheme;
         
@@ -60,6 +61,7 @@
 - (void) downloadDidComplete:(id)data
 {
     NSArray *parsedComments = [HNCommentParser parseComments:data];
+    self.postText = [HNCommentParser getPostFromCommentPage:data];
     
     self.comments = [self buildTableWithData:parsedComments];
     [self.tableView reloadData];
@@ -106,7 +108,7 @@
 {
     if (indexPath.row == 0)
     {
-        return [HNCommentInfoCell getCellHeightForText:self.currentArticle.title forWidth:self.view.frame.size.width titleFont:self.theme.commentTitleFont infoFont:self.theme.commentInfoFont];
+        return [HNCommentInfoCell getCellHeightForText:self.currentArticle.title postText:self.postText forWidth:self.view.frame.size.width titleFont:self.theme.commentTitleFont infoFont:self.theme.commentInfoFont postFont:self.theme.commentPostFont];
     }
     else
     {
@@ -133,6 +135,7 @@
 {
     self.currentArticle = article;
     self.title = article.title;
+    self.postText = nil;
     
     self.comments = [self buildTableWithData:nil];
     [self.tableView reloadData];
@@ -190,9 +193,21 @@
     
     cell.articleTitleLabel.text = self.currentArticle.title;
     cell.articleTitleLabel.font = self.theme.commentTitleFont;
+    
     cell.infoLabel.text = [NSString stringWithFormat:@"%@ comments • %@ • %@", self.currentArticle.numComments, self.currentArticle.domainName, self.currentArticle.user];
     cell.infoLabel.font = self.theme.commentInfoFont;
     cell.infoLabel.textColor = [UIColor lightGrayColor];
+    
+    if (self.postText)
+    {
+        cell.postLabel.text = self.postText;
+    }
+    else
+    {
+        cell.postLabel.text = @"";
+    }
+    
+    cell.postLabel.font = self.theme.commentPostFont;
     
     return cell;
     

@@ -66,7 +66,10 @@
         //Don't add trailing line breaks on last element
         if (i == postBodyTD.children.count - 1)
         {
-            [commentPost appendFormat:@"%@",content];
+            if (content.length > 0)
+            {
+                [commentPost appendFormat:@"%@",content];
+            }
         }
         else
         {
@@ -76,6 +79,11 @@
     }
     
     NSLog(@"post: %@", commentPost);
+    
+    if (commentPost.length == 0)
+    {
+        commentPost = nil;
+    }
     
     return commentPost;
 }

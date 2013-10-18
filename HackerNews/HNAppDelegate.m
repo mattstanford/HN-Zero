@@ -61,6 +61,7 @@
     
     appTheme.commentTitleFont = [UIFont fontWithName:@"Helvetica-Bold" size:defaultTitleSize];
     appTheme.commentInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
+    appTheme.commentPostFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
     
 }
 
