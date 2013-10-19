@@ -142,14 +142,27 @@
           - Table (The submit box)
           - br
           - br
+          - br (iOS 7 only)
           - Table (The comments)
 
-         Using this layout, we will get index 3 of the children of this element
+         Using this layout, we will get index 3 of the children of this element for iOS6,
+         and index 4 for iOS7
          */
 
-        TFHppleElement *commentsTable = [[tdWithCommentsAndSubmitBox children] objectAtIndex:3];
+        NSArray *commentsChildren = [tdWithCommentsAndSubmitBox children];
         
-        commentRows = [commentsTable children];
+        int commentsTableIndex = 3;
+        while (![[commentsChildren objectAtIndex:commentsTableIndex] hasChildren] && commentsTableIndex < commentsChildren.count )
+        {
+            commentsTableIndex++;
+        }
+        
+        if (commentsTableIndex < commentsChildren.count)
+        {
+            TFHppleElement *commentsTable = [commentsChildren objectAtIndex:commentsTableIndex];
+            
+            commentRows = [commentsTable children];
+        }
     }
 
     
