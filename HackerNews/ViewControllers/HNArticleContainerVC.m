@@ -86,7 +86,8 @@
                                   duration:0.5
                                    options:UIViewAnimationOptionTransitionCrossDissolve
                                 animations:^{
-                                    newVc.view.frame = oldVc.view.bounds;
+                                    CGRect newRect = CGRectMake(0, 0, oldVc.view.bounds.size.width, oldVc.view.bounds.size.height);
+                                    newVc.view.frame = newRect;
                                     
                                 }
                                 completion:^(BOOL finished) {
