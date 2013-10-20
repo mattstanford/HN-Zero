@@ -109,10 +109,11 @@ static const int MAX_INDENT_WIDTH = 80;
     
     //Create temporary label to get accurate label height
     TTTAttributedLabel *tempLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-    tempLabel.text = text;
+    tempLabel.attributedText = text;
+    [tempLabel setNumberOfLines:0];
     CGSize constraint = CGSizeMake(labelWidth, CGFLOAT_MAX);
     CGSize commentSize = [tempLabel sizeThatFits:constraint];
-    
+
     return commentSize.height + NAME_LABEL_HEIGHT + CELL_BOTTOM_MARGIN + CELL_TOP_MARGIN;
 }
 
