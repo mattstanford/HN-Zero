@@ -22,6 +22,14 @@
     {
         self.articleVC = theArticleVC;
         self.commentsVC = theCommentsVC;
+        
+        //Need to set this in iOS 7 to prevent container view from underlapping content with nav bar
+        int sysVer = [[[UIDevice currentDevice] systemVersion] integerValue];
+        if (sysVer >= 7)
+        {
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+        }
+        
     }
     return self;
     
