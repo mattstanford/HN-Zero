@@ -12,6 +12,40 @@
 
 @synthesize title, url, domainName, score, user, timePosted, numComments, commentLinkId;
 
+#pragma mark NSCoding delegate
+
+- (id) initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self)
+    {
+        self.title = [aDecoder decodeObjectForKey:@"title"];
+        self.url = [aDecoder decodeObjectForKey:@"url"];
+        self.domainName = [aDecoder decodeObjectForKey:@"domainName"];
+        self.score = [aDecoder decodeObjectForKey:@"score"];
+        self.user = [aDecoder decodeObjectForKey:@"user"];
+        self.timePosted = [aDecoder decodeObjectForKey:@"timePosted"];
+        self.numComments = [aDecoder decodeObjectForKey:@"numComments"];
+        self.commentLinkId = [aDecoder decodeObjectForKey:@"commentLinkId"];
+    }
+    
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.title forKey:@"title"];
+    [aCoder encodeObject:self.url forKey:@"url"];
+    [aCoder encodeObject:self.domainName forKey:@"domainName"];
+    [aCoder encodeObject:self.score forKey:@"score"];
+    [aCoder encodeObject:self.user forKey:@"user"];
+    [aCoder encodeObject:self.timePosted forKey:@"timePosted"];
+    [aCoder encodeObject:self.numComments forKey:@"numComments"];
+    [aCoder encodeObject:self.commentLinkId forKey:@"commentLinkId"];
+}
+
+#pragma mark Helper functions
+
 - (NSString *) getInfoText
 {
     NSMutableString *infoString = [[NSMutableString alloc] init];

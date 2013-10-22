@@ -68,11 +68,11 @@
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView {
-    NSLog(@"started loading page");
+  //  NSLog(@"started loading page");
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView {
-    NSLog(@"finished loading page");
+  //  NSLog(@"finished loading page");
 }
 
 @end

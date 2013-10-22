@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HNArticle : NSObject
+@interface HNArticle : NSObject <NSCoding>
 {
     NSString *title;
     NSString *url;

@@ -31,8 +31,6 @@
         commentVC = commVC;
         articleContainerVC = articleContainer;
         
-        articles = [[NSArray alloc] init];
-        
         downloadController = [[HNDownloadController alloc] initWithUrl:@"https://news.ycombinator.com"];
         
         //This is an example of the site when there is a "black bar" on the header (i.e. a famous tech person died
@@ -40,6 +38,14 @@
         
         downloadController.downloadDelegate = self;
         self.theme = theTheme;
+        
+        //Get article cache
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"articles"])
+        {
+            NSData *articlesArchive = [[NSUserDefaults standardUserDefaults] objectForKey:@"articles"];
+            self.articles = [NSKeyedUnarchiver unarchiveObjectWithData:articlesArchive];
+            [self.tableView reloadData];
+        }
         
     }
     return self;
@@ -119,6 +125,12 @@
     
     self.articles = parsedArticles;
     [self.tableView reloadData];
+    
+    //Update cache
+    //[[NSUserDefaults standardUserDefaults] setObject:self.articles forKey:@"articles"];
+    NSData *articlesArchive = [NSKeyedArchiver archivedDataWithRootObject:parsedArticles];
+    [[NSUserDefaults standardUserDefaults] setObject:articlesArchive forKey:@"articles"];
+    
     
     //Update refresh control
     [self.refreshControl endRefreshing];
