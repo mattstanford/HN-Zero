@@ -194,7 +194,7 @@
     cell.articleTitleLabel.text = self.currentArticle.title;
     cell.articleTitleLabel.font = self.theme.commentTitleFont;
     
-    cell.infoLabel.text = [NSString stringWithFormat:@"%@ comments • %@ • %@", self.currentArticle.numComments, self.currentArticle.domainName, self.currentArticle.user];
+    cell.infoLabel.text = [self.currentArticle getCommentInfoText];
     cell.infoLabel.font = self.theme.commentInfoFont;
     cell.infoLabel.textColor = [UIColor lightGrayColor];
     

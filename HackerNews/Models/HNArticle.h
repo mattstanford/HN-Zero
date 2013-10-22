@@ -30,5 +30,6 @@
 @property (nonatomic, strong) NSString *commentLinkId;
 
 -(NSString *) getInfoText;
+-(NSString *) getCommentInfoText;
 
 @end

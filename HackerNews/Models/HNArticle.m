@@ -58,5 +58,41 @@
     return infoString;
 }
 
+- (NSString *) getCommentInfoText
+{
+    NSMutableString *infoString = [[NSMutableString alloc] init];
+    
+    if (self.numComments)
+    {
+        [infoString appendFormat:@"%@ comments", self.numComments];
+    }
+    
+    if (self.user)
+    {
+        
+        if (infoString.length > 0)
+        {
+            [infoString appendFormat:@" • "];
+        }
+        
+        [infoString appendString:self.user];
+    }
+    
+    if (self.domainName)
+    {
+        
+        if (infoString.length > 0)
+        {
+            [infoString appendFormat:@" • "];
+        }
+        
+        [infoString appendFormat:@"%@", self.domainName];
+        
+    }
+    
+    
+    return infoString;
+}
+
 
 @end
