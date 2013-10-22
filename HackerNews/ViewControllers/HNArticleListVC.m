@@ -132,6 +132,25 @@
 
 #pragma mark HNArticleCellDelegate
 
+/*
+ Determine if a url is a "self" post, i.e. the "article" is just a local URL to the comments
+ page, which normally includes a some text content at the header.
+ */
+-(BOOL)isSelfPost:(NSString *)url
+{
+    NSString *selfPost = [HNParser getMatch:url fromRegex:@"(^item\\?id=\\d+$)"];
+    
+    if (selfPost)
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+    
+}
+
 -(void) didTapArticle:(HNArticleCell *)cellTapped
 {
     NSInteger index = [cellTapped tag];
@@ -139,9 +158,18 @@
     if (index >= 0 && index <= [articles count])
     {
         HNArticle *article = [articles objectAtIndex:index];
-        [articleContainerVC doPresentArticle:article];
+        
+        if ([self isSelfPost:article.url])
+        {
+            [self didTapComment:cellTapped];
+        }
+        else
+        {
+        
+            [articleContainerVC doPresentArticle:article];
 
-        [self.navigationController pushViewController:articleContainerVC animated:YES];
+            [self.navigationController pushViewController:articleContainerVC animated:YES];
+        }
 
     }
 }
