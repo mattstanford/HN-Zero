@@ -12,6 +12,7 @@
 #import "HNArticle.h"
 #import "HNArticleContainerVC.h"
 #import "HNTheme.h"
+#import "HNUtils.h"
 
 @implementation HNArticleListVC
 
@@ -57,7 +58,6 @@
     
     //Setup the pull-to-refresh control
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    refresh.attributedTitle = [self getTimeUpdatedString];
     [refresh addTarget:self action:@selector(downloadFrontPageArticles) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
     
@@ -100,23 +100,6 @@
     
 }
 
-- (NSAttributedString *) getTimeUpdatedString
-{
-    NSAttributedString *returnString = nil;
-
-    NSDate *currentDateTime = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    
-    [dateFormatter setDateFormat:@"h:mm a MM/dd/yy"];
-    
-    NSString *dateString = [[NSString alloc] initWithFormat:@"Updated at %@",[dateFormatter stringFromDate:currentDateTime]];
-    
-    returnString = [[NSAttributedString alloc] initWithString:dateString];
-    
-    
-    return returnString;
-}
-
 #pragma mark HNDownloadControllerDelegate
 
 -(void) downloadDidComplete:(id)data
@@ -127,14 +110,13 @@
     [self.tableView reloadData];
     
     //Update cache
-    //[[NSUserDefaults standardUserDefaults] setObject:self.articles forKey:@"articles"];
     NSData *articlesArchive = [NSKeyedArchiver archivedDataWithRootObject:parsedArticles];
     [[NSUserDefaults standardUserDefaults] setObject:articlesArchive forKey:@"articles"];
     
     
     //Update refresh control
     [self.refreshControl endRefreshing];
-    self.refreshControl.attributedTitle = [self getTimeUpdatedString];
+    self.refreshControl.attributedTitle = [HNUtils getTimeUpdatedString];
 }
 
 -(void) downloadFailed

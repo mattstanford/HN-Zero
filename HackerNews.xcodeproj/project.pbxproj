@@ -29,6 +29,7 @@
 		78705CFA17FE7DAA006D9C84 /* chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 78705CF917FE7DAA006D9C84 /* chat.png */; };
 		7893910818145C74004E1E6F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7893910718145C74004E1E6F /* MobileCoreServices.framework */; };
 		7893910A18145C7B004E1E6F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7893910918145C7B004E1E6F /* SystemConfiguration.framework */; };
+		789533931818CC91000462A7 /* HNUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 789533921818CC91000462A7 /* HNUtils.m */; };
 		78981A4A18074E8C000A44A8 /* HNCommentInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78981A4918074E8C000A44A8 /* HNCommentInfoCell.m */; };
 		789B4F17180E3FB800119C83 /* HNMainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 789B4F16180E3FB800119C83 /* HNMainMenu.m */; };
 		789B916E17E676070027BB74 /* HNCommentBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 789B916D17E676070027BB74 /* HNCommentBlock.m */; };
@@ -76,6 +77,8 @@
 		78705CF917FE7DAA006D9C84 /* chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat.png; path = Resources/chat.png; sourceTree = "<group>"; };
 		7893910718145C74004E1E6F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7893910918145C7B004E1E6F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		789533911818CC91000462A7 /* HNUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNUtils.h; path = Utilities/HNUtils.h; sourceTree = "<group>"; };
+		789533921818CC91000462A7 /* HNUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNUtils.m; path = Utilities/HNUtils.m; sourceTree = "<group>"; };
 		78981A4818074E8C000A44A8 /* HNCommentInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNCommentInfoCell.h; path = Views/HNCommentInfoCell.h; sourceTree = "<group>"; };
 		78981A4918074E8C000A44A8 /* HNCommentInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNCommentInfoCell.m; path = Views/HNCommentInfoCell.m; sourceTree = "<group>"; };
 		789B4F15180E3FB800119C83 /* HNMainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNMainMenu.h; path = ViewControllers/HNMainMenu.h; sourceTree = "<group>"; };
@@ -161,6 +164,7 @@
 				78393F9D17E026030003017F /* Parser */,
 				78EAD07B17F8CF970023287A /* Resources */,
 				782784C817C9814500CAD559 /* Supporting Files */,
+				789533901818CC5E000462A7 /* Utilities */,
 				78E4077017D3D1FE00DC8CE0 /* ViewControllers */,
 				78E4077117D3D22200DC8CE0 /* Views */,
 			);
@@ -190,6 +194,15 @@
 				78393FA217E028190003017F /* HNCommentParser.m */,
 			);
 			name = Parser;
+			sourceTree = "<group>";
+		};
+		789533901818CC5E000462A7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				789533911818CC91000462A7 /* HNUtils.h */,
+				789533921818CC91000462A7 /* HNUtils.m */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		78E4076F17D3D1F600DC8CE0 /* Models */ = {
@@ -382,6 +395,7 @@
 				789CC10F1800CA63004BB8E7 /* HNArticleContainerVC.m in Sources */,
 				780F09C018021ABD00B9C5C3 /* HNAttributedStyle.m in Sources */,
 				780F09C118021ABD00B9C5C3 /* HNCommentString.m in Sources */,
+				789533931818CC91000462A7 /* HNUtils.m in Sources */,
 				78981A4A18074E8C000A44A8 /* HNCommentInfoCell.m in Sources */,
 				789B4F17180E3FB800119C83 /* HNMainMenu.m in Sources */,
 			);

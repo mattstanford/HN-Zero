@@ -17,6 +17,7 @@
 #import "HNWebBrowserVC.h"
 #import "HNCommentInfoCell.h"
 #import "HNArticle.h"
+#import "HNUtils.h"
 
 @implementation HNCommentVC
 
@@ -46,6 +47,12 @@
 {
     [self.tableView registerClass:[HNCommentInfoCell class] forCellReuseIdentifier:@"Info"];
     [self.tableView registerClass:[HNCommentCell class] forCellReuseIdentifier:@"Comment"];
+    
+    //Setup the pull-to-refresh control
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating..."];
+    [refresh addTarget:self action:@selector(updateComments) forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refresh;
 }
 
 #pragma mark HNDownloadController delgate
@@ -57,6 +64,8 @@
     
     self.comments = [self buildTableWithData:parsedComments];
     [self.tableView reloadData];
+    
+    self.refreshControl.attributedTitle = [HNUtils getTimeUpdatedString];
 }
 
 - (void) downloadFailed
@@ -131,16 +140,24 @@
         self.title = article.title;
         self.postText = nil;
         
-        //blank out the comments
-        self.comments = [self buildTableWithData:nil];
-        [self.tableView reloadData];
-
-        //Download new comments
-        downloadController.url = [NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", self.currentArticle.commentLinkId];
-        [downloadController beginDownload];
-        
+        [self updateComments];
     }
 
+}
+
+-(void) updateComments
+{
+    //blank out the comments
+    self.comments = [self buildTableWithData:nil];
+    [self.tableView reloadData];
+    
+    //Download new comments
+    downloadController.url = [NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", self.currentArticle.commentLinkId];
+    [downloadController beginDownload];
+    
+    //Update refresh control
+    if ([self.refreshControl isRefreshing]) [self.refreshControl endRefreshing];
+    
 }
 
 -(NSArray *) buildTableWithData:(NSArray *)data
