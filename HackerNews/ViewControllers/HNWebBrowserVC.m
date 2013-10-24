@@ -34,11 +34,6 @@
     return self;
 }
 
-- (void) viewDidDisappear:(BOOL)animated
-{
-    [self setURL:@"about:blank"];
-}
-
 - (BOOL) shouldAutorotate
 {
     return YES;
@@ -54,17 +49,22 @@
     self.webView.frame = self.view.frame;
 }
 
-- (void) setURL:(NSString *)newUrl
+- (void) setURL:(NSString *)newUrl forceUpdate:(BOOL)doForceUpdate
 {
-    if(![newUrl isEqualToString:self.currentURL])
+    if(doForceUpdate || ![newUrl isEqualToString:self.currentURL])
     {
-        NSURL *url = [NSURL URLWithString:newUrl];
-        NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-        
-        currentURL = newUrl;
-        [webView loadRequest:requestObj];
-        
+        [self loadUrl:@"about:blank"];
+        [self loadUrl:newUrl];
     }
+}
+
+- (void) loadUrl:(NSString *)newUrl
+{
+    NSURL *url = [NSURL URLWithString:newUrl];
+    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+    
+    currentURL = newUrl;
+    [webView loadRequest:requestObj];
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView {
