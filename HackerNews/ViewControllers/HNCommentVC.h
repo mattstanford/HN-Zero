@@ -33,6 +33,6 @@
 @property (nonatomic, strong) HNTheme *theme;
 
 - (id)initWithStyle:(UITableViewStyle)style withTheme:(HNTheme *)appTheme webBrowser:(HNWebBrowserVC *)webBrowser;
--(void) setArticle:(HNArticle *)article;
+-(void) setArticle:(HNArticle *)article forceUpdate:(BOOL)doForceUpdate;
 
 @end

@@ -48,14 +48,6 @@
     [self.tableView registerClass:[HNCommentCell class] forCellReuseIdentifier:@"Comment"];
 }
 
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    downloadController.url = [NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", self.currentArticle.commentLinkId];
-    [downloadController beginDownload];
-}
-
 #pragma mark HNDownloadController delgate
 
 - (void) downloadDidComplete:(id)data
@@ -131,14 +123,24 @@
 
 #pragma mark Helper functions
 
--(void) setArticle:(HNArticle *)article
+-(void) setArticle:(HNArticle *)article forceUpdate:(BOOL)doForceUpdate
 {
-    self.currentArticle = article;
-    self.title = article.title;
-    self.postText = nil;
-    
-    self.comments = [self buildTableWithData:nil];
-    [self.tableView reloadData];
+    if (doForceUpdate || ![article.commentLinkId isEqualToString:self.currentArticle.commentLinkId])
+    {
+        self.currentArticle = article;
+        self.title = article.title;
+        self.postText = nil;
+        
+        //blank out the comments
+        self.comments = [self buildTableWithData:nil];
+        [self.tableView reloadData];
+
+        //Download new comments
+        downloadController.url = [NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", self.currentArticle.commentLinkId];
+        [downloadController beginDownload];
+        
+    }
+
 }
 
 -(NSArray *) buildTableWithData:(NSArray *)data

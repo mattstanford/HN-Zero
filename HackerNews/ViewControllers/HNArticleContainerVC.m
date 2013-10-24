@@ -61,7 +61,7 @@
     if (self.currentVC == self.articleVC)
     {
         newVC = self.commentsVC;
-        [self loadComments:self.currentArticle];
+        [self loadComments:self.currentArticle forceUpdate:NO];
     }
     else if(self.currentVC == self.commentsVC)
     {
@@ -152,7 +152,7 @@
 {
     self.currentArticle = article;
     
-    [self loadComments:article];
+    [self loadComments:article forceUpdate:YES];
     
     if (self.currentVC != self.commentsVC)
     {
@@ -168,9 +168,9 @@
     self.rightButtonTitle = @"Go to comments";
 }
 
--(void) loadComments:(HNArticle *)article
+-(void) loadComments:(HNArticle *)article forceUpdate:(BOOL)doForceUpdate
 {
-    [self.commentsVC setArticle:article];
+    [self.commentsVC setArticle:article forceUpdate:doForceUpdate];
     
    self.rightButtonTitle = @"Go to article";
     
