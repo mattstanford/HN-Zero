@@ -27,6 +27,7 @@
 		78705CF117FE714D006D9C84 /* HNTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 78705CF017FE714D006D9C84 /* HNTheme.m */; };
 		78705CF417FE7C47006D9C84 /* chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78705CF317FE7C47006D9C84 /* chat@2x.png */; };
 		78705CFA17FE7DAA006D9C84 /* chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 78705CF917FE7DAA006D9C84 /* chat.png */; };
+		7890293D181A110300FA8CE0 /* HNLoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7890293C181A110300FA8CE0 /* HNLoadingCell.m */; };
 		7893910818145C74004E1E6F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7893910718145C74004E1E6F /* MobileCoreServices.framework */; };
 		7893910A18145C7B004E1E6F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7893910918145C7B004E1E6F /* SystemConfiguration.framework */; };
 		789533931818CC91000462A7 /* HNUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 789533921818CC91000462A7 /* HNUtils.m */; };
@@ -75,6 +76,8 @@
 		78705CF017FE714D006D9C84 /* HNTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNTheme.m; path = Models/HNTheme.m; sourceTree = "<group>"; };
 		78705CF317FE7C47006D9C84 /* chat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "chat@2x.png"; path = "Resources/chat@2x.png"; sourceTree = "<group>"; };
 		78705CF917FE7DAA006D9C84 /* chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = chat.png; path = Resources/chat.png; sourceTree = "<group>"; };
+		7890293B181A110300FA8CE0 /* HNLoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNLoadingCell.h; path = Views/HNLoadingCell.h; sourceTree = "<group>"; };
+		7890293C181A110300FA8CE0 /* HNLoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNLoadingCell.m; path = Views/HNLoadingCell.m; sourceTree = "<group>"; };
 		7893910718145C74004E1E6F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7893910918145C7B004E1E6F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		789533911818CC91000462A7 /* HNUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNUtils.h; path = Utilities/HNUtils.h; sourceTree = "<group>"; };
@@ -250,6 +253,8 @@
 				784FD7A617E579820053A2E4 /* HNCommentCell.m */,
 				78981A4818074E8C000A44A8 /* HNCommentInfoCell.h */,
 				78981A4918074E8C000A44A8 /* HNCommentInfoCell.m */,
+				7890293B181A110300FA8CE0 /* HNLoadingCell.h */,
+				7890293C181A110300FA8CE0 /* HNLoadingCell.m */,
 				78C7663617F7E9B6008A31F5 /* HNTouchableView.h */,
 				78C7663717F7E9B6008A31F5 /* HNTouchableView.m */,
 			);
@@ -381,6 +386,7 @@
 				782784D217C9814500CAD559 /* HNAppDelegate.m in Sources */,
 				78E4076417D04B4400DC8CE0 /* HNArticleListVC.m in Sources */,
 				78E4076817D278B100DC8CE0 /* HNWebBrowserVC.m in Sources */,
+				7890293D181A110300FA8CE0 /* HNLoadingCell.m in Sources */,
 				78E4076B17D2D11800DC8CE0 /* HNArticleCell.m in Sources */,
 				78E570CF17D817FB00D53F99 /* HNDownloadController.m in Sources */,
 				78E570D417D81C2C00D53F99 /* HNArticle.m in Sources */,
