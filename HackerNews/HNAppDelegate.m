@@ -36,7 +36,7 @@
     self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuVC];
     [self.navController pushViewController:self.articleListVC animated:NO];
     
-    self.navController.navigationBar.tintColor = [UIColor orangeColor];
+    [self setTitleBarColors];
     [self.window setRootViewController:self.navController];
     
     self.window.backgroundColor = [UIColor whiteColor];
@@ -62,6 +62,27 @@
     appTheme.commentTitleFont = [UIFont fontWithName:@"Helvetica-Bold" size:defaultTitleSize];
     appTheme.commentInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
     appTheme.commentPostFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
+    
+}
+
+- (void) setTitleBarColors
+{
+    if ([self.navController.navigationBar respondsToSelector:@selector(setBarTintColor:)])
+    {
+        NSDictionary *navTextAttrs = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      [UIColor whiteColor], UITextAttributeTextColor,
+                                     nil];
+        
+        self.navController.navigationBar.titleTextAttributes = navTextAttrs;
+        self.navController.navigationBar.barTintColor = [UIColor orangeColor];
+        self.navController.navigationBar.tintColor = [UIColor whiteColor];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        
+    }
+    else
+    {
+        self.navController.navigationBar.tintColor = [UIColor orangeColor];
+    }
     
 }
 
