@@ -35,6 +35,16 @@
                                @"New", @"title"
                                , nil];
         
+        
+        //Eliminate the the text for the "back" button in iOS7 (style choice)
+        int sysVer = [[[UIDevice currentDevice] systemVersion] integerValue];
+        if (sysVer >= 7)
+        {
+            self.navigationItem.backBarButtonItem =
+            [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
+        }
+        
+        
         self.mainItems = [[NSArray alloc] initWithObjects:frontPage, askHN, newHN, nil];
     }
     
