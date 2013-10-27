@@ -48,6 +48,12 @@
             [self.tableView reloadData];
         }
         
+        //Make sure separator lines go all the way across in iOS 7
+        if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)])
+        {
+            [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+        }
+        
     }
     return self;
 }
