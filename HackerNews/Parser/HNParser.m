@@ -15,6 +15,43 @@
 
 #pragma mark Public functions
 
++ (NSString *) getMoreArticlesLink:(NSData *)htmlData
+{
+    NSString *moreArticlesUrl = nil;
+    NSArray *htmlRows = [self parseHtmlRows:htmlData];
+    
+    if (htmlRows && htmlRows.count > 3)
+    {
+        TFHppleElement *moreArticlesRow = [htmlRows objectAtIndex:htmlRows.count - 3];
+        
+        if (moreArticlesRow) {
+        
+            TFHppleElement *moreArticlesElement = [[moreArticlesRow children] objectAtIndex:1];
+            
+            if (moreArticlesElement)
+            {
+                TFHppleElement *moreArticlesLink = [moreArticlesElement firstChild];
+                
+                if (moreArticlesLink)
+                {
+                    NSDictionary *linkAttributes = [moreArticlesLink attributes];
+                    
+                    if ([linkAttributes objectForKey:@"href"])
+                    {
+                        moreArticlesUrl = [linkAttributes objectForKey:@"href"];
+                    }
+                }
+            }
+            
+        }
+        
+        
+    }
+    
+    return moreArticlesUrl;
+    
+}
+
 + (NSArray *) parseArticles:(NSData *)htmlData
 {
     NSMutableArray *articles = [[NSMutableArray alloc] initWithCapacity:0];
