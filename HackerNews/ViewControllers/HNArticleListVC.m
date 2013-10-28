@@ -16,7 +16,7 @@
 
 @implementation HNArticleListVC
 
-@synthesize articles, webBrowserVC, commentVC, downloadController, articleContainerVC, theme;
+@synthesize articles, webBrowserVC, commentVC, downloadController, articleContainerVC, theme, url, moreArticlesPath, isDownloadAppending;
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme
 {
@@ -24,6 +24,7 @@
     if (self) {
         
         self.title = @"Hacker News";
+        self.url = @"https://news.ycombinator.com";
         
         //Set this so custom "HNTouchableView" won't have delays when calling "touchesBegan"
         self.tableView.delaysContentTouches = NO;
@@ -32,7 +33,8 @@
         commentVC = commVC;
         articleContainerVC = articleContainer;
         
-        downloadController = [[HNDownloadController alloc] initWithUrl:@"https://news.ycombinator.com"];
+        downloadController = [[HNDownloadController alloc] initWithUrl:self.url];
+        isDownloadAppending = NO;
         
         //This is an example of the site when there is a "black bar" on the header (i.e. a famous tech person died
         //downloadController = [[HNDownloadController alloc] initWithUrl:@"http://www.waybackletter.com/archive/20111005.html"];
@@ -64,7 +66,7 @@
     
     //Setup the pull-to-refresh control
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    [refresh addTarget:self action:@selector(downloadFrontPageArticles) forControlEvents:UIControlEventValueChanged];
+    [refresh addTarget:self action:@selector(downloadFreshArticles) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
     
     //Register custom tableviewcell class with tableview
@@ -74,7 +76,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self downloadFrontPageArticles];
+    [self downloadFreshArticles];
     
 }
 
@@ -88,21 +90,52 @@
     return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
-- (void)reloadButtonPressed
+-(void) setUrl:(NSString *)newUrl andTitle:(NSString *)title
 {
-    [self downloadFrontPageArticles];
-}
-
--(void) setUrl:(NSString *)url andTitle:(NSString *)title
-{
-    self.downloadController.url = url;
+    self.url = newUrl;
+    self.moreArticlesPath = nil;
+    
     self.title = title;
 }
 
-- (void) downloadFrontPageArticles
+- (void) downloadFreshArticles
+{
+    [self downloadFrontPageArticles:NO];
+}
+
+- (void) downloadFrontPageArticles:(BOOL)append
 {
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating..."];
+    
+    if (append)
+    {
+        isDownloadAppending = YES;
+        downloadController.url = [self buildDownloadUrl];
+    }
+    else
+    {
+        isDownloadAppending = NO;
+        downloadController.url = self.url;
+    }
+    
     [downloadController beginDownload];
+    
+}
+
+- (NSString *) buildDownloadUrl
+{
+    NSString *downloadUrl = nil;
+    
+    if (self.moreArticlesPath)
+    {
+        downloadUrl = [NSString stringWithFormat:@"%@/%@", self.url, self.moreArticlesPath];
+    }
+    else
+    {
+        downloadUrl = self.url;
+    }
+    
+    return downloadUrl;
     
 }
 
@@ -112,7 +145,19 @@
 {
     NSArray *parsedArticles = [HNParser parseArticles:data];
     
-    self.articles = parsedArticles;
+    if (isDownloadAppending)
+    {
+        NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.articles];
+        [tempArray addObjectsFromArray:parsedArticles];
+        
+        self.articles = tempArray;
+    }
+    else
+    {
+        self.articles = parsedArticles;
+    }
+    
+    self.moreArticlesPath = [HNParser getMoreArticlesLink:data];
     [self.tableView reloadData];
     
     //Update cache
@@ -136,9 +181,9 @@
  Determine if a url is a "self" post, i.e. the "article" is just a local URL to the comments
  page, which normally includes a some text content at the header.
  */
--(BOOL)isSelfPost:(NSString *)url
+-(BOOL)isSelfPost:(NSString *)newUrl
 {
-    NSString *selfPost = [HNParser getMatch:url fromRegex:@"(^item\\?id=\\d+$)"];
+    NSString *selfPost = [HNParser getMatch:newUrl fromRegex:@"(^item\\?id=\\d+$)"];
     
     if (selfPost)
     {
@@ -231,6 +276,25 @@
     cell.numCommentsLabel.font = self.theme.articleNumCommentsFont;
         
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"selcted!!");
+}
+
+-(void) scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    NSInteger currentOffset = scrollView.contentOffset.y;
+    NSInteger maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+    
+    
+    if (maximumOffset - currentOffset < 200 && !self.downloadController.isDownloading)
+    {
+        NSLog(@"load MOAR!");
+        
+        [self downloadFrontPageArticles:YES];
+    }
 }
 
 @end

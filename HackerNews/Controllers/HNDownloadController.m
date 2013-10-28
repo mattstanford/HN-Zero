@@ -12,7 +12,7 @@
 
 @implementation HNDownloadController
 
-@synthesize downloadDelegate, url;
+@synthesize downloadDelegate, url, isDownloading;
 
 - (id) initWithUrl:(NSString *)initUrl
 {
@@ -37,14 +37,16 @@
      ^(AFHTTPRequestOperation *operation, id responseObject)
      {
          [downloadDelegate downloadDidComplete:responseObject];
+         isDownloading = NO;
          
      }
     failure:^(AFHTTPRequestOperation *operation, NSError *erro)
      {
          [downloadDelegate downloadFailed];
+         isDownloading = NO;
      }];
     
-    
+    isDownloading = YES;
     [operation start];
 }
 
