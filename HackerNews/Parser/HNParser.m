@@ -38,7 +38,7 @@
                     
                     if ([linkAttributes objectForKey:@"href"])
                     {
-                        moreArticlesUrl = [linkAttributes objectForKey:@"href"];
+                        moreArticlesUrl = [[linkAttributes objectForKey:@"href"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
                     }
                 }
             }
