@@ -152,8 +152,8 @@
     [self.tableView reloadData];
     
     //Download new comments
-    downloadController.url = [NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", self.currentArticle.commentLinkId];
-    [downloadController beginDownload];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", self.currentArticle.commentLinkId]];
+    [downloadController beginDownload:url];
     
     //Update refresh control
     if ([self.refreshControl isRefreshing]) [self.refreshControl endRefreshing];

@@ -16,15 +16,12 @@
 
 @interface HNDownloadController : NSObject
 {
-    NSString *url;
     BOOL isDownloading;
 }
 
 @property (nonatomic, assign)  id<downloadControllerDelegate> downloadDelegate;
-@property (nonatomic, strong) NSString *url;
 @property (nonatomic, assign) BOOL isDownloading;
 
-- (id) initWithUrl:(NSString *)initUrl;
-- (void) beginDownload;
+- (void) beginDownload:(NSURL *)url;
 
 @end
