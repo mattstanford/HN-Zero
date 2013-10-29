@@ -23,15 +23,15 @@
         self.articleListVC = theArticleListVC;
         
         NSDictionary *frontPage = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                   @"https://news.ycombinator.com", @"url",
+                                   [NSURL URLWithString:@"https://news.ycombinator.com"], @"url",
                                    @"Front Page", @"title"
                                    , nil];
         NSDictionary *askHN = [[NSDictionary alloc] initWithObjectsAndKeys:
-                               @"https://news.ycombinator.com/ask", @"url",
+                               [NSURL URLWithString:@"https://news.ycombinator.com/ask"], @"url",
                                @"Ask HN", @"title"
                                , nil];
         NSDictionary *newHN = [[NSDictionary alloc] initWithObjectsAndKeys:
-                               @"https://news.ycombinator.com/newest", @"url",
+                               [NSURL URLWithString:@"https://news.ycombinator.com/newest"], @"url",
                                @"New", @"title"
                                , nil];
         
@@ -89,7 +89,7 @@
     
     if ([menuItem objectForKey:@"url"] && [menuItem objectForKey:@"title"])
     {
-        NSString *url = [menuItem objectForKey:@"url"];
+        NSURL *url = [menuItem objectForKey:@"url"];
         NSString *title = [menuItem objectForKey:@"title"];
         
         [self.articleListVC setUrl:url andTitle:title];

@@ -16,7 +16,7 @@
 
 @implementation HNArticleListVC
 
-@synthesize articles, webBrowserVC, commentVC, downloadController, articleContainerVC, theme, url, moreArticlesPath, isDownloadAppending;
+@synthesize articles, webBrowserVC, commentVC, downloadController, articleContainerVC, theme, url, moreArticlesUrl, isDownloadAppending;
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme
 {
@@ -24,7 +24,7 @@
     if (self) {
         
         self.title = @"Hacker News";
-        self.url = @"https://news.ycombinator.com";
+        self.url = [NSURL URLWithString:@"https://news.ycombinator.com"];
         
         //Set this so custom "HNTouchableView" won't have delays when calling "touchesBegan"
         self.tableView.delaysContentTouches = NO;
@@ -33,7 +33,7 @@
         commentVC = commVC;
         articleContainerVC = articleContainer;
         
-        downloadController = [[HNDownloadController alloc] initWithUrl:self.url];
+        downloadController = [[HNDownloadController alloc] initWithUrl:[self.url absoluteString]];
         isDownloadAppending = NO;
         
         //This is an example of the site when there is a "black bar" on the header (i.e. a famous tech person died
@@ -90,10 +90,9 @@
     return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
--(void) setUrl:(NSString *)newUrl andTitle:(NSString *)title
+-(void) setUrl:(NSURL *)newUrl andTitle:(NSString *)title
 {
     self.url = newUrl;
-    self.moreArticlesPath = nil;
     
     self.title = title;
 }
@@ -110,32 +109,16 @@
     if (append)
     {
         isDownloadAppending = YES;
-        downloadController.url = [self buildDownloadUrl];
+        downloadController.url = [self.moreArticlesUrl absoluteString];
     }
     else
     {
         isDownloadAppending = NO;
-        downloadController.url = self.url;
+        downloadController.url = [self.url absoluteString];
     }
+   
     
     [downloadController beginDownload];
-    
-}
-
-- (NSString *) buildDownloadUrl
-{
-    NSString *downloadUrl = nil;
-    
-    if (self.moreArticlesPath)
-    {
-        downloadUrl = [NSString stringWithFormat:@"%@/%@", self.url, self.moreArticlesPath];
-    }
-    else
-    {
-        downloadUrl = self.url;
-    }
-    
-    return downloadUrl;
     
 }
 
@@ -157,7 +140,10 @@
         self.articles = parsedArticles;
     }
     
-    self.moreArticlesPath = [HNParser getMoreArticlesLink:data];
+    //self.moreArticlesPath = [HNParser getMoreArticlesLink:data];
+    NSString *newPath = [HNParser getMoreArticlesLink:data];
+    self.moreArticlesUrl = [[NSURL alloc] initWithScheme:self.url.scheme host:self.url.host path:newPath];
+    
     [self.tableView reloadData];
     
     //Update cache

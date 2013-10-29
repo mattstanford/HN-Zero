@@ -38,7 +38,17 @@
                     
                     if ([linkAttributes objectForKey:@"href"])
                     {
-                        moreArticlesUrl = [[linkAttributes objectForKey:@"href"] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+                        //The 'moreArticlesUrl' is a path attribute for an NSURL, os it must
+                        //start with a '/'
+                        NSString *rawUrl = [linkAttributes objectForKey:@"href"];
+                        if ([rawUrl hasPrefix:@"/"])
+                        {
+                            moreArticlesUrl = rawUrl;
+                        }
+                        else
+                        {
+                            moreArticlesUrl = [NSString stringWithFormat:@"/%@", rawUrl];
+                        }
                     }
                 }
             }
