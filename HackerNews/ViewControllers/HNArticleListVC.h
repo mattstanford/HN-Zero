@@ -25,14 +25,14 @@
     
     HNTheme *theme;
     
-    NSString *url;
-    NSString *moreArticlesPath;
+    NSURL *url;
+    NSURL *moreArticlesUrl;
     BOOL isDownloadAppending;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme;
 - (void) downloadFreshArticles;
-- (void) setUrl:(NSString *)newUrl andTitle:(NSString *)title;
+- (void) setUrl:(NSURL *)newUrl andTitle:(NSString *)title;
 
 @property (strong, nonatomic) NSArray *articles;
 @property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;
@@ -40,8 +40,8 @@
 @property (strong, nonatomic) HNCommentVC *commentVC;
 @property (strong, nonatomic) HNDownloadController *downloadController;
 @property (strong, nonatomic) HNTheme *theme;
-@property (strong, nonatomic) NSString *url;
-@property (strong, nonatomic) NSString *moreArticlesPath;
+@property (strong, nonatomic) NSURL *url;
+@property (strong, nonatomic) NSURL *moreArticlesUrl;
 @property (assign, nonatomic) BOOL isDownloadAppending;
 
 @end
