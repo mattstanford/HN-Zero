@@ -33,7 +33,7 @@
         commentVC = commVC;
         articleContainerVC = articleContainer;
         
-        downloadController = [[HNDownloadController alloc] initWithUrl:[self.url absoluteString]];
+        downloadController = [[HNDownloadController alloc] init];
         isDownloadAppending = NO;
         
         //This is an example of the site when there is a "black bar" on the header (i.e. a famous tech person died
@@ -104,21 +104,21 @@
 
 - (void) downloadFrontPageArticles:(BOOL)append
 {
+    NSURL *downloadUrl = nil;
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating..."];
     
     if (append)
     {
         isDownloadAppending = YES;
-        downloadController.url = [self.moreArticlesUrl absoluteString];
+        downloadUrl= self.moreArticlesUrl;
     }
     else
     {
         isDownloadAppending = NO;
-        downloadController.url = [self.url absoluteString];
+        downloadUrl = self.url;
     }
    
-    
-    [downloadController beginDownload];
+    [downloadController beginDownload:downloadUrl];
     
 }
 

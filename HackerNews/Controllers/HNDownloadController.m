@@ -12,24 +12,11 @@
 
 @implementation HNDownloadController
 
-@synthesize downloadDelegate, url, isDownloading;
+@synthesize downloadDelegate, isDownloading;
 
-- (id) initWithUrl:(NSString *)initUrl
+- (void) beginDownload:(NSURL *)url
 {
-    self = [super init];
-    if (self)
-    {
-        self.url = initUrl;
-    }
-    
-    return self;
-}
-
-- (void) beginDownload
-{
-    
-    NSURL *urlObject = [NSURL URLWithString:self.url];
-    NSURLRequest *request = [NSURLRequest requestWithURL:urlObject];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
