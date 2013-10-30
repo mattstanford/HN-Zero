@@ -16,6 +16,7 @@
 
 - (void) beginDownload:(NSURL *)url
 {
+    NSLog(@"downloading: %@", [url absoluteString]);
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];

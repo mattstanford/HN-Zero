@@ -72,7 +72,8 @@
     NSString *styleType = nil;
     
     //This is a recursive funciton.  This is our base case.
-    if ([block.tagName isEqualToString:@"text"] && block.text) {
+    if ([block.tagName isEqualToString:@"text"] && block.text)
+    {
         return [[HNCommentString alloc] initWithString:block.text styles:nil];
     }
     
@@ -86,9 +87,7 @@
     //We are setting the child elements to have a specific style according to the parent tag here
     if ([block.tagName isEqualToString:@"a"] || [block.tagName isEqualToString:@"i"] || [block.tagName isEqualToString:@"b"] || [block.tagName isEqualToString:@"code"])
     {
-        //styleStringStart = [blockString length];
         styleStringStart = commentString.text.length;
-        
         styleType = block.tagName;
     }
 
@@ -96,6 +95,14 @@
     //Recurse this function until we get to the base case (tag="text")
     for (HNCommentBlock *child in block.childBlocks)
     {
+        //"Code" tagged text needs to have white space removed in a special manner
+        if ([styleType isEqualToString:@"code"] && child.text)
+        {
+            NSString *filteredString = [self filterWhiteSpace:child.text];
+            child.text = filteredString;
+        }
+        
+        
         [commentString appendCommentString:[self convertToCommentString:child]];
     }
     
@@ -145,5 +152,16 @@
 
 }
 
+- (NSString *) filterWhiteSpace:(NSString *)rawString
+{
+    //First trim whitespace from ends of string
+    NSMutableString *filteredString = [NSMutableString stringWithString:[rawString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+    
+    //Remove white space that follows a line break from string
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\n\\s+" options:0 error:nil];
+    [regex replaceMatchesInString:filteredString options:0 range:NSMakeRange(0, [filteredString length]) withTemplate:@"\n"];
+    
+    return filteredString;
+}
 
 @end
