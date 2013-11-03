@@ -38,10 +38,12 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
         
         navigateBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [navigateBackButton setImage:[UIImage imageWithCGImage:baseNavImage.CGImage scale:1.0 orientation:UIImageOrientationUpMirrored] forState:UIControlStateNormal];
+        [navigateBackButton addTarget:self action:@selector(backButtonTouched) forControlEvents:UIControlEventTouchDown];
         [bottomBarView addSubview:navigateBackButton];
         
         navigateForwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [navigateForwardButton setImage:baseNavImage forState:UIControlStateNormal];
+        [navigateForwardButton addTarget:self action:@selector(forwardButtonTouched) forControlEvents:UIControlEventTouchDown];
         [bottomBarView addSubview:navigateForwardButton];
         
         currentURL = @"http://news.ycombinator.com";
@@ -73,9 +75,26 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     CGFloat backNavigateButtonX = 10;
     CGFloat forwardNavigateButtonX = backNavigateButtonX + navigateButtonWidth + 15;
     CGFloat navigateButtonY = (BOTTOM_BAR_HEIGHT / 2) - (navigateButtonHeight / 2);
+    
     self.navigateBackButton.frame = CGRectMake(backNavigateButtonX, navigateButtonY, navigateButtonWidth, navigateButtonHeight);
     self.navigateForwardButton.frame = CGRectMake(forwardNavigateButtonX, navigateButtonY, navigateButtonWidth, navigateButtonHeight);
     
+}
+
+- (void) backButtonTouched
+{
+    if ([self.webView canGoBack])
+    {
+        [self.webView goBack];
+    }
+}
+
+- (void) forwardButtonTouched
+{
+    if ([self.webView canGoForward])
+    {
+        [self.webView goForward];
+    }
 }
 
 - (void) setURL:(NSString *)newUrl forceUpdate:(BOOL)doForceUpdate
