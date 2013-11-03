@@ -14,7 +14,9 @@
 
 @implementation HNWebBrowserVC
 
-@synthesize webView, currentURL;
+@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton;
+
+static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
 - (id)init {
     
@@ -27,6 +29,20 @@
         webView.delegate = self;
         webView.scalesPageToFit = YES;
         [self.view addSubview:webView];
+        
+        bottomBarView = [[UIView alloc] initWithFrame:CGRectZero];
+        bottomBarView.backgroundColor = [UIColor orangeColor];
+        [self.view addSubview:bottomBarView];
+        
+        UIImage *baseNavImage = [UIImage imageNamed:@"triangle.png"];
+        
+        navigateBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [navigateBackButton setImage:[UIImage imageWithCGImage:baseNavImage.CGImage scale:1.0 orientation:UIImageOrientationUpMirrored] forState:UIControlStateNormal];
+        [bottomBarView addSubview:navigateBackButton];
+        
+        navigateForwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [navigateForwardButton setImage:baseNavImage forState:UIControlStateNormal];
+        [bottomBarView addSubview:navigateForwardButton];
         
         currentURL = @"http://news.ycombinator.com";
         
@@ -45,8 +61,21 @@
 }
 
 - (void) viewWillLayoutSubviews
-{   
-    self.webView.frame = self.view.frame;
+{
+    CGFloat webViewHeight = self.view.frame.size.height - BOTTOM_BAR_HEIGHT;
+    
+    self.webView.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, webViewHeight);
+    self.bottomBarView.frame = CGRectMake(0, webViewHeight, self.view.frame.size.width , BOTTOM_BAR_HEIGHT);
+    
+    //Add navigation buttons to bottom bar
+    CGFloat navigateButtonHeight = BOTTOM_BAR_HEIGHT - 15;
+    CGFloat navigateButtonWidth = navigateButtonHeight;
+    CGFloat backNavigateButtonX = 10;
+    CGFloat forwardNavigateButtonX = backNavigateButtonX + navigateButtonWidth + 15;
+    CGFloat navigateButtonY = (BOTTOM_BAR_HEIGHT / 2) - (navigateButtonHeight / 2);
+    self.navigateBackButton.frame = CGRectMake(backNavigateButtonX, navigateButtonY, navigateButtonWidth, navigateButtonHeight);
+    self.navigateForwardButton.frame = CGRectMake(forwardNavigateButtonX, navigateButtonY, navigateButtonWidth, navigateButtonHeight);
+    
 }
 
 - (void) setURL:(NSString *)newUrl forceUpdate:(BOOL)doForceUpdate

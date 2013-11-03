@@ -12,12 +12,19 @@
 {
     UIWebView *webView;
     NSString *currentURL;
+    UIView *bottomBarView;
+    
+    UIButton *navigateBackButton;
+    UIButton *navigateForwardButton;
 }
 
 - (void) setURL:(NSString *)newUrl forceUpdate:(BOOL)doForceUpdate;
 
 @property (strong, nonatomic) UIWebView *webView;
 @property (strong, nonatomic) NSString *currentURL;
+@property (strong, nonatomic) UIView *bottomBarView;
+@property (strong, nonatomic) UIButton *navigateBackButton;
+@property (strong, nonatomic) UIButton *navigateForwardButton;
 
 
 @end

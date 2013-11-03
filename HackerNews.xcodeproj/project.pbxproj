@@ -42,6 +42,7 @@
 		78E4076B17D2D11800DC8CE0 /* HNArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076A17D2D11700DC8CE0 /* HNArticleCell.m */; };
 		78E570CF17D817FB00D53F99 /* HNDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E570CE17D817FB00D53F99 /* HNDownloadController.m */; };
 		78E570D417D81C2C00D53F99 /* HNArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E570D317D81C2C00D53F99 /* HNArticle.m */; };
+		A7F985B81826DB9900A8D404 /* triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F985B71826DB9900A8D404 /* triangle.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +105,7 @@
 		78E570CE17D817FB00D53F99 /* HNDownloadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNDownloadController.m; path = Controllers/HNDownloadController.m; sourceTree = "<group>"; };
 		78E570D217D81C2C00D53F99 /* HNArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNArticle.h; path = Models/HNArticle.h; sourceTree = "<group>"; };
 		78E570D317D81C2C00D53F99 /* HNArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNArticle.m; path = Models/HNArticle.m; sourceTree = "<group>"; };
+		A7F985B71826DB9900A8D404 /* triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = triangle.png; path = Resources/triangle.png; sourceTree = "<group>"; };
 		C70DA83392594FF4B0113C30 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -273,6 +275,7 @@
 		78EAD07B17F8CF970023287A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A7F985B71826DB9900A8D404 /* triangle.png */,
 				78705CF917FE7DAA006D9C84 /* chat.png */,
 				78705CF317FE7C47006D9C84 /* chat@2x.png */,
 			);
@@ -338,6 +341,7 @@
 				782784D617C9814500CAD559 /* Default@2x.png in Resources */,
 				782784D817C9814500CAD559 /* Default-568h@2x.png in Resources */,
 				78705CF417FE7C47006D9C84 /* chat@2x.png in Resources */,
+				A7F985B81826DB9900A8D404 /* triangle.png in Resources */,
 				78705CFA17FE7DAA006D9C84 /* chat.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
