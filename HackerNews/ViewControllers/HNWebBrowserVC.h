@@ -16,6 +16,8 @@
     
     UIButton *navigateBackButton;
     UIButton *navigateForwardButton;
+    int historyPosition;
+    int historyLength;
 }
 
 - (void) setURL:(NSString *)newUrl forceUpdate:(BOOL)doForceUpdate;
@@ -25,6 +27,8 @@
 @property (strong, nonatomic) UIView *bottomBarView;
 @property (strong, nonatomic) UIButton *navigateBackButton;
 @property (strong, nonatomic) UIButton *navigateForwardButton;
+@property (assign, nonatomic) int historyPosition;
+@property (assign, nonatomic) int historyLength;
 
 
 @end

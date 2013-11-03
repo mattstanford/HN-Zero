@@ -14,7 +14,7 @@
 
 @implementation HNWebBrowserVC
 
-@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton;
+@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, historyPosition, historyLength;
 
 static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
@@ -81,26 +81,46 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     
 }
 
+- (BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if (navigationType == UIWebViewNavigationTypeLinkClicked)
+    {
+        historyPosition++;
+        
+        if (historyPosition > historyLength)
+        {
+            historyLength = historyPosition;
+        }
+    }
+    
+    return TRUE;
+}
+
 - (void) backButtonTouched
 {
-    if ([self.webView canGoBack])
+    if (historyPosition > 0)
     {
+        historyPosition--;
         [self.webView goBack];
     }
 }
 
 - (void) forwardButtonTouched
 {
-    if ([self.webView canGoForward])
+    if (historyPosition < historyLength)
     {
+        historyPosition++;
         [self.webView goForward];
     }
 }
 
 - (void) setURL:(NSString *)newUrl forceUpdate:(BOOL)doForceUpdate
 {
-    if(doForceUpdate || ![newUrl isEqualToString:self.currentURL])
+    if(doForceUpdate || historyLength > 0 || ![newUrl isEqualToString:self.currentURL])
     {
+        historyPosition = 0;
+        historyLength = 0;
+        
         [self loadUrl:@"about:blank"];
         [self loadUrl:newUrl];
     }
