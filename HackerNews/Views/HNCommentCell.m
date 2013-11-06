@@ -112,9 +112,11 @@ static const int MAX_INDENT_WIDTH = 80;
     tempLabel.attributedText = text;
     [tempLabel setNumberOfLines:0];
     CGSize constraint = CGSizeMake(labelWidth, CGFLOAT_MAX);
-    CGSize commentSize = [tempLabel sizeThatFits:constraint];
+    
+    //Cell height cannot be a fraction
+    CGFloat commentHeight = ceil([tempLabel sizeThatFits:constraint].height);
 
-    return commentSize.height + NAME_LABEL_HEIGHT + CELL_BOTTOM_MARGIN + CELL_TOP_MARGIN;
+    return commentHeight + NAME_LABEL_HEIGHT + CELL_BOTTOM_MARGIN + CELL_TOP_MARGIN;
 }
 
 

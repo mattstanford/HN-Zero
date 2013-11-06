@@ -78,13 +78,18 @@ static const CGFloat COMMENT_BUBBLE_SIZE = 15;
 + (CGFloat) getArticleLabelHeight:(NSString *)text withFont:(UIFont *)font forWidth:(CGFloat)width
 {
     CGSize labelConstraint = CGSizeMake(width, CGFLOAT_MAX);
+    CGFloat labelHeight = [text sizeWithFont:font constrainedToSize:labelConstraint lineBreakMode:NSLineBreakByWordWrapping].height;
     
-    return [text sizeWithFont:font constrainedToSize:labelConstraint lineBreakMode:NSLineBreakByWordWrapping].height;
+    //Cell height cannot be a fraction
+    return ceil(labelHeight);
 }
 
 + (CGFloat) getInfoLabelHeight:(NSString *)text withFont:(UIFont *)font forWidth:(CGFloat)width
 {
-    return [text sizeWithFont:font forWidth:width lineBreakMode:NSLineBreakByCharWrapping].height;
+    CGFloat labelHeight = [text sizeWithFont:font forWidth:width lineBreakMode:NSLineBreakByCharWrapping].height;
+    
+    //Cell height cannot be a fraction
+    return ceil(labelHeight);
 }
 
 + (CGFloat) getLabelWidth:(CGFloat)frameWidth
@@ -94,7 +99,7 @@ static const CGFloat COMMENT_BUBBLE_SIZE = 15;
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
-    
+   
     CGFloat labelWidth = [HNArticleCell getLabelWidth:self.frame.size.width];
     //Article view (contains article title and info view)
     [articleView setFrame:CGRectMake(0, 0, labelWidth + CELL_LEFT_MARGIN, self.frame.size.height)];
@@ -120,7 +125,6 @@ static const CGFloat COMMENT_BUBBLE_SIZE = 15;
     CGFloat commentBubbleX = (commentView.frame.size.width / 2) - (COMMENT_BUBBLE_SIZE / 2);
     CGFloat commentBubbleY = numCommentsLabel.frame.origin.y + numCommentsLabel.frame.size.height;
     [commentBubbleIcon setFrame:CGRectMake(commentBubbleX, commentBubbleY, COMMENT_BUBBLE_SIZE, COMMENT_BUBBLE_SIZE)];
-
     
 }
 
