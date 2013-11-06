@@ -42,6 +42,11 @@
 		78E4076B17D2D11800DC8CE0 /* HNArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076A17D2D11700DC8CE0 /* HNArticleCell.m */; };
 		78E570CF17D817FB00D53F99 /* HNDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E570CE17D817FB00D53F99 /* HNDownloadController.m */; };
 		78E570D417D81C2C00D53F99 /* HNArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E570D317D81C2C00D53F99 /* HNArticle.m */; };
+		A79586521829D9AB002299C0 /* triangle-blue-reverse.png in Resources */ = {isa = PBXBuildFile; fileRef = A795864D1829D9AB002299C0 /* triangle-blue-reverse.png */; };
+		A79586531829D9AB002299C0 /* triangle-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = A795864E1829D9AB002299C0 /* triangle-blue.png */; };
+		A79586541829D9AB002299C0 /* triangle-grey-reverse.png in Resources */ = {isa = PBXBuildFile; fileRef = A795864F1829D9AB002299C0 /* triangle-grey-reverse.png */; };
+		A79586551829D9AB002299C0 /* triangle-grey.png in Resources */ = {isa = PBXBuildFile; fileRef = A79586501829D9AB002299C0 /* triangle-grey.png */; };
+		A79586561829D9AB002299C0 /* triangle-reverse.png in Resources */ = {isa = PBXBuildFile; fileRef = A79586511829D9AB002299C0 /* triangle-reverse.png */; };
 		A7F985B81826DB9900A8D404 /* triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F985B71826DB9900A8D404 /* triangle.png */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +110,11 @@
 		78E570CE17D817FB00D53F99 /* HNDownloadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNDownloadController.m; path = Controllers/HNDownloadController.m; sourceTree = "<group>"; };
 		78E570D217D81C2C00D53F99 /* HNArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNArticle.h; path = Models/HNArticle.h; sourceTree = "<group>"; };
 		78E570D317D81C2C00D53F99 /* HNArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNArticle.m; path = Models/HNArticle.m; sourceTree = "<group>"; };
+		A795864D1829D9AB002299C0 /* triangle-blue-reverse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "triangle-blue-reverse.png"; path = "Resources/triangle-blue-reverse.png"; sourceTree = "<group>"; };
+		A795864E1829D9AB002299C0 /* triangle-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "triangle-blue.png"; path = "Resources/triangle-blue.png"; sourceTree = "<group>"; };
+		A795864F1829D9AB002299C0 /* triangle-grey-reverse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "triangle-grey-reverse.png"; path = "Resources/triangle-grey-reverse.png"; sourceTree = "<group>"; };
+		A79586501829D9AB002299C0 /* triangle-grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "triangle-grey.png"; path = "Resources/triangle-grey.png"; sourceTree = "<group>"; };
+		A79586511829D9AB002299C0 /* triangle-reverse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "triangle-reverse.png"; path = "Resources/triangle-reverse.png"; sourceTree = "<group>"; };
 		A7F985B71826DB9900A8D404 /* triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = triangle.png; path = Resources/triangle.png; sourceTree = "<group>"; };
 		C70DA83392594FF4B0113C30 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -275,6 +285,11 @@
 		78EAD07B17F8CF970023287A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A795864D1829D9AB002299C0 /* triangle-blue-reverse.png */,
+				A795864E1829D9AB002299C0 /* triangle-blue.png */,
+				A795864F1829D9AB002299C0 /* triangle-grey-reverse.png */,
+				A79586501829D9AB002299C0 /* triangle-grey.png */,
+				A79586511829D9AB002299C0 /* triangle-reverse.png */,
 				A7F985B71826DB9900A8D404 /* triangle.png */,
 				78705CF917FE7DAA006D9C84 /* chat.png */,
 				78705CF317FE7C47006D9C84 /* chat@2x.png */,
@@ -336,12 +351,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A79586531829D9AB002299C0 /* triangle-blue.png in Resources */,
+				A79586521829D9AB002299C0 /* triangle-blue-reverse.png in Resources */,
+				A79586561829D9AB002299C0 /* triangle-reverse.png in Resources */,
 				782784CC17C9814500CAD559 /* InfoPlist.strings in Resources */,
 				782784D417C9814500CAD559 /* Default.png in Resources */,
 				782784D617C9814500CAD559 /* Default@2x.png in Resources */,
+				A79586541829D9AB002299C0 /* triangle-grey-reverse.png in Resources */,
 				782784D817C9814500CAD559 /* Default-568h@2x.png in Resources */,
 				78705CF417FE7C47006D9C84 /* chat@2x.png in Resources */,
 				A7F985B81826DB9900A8D404 /* triangle.png in Resources */,
+				A79586551829D9AB002299C0 /* triangle-grey.png in Resources */,
 				78705CFA17FE7DAA006D9C84 /* chat.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

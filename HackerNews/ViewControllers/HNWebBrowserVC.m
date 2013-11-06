@@ -34,17 +34,15 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
         bottomBarView.backgroundColor = [UIColor orangeColor];
         [self.view addSubview:bottomBarView];
         
-        UIImage *baseNavImage = [UIImage imageNamed:@"triangle.png"];
-        
         navigateBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [navigateBackButton setImage:[UIImage imageWithCGImage:baseNavImage.CGImage scale:1.0 orientation:UIImageOrientationUpMirrored] forState:UIControlStateNormal];
         [navigateBackButton addTarget:self action:@selector(backButtonTouched) forControlEvents:UIControlEventTouchDown];
         [bottomBarView addSubview:navigateBackButton];
         
         navigateForwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [navigateForwardButton setImage:baseNavImage forState:UIControlStateNormal];
         [navigateForwardButton addTarget:self action:@selector(forwardButtonTouched) forControlEvents:UIControlEventTouchDown];
         [bottomBarView addSubview:navigateForwardButton];
+        
+        [self resetNavButtons];
         
         currentURL = @"http://news.ycombinator.com";
         
@@ -85,6 +83,7 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 {
     if (navigationType == UIWebViewNavigationTypeLinkClicked)
     {
+        [self activateBackNavButton];
         historyPosition++;
         
         if (historyPosition > historyLength)
@@ -96,12 +95,55 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     return TRUE;
 }
 
+- (void) resetNavButtons
+{
+    historyPosition = 0;
+    historyLength = 0;
+    
+    //Set images
+    [self deactivateBackNavButton];
+    [self deactivateForwardNavButton];
+}
+
+- (void) activateBackNavButton
+{
+    [navigateBackButton setImage:[UIImage imageNamed:@"triangle-reverse.png"] forState:UIControlStateNormal];
+    [navigateBackButton setImage:[UIImage imageNamed:@"triangle-blue-reverse.png"] forState:UIControlStateHighlighted];
+}
+
+- (void) activateForwardNavButton
+{
+    [navigateForwardButton setImage:[UIImage imageNamed:@"triangle"] forState:UIControlStateNormal];
+    [navigateForwardButton setImage:[UIImage imageNamed:@"triangle-blue"] forState:UIControlStateHighlighted];
+    
+}
+
+- (void) deactivateBackNavButton
+{
+    [navigateBackButton setImage:[UIImage imageNamed:@"triangle-grey-reverse.png"] forState:UIControlStateNormal];
+    [navigateBackButton setImage:[UIImage imageNamed:@"triangle-grey-reverse.png"] forState:UIControlStateHighlighted];
+}
+
+- (void) deactivateForwardNavButton
+{
+    [navigateForwardButton setImage:[UIImage imageNamed:@"triangle-grey.png"] forState:UIControlStateNormal];
+    [navigateForwardButton setImage:[UIImage imageNamed:@"triangle-grey.png"] forState:UIControlStateHighlighted];
+}
+
 - (void) backButtonTouched
 {
     if (historyPosition > 0)
     {
         historyPosition--;
         [self.webView goBack];
+        
+        [self activateForwardNavButton];
+        
+        if (historyPosition == 0)
+        {
+            [self deactivateBackNavButton];
+        }
+        
     }
 }
 
@@ -111,6 +153,13 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     {
         historyPosition++;
         [self.webView goForward];
+        
+        [self activateBackNavButton];
+        
+        if (historyPosition == historyLength)
+        {
+            [self deactivateForwardNavButton];
+        }
     }
 }
 
@@ -118,8 +167,7 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 {
     if(doForceUpdate || historyLength > 0 || ![newUrl isEqualToString:self.currentURL])
     {
-        historyPosition = 0;
-        historyLength = 0;
+        [self resetNavButtons];
         
         [self loadUrl:@"about:blank"];
         [self loadUrl:newUrl];
