@@ -44,7 +44,7 @@
         //Comment was deleted by a moderator
         baseString = [NSString stringWithFormat:@"%@[deleted]", indentOverflowString];
         
-        NSRange deletedRange = NSMakeRange(0, [baseString length]);
+        NSRange deletedRange = NSMakeRange(0, baseString.length);
         headerString = [[NSMutableAttributedString alloc] initWithString:baseString];
         [headerString addAttribute:NSFontAttributeName value:theme.commentBoldFont range:deletedRange];
     }
@@ -53,10 +53,12 @@
         NSString *timeString = self.dateWritten;
         baseString = [NSString stringWithFormat:@"%@%@ • %@", indentOverflowString, user, timeString];
         
+        NSRange overflowStringRange = NSMakeRange(0, indentOverflowString.length);
         NSRange userStringRange = NSMakeRange(indentOverflowString.length, user.length);
         NSRange timeStringRange = NSMakeRange(baseString.length - timeString.length - 2 , timeString.length + 2);
         
         headerString = [[NSMutableAttributedString alloc] initWithString:baseString];
+        [headerString addAttribute:NSFontAttributeName value:theme.commentNormalFont range:overflowStringRange];
         [headerString addAttribute:NSFontAttributeName value:theme.commentBoldFont range:userStringRange];
         [headerString addAttribute:NSFontAttributeName value:theme.commentNormalFont range:timeStringRange];
         [headerString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:timeStringRange];
