@@ -227,6 +227,7 @@
     }
     
     cell.postLabel.font = self.theme.commentPostFont;
+    cell.separatorView.backgroundColor = self.theme.titleBarColor;
     
     return cell;
     

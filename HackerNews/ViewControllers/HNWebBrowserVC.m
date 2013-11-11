@@ -7,6 +7,7 @@
 //
 
 #import "HNWebBrowserVC.h"
+#import "HNTheme.h"
 
 @interface HNWebBrowserVC ()
 
@@ -14,11 +15,11 @@
 
 @implementation HNWebBrowserVC
 
-@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, historyPosition, historyLength;
+@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, historyPosition, historyLength, theme;
 
 static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
-- (id)init {
+- (id)initWithTheme:(HNTheme *)theTheme {
     
     self = [super init];
     if (self) {
@@ -30,8 +31,10 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
         webView.scalesPageToFit = YES;
         [self.view addSubview:webView];
         
+        self.theme = theTheme;
+        
         bottomBarView = [[UIView alloc] initWithFrame:CGRectZero];
-        bottomBarView.backgroundColor = [UIColor orangeColor];
+        bottomBarView.backgroundColor = theTheme.titleBarColor;
         [self.view addSubview:bottomBarView];
         
         navigateBackButton = [UIButton buttonWithType:UIButtonTypeCustom];

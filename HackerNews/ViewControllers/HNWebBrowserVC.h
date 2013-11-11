@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class HNTheme;
+
 @interface HNWebBrowserVC : UIViewController <UIWebViewDelegate>
 {
     UIWebView *webView;
@@ -18,8 +20,11 @@
     UIButton *navigateForwardButton;
     int historyPosition;
     int historyLength;
+    
+    HNTheme *theme;
 }
 
+- (id)initWithTheme:(HNTheme *)theTheme;
 - (void) setURL:(NSString *)newUrl forceUpdate:(BOOL)doForceUpdate;
 
 @property (strong, nonatomic) UIWebView *webView;
@@ -29,6 +34,7 @@
 @property (strong, nonatomic) UIButton *navigateForwardButton;
 @property (assign, nonatomic) int historyPosition;
 @property (assign, nonatomic) int historyLength;
+@property (strong, nonatomic) HNTheme *theme;
 
 
 @end

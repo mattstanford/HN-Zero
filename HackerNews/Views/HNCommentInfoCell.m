@@ -46,7 +46,6 @@ static const int SEPARATOR_HEIGHT = 3;
         [self.contentView addSubview:self.postLabel];
         
         self.separatorView = [[UIView alloc] initWithFrame:CGRectZero];
-        self.separatorView.backgroundColor = [UIColor orangeColor];
         [self addSubview:separatorView];
     }
     

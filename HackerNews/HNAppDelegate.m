@@ -22,8 +22,8 @@
     self.theme = [[HNTheme alloc] init];
     [self setDefaultTheme:self.theme];
     
-    self.webBrowserVC = [[HNWebBrowserVC alloc] init];
-    self.commentWebBrowserVC = [[HNWebBrowserVC alloc] init];
+    self.webBrowserVC = [[HNWebBrowserVC alloc] initWithTheme:self.theme];
+    self.commentWebBrowserVC = [[HNWebBrowserVC alloc] initWithTheme:self.theme];
     
     self.commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStylePlain withTheme:self.theme webBrowser:self.commentWebBrowserVC];
     
