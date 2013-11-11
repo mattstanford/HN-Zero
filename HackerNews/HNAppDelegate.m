@@ -49,7 +49,7 @@
     CGFloat defaultFontSize = 13.0;
     CGFloat defaultTitleSize = 15.0;
     
-    appTheme.titleBarColor = [UIColor orangeColor];
+    appTheme.titleBarColor = [UIColor colorWithRed:1.0 green:.4 blue:0.0 alpha:1.0];
     appTheme.titleBarTextColor = [UIColor whiteColor];
     
     appTheme.articleTitleFont = [UIFont fontWithName:@"Helvetica" size:defaultTitleSize];
