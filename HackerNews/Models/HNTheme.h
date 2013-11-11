@@ -10,6 +10,9 @@
 
 @interface HNTheme : NSObject
 {
+    UIColor *titleBarColor;
+    UIColor *titleBarTextColor;
+    
     UIFont *articleTitleFont;
     UIFont *articleInfoFont;
     UIFont *articleNumCommentsFont;
@@ -25,6 +28,8 @@
     CGFloat commentFontSize;
 }
 
+@property (nonatomic, strong) UIColor *titleBarColor;
+@property (nonatomic, strong) UIColor *titleBarTextColor;
 @property (nonatomic, strong) UIFont *articleTitleFont;
 @property (nonatomic, strong) UIFont *articleInfoFont;
 @property (nonatomic, strong) UIFont *articleNumCommentsFont;

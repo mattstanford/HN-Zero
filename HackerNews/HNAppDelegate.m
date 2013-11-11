@@ -36,7 +36,7 @@
     self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuVC];
     [self.navController pushViewController:self.articleListVC animated:NO];
     
-    [self setTitleBarColors];
+    [self setTitleBarColors:self.theme];
     [self.window setRootViewController:self.navController];
     
     self.window.backgroundColor = [UIColor whiteColor];
@@ -48,6 +48,9 @@
 {
     CGFloat defaultFontSize = 13.0;
     CGFloat defaultTitleSize = 15.0;
+    
+    appTheme.titleBarColor = [UIColor orangeColor];
+    appTheme.titleBarTextColor = [UIColor whiteColor];
     
     appTheme.articleTitleFont = [UIFont fontWithName:@"Helvetica" size:defaultTitleSize];
     appTheme.articleInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
@@ -65,7 +68,7 @@
     
 }
 
-- (void) setTitleBarColors
+- (void) setTitleBarColors:(HNTheme *)theTheme
 {
     if ([self.navController.navigationBar respondsToSelector:@selector(setBarTintColor:)])
     {
@@ -74,14 +77,14 @@
                                      nil];
         
         self.navController.navigationBar.titleTextAttributes = navTextAttrs;
-        self.navController.navigationBar.barTintColor = [UIColor orangeColor];
-        self.navController.navigationBar.tintColor = [UIColor whiteColor];
+        self.navController.navigationBar.barTintColor = theTheme.titleBarColor;
+        self.navController.navigationBar.tintColor = theTheme.titleBarTextColor;
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         
     }
     else
     {
-        self.navController.navigationBar.tintColor = [UIColor orangeColor];
+        self.navController.navigationBar.tintColor = theTheme.titleBarColor;
     }
     
 }
