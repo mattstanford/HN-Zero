@@ -11,7 +11,7 @@
 @implementation HNCommentCell
 
 static const CGFloat CELL_LEFT_MARGIN = 10;
-static const CGFloat CELL_RIGHT_MARGIN = 30;
+static const CGFloat CELL_RIGHT_MARGIN = 10;
 static const CGFloat CELL_TOP_MARGIN = 10;
 static const CGFloat CELL_BOTTOM_MARGIN = 10;
 static const CGFloat NAME_LABEL_HEIGHT = 20;
