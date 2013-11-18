@@ -65,7 +65,12 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
 - (void) viewWillLayoutSubviews
 {
-    CGFloat webViewHeight = self.view.frame.size.height - BOTTOM_BAR_HEIGHT;
+    CGFloat webViewHeight = self.view.frame.size.height;
+    
+    if (bottomBarView.hidden == FALSE)
+    {
+        webViewHeight -= BOTTOM_BAR_HEIGHT;
+    }
     
     self.webView.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, webViewHeight);
     self.bottomBarView.frame = CGRectMake(0, webViewHeight, self.view.frame.size.width , BOTTOM_BAR_HEIGHT);
@@ -86,6 +91,8 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 {
     if (navigationType == UIWebViewNavigationTypeLinkClicked)
     {
+        [self setBottomBarVisible:TRUE];
+        
         [self activateBackNavButton];
         historyPosition++;
         
@@ -98,6 +105,22 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     return TRUE;
 }
 
+- (void) setBottomBarVisible:(BOOL)isVisible
+{
+    if (isVisible)
+    {
+        self.bottomBarView.hidden = FALSE;
+    }
+    else
+    {
+        self.bottomBarView.hidden = TRUE;
+    }
+    
+    //Reset the frame to show/hide bottom bar
+    [self viewWillLayoutSubviews];
+    
+}
+
 - (void) resetNavButtons
 {
     historyPosition = 0;
@@ -106,6 +129,8 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     //Set images
     [self deactivateBackNavButton];
     [self deactivateForwardNavButton];
+    
+    [self setBottomBarVisible:FALSE];
 }
 
 - (void) activateBackNavButton
