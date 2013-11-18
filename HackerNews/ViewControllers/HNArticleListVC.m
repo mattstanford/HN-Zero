@@ -93,8 +93,11 @@
 -(void) setUrl:(NSURL *)newUrl andTitle:(NSString *)title
 {
     self.url = newUrl;
-    
     self.title = title;
+    
+    //Scroll to top
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
 - (void) downloadFreshArticles
