@@ -15,7 +15,7 @@
 
 @implementation HNWebBrowserVC
 
-@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, historyPosition, historyLength, isLoadingNewPage, theme;
+@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, historyPosition, historyLength, isLoadingNewPage, isBackwardNavActive, isForwardNavActive, theme;
 
 static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
@@ -50,6 +50,8 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
         currentURL = @"http://news.ycombinator.com";
         
         isLoadingNewPage = FALSE;
+        isForwardNavActive = FALSE;
+        isBackwardNavActive = FALSE;
         
     }
     return self;
@@ -101,18 +103,7 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     return TRUE;
 }
 
-- (void) activateBrowserHistory
-{
-    [self setBottomBarVisible:TRUE];
-    
-    [self activateBackNavButton];
-    historyPosition++;
-    
-    if (historyPosition > historyLength)
-    {
-        historyLength = historyPosition;
-    }
-}
+
 
 - (void) setBottomBarVisible:(BOOL)isVisible
 {
@@ -146,6 +137,8 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 {
     [navigateBackButton setImage:[UIImage imageNamed:@"triangle-reverse.png"] forState:UIControlStateNormal];
     [navigateBackButton setImage:[UIImage imageNamed:@"triangle-blue-reverse.png"] forState:UIControlStateHighlighted];
+    
+    isBackwardNavActive = TRUE;
 }
 
 - (void) activateForwardNavButton
@@ -153,28 +146,56 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     [navigateForwardButton setImage:[UIImage imageNamed:@"triangle"] forState:UIControlStateNormal];
     [navigateForwardButton setImage:[UIImage imageNamed:@"triangle-blue"] forState:UIControlStateHighlighted];
     
+    isForwardNavActive = TRUE;
+    
 }
 
 - (void) deactivateBackNavButton
 {
     [navigateBackButton setImage:[UIImage imageNamed:@"triangle-grey-reverse.png"] forState:UIControlStateNormal];
     [navigateBackButton setImage:[UIImage imageNamed:@"triangle-grey-reverse.png"] forState:UIControlStateHighlighted];
+    
+    isBackwardNavActive = FALSE;
 }
 
 - (void) deactivateForwardNavButton
 {
     [navigateForwardButton setImage:[UIImage imageNamed:@"triangle-grey.png"] forState:UIControlStateNormal];
     [navigateForwardButton setImage:[UIImage imageNamed:@"triangle-grey.png"] forState:UIControlStateHighlighted];
+    
+    isForwardNavActive = FALSE;
 }
 
 - (void) backButtonTouched
 {
+    if (isBackwardNavActive)
+    {
+        [self.webView goBack];
+        [self moveHistoryBackward];
+    }
+}
+
+- (void) forwardButtonTouched
+{
+    if(isForwardNavActive)
+    {
+        [self.webView goForward];
+        [self moveHistoryForward];
+    }
+}
+
+- (void) activateBrowserHistory
+{
+    [self setBottomBarVisible:TRUE];
+    [self moveHistoryForward];
+}
+
+- (void) moveHistoryBackward
+{
     if (historyPosition > 0)
     {
-        historyPosition--;
-        [self.webView goBack];
-        
         [self activateForwardNavButton];
+        historyPosition--;
         
         if (historyPosition == 0)
         {
@@ -184,19 +205,22 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     }
 }
 
-- (void) forwardButtonTouched
+- (void) moveHistoryForward
 {
-    if (historyPosition < historyLength)
+    [self activateBackNavButton];
+        
+    historyPosition++;
+        
+    //Clicked a link, increasing history
+    if (historyPosition > historyLength)
     {
-        historyPosition++;
-        [self.webView goForward];
+         historyLength = historyPosition;
+    }
         
-        [self activateBackNavButton];
-        
-        if (historyPosition == historyLength)
-        {
-            [self deactivateForwardNavButton];
-        }
+    //Got to end of history
+    if (historyPosition == historyLength)
+    {
+        [self deactivateForwardNavButton];
     }
 }
 
@@ -231,6 +255,7 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     
     if (isLoadingNewPage)
     {
+        NSLog(@"loading new page");
         [self activateBrowserHistory];
         self.isLoadingNewPage = FALSE;
     }
@@ -238,7 +263,8 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    self.isLoadingNewPage = FALSE;
+    NSLog(@"loading paged FAILED");
+    //self.isLoadingNewPage = FALSE;
 }
 
 @end

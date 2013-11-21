@@ -22,6 +22,9 @@
     int historyLength;
     BOOL isLoadingNewPage;
     
+    BOOL isForwardNavActive;
+    BOOL isBackwardNavActive;
+    
     HNTheme *theme;
 }
 
@@ -36,6 +39,8 @@
 @property (assign, nonatomic) int historyPosition;
 @property (assign, nonatomic) int historyLength;
 @property (assign, nonatomic) BOOL isLoadingNewPage;
+@property (assign, nonatomic) BOOL isForwardNavActive;
+@property (assign, nonatomic) BOOL isBackwardNavActive;
 @property (strong, nonatomic) HNTheme *theme;
 
 
