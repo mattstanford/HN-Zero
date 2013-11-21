@@ -71,7 +71,9 @@ static const int SEPARATOR_HEIGHT = 3;
     CGFloat infoHeight = [HNCommentInfoCell getInfoHeightForText:tempString forWidth:width infoFont:infoFont];
     
     CGFloat height = TOP_MARGIN + titleHeight + TITLE_INFO_PADDING + infoHeight + postHeight_plus_padding + BOTTOM_MARGIN;
-    return height;
+    
+    //Cell height cannot be a fraction
+    return ceil(height);
 }
 
 +(CGFloat) getHeightForText:(NSString *)titleText forWidth:(CGFloat)width titleFont:(UIFont *)font
