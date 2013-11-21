@@ -184,9 +184,13 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     }
 }
 
-- (void) activateBrowserHistory
+- (void) resetHistoryWithNewLink
 {
     [self setBottomBarVisible:TRUE];
+    
+    //Need to make sure the "forward" history is erased when new link is clicked
+    self.historyLength = self.historyPosition;
+    
     [self moveHistoryForward];
 }
 
@@ -256,7 +260,7 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     if (isLoadingNewPage)
     {
         NSLog(@"loading new page");
-        [self activateBrowserHistory];
+        [self resetHistoryWithNewLink];
         self.isLoadingNewPage = FALSE;
     }
 }
