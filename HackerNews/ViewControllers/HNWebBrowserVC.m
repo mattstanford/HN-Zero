@@ -15,7 +15,7 @@
 
 @implementation HNWebBrowserVC
 
-@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, historyPosition, historyLength, theme;
+@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, historyPosition, historyLength, isLoadingNewPage, theme;
 
 static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
@@ -48,6 +48,8 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
         [self resetNavButtons];
         
         currentURL = @"http://news.ycombinator.com";
+        
+        isLoadingNewPage = FALSE;
         
     }
     return self;
@@ -89,20 +91,27 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
 - (BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    NSLog(@"shouldstartload: %i", navigationType);
     if (navigationType == UIWebViewNavigationTypeLinkClicked)
     {
-        [self setBottomBarVisible:TRUE];
-        
-        [self activateBackNavButton];
-        historyPosition++;
-        
-        if (historyPosition > historyLength)
-        {
-            historyLength = historyPosition;
-        }
+        isLoadingNewPage = TRUE;
+
     }
     
     return TRUE;
+}
+
+- (void) activateBrowserHistory
+{
+    [self setBottomBarVisible:TRUE];
+    
+    [self activateBackNavButton];
+    historyPosition++;
+    
+    if (historyPosition > historyLength)
+    {
+        historyLength = historyPosition;
+    }
 }
 
 - (void) setBottomBarVisible:(BOOL)isVisible
@@ -211,12 +220,25 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     [webView loadRequest:requestObj];
 }
 
--(void)webViewDidStartLoad:(UIWebView *)webView {
-  //  NSLog(@"started loading page");
+-(void)webViewDidStartLoad:(UIWebView *)webView
+{
+    NSLog(@"started loading page");
 }
 
--(void)webViewDidFinishLoad:(UIWebView *)webView {
-  //  NSLog(@"finished loading page");
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSLog(@"finished loading page");
+    
+    if (isLoadingNewPage)
+    {
+        [self activateBrowserHistory];
+        self.isLoadingNewPage = FALSE;
+    }
+}
+
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    self.isLoadingNewPage = FALSE;
 }
 
 @end

@@ -20,6 +20,7 @@
     UIButton *navigateForwardButton;
     int historyPosition;
     int historyLength;
+    BOOL isLoadingNewPage;
     
     HNTheme *theme;
 }
@@ -34,6 +35,7 @@
 @property (strong, nonatomic) UIButton *navigateForwardButton;
 @property (assign, nonatomic) int historyPosition;
 @property (assign, nonatomic) int historyLength;
+@property (assign, nonatomic) BOOL isLoadingNewPage;
 @property (strong, nonatomic) HNTheme *theme;
 
 
