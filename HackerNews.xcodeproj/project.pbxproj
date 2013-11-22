@@ -17,9 +17,6 @@
 		782784CC17C9814500CAD559 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 782784CA17C9814500CAD559 /* InfoPlist.strings */; };
 		782784CE17C9814500CAD559 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 782784CD17C9814500CAD559 /* main.m */; };
 		782784D217C9814500CAD559 /* HNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 782784D117C9814500CAD559 /* HNAppDelegate.m */; };
-		782784D417C9814500CAD559 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 782784D317C9814500CAD559 /* Default.png */; };
-		782784D617C9814500CAD559 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 782784D517C9814500CAD559 /* Default@2x.png */; };
-		782784D817C9814500CAD559 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 782784D717C9814500CAD559 /* Default-568h@2x.png */; };
 		78393F9C17E01C0B0003017F /* HNCommentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 78393F9B17E01C0B0003017F /* HNCommentVC.m */; };
 		78393FA017E026D50003017F /* HNParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78393F9F17E026D50003017F /* HNParser.m */; };
 		78393FA317E028190003017F /* HNCommentParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78393FA217E028190003017F /* HNCommentParser.m */; };
@@ -47,6 +44,9 @@
 		A79586541829D9AB002299C0 /* triangle-grey-reverse.png in Resources */ = {isa = PBXBuildFile; fileRef = A795864F1829D9AB002299C0 /* triangle-grey-reverse.png */; };
 		A79586551829D9AB002299C0 /* triangle-grey.png in Resources */ = {isa = PBXBuildFile; fileRef = A79586501829D9AB002299C0 /* triangle-grey.png */; };
 		A79586561829D9AB002299C0 /* triangle-reverse.png in Resources */ = {isa = PBXBuildFile; fileRef = A79586511829D9AB002299C0 /* triangle-reverse.png */; };
+		A79F260C183F05FC00A237B5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A79F260A183F05FC00A237B5 /* Default.png */; };
+		A79F260D183F05FC00A237B5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A79F260B183F05FC00A237B5 /* Default@2x.png */; };
+		A79F260F183F063100A237B5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A79F260E183F063100A237B5 /* Default-568h@2x.png */; };
 		A7F985B81826DB9900A8D404 /* triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F985B71826DB9900A8D404 /* triangle.png */; };
 /* End PBXBuildFile section */
 
@@ -67,9 +67,6 @@
 		782784CF17C9814500CAD559 /* HackerNews-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HackerNews-Prefix.pch"; sourceTree = "<group>"; };
 		782784D017C9814500CAD559 /* HNAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HNAppDelegate.h; sourceTree = "<group>"; };
 		782784D117C9814500CAD559 /* HNAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HNAppDelegate.m; sourceTree = "<group>"; };
-		782784D317C9814500CAD559 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		782784D517C9814500CAD559 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		782784D717C9814500CAD559 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		78393F9A17E01C0B0003017F /* HNCommentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNCommentVC.h; path = ViewControllers/HNCommentVC.h; sourceTree = "<group>"; };
 		78393F9B17E01C0B0003017F /* HNCommentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNCommentVC.m; path = ViewControllers/HNCommentVC.m; sourceTree = "<group>"; };
 		78393F9E17E026D50003017F /* HNParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNParser.h; path = Parser/HNParser.h; sourceTree = "<group>"; };
@@ -115,6 +112,9 @@
 		A795864F1829D9AB002299C0 /* triangle-grey-reverse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "triangle-grey-reverse.png"; path = "Resources/triangle-grey-reverse.png"; sourceTree = "<group>"; };
 		A79586501829D9AB002299C0 /* triangle-grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "triangle-grey.png"; path = "Resources/triangle-grey.png"; sourceTree = "<group>"; };
 		A79586511829D9AB002299C0 /* triangle-reverse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "triangle-reverse.png"; path = "Resources/triangle-reverse.png"; sourceTree = "<group>"; };
+		A79F260A183F05FC00A237B5 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
+		A79F260B183F05FC00A237B5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Resources/Default@2x.png"; sourceTree = "<group>"; };
+		A79F260E183F063100A237B5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Resources/Default-568h@2x.png"; sourceTree = "<group>"; };
 		A7F985B71826DB9900A8D404 /* triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = triangle.png; path = Resources/triangle.png; sourceTree = "<group>"; };
 		C70DA83392594FF4B0113C30 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -189,13 +189,13 @@
 		782784C817C9814500CAD559 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A79F260E183F063100A237B5 /* Default-568h@2x.png */,
+				A79F260A183F05FC00A237B5 /* Default.png */,
+				A79F260B183F05FC00A237B5 /* Default@2x.png */,
 				782784C917C9814500CAD559 /* HackerNews-Info.plist */,
 				782784CA17C9814500CAD559 /* InfoPlist.strings */,
 				782784CD17C9814500CAD559 /* main.m */,
 				782784CF17C9814500CAD559 /* HackerNews-Prefix.pch */,
-				782784D317C9814500CAD559 /* Default.png */,
-				782784D517C9814500CAD559 /* Default@2x.png */,
-				782784D717C9814500CAD559 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -355,10 +355,10 @@
 				A79586521829D9AB002299C0 /* triangle-blue-reverse.png in Resources */,
 				A79586561829D9AB002299C0 /* triangle-reverse.png in Resources */,
 				782784CC17C9814500CAD559 /* InfoPlist.strings in Resources */,
-				782784D417C9814500CAD559 /* Default.png in Resources */,
-				782784D617C9814500CAD559 /* Default@2x.png in Resources */,
+				A79F260D183F05FC00A237B5 /* Default@2x.png in Resources */,
+				A79F260F183F063100A237B5 /* Default-568h@2x.png in Resources */,
 				A79586541829D9AB002299C0 /* triangle-grey-reverse.png in Resources */,
-				782784D817C9814500CAD559 /* Default-568h@2x.png in Resources */,
+				A79F260C183F05FC00A237B5 /* Default.png in Resources */,
 				78705CF417FE7C47006D9C84 /* chat@2x.png in Resources */,
 				A7F985B81826DB9900A8D404 /* triangle.png in Resources */,
 				A79586551829D9AB002299C0 /* triangle-grey.png in Resources */,
