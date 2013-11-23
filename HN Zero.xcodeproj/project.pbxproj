@@ -63,14 +63,14 @@
 		780F09BD18021ABD00B9C5C3 /* HNAttributedStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNAttributedStyle.m; path = Models/HNAttributedStyle.m; sourceTree = "<group>"; };
 		780F09BE18021ABD00B9C5C3 /* HNCommentString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNCommentString.h; path = Models/HNCommentString.h; sourceTree = "<group>"; };
 		780F09BF18021ABD00B9C5C3 /* HNCommentString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNCommentString.m; path = Models/HNCommentString.m; sourceTree = "<group>"; };
-		782784BD17C9814500CAD559 /* HackerNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		782784BD17C9814500CAD559 /* HN Zero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HN Zero.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		782784C117C9814500CAD559 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		782784C317C9814500CAD559 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		782784C517C9814500CAD559 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		782784C917C9814500CAD559 /* HackerNews-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HackerNews-Info.plist"; sourceTree = "<group>"; };
+		782784C917C9814500CAD559 /* HN Zero-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HN Zero-Info.plist"; sourceTree = "<group>"; };
 		782784CB17C9814500CAD559 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		782784CD17C9814500CAD559 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		782784CF17C9814500CAD559 /* HackerNews-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HackerNews-Prefix.pch"; sourceTree = "<group>"; };
+		782784CF17C9814500CAD559 /* HN Zero-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HN Zero-Prefix.pch"; sourceTree = "<group>"; };
 		782784D017C9814500CAD559 /* HNAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HNAppDelegate.h; sourceTree = "<group>"; };
 		782784D117C9814500CAD559 /* HNAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HNAppDelegate.m; sourceTree = "<group>"; };
 		78393F9A17E01C0B0003017F /* HNCommentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNCommentVC.h; path = ViewControllers/HNCommentVC.h; sourceTree = "<group>"; };
@@ -163,7 +163,7 @@
 		782784BE17C9814500CAD559 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				782784BD17C9814500CAD559 /* HackerNews.app */,
+				782784BD17C9814500CAD559 /* HN Zero.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -210,10 +210,10 @@
 				A79F260E183F063100A237B5 /* Default-568h@2x.png */,
 				A79F260A183F05FC00A237B5 /* Default.png */,
 				A79F260B183F05FC00A237B5 /* Default@2x.png */,
-				782784C917C9814500CAD559 /* HackerNews-Info.plist */,
+				782784C917C9814500CAD559 /* HN Zero-Info.plist */,
 				782784CA17C9814500CAD559 /* InfoPlist.strings */,
 				782784CD17C9814500CAD559 /* main.m */,
-				782784CF17C9814500CAD559 /* HackerNews-Prefix.pch */,
+				782784CF17C9814500CAD559 /* HN Zero-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -318,9 +318,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		782784BC17C9814500CAD559 /* HackerNews */ = {
+		782784BC17C9814500CAD559 /* HN Zero */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 782784DB17C9814500CAD559 /* Build configuration list for PBXNativeTarget "HackerNews" */;
+			buildConfigurationList = 782784DB17C9814500CAD559 /* Build configuration list for PBXNativeTarget "HN Zero" */;
 			buildPhases = (
 				6A2566923C8044479C7136DC /* Check Pods Manifest.lock */,
 				782784B917C9814500CAD559 /* Sources */,
@@ -332,9 +332,9 @@
 			);
 			dependencies = (
 			);
-			name = HackerNews;
+			name = "HN Zero";
 			productName = HackerNews;
-			productReference = 782784BD17C9814500CAD559 /* HackerNews.app */;
+			productReference = 782784BD17C9814500CAD559 /* HN Zero.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -347,7 +347,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Matthew Stanford";
 			};
-			buildConfigurationList = 782784B717C9814400CAD559 /* Build configuration list for PBXProject "HackerNews" */;
+			buildConfigurationList = 782784B717C9814400CAD559 /* Build configuration list for PBXProject "HN Zero" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -359,7 +359,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				782784BC17C9814500CAD559 /* HackerNews */,
+				782784BC17C9814500CAD559 /* HN Zero */,
 			);
 		};
 /* End PBXProject section */
@@ -526,10 +526,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "HackerNews/HackerNews-Prefix.pch";
-				INFOPLIST_FILE = "HackerNews/HackerNews-Info.plist";
+				GCC_PREFIX_HEADER = "HackerNews/HN Zero-Prefix.pch";
+				INFOPLIST_FILE = "HackerNews/HN Zero-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "HN Zero";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				VALIDATE_PRODUCT = YES;
@@ -542,10 +542,10 @@
 			baseConfigurationReference = 095A44AB58404E64A01006F0 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "HackerNews/HackerNews-Prefix.pch";
-				INFOPLIST_FILE = "HackerNews/HackerNews-Info.plist";
+				GCC_PREFIX_HEADER = "HackerNews/HN Zero-Prefix.pch";
+				INFOPLIST_FILE = "HackerNews/HN Zero-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "HN Zero";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -554,7 +554,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		782784B717C9814400CAD559 /* Build configuration list for PBXProject "HackerNews" */ = {
+		782784B717C9814400CAD559 /* Build configuration list for PBXProject "HN Zero" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				782784D917C9814500CAD559 /* Debug */,
@@ -563,7 +563,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		782784DB17C9814500CAD559 /* Build configuration list for PBXNativeTarget "HackerNews" */ = {
+		782784DB17C9814500CAD559 /* Build configuration list for PBXNativeTarget "HN Zero" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				782784DC17C9814500CAD559 /* Debug */,

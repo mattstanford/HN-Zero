@@ -18,7 +18,7 @@
     self = [super initWithStyle:style];
     if (self)
     {
-        self.title = @"Main Menu";
+        self.title = @"Hacker News Zero";
         
         self.articleListVC = theArticleListVC;
         
