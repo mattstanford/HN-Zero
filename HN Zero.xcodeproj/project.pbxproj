@@ -54,6 +54,7 @@
 		A79F260D183F05FC00A237B5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A79F260B183F05FC00A237B5 /* Default@2x.png */; };
 		A79F260F183F063100A237B5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A79F260E183F063100A237B5 /* Default-568h@2x.png */; };
 		A7A417C518414094001F15FC /* HNAbout.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A417C418414094001F15FC /* HNAbout.m */; };
+		A7A417C7184162A2001F15FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7A417C6184162A2001F15FC /* Images.xcassets */; };
 		A7F985B81826DB9900A8D404 /* triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F985B71826DB9900A8D404 /* triangle.png */; };
 /* End PBXBuildFile section */
 
@@ -130,6 +131,7 @@
 		A79F260E183F063100A237B5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Resources/Default-568h@2x.png"; sourceTree = "<group>"; };
 		A7A417C318414094001F15FC /* HNAbout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNAbout.h; path = ViewControllers/HNAbout.h; sourceTree = "<group>"; };
 		A7A417C418414094001F15FC /* HNAbout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNAbout.m; path = ViewControllers/HNAbout.m; sourceTree = "<group>"; };
+		A7A417C6184162A2001F15FC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "HN Zero/Images.xcassets"; sourceTree = "<group>"; };
 		A7F985B71826DB9900A8D404 /* triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = triangle.png; path = Resources/triangle.png; sourceTree = "<group>"; };
 		C70DA83392594FF4B0113C30 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -155,6 +157,7 @@
 		782784B217C9814400CAD559 = {
 			isa = PBXGroup;
 			children = (
+				A7A417C6184162A2001F15FC /* Images.xcassets */,
 				780F09B11801B88F00B9C5C3 /* CoreText.framework */,
 				782784C717C9814500CAD559 /* HackerNews */,
 				782784C017C9814500CAD559 /* Frameworks */,
@@ -207,9 +210,9 @@
 				A77333861840455C006BF7E5 /* icon-80.png */,
 				A77333871840455C006BF7E5 /* icon-120.png */,
 				A77333881840455C006BF7E5 /* icon-Small.png */,
+				A773338B1840455C006BF7E5 /* Icon@2x.png */,
 				A77333891840455C006BF7E5 /* Icon-Small@2x.png */,
 				A773338A1840455C006BF7E5 /* icon.png */,
-				A773338B1840455C006BF7E5 /* Icon@2x.png */,
 				A79F260E183F063100A237B5 /* Default-568h@2x.png */,
 				A79F260A183F05FC00A237B5 /* Default.png */,
 				A79F260B183F05FC00A237B5 /* Default@2x.png */,
@@ -389,6 +392,7 @@
 				A7F985B81826DB9900A8D404 /* triangle.png in Resources */,
 				A77333901840455C006BF7E5 /* icon.png in Resources */,
 				A79586551829D9AB002299C0 /* triangle-grey.png in Resources */,
+				A7A417C7184162A2001F15FC /* Images.xcassets in Resources */,
 				A773338F1840455C006BF7E5 /* Icon-Small@2x.png in Resources */,
 				A773338E1840455C006BF7E5 /* icon-Small.png in Resources */,
 				78705CFA17FE7DAA006D9C84 /* chat.png in Resources */,
@@ -529,6 +533,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 095A44AB58404E64A01006F0 /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -547,11 +553,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 095A44AB58404E64A01006F0 /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Matthew Stanford (735H4JCR7N)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HackerNews/HN Zero-Prefix.pch";
 				INFOPLIST_FILE = "HackerNews/HN Zero-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "HN Zero";
+				PROVISIONING_PROFILE = "DB4F4C1A-126D-4A17-B1EC-AFF915AAB70F";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
