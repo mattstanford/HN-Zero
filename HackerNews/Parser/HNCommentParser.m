@@ -107,8 +107,8 @@
     
     NSArray *mainCommentPageElements = [parser searchWithXPathQuery:xpathQueryString];
     
-    if (mainCommentPageElements) {
-        
+    if (mainCommentPageElements && mainCommentPageElements.count > 0)
+    {
         TFHppleElement *mainCommentPageTable = [mainCommentPageElements objectAtIndex:0];
         NSArray *mainCommentPageTableRows = [mainCommentPageTable children];
         
