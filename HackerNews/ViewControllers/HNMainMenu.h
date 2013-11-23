@@ -9,13 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @class HNArticleListVC;
+@class HNAbout;
 
 @interface HNMainMenu : UITableViewController
 {
+    HNAbout *aboutMeVC;
     HNArticleListVC *articleListVC;
     NSArray *mainItems;
 }
 
+@property (nonatomic, strong) HNAbout *aboutMeVC;
 @property (nonatomic, strong) HNArticleListVC *articleListVC;
 @property (nonatomic, strong) NSArray *mainItems;
 

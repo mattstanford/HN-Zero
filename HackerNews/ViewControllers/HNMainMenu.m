@@ -8,10 +8,11 @@
 
 #import "HNMainMenu.h"
 #import "HNArticleListVC.h"
+#import "HNAbout.h"
 
 @implementation HNMainMenu
 
-@synthesize articleListVC, mainItems;
+@synthesize aboutMeVC, articleListVC, mainItems;
 
 -(id) initWithStyle:(UITableViewStyle)style withArticleVC:(HNArticleListVC *)theArticleListVC
 {
@@ -19,6 +20,8 @@
     if (self)
     {
         self.title = @"Hacker News Zero";
+        
+        self.aboutMeVC = [[HNAbout alloc] init];
         
         self.articleListVC = theArticleListVC;
         
@@ -55,12 +58,23 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [mainItems count];
+    int numRows = 0;
+    
+    if (section == 0)
+    {
+        numRows = [mainItems count];
+    }
+    else
+    {
+        numRows = 1;
+    }
+
+    return numRows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -72,11 +86,20 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    NSDictionary *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
     
-    if ([menuItem objectForKey:@"title"])
+    if (indexPath.section == 0)
     {
-        cell.textLabel.text = (NSString *)[menuItem objectForKey:@"title"];
+    
+        NSDictionary *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
+    
+        if ([menuItem objectForKey:@"title"])
+        {
+            cell.textLabel.text = (NSString *)[menuItem objectForKey:@"title"];
+        }
+    }
+    else
+    {
+        cell.textLabel.text = @"About";
     }
     
     return cell;
@@ -85,17 +108,25 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
     
-    if ([menuItem objectForKey:@"url"] && [menuItem objectForKey:@"title"])
+    if ([indexPath section] == 0)
     {
-        NSURL *url = [menuItem objectForKey:@"url"];
-        NSString *title = [menuItem objectForKey:@"title"];
+        NSDictionary *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
+    
+        if ([menuItem objectForKey:@"url"] && [menuItem objectForKey:@"title"])
+        {
+            NSURL *url = [menuItem objectForKey:@"url"];
+            NSString *title = [menuItem objectForKey:@"title"];
         
-        [self.articleListVC setUrl:url andTitle:title];
+            [self.articleListVC setUrl:url andTitle:title];
         
-        [self.navigationController pushViewController:self.articleListVC animated:YES];
+            [self.navigationController pushViewController:self.articleListVC animated:YES];
         
+        }
+    }
+    else
+    {
+        [self.navigationController pushViewController:self.aboutMeVC animated:YES];
     }
     
 }
