@@ -45,6 +45,7 @@
 		A773338F1840455C006BF7E5 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A77333891840455C006BF7E5 /* Icon-Small@2x.png */; };
 		A77333901840455C006BF7E5 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A773338A1840455C006BF7E5 /* icon.png */; };
 		A77333911840455C006BF7E5 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A773338B1840455C006BF7E5 /* Icon@2x.png */; };
+		A792DDFF184307080048E053 /* HNMenuLink.m in Sources */ = {isa = PBXBuildFile; fileRef = A792DDFE184307080048E053 /* HNMenuLink.m */; };
 		A79586521829D9AB002299C0 /* triangle-blue-reverse.png in Resources */ = {isa = PBXBuildFile; fileRef = A795864D1829D9AB002299C0 /* triangle-blue-reverse.png */; };
 		A79586531829D9AB002299C0 /* triangle-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = A795864E1829D9AB002299C0 /* triangle-blue.png */; };
 		A79586541829D9AB002299C0 /* triangle-grey-reverse.png in Resources */ = {isa = PBXBuildFile; fileRef = A795864F1829D9AB002299C0 /* triangle-grey-reverse.png */; };
@@ -121,6 +122,8 @@
 		A77333891840455C006BF7E5 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "Resources/Icon-Small@2x.png"; sourceTree = "<group>"; };
 		A773338A1840455C006BF7E5 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Resources/icon.png; sourceTree = "<group>"; };
 		A773338B1840455C006BF7E5 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Resources/Icon@2x.png"; sourceTree = "<group>"; };
+		A792DDFD184307080048E053 /* HNMenuLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNMenuLink.h; path = Models/HNMenuLink.h; sourceTree = "<group>"; };
+		A792DDFE184307080048E053 /* HNMenuLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNMenuLink.m; path = Models/HNMenuLink.m; sourceTree = "<group>"; };
 		A795864D1829D9AB002299C0 /* triangle-blue-reverse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "triangle-blue-reverse.png"; path = "Resources/triangle-blue-reverse.png"; sourceTree = "<group>"; };
 		A795864E1829D9AB002299C0 /* triangle-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "triangle-blue.png"; path = "Resources/triangle-blue.png"; sourceTree = "<group>"; };
 		A795864F1829D9AB002299C0 /* triangle-grey-reverse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "triangle-grey-reverse.png"; path = "Resources/triangle-grey-reverse.png"; sourceTree = "<group>"; };
@@ -257,6 +260,8 @@
 				789B916D17E676070027BB74 /* HNCommentBlock.m */,
 				780F09BE18021ABD00B9C5C3 /* HNCommentString.h */,
 				780F09BF18021ABD00B9C5C3 /* HNCommentString.m */,
+				A792DDFD184307080048E053 /* HNMenuLink.h */,
+				A792DDFE184307080048E053 /* HNMenuLink.m */,
 				78705CEF17FE714D006D9C84 /* HNTheme.h */,
 				78705CF017FE714D006D9C84 /* HNTheme.m */,
 			);
@@ -439,6 +444,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A792DDFF184307080048E053 /* HNMenuLink.m in Sources */,
 				782784CE17C9814500CAD559 /* main.m in Sources */,
 				782784D217C9814500CAD559 /* HNAppDelegate.m in Sources */,
 				78E4076417D04B4400DC8CE0 /* HNArticleListVC.m in Sources */,
