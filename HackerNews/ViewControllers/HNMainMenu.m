@@ -9,6 +9,7 @@
 #import "HNMainMenu.h"
 #import "HNArticleListVC.h"
 #import "HNAbout.h"
+#import "HNMenuLink.h"
 
 @implementation HNMainMenu
 
@@ -24,19 +25,18 @@
         self.aboutMeVC = [[HNAbout alloc] init];
         
         self.articleListVC = theArticleListVC;
+
+        HNMenuLink *frontPage = [[HNMenuLink alloc] init];
+        frontPage.title = @"Front Page";
+        frontPage.url = [NSURL URLWithString:@"https://news.ycombinator.com"];
         
-        NSDictionary *frontPage = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                   [NSURL URLWithString:@"https://news.ycombinator.com"], @"url",
-                                   @"Front Page", @"title"
-                                   , nil];
-        NSDictionary *askHN = [[NSDictionary alloc] initWithObjectsAndKeys:
-                               [NSURL URLWithString:@"https://news.ycombinator.com/ask"], @"url",
-                               @"Ask HN", @"title"
-                               , nil];
-        NSDictionary *newHN = [[NSDictionary alloc] initWithObjectsAndKeys:
-                               [NSURL URLWithString:@"https://news.ycombinator.com/newest"], @"url",
-                               @"New", @"title"
-                               , nil];
+        HNMenuLink *askHN = [[HNMenuLink alloc] init];
+        askHN.title = @"Ask HN";
+        askHN.url = [NSURL URLWithString:@"https://news.ycombinator.com/ask"];
+        
+        HNMenuLink *newHN = [[HNMenuLink alloc] init];
+        newHN.title = @"New";
+        newHN.url = [NSURL URLWithString:@"https://news.ycombinator.com/newest"];
         
         
         //Eliminate the the text for the "back" button in iOS7 (style choice)
@@ -90,12 +90,9 @@
     if (indexPath.section == 0)
     {
     
-        NSDictionary *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
+        HNMenuLink *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
     
-        if ([menuItem objectForKey:@"title"])
-        {
-            cell.textLabel.text = (NSString *)[menuItem objectForKey:@"title"];
-        }
+        cell.textLabel.text = menuItem.title;
     }
     else
     {
@@ -111,18 +108,8 @@
     
     if ([indexPath section] == 0)
     {
-        NSDictionary *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
-    
-        if ([menuItem objectForKey:@"url"] && [menuItem objectForKey:@"title"])
-        {
-            NSURL *url = [menuItem objectForKey:@"url"];
-            NSString *title = [menuItem objectForKey:@"title"];
-        
-            [self.articleListVC setUrl:url andTitle:title];
-        
-            [self.navigationController pushViewController:self.articleListVC animated:YES];
-        
-        }
+        HNMenuLink *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
+        [self goToMenuLink:menuItem];
     }
     else
     {
@@ -130,4 +117,11 @@
     }
     
 }
+
+- (void) goToMenuLink:(HNMenuLink *)link
+{
+    [self.articleListVC setUrl:link.url andTitle:link.title];
+    [self.navigationController pushViewController:self.articleListVC animated:YES];
+}
+
 @end
