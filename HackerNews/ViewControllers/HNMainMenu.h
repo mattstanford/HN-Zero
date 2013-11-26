@@ -10,6 +10,7 @@
 
 @class HNArticleListVC;
 @class HNAbout;
+@class HNMenuLink;
 
 @interface HNMainMenu : UITableViewController
 {
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) HNArticleListVC *articleListVC;
 @property (nonatomic, strong) NSArray *mainItems;
 
--(id) initWithStyle:(UITableViewStyle)style withArticleVC:(HNArticleListVC *)theArticleListVC;
+-(id) initWithStyle:(UITableViewStyle)style withArticleVC:(HNArticleListVC *)theArticleListVC withMenuLinks:(NSArray *)menuLinks;
+- (void) goToMenuLink:(HNMenuLink *)link;
 
 @end

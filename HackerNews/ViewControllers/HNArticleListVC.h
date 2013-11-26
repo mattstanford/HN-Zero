@@ -28,6 +28,7 @@
     NSURL *url;
     NSURL *moreArticlesUrl;
     BOOL isDownloadAppending;
+    BOOL shouldScrollToTopAfterDownload;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme;
@@ -43,5 +44,6 @@
 @property (strong, nonatomic) NSURL *url;
 @property (strong, nonatomic) NSURL *moreArticlesUrl;
 @property (assign, nonatomic) BOOL isDownloadAppending;
+@property (assign, nonatomic) BOOL shouldScrollToTopAfterDownload;
 
 @end

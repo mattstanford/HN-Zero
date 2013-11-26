@@ -16,7 +16,7 @@
 
 @implementation HNArticleListVC
 
-@synthesize articles, webBrowserVC, commentVC, downloadController, articleContainerVC, theme, url, moreArticlesUrl, isDownloadAppending;
+@synthesize articles, webBrowserVC, commentVC, downloadController, articleContainerVC, theme, url, moreArticlesUrl, isDownloadAppending, shouldScrollToTopAfterDownload;
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme
 {
@@ -35,6 +35,7 @@
         
         downloadController = [[HNDownloadController alloc] init];
         isDownloadAppending = NO;
+        shouldScrollToTopAfterDownload = NO;
         
         //This is an example of the site when there is a "black bar" on the header (i.e. a famous tech person died
         //downloadController = [[HNDownloadController alloc] initWithUrl:@"http://www.waybackletter.com/archive/20111005.html"];
@@ -50,10 +51,15 @@
             [self.tableView reloadData];
         }
         
-        //Make sure separator lines go all the way across in iOS 7
+        
+        
         if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)])
         {
+            //Make sure separator lines go all the way across in iOS 7
             [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+        
+            //Also make sure "scroll to top" functionality doesn't scroll too far
+            self.edgesForExtendedLayout = UIRectEdgeNone;
         }
         
     }
@@ -72,11 +78,13 @@
     //Register custom tableviewcell class with tableview
     [self.tableView registerClass:[HNArticleCell class] forCellReuseIdentifier:@"Cell"];
     
+    
+    //[self downloadFreshArticles];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self downloadFreshArticles];
+    //[self downloadFreshArticles];
     
 }
 
@@ -95,9 +103,9 @@
     self.url = newUrl;
     self.title = title;
     
-    //Scroll to top
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    [self downloadFreshArticles];
+    
+    shouldScrollToTopAfterDownload = YES;
 }
 
 - (void) downloadFreshArticles
@@ -125,6 +133,14 @@
     
 }
 
+- (void) scrollToTop
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    
+    shouldScrollToTopAfterDownload = NO;
+}
+
 #pragma mark HNDownloadControllerDelegate
 
 -(void) downloadDidComplete:(id)data
@@ -143,11 +159,15 @@
         self.articles = parsedArticles;
     }
     
-    //self.moreArticlesPath = [HNParser getMoreArticlesLink:data];
     NSString *newPath = [HNParser getMoreArticlesLink:data];
     self.moreArticlesUrl = [[NSURL alloc] initWithScheme:self.url.scheme host:self.url.host path:newPath];
     
     [self.tableView reloadData];
+    
+    if (shouldScrollToTopAfterDownload)
+    {
+        [self scrollToTop];
+    }
     
     //Update cache
     NSData *articlesArchive = [NSKeyedArchiver archivedDataWithRootObject:parsedArticles];
@@ -162,6 +182,7 @@
 -(void) downloadFailed
 {
     NSLog(@"Download failed!");
+    shouldScrollToTopAfterDownload = NO;
 }
 
 #pragma mark HNArticleCellDelegate
@@ -187,6 +208,7 @@
 
 -(void) didTapArticle:(HNArticleCell *)cellTapped
 {
+    
     NSInteger index = [cellTapped tag];
     
     if (index >= 0 && index <= [articles count])
@@ -276,7 +298,6 @@
 {
     NSInteger currentOffset = scrollView.contentOffset.y;
     NSInteger maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
-    
     
     if (maximumOffset - currentOffset < 200 && !self.downloadController.isDownloading)
     {

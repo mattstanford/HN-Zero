@@ -10,6 +10,7 @@
 #import "HNTheme.h"
 #import "HNArticleContainerVC.h"
 #import "HNMainMenu.h"
+#import "HNMenuLink.h"
 
 @implementation HNAppDelegate
 
@@ -31,10 +32,11 @@
     
     self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:articleContainerVC withTheme:self.theme];
     
-    self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withArticleVC:self.articleListVC];
+    NSArray *menuLinks = [self initializeMenuLinks];
+    self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withArticleVC:self.articleListVC withMenuLinks:menuLinks];
     
     self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuVC];
-    [self.navController pushViewController:self.articleListVC animated:NO];
+    [self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
     
     [self setTitleBarColors:self.theme];
     [self.window setRootViewController:self.navController];
@@ -42,6 +44,28 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (NSArray *) initializeMenuLinks
+{
+    NSArray *menuLinks = nil;
+    
+    HNMenuLink *frontPage = [[HNMenuLink alloc] init];
+    frontPage.title = @"Front Page";
+    frontPage.url = [NSURL URLWithString:@"https://news.ycombinator.com"];
+    
+    HNMenuLink *askHN = [[HNMenuLink alloc] init];
+    askHN.title = @"Ask HN";
+    askHN.url = [NSURL URLWithString:@"https://news.ycombinator.com/ask"];
+    
+    HNMenuLink *newHN = [[HNMenuLink alloc] init];
+    newHN.title = @"New";
+    newHN.url = [NSURL URLWithString:@"https://news.ycombinator.com/newest"];
+    
+    menuLinks = [[NSArray alloc] initWithObjects:frontPage, askHN, newHN, nil];
+
+    
+    return menuLinks;
 }
 
 - (void) setDefaultTheme:(HNTheme *)appTheme

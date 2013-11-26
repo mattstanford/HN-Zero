@@ -15,7 +15,7 @@
 
 @synthesize aboutMeVC, articleListVC, mainItems;
 
--(id) initWithStyle:(UITableViewStyle)style withArticleVC:(HNArticleListVC *)theArticleListVC
+-(id) initWithStyle:(UITableViewStyle)style withArticleVC:(HNArticleListVC *)theArticleListVC withMenuLinks:(NSArray *)menuLinks
 {
     self = [super initWithStyle:style];
     if (self)
@@ -23,21 +23,7 @@
         self.title = @"Hacker News Zero";
         
         self.aboutMeVC = [[HNAbout alloc] init];
-        
         self.articleListVC = theArticleListVC;
-
-        HNMenuLink *frontPage = [[HNMenuLink alloc] init];
-        frontPage.title = @"Front Page";
-        frontPage.url = [NSURL URLWithString:@"https://news.ycombinator.com"];
-        
-        HNMenuLink *askHN = [[HNMenuLink alloc] init];
-        askHN.title = @"Ask HN";
-        askHN.url = [NSURL URLWithString:@"https://news.ycombinator.com/ask"];
-        
-        HNMenuLink *newHN = [[HNMenuLink alloc] init];
-        newHN.title = @"New";
-        newHN.url = [NSURL URLWithString:@"https://news.ycombinator.com/newest"];
-        
         
         //Eliminate the the text for the "back" button in iOS7 (style choice)
         int sysVer = [[[UIDevice currentDevice] systemVersion] integerValue];
@@ -48,7 +34,7 @@
         }
         
         
-        self.mainItems = [[NSArray alloc] initWithObjects:frontPage, askHN, newHN, nil];
+        self.mainItems = menuLinks;
     }
     
     return self;
