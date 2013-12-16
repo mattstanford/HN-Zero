@@ -147,6 +147,36 @@
 {
     NSArray *parsedArticles = [HNParser parseArticles:data];
     
+    //Update articles array
+    [self updateArticlesInTable:parsedArticles];
+    
+    //Update the "more articles" link
+    [self updateGetMoreArticlesLink:data];
+    
+    //Reload data in the table
+    [self.tableView reloadData];
+    
+    //Scroll to top if necessary
+    if (shouldScrollToTopAfterDownload)
+    {
+        [self scrollToTop];
+    }
+    
+    //Update cache
+    if (parsedArticles)
+    {
+        NSData *articlesArchive = [NSKeyedArchiver archivedDataWithRootObject:parsedArticles];
+        [[NSUserDefaults standardUserDefaults] setObject:articlesArchive forKey:@"articles"];
+    }
+    
+    
+    //Update refresh control
+    [self.refreshControl endRefreshing];
+    self.refreshControl.attributedTitle = [HNUtils getTimeUpdatedString];
+}
+
+-(void) updateArticlesInTable:(NSArray *)parsedArticles
+{
     if (isDownloadAppending)
     {
         NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.articles];
@@ -159,24 +189,16 @@
         self.articles = parsedArticles;
     }
     
+}
+
+-(void) updateGetMoreArticlesLink:(NSData *)data
+{
     NSString *newPath = [HNParser getMoreArticlesLink:data];
-    self.moreArticlesUrl = [[NSURL alloc] initWithScheme:self.url.scheme host:self.url.host path:newPath];
-    
-    [self.tableView reloadData];
-    
-    if (shouldScrollToTopAfterDownload)
+    if (newPath)
     {
-        [self scrollToTop];
+        self.moreArticlesUrl = [[NSURL alloc] initWithScheme:self.url.scheme host:self.url.host path:newPath];
     }
     
-    //Update cache
-    NSData *articlesArchive = [NSKeyedArchiver archivedDataWithRootObject:parsedArticles];
-    [[NSUserDefaults standardUserDefaults] setObject:articlesArchive forKey:@"articles"];
-    
-    
-    //Update refresh control
-    [self.refreshControl endRefreshing];
-    self.refreshControl.attributedTitle = [HNUtils getTimeUpdatedString];
 }
 
 -(void) downloadFailed
