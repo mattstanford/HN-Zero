@@ -177,16 +177,19 @@
 
 -(void) updateArticlesInTable:(NSArray *)parsedArticles
 {
-    if (isDownloadAppending)
+    if (parsedArticles)
     {
-        NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.articles];
-        [tempArray addObjectsFromArray:parsedArticles];
+        if (isDownloadAppending)
+        {
+            NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.articles];
+            [tempArray addObjectsFromArray:parsedArticles];
         
-        self.articles = tempArray;
-    }
-    else
-    {
-        self.articles = parsedArticles;
+            self.articles = tempArray;
+        }
+        else
+        {
+            self.articles = parsedArticles;
+        }
     }
     
 }
