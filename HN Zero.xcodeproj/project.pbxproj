@@ -39,6 +39,7 @@
 		78E4076B17D2D11800DC8CE0 /* HNArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076A17D2D11700DC8CE0 /* HNArticleCell.m */; };
 		78E570CF17D817FB00D53F99 /* HNDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E570CE17D817FB00D53F99 /* HNDownloadController.m */; };
 		78E570D417D81C2C00D53F99 /* HNArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E570D317D81C2C00D53F99 /* HNArticle.m */; };
+		A70B451F186202CF007348B7 /* HNLinkGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = A70B451E186202CF007348B7 /* HNLinkGetter.m */; };
 		A773338C1840455C006BF7E5 /* icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = A77333861840455C006BF7E5 /* icon-80.png */; };
 		A773338D1840455C006BF7E5 /* icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = A77333871840455C006BF7E5 /* icon-120.png */; };
 		A773338E1840455C006BF7E5 /* icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = A77333881840455C006BF7E5 /* icon-Small.png */; };
@@ -116,6 +117,8 @@
 		78E570CE17D817FB00D53F99 /* HNDownloadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNDownloadController.m; path = Controllers/HNDownloadController.m; sourceTree = "<group>"; };
 		78E570D217D81C2C00D53F99 /* HNArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNArticle.h; path = Models/HNArticle.h; sourceTree = "<group>"; };
 		78E570D317D81C2C00D53F99 /* HNArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNArticle.m; path = Models/HNArticle.m; sourceTree = "<group>"; };
+		A70B451D186202CF007348B7 /* HNLinkGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNLinkGetter.h; path = Controllers/HNLinkGetter.h; sourceTree = "<group>"; };
+		A70B451E186202CF007348B7 /* HNLinkGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNLinkGetter.m; path = Controllers/HNLinkGetter.m; sourceTree = "<group>"; };
 		A77333861840455C006BF7E5 /* icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-80.png"; path = "Resources/icon-80.png"; sourceTree = "<group>"; };
 		A77333871840455C006BF7E5 /* icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-120.png"; path = "Resources/icon-120.png"; sourceTree = "<group>"; };
 		A77333881840455C006BF7E5 /* icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-Small.png"; path = "Resources/icon-Small.png"; sourceTree = "<group>"; };
@@ -193,9 +196,9 @@
 		782784C717C9814500CAD559 /* HackerNews */ = {
 			isa = PBXGroup;
 			children = (
-				78E570D117D8181600D53F99 /* Controllers */,
 				782784D017C9814500CAD559 /* HNAppDelegate.h */,
 				782784D117C9814500CAD559 /* HNAppDelegate.m */,
+				78E570D117D8181600D53F99 /* Controllers */,
 				78E4076F17D3D1F600DC8CE0 /* Models */,
 				78393F9D17E026030003017F /* Parser */,
 				78EAD07B17F8CF970023287A /* Resources */,
@@ -309,6 +312,8 @@
 			children = (
 				78E570CD17D817FB00D53F99 /* HNDownloadController.h */,
 				78E570CE17D817FB00D53F99 /* HNDownloadController.m */,
+				A70B451D186202CF007348B7 /* HNLinkGetter.h */,
+				A70B451E186202CF007348B7 /* HNLinkGetter.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -449,6 +454,7 @@
 				782784D217C9814500CAD559 /* HNAppDelegate.m in Sources */,
 				78E4076417D04B4400DC8CE0 /* HNArticleListVC.m in Sources */,
 				A7A417C518414094001F15FC /* HNAbout.m in Sources */,
+				A70B451F186202CF007348B7 /* HNLinkGetter.m in Sources */,
 				78E4076817D278B100DC8CE0 /* HNWebBrowserVC.m in Sources */,
 				7890293D181A110300FA8CE0 /* HNLoadingCell.m in Sources */,
 				78E4076B17D2D11800DC8CE0 /* HNArticleCell.m in Sources */,

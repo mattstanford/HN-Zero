@@ -11,11 +11,12 @@
 #import "HNDownloadController.h"
 #import "HNArticleCell.h"
 #import "HNCommentVC.h"
+#import "HNLinkGetter.h"
 
 @class HNArticleContainerVC;
 @class HNTheme;
 
-@interface HNArticleListVC : UITableViewController  <downloadControllerDelegate, HNArticleCellDelegate>
+@interface HNArticleListVC : UITableViewController  <downloadControllerDelegate, HNArticleCellDelegate, HNLinkGetterDelegate>
 {
     NSArray *articles;
     HNWebBrowserVC *webBrowserVC;
@@ -29,6 +30,9 @@
     NSURL *moreArticlesUrl;
     BOOL isDownloadAppending;
     BOOL shouldScrollToTopAfterDownload;
+    
+    HNLinkGetter *linkGetter;
+    int currentPage;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme;
@@ -45,5 +49,7 @@
 @property (strong, nonatomic) NSURL *moreArticlesUrl;
 @property (assign, nonatomic) BOOL isDownloadAppending;
 @property (assign, nonatomic) BOOL shouldScrollToTopAfterDownload;
+@property (strong, nonatomic) HNLinkGetter *linkGetter;
+@property (assign, nonatomic) int currentPage;
 
 @end

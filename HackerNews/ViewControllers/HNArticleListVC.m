@@ -16,7 +16,7 @@
 
 @implementation HNArticleListVC
 
-@synthesize articles, webBrowserVC, commentVC, downloadController, articleContainerVC, theme, url, moreArticlesUrl, isDownloadAppending, shouldScrollToTopAfterDownload;
+@synthesize articles, webBrowserVC, commentVC, downloadController, articleContainerVC, theme, url, moreArticlesUrl, isDownloadAppending, shouldScrollToTopAfterDownload, currentPage, linkGetter;
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme
 {
@@ -36,6 +36,9 @@
         downloadController = [[HNDownloadController alloc] init];
         isDownloadAppending = NO;
         shouldScrollToTopAfterDownload = NO;
+        
+        linkGetter = [[HNLinkGetter alloc] init];
+        currentPage = 0;
         
         //This is an example of the site when there is a "black bar" on the header (i.e. a famous tech person died
         //downloadController = [[HNDownloadController alloc] initWithUrl:@"http://www.waybackletter.com/archive/20111005.html"];
@@ -122,6 +125,7 @@
     {
         isDownloadAppending = YES;
         downloadUrl= self.moreArticlesUrl;
+        
     }
     else
     {
@@ -147,62 +151,59 @@
 {
     NSArray *parsedArticles = [HNParser parseArticles:data];
     
-    //Update articles array
-    [self updateArticlesInTable:parsedArticles];
-    
-    //Update the "more articles" link
-    [self updateGetMoreArticlesLink:data];
-    
-    //Reload data in the table
-    [self.tableView reloadData];
-    
-    //Scroll to top if necessary
-    if (shouldScrollToTopAfterDownload)
+    if (parsedArticles.count > 0)
     {
-        [self scrollToTop];
-    }
-    
-    //Update cache
-    if (parsedArticles)
-    {
-        NSData *articlesArchive = [NSKeyedArchiver archivedDataWithRootObject:parsedArticles];
-        [[NSUserDefaults standardUserDefaults] setObject:articlesArchive forKey:@"articles"];
-    }
-    
-    
-    //Update refresh control
-    [self.refreshControl endRefreshing];
-    self.refreshControl.attributedTitle = [HNUtils getTimeUpdatedString];
-}
-
--(void) updateArticlesInTable:(NSArray *)parsedArticles
-{
-    if (parsedArticles)
-    {
-        if (isDownloadAppending)
-        {
-            NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.articles];
-            [tempArray addObjectsFromArray:parsedArticles];
+        [self updateArticlesInTable:parsedArticles];
         
-            self.articles = tempArray;
-        }
-        else
+        //Update the "more articles" link
+        [self updateGetMoreArticlesLink:data];
+        
+        //Reload data in the table
+        [self.tableView reloadData];
+        
+        //Scroll to top if necessary
+        if (shouldScrollToTopAfterDownload)
         {
-            self.articles = parsedArticles;
+            [self scrollToTop];
         }
+        
+        //Update cache
+        if (parsedArticles)
+        {
+            NSData *articlesArchive = [NSKeyedArchiver archivedDataWithRootObject:parsedArticles];
+            [[NSUserDefaults standardUserDefaults] setObject:articlesArchive forKey:@"articles"];
+        }
+        
+        //Update refresh control
+        [self.refreshControl endRefreshing];
+        self.refreshControl.attributedTitle = [HNUtils getTimeUpdatedString];
+        
     }
-    
+    else
+    {
+        /*
+         No parsed articles means the "more articles link" could be expired
+        If we successfully get a new link, the callback for this function will
+        try to download again
+         */
+        [linkGetter getCurrentMoreArticlesUrlForPage:currentPage];
+        
+    }
+
 }
 
--(void) updateGetMoreArticlesLink:(NSData *)data
+#pragma mark LinkGetter Delegate
+
+-(void) didGetLink:(NSURL *)linkUrl
 {
-    NSString *newPath = [HNParser getMoreArticlesLink:data];
-    if (newPath)
-    {
-        self.moreArticlesUrl = [[NSURL alloc] initWithScheme:self.url.scheme host:self.url.host path:newPath];
-    }
-    
+    [downloadController beginDownload:linkUrl];
 }
+
+-(void) didFailToGetLink
+{
+    NSLog(@"Link getter failed to get more articles URL!");
+}
+
 
 -(void) downloadFailed
 {
@@ -330,6 +331,36 @@
         
         [self downloadFrontPageArticles:YES];
     }
+}
+
+#pragma mark Helper functions
+
+-(void) updateArticlesInTable:(NSArray *)parsedArticles
+{
+    
+    if (isDownloadAppending)
+    {
+        NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.articles];
+        [tempArray addObjectsFromArray:parsedArticles];
+        
+        self.articles = tempArray;
+        currentPage++;
+    }
+    else
+    {
+        self.articles = parsedArticles;
+        currentPage = 0;
+    }
+}
+
+-(void) updateGetMoreArticlesLink:(NSData *)data
+{
+    NSString *newPath = [HNParser getMoreArticlesLink:data];
+    if (newPath)
+    {
+        self.moreArticlesUrl = [[NSURL alloc] initWithScheme:self.url.scheme host:self.url.host path:newPath];
+    }
+    
 }
 
 @end
