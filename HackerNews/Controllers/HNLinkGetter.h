@@ -7,7 +7,33 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HNDownloadController.h"
 
-@interface HNLinkGetter : NSObject
+@class HNParser;
+
+@protocol HNLinkGetterDelegate
+@required
+-(void) didGetLink:(NSURL *)linkUrl;
+-(void) didFailToGetLink;
+@end
+
+@interface HNLinkGetter : NSObject <downloadControllerDelegate>
+{
+    NSString *baseUrlString;
+    int currentPage;
+    NSURL *currentLinkUrl;
+    int goalPage;
+    
+    HNDownloadController *downloadController;
+}
+
+@property (nonatomic, assign) id<HNLinkGetterDelegate> linkGetterDelegate;
+@property (nonatomic, strong) NSString *baseUrlString;
+@property (nonatomic, assign) int currentPage;
+@property (nonatomic, strong) NSURL *currentLinkUrl;
+@property (nonatomic, assign) int goalPage;
+@property (nonatomic, strong) HNDownloadController *downloadController;
+
+-(void) getCurrentMoreArticlesUrlForPage:(int)page;
 
 @end
