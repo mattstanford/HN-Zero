@@ -196,6 +196,7 @@
 
 -(void) didGetLink:(NSURL *)linkUrl
 {
+    NSLog(@"Got new link: %@", linkUrl);
     [downloadController beginDownload:linkUrl];
 }
 
@@ -325,7 +326,7 @@
     NSInteger currentOffset = scrollView.contentOffset.y;
     NSInteger maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
     
-    if (maximumOffset - currentOffset < 200 && !self.downloadController.isDownloading)
+    if (maximumOffset - currentOffset < 200 && !self.downloadController.isDownloading && ![self.linkGetter isGettingNewLink])
     {
         NSLog(@"load MOAR!");
         

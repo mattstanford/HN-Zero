@@ -35,5 +35,6 @@
 @property (nonatomic, strong) HNDownloadController *downloadController;
 
 -(void) getCurrentMoreArticlesUrlForPage:(int)page;
+-(BOOL) isGettingNewLink;
 
 @end

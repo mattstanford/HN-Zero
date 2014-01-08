@@ -20,6 +20,9 @@
     {
         baseUrlString = @"https://news.ycombinator.com";
         
+        currentPage = 0;
+        goalPage = 0;
+        
         downloadController = [[HNDownloadController alloc] init];
         downloadController.downloadDelegate = self;
     }
@@ -36,6 +39,11 @@
     
 }
 
+-(BOOL) isGettingNewLink
+{
+    return [downloadController isDownloading] && currentPage != goalPage;
+}
+
 #pragma mark download controller delegate
 
 -(void) downloadDidComplete:(id)data
@@ -45,7 +53,7 @@
     if (retrievedUrlString)
     {
         NSString *urlString = [NSString stringWithFormat:@"%@%@", baseUrlString, retrievedUrlString];
-        NSLog(@"Got page: %@", urlString);
+        NSLog(@"Got page: %@ (%i of %i)", urlString, currentPage, goalPage);
         NSURL *url = [NSURL URLWithString:urlString];
         
         if (currentPage == goalPage)
