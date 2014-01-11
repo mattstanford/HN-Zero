@@ -53,7 +53,6 @@
     if (retrievedUrlString)
     {
         NSString *urlString = [NSString stringWithFormat:@"%@%@", baseUrlString, retrievedUrlString];
-        NSLog(@"Got page: %@ (%i of %i)", urlString, currentPage, goalPage);
         NSURL *url = [NSURL URLWithString:urlString];
         
         if (currentPage == goalPage)

@@ -17,29 +17,26 @@
 - (void) beginDownload:(NSURL *)url
 {
     
-    if (!isDownloading)
-    {
-        NSLog(@"downloading: %@", [url absoluteString]);
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        
-        [operation setCompletionBlockWithSuccess:
-         ^(AFHTTPRequestOperation *operation, id responseObject)
-         {
-             [downloadDelegate downloadDidComplete:responseObject];
-             isDownloading = NO;
-             
-         }
-        failure:^(AFHTTPRequestOperation *operation, NSError *erro)
-         {
-             [downloadDelegate downloadFailed];
-             isDownloading = NO;
-         }];
-        
-        isDownloading = YES;
-        [operation start];
-    }
+    NSLog(@"downloading: %@", [url absoluteString]);
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    [operation setCompletionBlockWithSuccess:
+     ^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         [downloadDelegate downloadDidComplete:responseObject];
+         isDownloading = NO;
+         
+     }
+    failure:^(AFHTTPRequestOperation *operation, NSError *erro)
+     {
+         [downloadDelegate downloadFailed];
+         isDownloading = NO;
+     }];
+    
+    isDownloading = YES;
+    [operation start];
 }
 
 @end

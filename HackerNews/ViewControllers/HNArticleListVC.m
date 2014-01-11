@@ -38,6 +38,7 @@
         shouldScrollToTopAfterDownload = NO;
         
         linkGetter = [[HNLinkGetter alloc] init];
+        linkGetter.linkGetterDelegate = self;
         currentPage = 0;
         
         //This is an example of the site when there is a "black bar" on the header (i.e. a famous tech person died
