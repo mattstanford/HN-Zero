@@ -15,7 +15,7 @@
 
 @implementation HNWebBrowserVC
 
-@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, historyPosition, historyLength, isLoadingNewPage, isBackwardNavActive, isForwardNavActive, theme;
+@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, connectionStatusLabel, bottomBarMask, historyPosition, historyLength, isLoadingNewPage, isBackwardNavActive, isForwardNavActive, theme;
 
 static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
@@ -44,6 +44,17 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
         navigateForwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [navigateForwardButton addTarget:self action:@selector(forwardButtonTouched) forControlEvents:UIControlEventTouchDown];
         [bottomBarView addSubview:navigateForwardButton];
+        
+        connectionStatusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        connectionStatusLabel.textAlignment = NSTextAlignmentCenter;
+        //connectionStatusLabel.text = @"Test Status!!!";
+        connectionStatusLabel.font =  [UIFont fontWithName:@"Helvetica" size:11];
+        connectionStatusLabel.textColor = [UIColor whiteColor];
+        [bottomBarView addSubview:connectionStatusLabel];
+        
+        //Counter for the number of components requesting the bottom bar to be displayed
+        // like the history buttons or the status message
+        bottomBarMask = 0;
         
         [self resetNavButtons];
         
@@ -85,9 +96,14 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     CGFloat backNavigateButtonX = 10;
     CGFloat forwardNavigateButtonX = backNavigateButtonX + navigateButtonWidth + 15;
     CGFloat navigateButtonY = (BOTTOM_BAR_HEIGHT / 2) - (navigateButtonHeight / 2);
+    CGFloat statusLabelX = forwardNavigateButtonX + navigateButtonWidth + 5;
+    CGFloat statusLabelWidth = self.view.frame.size.width - (statusLabelX * 2);
+    CGFloat statusLabelHeight = BOTTOM_BAR_HEIGHT - 10;
+    CGFloat statusLabelY = (BOTTOM_BAR_HEIGHT / 2) - (statusLabelHeight / 2);
     
     self.navigateBackButton.frame = CGRectMake(backNavigateButtonX, navigateButtonY, navigateButtonWidth, navigateButtonHeight);
     self.navigateForwardButton.frame = CGRectMake(forwardNavigateButtonX, navigateButtonY, navigateButtonWidth, navigateButtonHeight);
+    self.connectionStatusLabel.frame = CGRectMake(statusLabelX, statusLabelY, statusLabelWidth, statusLabelHeight);
     
 }
 
@@ -105,9 +121,19 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
 
 
-- (void) setBottomBarVisible:(BOOL)isVisible
+- (void) setBottomBarStatus:(bottomBarStatus)mask turnOn:(BOOL)isOn
 {
-    if (isVisible)
+
+    if (isOn)
+    {
+        bottomBarMask |= mask;
+    }
+    else
+    {
+        bottomBarMask &= ~mask;
+    }
+    
+    if (bottomBarMask)
     {
         self.bottomBarView.hidden = FALSE;
     }
@@ -130,7 +156,8 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     [self deactivateBackNavButton];
     [self deactivateForwardNavButton];
     
-    [self setBottomBarVisible:FALSE];
+    //[self setBottomBarVisible:FALSE];
+    [self setBottomBarStatus:BOTTOM_BAR_HISTORY_EXISTS turnOn:FALSE];
 }
 
 - (void) activateBackNavButton
@@ -186,7 +213,8 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
 - (void) resetHistoryWithNewLink
 {
-    [self setBottomBarVisible:TRUE];
+    //[self setBottomBarVisible:TRUE];
+    [self setBottomBarStatus:BOTTOM_BAR_HISTORY_EXISTS turnOn:TRUE];
     
     //Need to make sure the "forward" history is erased when new link is clicked
     self.historyLength = self.historyPosition;
@@ -236,6 +264,7 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
         
         [self loadUrl:@"about:blank"];
         [self loadUrl:newUrl];
+        self.bottomBarMask = 0;
     }
 }
 
@@ -250,19 +279,22 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
-    NSLog(@"started loading page");
+    self.connectionStatusLabel.text = @"Loading...";
+    [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING turnOn:TRUE];
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSLog(@"finished loading page");
-    
     if (isLoadingNewPage)
     {
         NSLog(@"loading new page");
         [self resetHistoryWithNewLink];
         self.isLoadingNewPage = FALSE;
     }
+    
+    [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING turnOn:FALSE];
+    self.connectionStatusLabel.text = @"";
+    
 }
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error

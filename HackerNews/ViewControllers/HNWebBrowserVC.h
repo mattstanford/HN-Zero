@@ -10,6 +10,11 @@
 
 @class HNTheme;
 
+typedef NS_OPTIONS(NSUInteger, bottomBarStatus) {
+    BOTTOM_BAR_HISTORY_EXISTS = (1 << 0),
+    BOTTOM_BAR_STATUS_SHOWING = (1 << 1)
+};
+
 @interface HNWebBrowserVC : UIViewController <UIWebViewDelegate>
 {
     UIWebView *webView;
@@ -18,6 +23,10 @@
     
     UIButton *navigateBackButton;
     UIButton *navigateForwardButton;
+    UILabel *connectionStatusLabel;
+    
+    bottomBarStatus bottomBarMask;
+    
     int historyPosition;
     int historyLength;
     BOOL isLoadingNewPage;
@@ -36,6 +45,8 @@
 @property (strong, nonatomic) UIView *bottomBarView;
 @property (strong, nonatomic) UIButton *navigateBackButton;
 @property (strong, nonatomic) UIButton *navigateForwardButton;
+@property (strong, nonatomic) UILabel *connectionStatusLabel;
+@property (assign, nonatomic) bottomBarStatus bottomBarMask;
 @property (assign, nonatomic) int historyPosition;
 @property (assign, nonatomic) int historyLength;
 @property (assign, nonatomic) BOOL isLoadingNewPage;
