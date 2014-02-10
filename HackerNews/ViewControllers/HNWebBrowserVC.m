@@ -19,6 +19,7 @@
 @synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, connectionStatusLabel, bottomBarMask, historyPosition, historyLength, isLoadingNewPage, isBackwardNavActive, isForwardNavActive, isBottomBarShowing, theme;
 
 static const CGFloat BOTTOM_BAR_HEIGHT = 30;
+static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 - (id)initWithTheme:(HNTheme *)theTheme {
     
@@ -171,7 +172,7 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
      */
     self.webView.bounds = CGRectMake(self.webView.frame.origin.x, self.webView.frame.origin.y, self.webView.frame.size.width, barPos);
     
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:STATUS_BAR_DELAY animations:^{
 
         self.bottomBarView.frame = CGRectMake(self.bottomBarView.frame.origin.x, barPos, self.bottomBarView.frame.size.width, self.bottomBarView.frame.size.height);
         
@@ -332,7 +333,16 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     }
     
     [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING turnOn:FALSE];
+    
     [connectionStatusLabel setFinalStatusText:@"Finished!"];
+    
+    /*
+     Clear the status text after a delay.  The bottom bar may be visible if there
+     is history in the browser
+     */
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, STATUS_BAR_DELAY * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [connectionStatusLabel clearStatusText];
+    });
     
 }
 
