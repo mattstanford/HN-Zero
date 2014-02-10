@@ -8,6 +8,7 @@
 
 #import "HNWebBrowserVC.h"
 #import "HNTheme.h"
+#import "HNConnectionStatusLabel.h"
 
 @interface HNWebBrowserVC ()
 
@@ -45,7 +46,7 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
         [navigateForwardButton addTarget:self action:@selector(forwardButtonTouched) forControlEvents:UIControlEventTouchDown];
         [bottomBarView addSubview:navigateForwardButton];
         
-        connectionStatusLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        connectionStatusLabel = [[HNConnectionStatusLabel alloc] initWithFrame:CGRectZero];
         connectionStatusLabel.textAlignment = NSTextAlignmentCenter;
         //connectionStatusLabel.text = @"Test Status!!!";
         connectionStatusLabel.font =  [UIFont fontWithName:@"Helvetica" size:11];
@@ -178,7 +179,8 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
         
         //Clear connection status
         if (!shouldGoUp) {
-            self.connectionStatusLabel.text = @"";
+            //self.connectionStatusLabel.text = @"";
+            [connectionStatusLabel clearStatusText];
         }
     }];
     
@@ -317,7 +319,8 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
-    self.connectionStatusLabel.text = @"Loading...";
+    //self.connectionStatusLabel.text = @"Loading...";
+    [connectionStatusLabel setStatusText:@"Loading..."];
     [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING turnOn:TRUE];
 }
 
@@ -331,7 +334,8 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     }
     
     [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING turnOn:FALSE];
-    self.connectionStatusLabel.text = @"Finished!";
+    //self.connectionStatusLabel.text = @"Finished!";
+    [connectionStatusLabel setFinalStatusText:@"Finished!"];
     
 }
 

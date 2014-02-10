@@ -57,6 +57,7 @@
 		A79F260F183F063100A237B5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A79F260E183F063100A237B5 /* Default-568h@2x.png */; };
 		A7A417C518414094001F15FC /* HNAbout.m in Sources */ = {isa = PBXBuildFile; fileRef = A7A417C418414094001F15FC /* HNAbout.m */; };
 		A7A417C7184162A2001F15FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7A417C6184162A2001F15FC /* Images.xcassets */; };
+		A7DFA86D18A9910F005BC27D /* HNConnectionStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DFA86C18A9910F005BC27D /* HNConnectionStatusLabel.m */; };
 		A7F985B81826DB9900A8D404 /* triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F985B71826DB9900A8D404 /* triangle.png */; };
 /* End PBXBuildFile section */
 
@@ -138,6 +139,8 @@
 		A7A417C318414094001F15FC /* HNAbout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNAbout.h; path = ViewControllers/HNAbout.h; sourceTree = "<group>"; };
 		A7A417C418414094001F15FC /* HNAbout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNAbout.m; path = ViewControllers/HNAbout.m; sourceTree = "<group>"; };
 		A7A417C6184162A2001F15FC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "HN Zero/Images.xcassets"; sourceTree = "<group>"; };
+		A7DFA86B18A9910F005BC27D /* HNConnectionStatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNConnectionStatusLabel.h; path = Views/HNConnectionStatusLabel.h; sourceTree = "<group>"; };
+		A7DFA86C18A9910F005BC27D /* HNConnectionStatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNConnectionStatusLabel.m; path = Views/HNConnectionStatusLabel.m; sourceTree = "<group>"; };
 		A7F985B71826DB9900A8D404 /* triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = triangle.png; path = Resources/triangle.png; sourceTree = "<group>"; };
 		C70DA83392594FF4B0113C30 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -303,6 +306,8 @@
 				7890293C181A110300FA8CE0 /* HNLoadingCell.m */,
 				78C7663617F7E9B6008A31F5 /* HNTouchableView.h */,
 				78C7663717F7E9B6008A31F5 /* HNTouchableView.m */,
+				A7DFA86B18A9910F005BC27D /* HNConnectionStatusLabel.h */,
+				A7DFA86C18A9910F005BC27D /* HNConnectionStatusLabel.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -457,6 +462,7 @@
 				A70B451F186202CF007348B7 /* HNLinkGetter.m in Sources */,
 				78E4076817D278B100DC8CE0 /* HNWebBrowserVC.m in Sources */,
 				7890293D181A110300FA8CE0 /* HNLoadingCell.m in Sources */,
+				A7DFA86D18A9910F005BC27D /* HNConnectionStatusLabel.m in Sources */,
 				78E4076B17D2D11800DC8CE0 /* HNArticleCell.m in Sources */,
 				78E570CF17D817FB00D53F99 /* HNDownloadController.m in Sources */,
 				78E570D417D81C2C00D53F99 /* HNArticle.m in Sources */,

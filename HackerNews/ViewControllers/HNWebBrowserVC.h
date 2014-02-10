@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class HNTheme;
+@class HNConnectionStatusLabel;
 
 typedef NS_OPTIONS(NSUInteger, bottomBarStatus) {
     BOTTOM_BAR_HISTORY_EXISTS = (1 << 0),
@@ -23,7 +24,7 @@ typedef NS_OPTIONS(NSUInteger, bottomBarStatus) {
     
     UIButton *navigateBackButton;
     UIButton *navigateForwardButton;
-    UILabel *connectionStatusLabel;
+    HNConnectionStatusLabel *connectionStatusLabel;
     
     bottomBarStatus bottomBarMask;
     
@@ -47,7 +48,7 @@ typedef NS_OPTIONS(NSUInteger, bottomBarStatus) {
 @property (strong, nonatomic) UIView *bottomBarView;
 @property (strong, nonatomic) UIButton *navigateBackButton;
 @property (strong, nonatomic) UIButton *navigateForwardButton;
-@property (strong, nonatomic) UILabel *connectionStatusLabel;
+@property (strong, nonatomic) HNConnectionStatusLabel *connectionStatusLabel;
 @property (assign, nonatomic) bottomBarStatus bottomBarMask;
 @property (assign, nonatomic) int historyPosition;
 @property (assign, nonatomic) int historyLength;
