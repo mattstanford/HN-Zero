@@ -83,16 +83,16 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 - (void) viewWillLayoutSubviews
 {
-    CGFloat webViewHeight = self.view.frame.size.height;
+    CGFloat webViewBoundsHeight = self.view.frame.size.height;
     
-    //if (bottomBarView.hidden == FALSE)
     if (isBottomBarShowing)
     {
-        webViewHeight -= BOTTOM_BAR_HEIGHT;
+        webViewBoundsHeight -= BOTTOM_BAR_HEIGHT;
     }
     
-    self.webView.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, webViewHeight);
-    self.bottomBarView.frame = CGRectMake(0, webViewHeight, self.view.frame.size.width , BOTTOM_BAR_HEIGHT);
+    self.webView.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height);
+    
+    self.bottomBarView.frame = CGRectMake(0, webViewBoundsHeight, self.view.frame.size.width , BOTTOM_BAR_HEIGHT);
     
     //Add navigation buttons to bottom bar
     CGFloat navigateButtonHeight = BOTTOM_BAR_HEIGHT - 15;
