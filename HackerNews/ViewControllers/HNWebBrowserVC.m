@@ -179,7 +179,6 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
         
         //Clear connection status
         if (!shouldGoUp) {
-            //self.connectionStatusLabel.text = @"";
             [connectionStatusLabel clearStatusText];
         }
     }];
@@ -319,7 +318,6 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
-    //self.connectionStatusLabel.text = @"Loading...";
     [connectionStatusLabel setStatusText:@"Loading..."];
     [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING turnOn:TRUE];
 }
@@ -334,7 +332,6 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     }
     
     [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING turnOn:FALSE];
-    //self.connectionStatusLabel.text = @"Finished!";
     [connectionStatusLabel setFinalStatusText:@"Finished!"];
     
 }
@@ -342,7 +339,6 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     NSLog(@"loading paged FAILED");
-    //self.isLoadingNewPage = FALSE;
 }
 
 @end
