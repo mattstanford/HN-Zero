@@ -15,7 +15,7 @@
 
 @implementation HNWebBrowserVC
 
-@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, connectionStatusLabel, bottomBarMask, historyPosition, historyLength, isLoadingNewPage, isBackwardNavActive, isForwardNavActive, theme;
+@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, connectionStatusLabel, bottomBarMask, historyPosition, historyLength, isLoadingNewPage, isBackwardNavActive, isForwardNavActive, isBottomBarShowing, theme;
 
 static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
@@ -55,6 +55,7 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
         //Counter for the number of components requesting the bottom bar to be displayed
         // like the history buttons or the status message
         bottomBarMask = 0;
+        isBottomBarShowing = FALSE;
         
         [self resetNavButtons];
         
@@ -82,7 +83,8 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 {
     CGFloat webViewHeight = self.view.frame.size.height;
     
-    if (bottomBarView.hidden == FALSE)
+    //if (bottomBarView.hidden == FALSE)
+    if (isBottomBarShowing)
     {
         webViewHeight -= BOTTOM_BAR_HEIGHT;
     }
@@ -109,7 +111,6 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 
 - (BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSLog(@"shouldstartload: %i", navigationType);
     if (navigationType == UIWebViewNavigationTypeLinkClicked)
     {
         isLoadingNewPage = TRUE;
@@ -133,17 +134,54 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
         bottomBarMask &= ~mask;
     }
     
-    if (bottomBarMask)
+    if (bottomBarMask && !isBottomBarShowing)
     {
-        self.bottomBarView.hidden = FALSE;
+        [self animateBottomBar:TRUE];
+    }
+    else if(!bottomBarMask && isBottomBarShowing)
+    {
+        [self animateBottomBar:FALSE];
+    }
+    
+}
+
+- (void) animateBottomBar:(BOOL)shouldGoUp
+{
+    CGFloat barPos = 0;
+    
+    if (shouldGoUp) {
+        barPos = self.view.frame.size.height - BOTTOM_BAR_HEIGHT;
     }
     else
     {
-        self.bottomBarView.hidden = TRUE;
+        barPos = self.view.frame.size.height;
     }
     
-    //Reset the frame to show/hide bottom bar
-    [self viewWillLayoutSubviews];
+    if (shouldGoUp) {
+        isBottomBarShowing = TRUE;
+    }
+    else {
+        isBottomBarShowing = FALSE;
+    }
+
+    /*
+     Set the bounds, not the frame, since UIWebView has issues re-drawing the view when we
+     re-draw the frame
+     */
+    self.webView.bounds = CGRectMake(self.webView.frame.origin.x, self.webView.frame.origin.y, self.webView.frame.size.width, barPos);
+    
+    [UIView animateWithDuration:0.5 animations:^{
+
+        self.bottomBarView.frame = CGRectMake(self.bottomBarView.frame.origin.x, barPos, self.bottomBarView.frame.size.width, self.bottomBarView.frame.size.height);
+        
+    }completion:^(BOOL finished){
+        
+        //Clear connection status
+        if (!shouldGoUp) {
+            self.connectionStatusLabel.text = @"";
+        }
+    }];
+    
     
 }
 
@@ -293,7 +331,7 @@ static const CGFloat BOTTOM_BAR_HEIGHT = 30;
     }
     
     [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING turnOn:FALSE];
-    self.connectionStatusLabel.text = @"";
+    self.connectionStatusLabel.text = @"Finished!";
     
 }
 

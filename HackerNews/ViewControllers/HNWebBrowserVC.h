@@ -34,6 +34,8 @@ typedef NS_OPTIONS(NSUInteger, bottomBarStatus) {
     BOOL isForwardNavActive;
     BOOL isBackwardNavActive;
     
+    BOOL isBottomBarShowing;
+    
     HNTheme *theme;
 }
 
@@ -52,6 +54,7 @@ typedef NS_OPTIONS(NSUInteger, bottomBarStatus) {
 @property (assign, nonatomic) BOOL isLoadingNewPage;
 @property (assign, nonatomic) BOOL isForwardNavActive;
 @property (assign, nonatomic) BOOL isBackwardNavActive;
+@property (assign, nonatomic) BOOL isBottomBarShowing;
 @property (strong, nonatomic) HNTheme *theme;
 
 
