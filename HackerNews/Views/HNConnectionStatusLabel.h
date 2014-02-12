@@ -11,9 +11,11 @@
 @interface HNConnectionStatusLabel : UILabel
 {
     BOOL isShowingFinalText;
+    int finalStatusTextCounter;
 }
 
 @property (nonatomic, assign) BOOL isShowingFinalText;
+@property (nonatomic, assign) int finalStatusTextCounter;
 
 - (void) setStatusText:(NSString *)text;
 - (void) setFinalStatusText:(NSString *)text;

@@ -176,14 +176,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
         self.bottomBarView.frame = CGRectMake(self.bottomBarView.frame.origin.x, barPos, self.bottomBarView.frame.size.width, self.bottomBarView.frame.size.height);
         
-    }completion:^(BOOL finished){
-        
-        //Clear connection status
-        if (!shouldGoUp) {
-            [connectionStatusLabel clearStatusText];
-        }
     }];
-    
     
 }
 
@@ -196,7 +189,6 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     [self deactivateBackNavButton];
     [self deactivateForwardNavButton];
     
-    //[self setBottomBarVisible:FALSE];
     [self setBottomBarStatus:BOTTOM_BAR_HISTORY_EXISTS turnOn:FALSE];
 }
 

@@ -10,11 +10,12 @@
 
 @implementation HNConnectionStatusLabel
 
-@synthesize isShowingFinalText;
+@synthesize isShowingFinalText, finalStatusTextCounter;
 
 - (id) init
 {
     isShowingFinalText = FALSE;
+    finalStatusTextCounter = 0;
     
     return [super init];
 }
@@ -29,12 +30,15 @@
 {
     self.text = text;
     isShowingFinalText = TRUE;
+    finalStatusTextCounter++;
 }
 
 - (void) clearStatusText
 {
-    if (isShowingFinalText) {
+    finalStatusTextCounter--;
+    if (finalStatusTextCounter <= 0 && isShowingFinalText) {
         self.text = @"";
+        finalStatusTextCounter = 0;
     }
 }
 
