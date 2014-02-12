@@ -16,7 +16,7 @@
 
 @implementation HNWebBrowserVC
 
-@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, connectionStatusLabel, bottomBarMask, historyPosition, historyLength, isLoadingNewPage, isBackwardNavActive, isForwardNavActive, isBottomBarShowing, theme;
+@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, connectionStatusLabel, bottomBarMask, historyPosition, historyLength, isLoadingNewPage, isBackwardNavActive, isForwardNavActive, isBottomBarShowing, willShowNewPage, theme;
 
 static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 static const CGFloat STATUS_BAR_DELAY = 0.5;
@@ -59,6 +59,8 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
         bottomBarMask = 0;
         isBottomBarShowing = FALSE;
         
+        willShowNewPage = FALSE;
+        
         [self resetNavButtons];
         
         currentURL = @"http://news.ycombinator.com";
@@ -79,6 +81,15 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 - (NSUInteger) supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    if (willShowNewPage) {
+        [self loadUrl:@"about:blank"];
+        [self loadUrl:currentURL];
+        willShowNewPage = FALSE;
+    }
 }
 
 - (void) viewWillLayoutSubviews
@@ -294,9 +305,11 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     {
         [self resetNavButtons];
         
-        [self loadUrl:@"about:blank"];
-        [self loadUrl:newUrl];
+        //[self loadUrl:@"about:blank"];
+        //[self loadUrl:newUrl];
+        currentURL = newUrl;
         self.bottomBarMask = 0;
+        willShowNewPage = TRUE;
     }
 }
 
@@ -305,7 +318,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     NSURL *url = [NSURL URLWithString:newUrl];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     
-    currentURL = newUrl;
+    //currentURL = newUrl;
     [webView loadRequest:requestObj];
 }
 
