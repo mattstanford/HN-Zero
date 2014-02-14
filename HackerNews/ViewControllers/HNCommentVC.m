@@ -126,7 +126,7 @@
 -(void) attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url
 {
     NSLog(@"tapped link at %@", [url absoluteString]);
-    [self.webBrowserVC setURL:[url absoluteString] forceUpdate:NO];
+    [self.webBrowserVC setURL:[url absoluteString] forceUpdate:NO onClearBlock:nil];
     [self.navigationController pushViewController:self.webBrowserVC animated:YES];
 }
 

@@ -66,7 +66,7 @@
     else if(self.currentVC == self.commentsVC)
     {
         newVC = self.articleVC;
-        [self loadArticle:self.currentArticle forceUpdate:NO];
+        [self loadArticle:self.currentArticle forceUpdate:NO onClearBlock:nil];
     }
     
     [self setRightButtonTitle];
@@ -134,11 +134,11 @@
     self.currentVC = nil;
 }
 
--(void) doPresentArticle:(HNArticle *)article
+-(void) doPresentArticle:(HNArticle *)article onClearBlock:(void (^)())clearBlock
 {
     self.currentArticle = article;
     
-    [self loadArticle:article forceUpdate:YES];
+    [self loadArticle:article forceUpdate:YES onClearBlock:clearBlock];
     
     if (self.currentVC != self.articleVC)
     {
@@ -161,9 +161,9 @@
     
 }
 
--(void) loadArticle:(HNArticle *)article forceUpdate:(BOOL)doForceUpdate
+-(void) loadArticle:(HNArticle *)article forceUpdate:(BOOL)doForceUpdate onClearBlock:(void (^)())clearBlock
 {
-    [self.articleVC setURL:article.url forceUpdate:doForceUpdate];
+    [self.articleVC setURL:article.url forceUpdate:doForceUpdate onClearBlock:clearBlock];
     
     self.rightButtonTitle = @"Go to comments";
 }

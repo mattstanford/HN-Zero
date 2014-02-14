@@ -249,10 +249,9 @@
         }
         else
         {
-        
-            [articleContainerVC doPresentArticle:article];
-
-            [self.navigationController pushViewController:articleContainerVC animated:YES];
+            [articleContainerVC doPresentArticle:article onClearBlock:^{
+                [self.navigationController pushViewController:articleContainerVC animated:YES];
+            }];
         }
 
     }

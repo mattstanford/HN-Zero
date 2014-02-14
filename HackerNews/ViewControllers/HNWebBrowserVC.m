@@ -16,7 +16,7 @@
 
 @implementation HNWebBrowserVC
 
-@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, connectionStatusLabel, bottomBarMask, historyPosition, historyLength, isLoadingNewPage, isBackwardNavActive, isForwardNavActive, isBottomBarShowing, willShowNewPage, theme;
+@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, connectionStatusLabel, bottomBarMask, historyPosition, historyLength, isLoadingNewPage, isBackwardNavActive, isForwardNavActive, isBottomBarShowing, onClearBlock, theme;
 
 static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 static const CGFloat STATUS_BAR_DELAY = 0.5;
@@ -59,8 +59,6 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
         bottomBarMask = 0;
         isBottomBarShowing = FALSE;
         
-        willShowNewPage = FALSE;
-        
         [self resetNavButtons];
         
         currentURL = @"http://news.ycombinator.com";
@@ -81,15 +79,6 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 - (NSUInteger) supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskAllButUpsideDown;
-}
-
-- (void) viewWillAppear:(BOOL)animated
-{
-    if (willShowNewPage) {
-        [self loadUrl:@"about:blank"];
-        [self loadUrl:currentURL];
-        willShowNewPage = FALSE;
-    }
 }
 
 - (void) viewWillLayoutSubviews
@@ -299,17 +288,17 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     }
 }
 
-- (void) setURL:(NSString *)newUrl forceUpdate:(BOOL)doForceUpdate
+- (void) setURL:(NSString *)newUrl forceUpdate:(BOOL)doForceUpdate onClearBlock:(void (^)())clearBlock
 {
     if(doForceUpdate || historyLength > 0 || ![newUrl isEqualToString:self.currentURL])
     {
         [self resetNavButtons];
         
-        //[self loadUrl:@"about:blank"];
-        //[self loadUrl:newUrl];
+        onClearBlock = clearBlock;
         currentURL = newUrl;
+        [self loadUrl:@"about:blank"];
+        
         self.bottomBarMask = 0;
-        willShowNewPage = TRUE;
     }
 }
 
@@ -317,8 +306,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 {
     NSURL *url = [NSURL URLWithString:newUrl];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    
-    //currentURL = newUrl;
+
     [webView loadRequest:requestObj];
 }
 
@@ -330,24 +318,33 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    if (isLoadingNewPage)
-    {
-        NSLog(@"loading new page");
-        [self resetHistoryWithNewLink];
-        self.isLoadingNewPage = FALSE;
+    
+    if ([self.webView.request.URL.absoluteString isEqualToString:@"about:blank"]) {
+        [self loadUrl:currentURL];
+        onClearBlock();
     }
+    else
+    {
     
-    [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING turnOn:FALSE];
-    
-    [connectionStatusLabel setFinalStatusText:@"Finished!"];
-    
-    /*
-     Clear the status text after a delay.  The bottom bar may be visible if there
-     is history in the browser
-     */
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, STATUS_BAR_DELAY * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [connectionStatusLabel clearStatusText];
-    });
+        if (isLoadingNewPage)
+        {
+            NSLog(@"loading new page");
+            [self resetHistoryWithNewLink];
+            self.isLoadingNewPage = FALSE;
+        }
+        
+        [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING turnOn:FALSE];
+        
+        [connectionStatusLabel setFinalStatusText:@"Finished!"];
+        
+        /*
+         Clear the status text after a delay.  The bottom bar may be visible if there
+         is history in the browser
+         */
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, STATUS_BAR_DELAY * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [connectionStatusLabel clearStatusText];
+        });
+    }
     
 }
 

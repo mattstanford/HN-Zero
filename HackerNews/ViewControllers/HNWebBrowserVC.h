@@ -35,13 +35,13 @@ typedef NS_OPTIONS(NSUInteger, bottomBarStatus) {
     BOOL isForwardNavActive;
     BOOL isBackwardNavActive;
     BOOL isBottomBarShowing;
-    BOOL willShowNewPage;
+    void (^onClearBlock)(void);
     
     HNTheme *theme;
 }
 
 - (id)initWithTheme:(HNTheme *)theTheme;
-- (void) setURL:(NSString *)newUrl forceUpdate:(BOOL)doForceUpdate;
+- (void) setURL:(NSString *)newUrl forceUpdate:(BOOL)doForceUpdate onClearBlock:(void (^)())clearBlock;
 
 @property (strong, nonatomic) UIWebView *webView;
 @property (strong, nonatomic) NSString *currentURL;
@@ -56,7 +56,7 @@ typedef NS_OPTIONS(NSUInteger, bottomBarStatus) {
 @property (assign, nonatomic) BOOL isForwardNavActive;
 @property (assign, nonatomic) BOOL isBackwardNavActive;
 @property (assign, nonatomic) BOOL isBottomBarShowing;
-@property (assign, nonatomic) BOOL willShowNewPage;
+@property (copy, nonatomic) void (^onClearBlock)(void);
 @property (strong, nonatomic) HNTheme *theme;
 
 

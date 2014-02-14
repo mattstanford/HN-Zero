@@ -28,7 +28,7 @@
 @property (nonatomic, strong) NSString *rightButtonTitle;
 
 -(id) initWithArticleVC:(HNWebBrowserVC *)theArticleVC andCommentsVC:(HNCommentVC *)theCommentsVC;
--(void) doPresentArticle:(HNArticle *)article;
+-(void) doPresentArticle:(HNArticle *)article onClearBlock:(void (^)())clearBlock;
 -(void) doPresentCommentForArticle:(HNArticle *)article;
 
 @end
