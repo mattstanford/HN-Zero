@@ -26,11 +26,19 @@
     isShowingFinalText = FALSE;
 }
 
-- (void) setFinalStatusText:(NSString *)text
+- (void) setFinalStatusText:(NSString *)text duration:(CGFloat)delaySeconds
 {
     self.text = text;
     isShowingFinalText = TRUE;
     finalStatusTextCounter++;
+    
+    /*
+     Clear the status text after a delay.  The bottom bar may be visible if there
+     is history in the browser
+     */
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delaySeconds * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self clearStatusText];
+    });
 }
 
 - (void) clearStatusText

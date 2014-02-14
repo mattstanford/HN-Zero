@@ -339,15 +339,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
         
         [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING turnOn:FALSE];
         
-        [connectionStatusLabel setFinalStatusText:@"Finished!"];
-        
-        /*
-         Clear the status text after a delay.  The bottom bar may be visible if there
-         is history in the browser
-         */
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, STATUS_BAR_DELAY * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            [connectionStatusLabel clearStatusText];
-        });
+        [connectionStatusLabel setFinalStatusText:@"Finished!" duration:STATUS_BAR_DELAY];
     }
     
 }

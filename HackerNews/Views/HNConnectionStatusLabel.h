@@ -18,7 +18,7 @@
 @property (nonatomic, assign) int finalStatusTextCounter;
 
 - (void) setStatusText:(NSString *)text;
-- (void) setFinalStatusText:(NSString *)text;
+- (void) setFinalStatusText:(NSString *)text duration:(CGFloat)delaySeconds;
 - (void) clearStatusText;
 
 @end
