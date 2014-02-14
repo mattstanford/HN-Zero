@@ -35,7 +35,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
         
         self.theme = theTheme;
         
-        bottomBarView = [[UIView alloc] initWithFrame:CGRectZero];
+        bottomBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
         bottomBarView.backgroundColor = theTheme.titleBarColor;
         [self.view addSubview:bottomBarView];
         
