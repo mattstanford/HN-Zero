@@ -111,18 +111,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     
 }
 
-- (BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    if (navigationType == UIWebViewNavigationTypeLinkClicked)
-    {
-        isLoadingNewPage = TRUE;
-
-    }
-    
-    return TRUE;
-}
-
-
+#pragma mark Bottom bar status functions
 
 - (void) setBottomBarStatus:(bottomBarStatus)mask turnOn:(BOOL)isOn
 {
@@ -179,6 +168,8 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     }];
     
 }
+
+#pragma mark Navigation functions
 
 - (void) resetNavButtons
 {
@@ -288,6 +279,8 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     }
 }
 
+#pragma mark URL Loading functions
+
 - (void) setURL:(NSString *)newUrl forceUpdate:(BOOL)doForceUpdate onClearBlock:(void (^)())clearBlock
 {
     if(doForceUpdate || historyLength > 0 || ![newUrl isEqualToString:self.currentURL])
@@ -306,8 +299,19 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 {
     NSURL *url = [NSURL URLWithString:newUrl];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-
+    
     [webView loadRequest:requestObj];
+}
+
+- (BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if (navigationType == UIWebViewNavigationTypeLinkClicked)
+    {
+        isLoadingNewPage = TRUE;
+        
+    }
+    
+    return TRUE;
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
