@@ -113,7 +113,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 #pragma mark Bottom bar status functions
 
-- (void) setBottomBarStatus:(bottomBarStatus)mask turnOn:(BOOL)isOn
+- (void) setBottomBarStatus:(bottomBarStatus)mask value:(BOOL)isOn
 {
 
     if (isOn)
@@ -180,7 +180,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     [self deactivateBackNavButton];
     [self deactivateForwardNavButton];
     
-    [self setBottomBarStatus:BOTTOM_BAR_HISTORY_EXISTS turnOn:FALSE];
+    [self setBottomBarStatus:BOTTOM_BAR_HISTORY_EXISTS value:FALSE];
 }
 
 - (void) activateBackNavButton
@@ -237,7 +237,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 - (void) resetHistoryWithNewLink
 {
     //[self setBottomBarVisible:TRUE];
-    [self setBottomBarStatus:BOTTOM_BAR_HISTORY_EXISTS turnOn:TRUE];
+    [self setBottomBarStatus:BOTTOM_BAR_HISTORY_EXISTS value:TRUE];
     
     //Need to make sure the "forward" history is erased when new link is clicked
     self.historyLength = self.historyPosition;
@@ -317,7 +317,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
     [connectionStatusLabel setStatusText:@"Loading..."];
-    [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING turnOn:TRUE];
+    [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING value:TRUE];
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
@@ -337,7 +337,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
             self.isLoadingNewPage = FALSE;
         }
         
-        [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING turnOn:FALSE];
+        [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING value:FALSE];
         
         [connectionStatusLabel setFinalStatusText:@"Finished!" duration:STATUS_BAR_DELAY];
     }
