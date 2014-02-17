@@ -325,7 +325,8 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     
     if ([self.webView.request.URL.absoluteString isEqualToString:@"about:blank"]) {
         [self loadUrl:currentURL];
-        onClearBlock();
+        
+        if (onClearBlock) onClearBlock();
     }
     else
     {
