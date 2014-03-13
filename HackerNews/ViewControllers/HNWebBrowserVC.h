@@ -36,6 +36,8 @@ typedef NS_OPTIONS(NSUInteger, bottomBarStatus) {
     BOOL isBackwardNavActive;
     BOOL isBottomBarShowing;
     void (^onClearBlock)(void);
+
+    BOOL pendingUrlRequest;
     
     HNTheme *theme;
 }
@@ -57,6 +59,7 @@ typedef NS_OPTIONS(NSUInteger, bottomBarStatus) {
 @property (assign, nonatomic) BOOL isBackwardNavActive;
 @property (assign, nonatomic) BOOL isBottomBarShowing;
 @property (copy, nonatomic) void (^onClearBlock)(void);
+@property (assign, nonatomic) BOOL isPendingUrlRequest;
 @property (strong, nonatomic) HNTheme *theme;
 
 

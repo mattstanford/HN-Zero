@@ -16,10 +16,12 @@
 
 @implementation HNWebBrowserVC
 
-@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, connectionStatusLabel, bottomBarMask, historyPosition, historyLength, isLoadingNewPage, isBackwardNavActive, isForwardNavActive, isBottomBarShowing, onClearBlock, theme;
+@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, connectionStatusLabel, bottomBarMask, historyPosition, historyLength, isLoadingNewPage, isBackwardNavActive, isForwardNavActive, isBottomBarShowing, onClearBlock, theme, isPendingUrlRequest;
 
 static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 static const CGFloat STATUS_BAR_DELAY = 0.5;
+
+#define BLANK_PAGE @"about:blank"
 
 - (id)initWithTheme:(HNTheme *)theTheme {
     
@@ -62,6 +64,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
         [self resetNavButtons];
         
         currentURL = @"http://news.ycombinator.com";
+        isPendingUrlRequest = FALSE;
         
         isLoadingNewPage = FALSE;
         isForwardNavActive = FALSE;
@@ -109,6 +112,15 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     self.navigateForwardButton.frame = CGRectMake(forwardNavigateButtonX, navigateButtonY, navigateButtonWidth, navigateButtonHeight);
     self.connectionStatusLabel.frame = CGRectMake(statusLabelX, statusLabelY, statusLabelWidth, statusLabelHeight);
     
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (isPendingUrlRequest) {
+        [self loadUrl:currentURL];
+        isPendingUrlRequest = FALSE;
+    }
 }
 
 #pragma mark Bottom bar status functions
@@ -289,7 +301,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
         
         onClearBlock = clearBlock;
         currentURL = newUrl;
-        [self loadUrl:@"about:blank"];
+        [self loadUrl:BLANK_PAGE];
         
         self.bottomBarMask = 0;
     }
@@ -316,15 +328,19 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
-    [connectionStatusLabel setStatusText:@"Loading..."];
-    [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING value:TRUE];
+    if ([self.webView.request.URL.absoluteString isEqualToString:BLANK_PAGE])
+    {
+        [connectionStatusLabel setStatusText:@"Loading..."];
+        [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING value:TRUE];
+    }
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     
-    if ([self.webView.request.URL.absoluteString isEqualToString:@"about:blank"]) {
-        [self loadUrl:currentURL];
+    if ([self.webView.request.URL.absoluteString isEqualToString:BLANK_PAGE]) {
+        //[self loadUrl:currentURL];
+        isPendingUrlRequest = TRUE;
         
         if (onClearBlock) onClearBlock();
     }
