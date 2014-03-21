@@ -10,6 +10,9 @@
 #import "HNArticleListVC.h"
 #import "HNAbout.h"
 #import "HNMenuLink.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 
 @implementation HNMainMenu
 
@@ -38,6 +41,16 @@
     }
     
     return self;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    //Google analytics tracking
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Article List"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - Table view data source

@@ -11,6 +11,7 @@
 #import "HNArticleContainerVC.h"
 #import "HNMainMenu.h"
 #import "HNMenuLink.h"
+#import "GAI.h"
 
 @implementation HNAppDelegate
 
@@ -18,6 +19,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    // Google Analytics
+    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-49248907-1"];
+    
+    // Init UI
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     self.theme = [[HNTheme alloc] init];

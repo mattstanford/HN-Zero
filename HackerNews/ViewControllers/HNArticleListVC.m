@@ -13,6 +13,9 @@
 #import "HNArticleContainerVC.h"
 #import "HNTheme.h"
 #import "HNUtils.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 
 @implementation HNArticleListVC
 
@@ -68,6 +71,16 @@
         
     }
     return self;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    //Google analytics tracking
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Article List"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (void)viewDidLoad

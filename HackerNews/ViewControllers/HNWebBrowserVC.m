@@ -9,6 +9,9 @@
 #import "HNWebBrowserVC.h"
 #import "HNTheme.h"
 #import "HNConnectionStatusLabel.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 
 @interface HNWebBrowserVC ()
 
@@ -116,6 +119,11 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    //Google analytics tracking
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Article List"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
     
     if (isPendingUrlRequest) {
         [self loadUrl:currentURL];
