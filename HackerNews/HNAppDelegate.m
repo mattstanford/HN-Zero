@@ -22,6 +22,14 @@
     // Google Analytics
     id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-49248907-1"];
     
+    [self initializeUI];
+    
+    [self.window makeKeyAndVisible];
+    return YES;
+}
+
+- (void) initializeUI
+{
     // Init UI
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -47,8 +55,6 @@
     [self.window setRootViewController:self.navController];
     
     self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
-    return YES;
 }
 
 - (NSArray *) initializeMenuLinks
