@@ -15,8 +15,9 @@
 
 @class HNArticleContainerVC;
 @class HNTheme;
+@class MMDrawerController;
 
-@interface HNArticleListVC : UITableViewController  <downloadControllerDelegate, HNArticleCellDelegate, HNLinkGetterDelegate>
+@interface HNArticleListVC : UITableViewController  <downloadControllerDelegate, HNArticleCellDelegate, HNLinkGetterDelegate, UISplitViewControllerDelegate>
 {
     NSArray *articles;
     HNWebBrowserVC *webBrowserVC;
@@ -35,6 +36,7 @@
     int currentPage;
 }
 
+- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme withDrawerController:(MMDrawerController *)drawerController;
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme;
 - (void) downloadFreshArticles;
 - (void) setUrl:(NSURL *)newUrl andTitle:(NSString *)title;

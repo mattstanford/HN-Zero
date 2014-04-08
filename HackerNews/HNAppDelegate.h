@@ -30,6 +30,8 @@
     HNArticleContainerVC *articleContainerVC;
     HNMainMenu *mainMenuVC;
     
+    UISplitViewController *splitVC;
+    
 }
 
 @property (strong, nonatomic) UIWindow *window;
@@ -41,5 +43,6 @@
 @property (strong, nonatomic) HNTheme *theme;
 @property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;
 @property (strong, nonatomic) HNMainMenu *mainMenuVC;
+@property (strong, nonatomic) UISplitViewController *splitVC;
 
 @end

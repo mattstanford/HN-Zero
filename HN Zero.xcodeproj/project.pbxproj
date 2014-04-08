@@ -598,6 +598,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HackerNews/HN Zero-Prefix.pch";
 				INFOPLIST_FILE = "HackerNews/HN Zero-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HackerNews/Utilities/GoogleAnalytics",
@@ -606,6 +607,7 @@
 				PRODUCT_NAME = "HN Zero";
 				PROVISIONING_PROFILE = "EEF2849C-20E8-47E4-AFAB-9867FB7861F2";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EEF2849C-20E8-47E4-AFAB-9867FB7861F2";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -621,6 +623,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HackerNews/HN Zero-Prefix.pch";
 				INFOPLIST_FILE = "HackerNews/HN Zero-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HackerNews/Utilities/GoogleAnalytics",
@@ -628,6 +631,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "HN Zero";
 				PROVISIONING_PROFILE = "4F965924-6109-4671-9643-80482CC87AF7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

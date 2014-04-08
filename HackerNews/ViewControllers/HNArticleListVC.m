@@ -16,10 +16,30 @@
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
+#import <MMDrawerController/MMDrawerController.h>
+
+@interface HNArticleListVC ()
+
+@property (nonatomic, weak) MMDrawerController *drawerControllerDelegate;
+
+@end
 
 @implementation HNArticleListVC
 
 @synthesize articles, webBrowserVC, commentVC, downloadController, articleContainerVC, theme, url, moreArticlesUrl, isDownloadAppending, shouldScrollToTopAfterDownload, currentPage, linkGetter;
+
+- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme withDrawerController:(MMDrawerController *)drawerController
+{
+    self = [super init];
+    if (self)
+    {
+        self.drawerControllerDelegate = drawerController;
+        
+        self = [self initWithStyle:style withWebBrowserVC:webVC andCommentVC:commentVC articleContainer:articleContainer withTheme:theTheme];
+    }
+    
+    return self;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme
 {
@@ -73,6 +93,8 @@
     return self;
 }
 
+#pragma mark View lifecycle
+
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -95,14 +117,12 @@
     //Register custom tableviewcell class with tableview
     [self.tableView registerClass:[HNArticleCell class] forCellReuseIdentifier:@"Cell"];
     
-    
-    //[self downloadFreshArticles];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    //[self downloadFreshArticles];
-    
+    //iPad specific
+    if (self.drawerControllerDelegate)
+    {
+        UIBarButtonItem *hamburgerButton = [[UIBarButtonItem alloc] initWithTitle:@"Hambuger!" style:UIBarButtonItemStylePlain target:self action:@selector(hamburgerPushed:)];
+        [[self navigationItem] setLeftBarButtonItem:hamburgerButton];
+    }
 }
 
 - (BOOL) shouldAutorotate
@@ -113,6 +133,14 @@
 - (NSUInteger)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+#pragma mark Custom methods
+
+-(void) hamburgerPushed:(id)sender
+{
+    [self.drawerControllerDelegate toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+   
 }
 
 -(void) setUrl:(NSURL *)newUrl andTitle:(NSString *)title
@@ -282,6 +310,28 @@
         [self.navigationController pushViewController:articleContainerVC animated:YES];
         
     }
+}
+
+#pragma mark - SplitViewController delegate
+
+-(void)splitViewController:(UISplitViewController *)svc
+willHideViewController:(UIViewController *)aViewController
+withBarButtonItem:(UIBarButtonItem *)barButtonItem
+forPopoverController:(UIPopoverController *)pc
+{
+    NSLog(@"Will hide left side");
+}
+
+-(void)splitViewController:(UISplitViewController *)svc
+    willShowViewController:(UIViewController *)aViewController
+ invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    NSLog(@"Will show left side");
+}
+
+-(BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation
+{
+    return NO;
 }
 
 #pragma mark - Table view data source

@@ -12,10 +12,11 @@
 #import "HNMainMenu.h"
 #import "HNMenuLink.h"
 #import "GAI.h"
+#import <MMDrawerController/MMDrawerController.h>
 
 @implementation HNAppDelegate
 
-@synthesize window, navController, articleListVC, webBrowserVC, commentWebBrowserVC, commentVC, theme, articleContainerVC, mainMenuVC;
+@synthesize window, navController, articleListVC, webBrowserVC, commentWebBrowserVC, commentVC, theme, articleContainerVC, mainMenuVC, splitVC;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -30,7 +31,6 @@
 
 - (void) initializeUI
 {
-    // Init UI
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     self.theme = [[HNTheme alloc] init];
@@ -43,18 +43,76 @@
     
     self.articleContainerVC = [[HNArticleContainerVC alloc] initWithArticleVC:self.webBrowserVC andCommentsVC:self.commentVC];
     
-    self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:articleContainerVC withTheme:self.theme];
+         //self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:articleContainerVC withTheme:self.theme];
     
+    //[self setupMainMenu];
     NSArray *menuLinks = [self initializeMenuLinks];
-    self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withArticleVC:self.articleListVC withMenuLinks:menuLinks];
     
-    self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuVC];
-    [self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
-    
-    [self setTitleBarColors:self.theme];
-    [self.window setRootViewController:self.navController];
+    if (NSClassFromString(@"UISplitViewController") != nil && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        splitVC = [[UISplitViewController alloc] init];
+        
+        
+        [self setupMainMenuWithLinks:menuLinks withArticleListVC:self.articleListVC];
+        
+        MMDrawerController *drawerController = [self setupDrawerControllerWithCenterVC:splitVC leftVC:self.mainMenuVC];
+       
+
+        self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:articleContainerVC withTheme:self.theme withDrawerController:drawerController];
+        
+        UINavigationController *articleListNavController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
+        
+        [self setTitleBarColors:self.theme withNavController:articleListNavController];
+        
+        UINavigationController *articleContainerNavController = [[UINavigationController alloc] initWithRootViewController:articleContainerVC];
+        
+        [self setTitleBarColors:self.theme withNavController:articleContainerNavController];
+        
+        splitVC.viewControllers = [NSArray arrayWithObjects:articleListNavController, articleContainerNavController, nil];
+        splitVC.delegate = articleListVC;
+        
+
+        
+        [self.window setRootViewController:drawerController];
+        //[self.window setRootViewController:articleListNavController];
+    }
+    else
+    {
+        self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:articleContainerVC withTheme:self.theme];
+        
+        
+        self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withArticleVC:self.articleListVC withMenuLinks:menuLinks];
+        [self setupMainMenuWithLinks:menuLinks withArticleListVC:self.articleListVC];
+        
+        self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuVC];
+        
+        [self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
+        
+        [self setTitleBarColors:self.theme withNavController:self.navController];
+        [self.window setRootViewController:self.navController];
+        
+    }
+
     
     self.window.backgroundColor = [UIColor whiteColor];
+}
+
+-(void) setupMainMenuWithLinks:(NSArray *)menuLinks withArticleListVC:(HNArticleListVC *)articleList
+{
+    self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withArticleVC:articleList withMenuLinks:menuLinks];
+    [self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
+}
+
+-(MMDrawerController *) setupDrawerControllerWithCenterVC:(UIViewController *)centerVC leftVC:(UIViewController *)leftVC
+{
+    MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:centerVC leftDrawerViewController:leftVC];
+    [drawerController setRestorationIdentifier:@"MMDrawer"];
+    [drawerController setMaximumRightDrawerWidth:100.0];
+    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    
+    return drawerController;
+    
 }
 
 - (NSArray *) initializeMenuLinks
@@ -103,23 +161,23 @@
     
 }
 
-- (void) setTitleBarColors:(HNTheme *)theTheme
+- (void) setTitleBarColors:(HNTheme *)theTheme withNavController:(UINavigationController *)theNavController
 {
-    if ([self.navController.navigationBar respondsToSelector:@selector(setBarTintColor:)])
+    if ([theNavController.navigationBar respondsToSelector:@selector(setBarTintColor:)])
     {
         NSDictionary *navTextAttrs = [NSDictionary dictionaryWithObjectsAndKeys:
                                       [UIColor whiteColor], UITextAttributeTextColor,
                                      nil];
         
-        self.navController.navigationBar.titleTextAttributes = navTextAttrs;
-        self.navController.navigationBar.barTintColor = theTheme.titleBarColor;
-        self.navController.navigationBar.tintColor = theTheme.titleBarTextColor;
+        theNavController.navigationBar.titleTextAttributes = navTextAttrs;
+        theNavController.navigationBar.barTintColor = theTheme.titleBarColor;
+        theNavController.navigationBar.tintColor = theTheme.titleBarTextColor;
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         
     }
     else
     {
-        self.navController.navigationBar.tintColor = theTheme.titleBarColor;
+        theNavController.navigationBar.tintColor = theTheme.titleBarColor;
     }
     
 }
