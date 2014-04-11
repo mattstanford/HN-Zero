@@ -143,6 +143,11 @@
    
 }
 
+-(void) closeDrawer
+{
+    [self.drawerControllerDelegate closeDrawerAnimated:YES completion:nil];
+}
+
 -(void) setUrl:(NSURL *)newUrl andTitle:(NSString *)title
 {
     self.url = newUrl;

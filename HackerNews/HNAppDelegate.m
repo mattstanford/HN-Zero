@@ -50,16 +50,22 @@
     
     if (NSClassFromString(@"UISplitViewController") != nil && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
+        
+        //First initialze the drawer controller with its root view controllers
         splitVC = [[UISplitViewController alloc] init];
-        
-        
-        [self setupMainMenuWithLinks:menuLinks withArticleListVC:self.articleListVC];
-        
+        self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withArticleVC:nil withMenuLinks:menuLinks];
         MMDrawerController *drawerController = [self setupDrawerControllerWithCenterVC:splitVC leftVC:self.mainMenuVC];
-       
-
+        
         self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:articleContainerVC withTheme:self.theme withDrawerController:drawerController];
         
+        //Finish setting up the main menu VC
+        self.mainMenuVC.articleListVC = self.articleListVC;
+        [self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
+        
+        
+        //[self setupMainMenuWithLinks:menuLinks withArticleListVC:self.articleListVC];
+        
+        //Initialze the splitVC and finish initiazing the rest of the UI
         UINavigationController *articleListNavController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
         
         [self setTitleBarColors:self.theme withNavController:articleListNavController];

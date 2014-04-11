@@ -112,6 +112,7 @@
     }
     else
     {
+        //TODO: change this to a modal dialog for iPad
         [self.navigationController pushViewController:self.aboutMeVC animated:YES];
     }
     
@@ -120,7 +121,14 @@
 - (void) goToMenuLink:(HNMenuLink *)link
 {
     [self.articleListVC setUrl:link.url andTitle:link.title];
-    [self.navigationController pushViewController:self.articleListVC animated:YES];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        [self.articleListVC closeDrawer];
+    }
+    else
+    {
+        [self.navigationController pushViewController:self.articleListVC animated:YES];
+    }
 }
 
 @end

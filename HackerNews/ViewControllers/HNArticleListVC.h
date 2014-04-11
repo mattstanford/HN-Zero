@@ -40,6 +40,7 @@
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme;
 - (void) downloadFreshArticles;
 - (void) setUrl:(NSURL *)newUrl andTitle:(NSString *)title;
+- (void) closeDrawer;
 
 @property (strong, nonatomic) NSArray *articles;
 @property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;
