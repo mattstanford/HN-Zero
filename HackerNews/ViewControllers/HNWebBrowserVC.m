@@ -125,10 +125,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     [tracker set:kGAIScreenName value:@"Article List"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
     
-    if (isPendingUrlRequest) {
-        [self loadUrl:currentURL];
-        isPendingUrlRequest = FALSE;
-    }
+    [self loadPendingUrl];
 }
 
 #pragma mark Bottom bar status functions
@@ -312,6 +309,14 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
         [self loadUrl:BLANK_PAGE];
         
         self.bottomBarMask = 0;
+    }
+}
+
+- (void) loadPendingUrl
+{
+    if (isPendingUrlRequest) {
+        [self loadUrl:currentURL];
+        isPendingUrlRequest = FALSE;
     }
 }
 

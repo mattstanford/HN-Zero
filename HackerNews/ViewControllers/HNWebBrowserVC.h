@@ -44,6 +44,7 @@ typedef NS_OPTIONS(NSUInteger, bottomBarStatus) {
 
 - (id)initWithTheme:(HNTheme *)theTheme;
 - (void) setURL:(NSString *)newUrl forceUpdate:(BOOL)doForceUpdate onClearBlock:(void (^)())clearBlock;
+- (void) loadPendingUrl;
 
 @property (strong, nonatomic) UIWebView *webView;
 @property (strong, nonatomic) NSString *currentURL;

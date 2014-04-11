@@ -13,6 +13,7 @@
 #import "HNArticleContainerVC.h"
 #import "HNTheme.h"
 #import "HNUtils.h"
+#import "HNWebBrowserVC.h"
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
@@ -296,7 +297,13 @@
         else
         {
             [articleContainerVC doPresentArticle:article onClearBlock:^{
-                [self.navigationController pushViewController:articleContainerVC animated:YES];
+                [self presentArticleOrComment];
+                
+                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                {
+                    [self.articleContainerVC.articleVC loadPendingUrl];
+                }
+                
             }];
         }
 
@@ -312,8 +319,16 @@
         HNArticle *article = [articles objectAtIndex:index];
 
         [articleContainerVC doPresentCommentForArticle:article];
-        [self.navigationController pushViewController:articleContainerVC animated:YES];
+        [self presentArticleOrComment];
         
+    }
+}
+
+-(void) presentArticleOrComment
+{
+    if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
+    {
+        [self.navigationController pushViewController:articleContainerVC animated:YES];
     }
 }
 
