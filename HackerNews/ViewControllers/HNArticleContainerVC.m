@@ -69,6 +69,14 @@
 {
     if (self.splitVC)
     {
+        if (![self.splitVC isShowingMaster])
+        {
+            self.navigationItem.leftBarButtonItem.title = @"Full Screen";
+        }
+        else
+        {
+            self.navigationItem.leftBarButtonItem.title = @"Show article list";
+        }
         [self.splitVC toggleMasterView:nil];
     }
 }
