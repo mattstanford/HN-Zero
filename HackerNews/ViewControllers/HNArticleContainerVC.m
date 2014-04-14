@@ -13,7 +13,7 @@
 
 @implementation HNArticleContainerVC
 
-@synthesize articleVC, commentsVC, currentVC, currentArticle, rightButtonTitle;
+@synthesize articleVC, commentsVC, currentVC, currentArticle, rightButtonTitle, splitVC;
 
 -(id) initWithArticleVC:(HNWebBrowserVC *)theArticleVC andCommentsVC:(HNCommentVC *)theCommentsVC
 {
@@ -47,11 +47,30 @@
 
     self.navigationItem.rightBarButtonItem = swapButton;
     
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        UIBarButtonItem *splitButton = [[UIBarButtonItem alloc]
+                                        initWithTitle:@"Full Screen"
+                                        style:UIBarButtonItemStylePlain
+                                        target:self
+                                        action:@selector(splitButtonPressed)];
+        
+        self.navigationItem.leftBarButtonItem = splitButton;
+    }
+    
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
     [self setRightButtonTitle];
+}
+
+-(void) splitButtonPressed
+{
+    if (self.splitVC)
+    {
+        [self.splitVC toggleMasterView:nil];
+    }
 }
 
 -(void)swapButtonPressed

@@ -12,6 +12,7 @@
 @class HNArticle;
 @class HNWebBrowserVC;
 @class HNCommentVC;
+@class MGSplitViewController;
 
 @interface HNArticleContainerVC : UIViewController
 {
@@ -26,6 +27,7 @@
 @property (nonatomic, weak) UIViewController *currentVC;
 @property (nonatomic, strong) HNArticle *currentArticle;
 @property (nonatomic, strong) NSString *rightButtonTitle;
+@property (nonatomic, weak) MGSplitViewController *splitVC;
 
 -(id) initWithArticleVC:(HNWebBrowserVC *)theArticleVC andCommentsVC:(HNCommentVC *)theCommentsVC;
 -(void) doPresentArticle:(HNArticle *)article onClearBlock:(void (^)())clearBlock;
