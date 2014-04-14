@@ -14,6 +14,12 @@
 NSString static *HNGoToArticleButtonText = @"Go To Article";
 NSString static *HNGoToCommentsButtonText = @"Go To Comments";
 
+@interface HNArticleContainerVC ()
+
+@property (nonatomic, strong) NSString *rightBarButtonTitle;
+
+@end
+
 @implementation HNArticleContainerVC
 
 @synthesize articleVC, commentsVC, currentVC, currentArticle, splitVC;
@@ -65,7 +71,7 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
 
 -(void) viewWillAppear:(BOOL)animated
 {
-    //[self setRightButtonTitle];
+    [self setRightButtonTitle:self.rightBarButtonTitle];
 }
 
 -(void) splitButtonPressed
@@ -206,6 +212,7 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
 
 -(void) setRightButtonTitle:(NSString *)title
 {
+    self.rightBarButtonTitle = title;
     UIBarButtonItem *rightButton = self.navigationItem.rightBarButtonItem;    
     rightButton.title = title;
 }
