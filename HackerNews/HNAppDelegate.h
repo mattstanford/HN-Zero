@@ -10,6 +10,7 @@
 #import "HNArticleListVC.h"
 #import "HNWebBrowserVC.h"
 #import "HNCommentVC.h"
+#import <MGSplitViewController/MGSplitViewController.h>
 
 @class HNArticleListVC;
 @class HNWebBrowserVC;
@@ -30,7 +31,7 @@
     HNArticleContainerVC *articleContainerVC;
     HNMainMenu *mainMenuVC;
     
-    UISplitViewController *splitVC;
+    MGSplitViewController *splitVC;
     
 }
 
@@ -43,6 +44,6 @@
 @property (strong, nonatomic) HNTheme *theme;
 @property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;
 @property (strong, nonatomic) HNMainMenu *mainMenuVC;
-@property (strong, nonatomic) UISplitViewController *splitVC;
+@property (strong, nonatomic) MGSplitViewController *splitVC;
 
 @end

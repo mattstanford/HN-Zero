@@ -12,12 +12,13 @@
 #import "HNArticleCell.h"
 #import "HNCommentVC.h"
 #import "HNLinkGetter.h"
+#import <MGSplitViewController/MGSplitViewController.h>
 
 @class HNArticleContainerVC;
 @class HNTheme;
 @class MMDrawerController;
 
-@interface HNArticleListVC : UITableViewController  <downloadControllerDelegate, HNArticleCellDelegate, HNLinkGetterDelegate, UISplitViewControllerDelegate>
+@interface HNArticleListVC : UITableViewController  <downloadControllerDelegate, HNArticleCellDelegate, HNLinkGetterDelegate, MGSplitViewControllerDelegate>
 {
     NSArray *articles;
     HNWebBrowserVC *webBrowserVC;

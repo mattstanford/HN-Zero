@@ -52,7 +52,10 @@
     {
         
         //First initialze the drawer controller with its root view controllers
-        splitVC = [[UISplitViewController alloc] init];
+        splitVC = [[MGSplitViewController alloc] init];
+        splitVC.showsMasterInPortrait = YES;
+        
+        
         self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withArticleVC:nil withMenuLinks:menuLinks];
         MMDrawerController *drawerController = [self setupDrawerControllerWithCenterVC:splitVC leftVC:self.mainMenuVC];
         

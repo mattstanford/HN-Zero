@@ -26,6 +26,8 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 #define BLANK_PAGE @"about:blank"
 
+#pragma mark View lifecycle
+
 - (id)initWithTheme:(HNTheme *)theTheme {
     
     self = [super init];
