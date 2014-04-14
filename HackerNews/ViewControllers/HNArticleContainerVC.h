@@ -19,14 +19,12 @@
     HNWebBrowserVC *articleVC;
     HNCommentVC *commentsVC;
     HNArticle *currentArticle;
-    NSString *rightButtonTitle;
 }
 
 @property (nonatomic, strong) HNWebBrowserVC *articleVC;
 @property (nonatomic, strong) HNCommentVC *commentsVC;
 @property (nonatomic, weak) UIViewController *currentVC;
 @property (nonatomic, strong) HNArticle *currentArticle;
-@property (nonatomic, strong) NSString *rightButtonTitle;
 @property (nonatomic, weak) MGSplitViewController *splitVC;
 
 -(id) initWithArticleVC:(HNWebBrowserVC *)theArticleVC andCommentsVC:(HNCommentVC *)theCommentsVC;

@@ -11,9 +11,12 @@
 #import "HNWebBrowserVC.h"
 #import "HNCommentVC.h"
 
+NSString static *HNGoToArticleButtonText = @"Go To Article";
+NSString static *HNGoToCommentsButtonText = @"Go To Comments";
+
 @implementation HNArticleContainerVC
 
-@synthesize articleVC, commentsVC, currentVC, currentArticle, rightButtonTitle, splitVC;
+@synthesize articleVC, commentsVC, currentVC, currentArticle, splitVC;
 
 -(id) initWithArticleVC:(HNWebBrowserVC *)theArticleVC andCommentsVC:(HNCommentVC *)theCommentsVC
 {
@@ -62,7 +65,7 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
-    [self setRightButtonTitle];
+    //[self setRightButtonTitle];
 }
 
 -(void) splitButtonPressed
@@ -96,7 +99,7 @@
         [self loadArticle:self.currentArticle forceUpdate:NO onClearBlock:nil];
     }
     
-    [self setRightButtonTitle];
+    //[self setRightButtonTitle:nil];
     [self swapViewControllerFrom:self.currentVC to:newVC withAnimation:YES];
 }
 
@@ -191,22 +194,20 @@
 -(void) loadArticle:(HNArticle *)article forceUpdate:(BOOL)doForceUpdate onClearBlock:(void (^)())clearBlock
 {
     [self.articleVC setURL:article.url forceUpdate:doForceUpdate onClearBlock:clearBlock];
-    
-    self.rightButtonTitle = @"Go to comments";
+    [self setRightButtonTitle:HNGoToCommentsButtonText];
 }
 
 -(void) loadComments:(HNArticle *)article forceUpdate:(BOOL)doForceUpdate
 {
     [self.commentsVC setArticle:article forceUpdate:doForceUpdate];
-    
-   self.rightButtonTitle = @"Go to article";
+    [self setRightButtonTitle:HNGoToArticleButtonText];
     
 }
 
--(void) setRightButtonTitle
+-(void) setRightButtonTitle:(NSString *)title
 {
     UIBarButtonItem *rightButton = self.navigationItem.rightBarButtonItem;    
-    rightButton.title = self.rightButtonTitle;
+    rightButton.title = title;
 }
 
 
