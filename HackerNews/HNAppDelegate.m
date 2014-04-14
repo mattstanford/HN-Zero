@@ -80,7 +80,6 @@
         splitVC.viewControllers = [NSArray arrayWithObjects:articleListNavController, articleContainerNavController, nil];
         splitVC.delegate = articleListVC;
         
-
         
         [self.window setRootViewController:drawerController];
         //[self.window setRootViewController:articleListNavController];

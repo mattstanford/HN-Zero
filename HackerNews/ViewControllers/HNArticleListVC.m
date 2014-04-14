@@ -334,24 +334,14 @@
 
 #pragma mark - SplitViewController delegate
 
--(void)splitViewController:(UISplitViewController *)svc
-willHideViewController:(UIViewController *)aViewController
-withBarButtonItem:(UIBarButtonItem *)barButtonItem
-forPopoverController:(UIPopoverController *)pc
+-(void)splitViewController:(MGSplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
-    NSLog(@"Will hide left side");
+    NSLog(@"will show splitvc");
 }
 
--(void)splitViewController:(UISplitViewController *)svc
-    willShowViewController:(UIViewController *)aViewController
- invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+-(void)splitViewController:(MGSplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
 {
-    NSLog(@"Will show left side");
-}
-
--(BOOL)splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation
-{
-    return NO;
+    NSLog(@"will hide splitvc");
 }
 
 #pragma mark - Table view data source
