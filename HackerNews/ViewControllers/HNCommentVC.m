@@ -208,7 +208,7 @@
     HNComment *comment = [comments objectAtIndex:[indexPath row]];
     HNCommentString *commentString = [comment convertToCommentString];
     
-    cell.nameLabel.attributedText = [comment getCommentHeaderWithTheme:self.theme];
+    cell.nameLabel.attributedText = [comment getCommentHeaderWithTheme:self.theme forCellWidth:self.view.frame.size.width];
     cell.contentLabel.text = [comment convertToAttributedStringWithTheme:self.theme];
     cell.nestedLevel = comment.nestedLevel;
     

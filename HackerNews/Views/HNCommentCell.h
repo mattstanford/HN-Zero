@@ -22,8 +22,8 @@
 @property (nonatomic, strong) TTTAttributedLabel *contentLabel;
 @property (nonatomic, strong) UIView *separatorView;
 
-+ (CGFloat) getIndentWidth:(NSNumber *)level;
-+ (int) getOverflowIndentLevels:(NSNumber *)level;
+//+ (CGFloat) getIndentWidth:(NSNumber *)level;
++ (int) getOverflowIndentLevels:(NSNumber *)level forCellWidth:(CGFloat)cellWidth;
 + (CGFloat) getCellHeightForText:(NSAttributedString *)text width:(CGFloat)cellWidth nestLevel:(NSNumber *)nestedLevel;
 
 @end

@@ -18,7 +18,7 @@ static const CGFloat NAME_LABEL_HEIGHT = 20;
 static const CGFloat SEPARATOR_HEIGHT = .5;
 
 static const int INDENT_PER_LEVEL = 20;
-static const int MAX_INDENT_WIDTH = 80;
+//static const int MAX_INDENT_WIDTH = 80;
 
 @synthesize nestedLevel, nameLabel, contentLabel, separatorView;
 
@@ -52,7 +52,7 @@ static const int MAX_INDENT_WIDTH = 80;
 {
     [super layoutSubviews];
     
-    CGFloat indentAmount = [HNCommentCell getIndentWidth:self.nestedLevel] + CELL_LEFT_MARGIN;
+    CGFloat indentAmount = [HNCommentCell getIndentWidth:self.nestedLevel forCellWidth:self.frame.size.width] + CELL_LEFT_MARGIN;
     
     
     CGFloat nameLabelX = indentAmount;
@@ -70,14 +70,14 @@ static const int MAX_INDENT_WIDTH = 80;
 
 }
 
-+ (CGFloat) getIndentWidth:(NSNumber *)level
++ (CGFloat) getIndentWidth:(NSNumber *)level forCellWidth:(CGFloat)cellWidth
 {
     CGFloat indentWidth = INDENT_PER_LEVEL * [level floatValue];
     
     //If over max width, make it the closest indent level to the max
-    if (indentWidth > MAX_INDENT_WIDTH)
+    if (indentWidth > [self getMaxIndentWidth:cellWidth])
     {
-        int overFlowLevels = [HNCommentCell getOverflowIndentLevels:level];
+        int overFlowLevels = [HNCommentCell getOverflowIndentLevels:level forCellWidth:cellWidth];
         
         indentWidth = indentWidth - (overFlowLevels * INDENT_PER_LEVEL);
     }
@@ -85,26 +85,31 @@ static const int MAX_INDENT_WIDTH = 80;
     return indentWidth;
 }
 
-+ (int) getOverflowIndentLevels:(NSNumber *)level
++ (int) getOverflowIndentLevels:(NSNumber *)level forCellWidth:(CGFloat)cellWidth
 {
     CGFloat indentWidth = INDENT_PER_LEVEL * [level floatValue];
     
-    CGFloat overflow = indentWidth - MAX_INDENT_WIDTH;
+    CGFloat overflow = indentWidth - [self getMaxIndentWidth:cellWidth];
     int overflowLevels = ceilf(overflow / INDENT_PER_LEVEL);
     
     return overflowLevels;
 }
 
++ (int) getMaxIndentWidth:(CGFloat)cellWidth
+{
+    return (int)(cellWidth / 4);
+}
+
 - (CGFloat) getLabelWidth:(NSNumber *)indentLevel
 {
-    CGFloat indentWidth = [HNCommentCell getIndentWidth:self.nestedLevel];
+    CGFloat indentWidth = [HNCommentCell getIndentWidth:self.nestedLevel forCellWidth:self.frame.size.width];
     
     return self.frame.size.width - indentWidth - CELL_LEFT_MARGIN - CELL_RIGHT_MARGIN;
 }
 
 + (CGFloat) getCellHeightForText:(NSAttributedString *)text width:(CGFloat)cellWidth nestLevel:(NSNumber *)nestedLevel
 {
-    CGFloat indentWidth = [HNCommentCell getIndentWidth:nestedLevel];
+    CGFloat indentWidth = [HNCommentCell getIndentWidth:nestedLevel forCellWidth:cellWidth];
     CGFloat labelWidth = cellWidth - indentWidth - CELL_LEFT_MARGIN - CELL_RIGHT_MARGIN;
     
     //Create temporary label to get accurate label height

@@ -17,10 +17,10 @@
 
 @synthesize commentBlock, author, dateWritten, nestedLevel;
 
-- (NSString *) getOverflowIndentString
+- (NSString *) getOverflowIndentStringForCellWidth:(CGFloat)cellWidth
 {
     NSMutableString *overflowString = [[NSMutableString alloc] initWithCapacity:0];
-    int overflowLevels = [HNCommentCell getOverflowIndentLevels:self.nestedLevel];
+    int overflowLevels = [HNCommentCell getOverflowIndentLevels:self.nestedLevel forCellWidth:cellWidth];
     
     for (int i=0; i < overflowLevels; i++)
     {
@@ -31,13 +31,13 @@
     
 }
 
-- (NSAttributedString *) getCommentHeaderWithTheme:(HNTheme *)theme
+- (NSAttributedString *) getCommentHeaderWithTheme:(HNTheme *)theme forCellWidth:(CGFloat)cellWidth
 {
     NSMutableAttributedString *headerString = nil;
     NSString *baseString;
     
     NSString *user = self.author;
-    NSString *indentOverflowString = [self getOverflowIndentString];
+    NSString *indentOverflowString = [self getOverflowIndentStringForCellWidth:cellWidth];
     
     if (!user)
     {

@@ -26,7 +26,7 @@
 @property (nonatomic, strong) NSString *dateWritten;
 @property (nonatomic, strong) NSNumber *nestedLevel;
 
-- (NSAttributedString *) getCommentHeaderWithTheme:(HNTheme *)theme;
+- (NSAttributedString *) getCommentHeaderWithTheme:(HNTheme *)theme forCellWidth:(CGFloat)cellWidth;
 - (NSAttributedString *) convertToAttributedStringWithTheme:(HNTheme *)theme;
 - (HNCommentString *) convertToCommentString;
 
