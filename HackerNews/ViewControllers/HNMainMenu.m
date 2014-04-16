@@ -113,7 +113,10 @@
     else
     {
         //TODO: change this to a modal dialog for iPad
-        [self.navigationController pushViewController:self.aboutMeVC animated:YES];
+        //[self.navigationController pushViewController:self.aboutMeVC animated:YES];
+        self.aboutMeVC.modalPresentationStyle = UIModalPresentationFormSheet;
+        
+        [self presentViewController:self.aboutMeVC animated:YES completion:nil];
     }
     
 }
