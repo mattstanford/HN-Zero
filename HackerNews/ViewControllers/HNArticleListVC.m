@@ -18,6 +18,7 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 #import <MMDrawerController/MMDrawerController.h>
+#import <MMDrawerBarButtonItem.h>
 
 @interface HNArticleListVC ()
 
@@ -121,7 +122,8 @@
     //iPad specific
     if (self.drawerControllerDelegate)
     {
-        UIBarButtonItem *hamburgerButton = [[UIBarButtonItem alloc] initWithTitle:@"Hambuger!" style:UIBarButtonItemStylePlain target:self action:@selector(hamburgerPushed:)];
+        MMDrawerBarButtonItem *hamburgerButton = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(hamburgerPushed:)];
+        //UIBarButtonItem *hamburgerButton = [[UIBarButtonItem alloc] initWithTitle:@"Hambuger!" style:UIBarButtonItemStylePlain target:self action:@selector(hamburgerPushed:)];
         [[self navigationItem] setLeftBarButtonItem:hamburgerButton];
     }
 }
