@@ -16,6 +16,22 @@
 
 @implementation HNMainMenu
 
+NSString * const kGithubLink = @"https://github.com/mds6058/HackerNews";
+NSString * const kTwitterLink = @"twitter://post?message=@MattStanford3";
+
+NS_ENUM(NSInteger, HNMainMenuSections)
+{
+    HNMainMenuPages,
+    HNMainMenuInfo
+};
+
+NS_ENUM(NSInteger, HNInfoCellTitles)
+{
+    HNInfoCellTitleGitHub,
+    HNInfoCellTitleTwitter,
+    HNInfoCellNumRows
+};
+
 @synthesize aboutMeVC, articleListVC, mainItems;
 
 -(id) initWithStyle:(UITableViewStyle)style withArticleVC:(HNArticleListVC *)theArticleListVC withMenuLinks:(NSArray *)menuLinks
@@ -26,6 +42,19 @@
         self.title = @"Hacker News Zero";
         
         self.aboutMeVC = [[HNAbout alloc] init];
+        /*
+        NSString *aboutMeNibName;
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            aboutMeNibName = @"HNAbout_iPad";
+        }
+        else
+        {
+            aboutMeNibName = @"HNAbout_iPhone";
+        }
+        
+        self.aboutMeVC = [[HNAbout alloc] initWithNibName:aboutMeNibName bundle:nil];
+        */
         self.articleListVC = theArticleListVC;
         
         //Eliminate the the text for the "back" button in iOS7 (style choice)
@@ -64,16 +93,33 @@
 {
     int numRows = 0;
     
-    if (section == 0)
+    if (section == HNMainMenuPages)
     {
         numRows = [mainItems count];
     }
     else
     {
-        numRows = 1;
+        numRows = HNInfoCellNumRows;
     }
 
     return numRows;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString *returnString;
+    
+    switch (section) {
+        case HNMainMenuInfo:
+            returnString = @"Contact/Info";
+            break;
+        case HNMainMenuPages:
+        default:
+            returnString = @"";
+            break;
+    }
+    
+    return returnString;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -86,21 +132,39 @@
     }
     
     
-    if (indexPath.section == 0)
+    if (indexPath.section == HNMainMenuPages)
     {
     
         HNMenuLink *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
-    
         cell.textLabel.text = menuItem.title;
     }
     else
     {
-        cell.textLabel.text = @"About";
+        cell = [self setupInfoCell:cell indexPath:indexPath];
     }
     
     return cell;
 
 }
+
+- (UITableViewCell *)setupInfoCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case HNInfoCellTitleGitHub:
+            cell.textLabel.text = @"Check out the source";
+            //cell.imageView.image = [UIImage imageNamed:@"triangle-blue-reverse"];
+            break;
+            
+        case HNInfoCellTitleTwitter:
+            cell.textLabel.text = @"Send me a tweet";
+            
+        default:
+            break;
+    }
+    
+    return cell;
+}
+
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -112,11 +176,21 @@
     }
     else
     {
-        //TODO: change this to a modal dialog for iPad
-        //[self.navigationController pushViewController:self.aboutMeVC animated:YES];
-        self.aboutMeVC.modalPresentationStyle = UIModalPresentationFormSheet;
+        switch (indexPath.row) {
+            case HNInfoCellTitleGitHub:
+                NSLog(@"Goto github");
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kGithubLink]];
+
+                break;
+            
+            case HNInfoCellTitleTwitter:
+                NSLog(@"Goto twitter: %@", kTwitterLink);
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kTwitterLink]];
+                
+            default:
+                break;
+        }
         
-        [self presentViewController:self.aboutMeVC animated:YES completion:nil];
     }
     
 }
