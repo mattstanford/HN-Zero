@@ -48,25 +48,34 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
 -(void) viewDidLoad
 {
 
-    UIBarButtonItem *swapButton = [[UIBarButtonItem alloc]
-                                   initWithTitle:@""
-                                   style:UIBarButtonItemStylePlain
-                                   target:self
-                                   action:@selector(swapButtonPressed)];
+    
+}
 
-    self.navigationItem.rightBarButtonItem = swapButton;
-    
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+-(void) loadBarButtons
+{
+    if (!self.navigationItem.rightBarButtonItem || !self.navigationItem.leftBarButtonItem)
     {
-        UIBarButtonItem *splitButton = [[UIBarButtonItem alloc]
-                                        initWithTitle:@"Full Screen"
-                                        style:UIBarButtonItemStylePlain
-                                        target:self
-                                        action:@selector(splitButtonPressed)];
-        
-        self.navigationItem.leftBarButtonItem = splitButton;
-    }
     
+        UIBarButtonItem *swapButton = [[UIBarButtonItem alloc]
+                                       initWithTitle:@""
+                                       style:UIBarButtonItemStylePlain
+                                       target:self
+                                       action:@selector(swapButtonPressed)];
+        
+        self.navigationItem.rightBarButtonItem = swapButton;
+        
+        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            UIBarButtonItem *splitButton = [[UIBarButtonItem alloc]
+                                            initWithTitle:@"Full Screen"
+                                            style:UIBarButtonItemStylePlain
+                                            target:self
+                                            action:@selector(splitButtonPressed)];
+            
+            self.navigationItem.leftBarButtonItem = splitButton;
+    }
+    }
+
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -172,6 +181,8 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
 
 -(void) doPresentArticle:(HNArticle *)article onClearBlock:(void (^)())clearBlock
 {
+    [self loadBarButtons];
+    
     self.currentArticle = article;
     
     [self loadArticle:article forceUpdate:YES onClearBlock:clearBlock];
@@ -186,6 +197,8 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
 
 -(void) doPresentCommentForArticle:(HNArticle *)article
 {
+    [self loadBarButtons];
+    
     self.currentArticle = article;
     
     [self loadComments:article forceUpdate:YES];
