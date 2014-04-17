@@ -56,7 +56,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
         
         connectionStatusLabel = [[HNConnectionStatusLabel alloc] initWithFrame:CGRectZero];
         connectionStatusLabel.textAlignment = NSTextAlignmentCenter;
-        //connectionStatusLabel.text = @"Test Status!!!";
+        connectionStatusLabel.backgroundColor = [UIColor clearColor];
         connectionStatusLabel.font =  [UIFont fontWithName:@"Helvetica" size:11];
         connectionStatusLabel.textColor = [UIColor whiteColor];
         [bottomBarView addSubview:connectionStatusLabel];
