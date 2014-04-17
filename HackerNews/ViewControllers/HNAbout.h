@@ -9,10 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface HNAbout : UIViewController
-{
-    UITextView *aboutMeTextView;
-}
-
-@property (nonatomic, strong) UITextView *aboutMeTextView;
 
 @end
