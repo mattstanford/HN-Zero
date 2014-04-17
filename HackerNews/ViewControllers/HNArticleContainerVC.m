@@ -89,6 +89,21 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
             self.navigationItem.leftBarButtonItem.title = @"Show article list";
         }
         [self.splitVC toggleMasterView:nil];
+        
+        /*
+         Need to make sure rotation won't cause the master view to be shown
+         (which will also mess up the state of the bar buttons)
+         */
+        if (![self.splitVC isShowingMaster])
+        {
+            self.splitVC.showsMasterInLandscape = NO;
+            self.splitVC.showsMasterInPortrait = NO;
+        }
+        else
+        {
+            self.splitVC.showsMasterInPortrait = YES;
+            self.splitVC.showsMasterInLandscape = YES;
+        }
     }
 }
 
