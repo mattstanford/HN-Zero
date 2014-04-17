@@ -44,13 +44,6 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
     
 }
 
-
--(void) viewDidLoad
-{
-
-    
-}
-
 -(void) loadBarButtons
 {
     if (!self.navigationItem.rightBarButtonItem || !self.navigationItem.leftBarButtonItem)
@@ -73,7 +66,7 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
                                             action:@selector(splitButtonPressed)];
             
             self.navigationItem.leftBarButtonItem = splitButton;
-    }
+        }
     }
 
 }
@@ -113,8 +106,7 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
         newVC = self.articleVC;
         [self loadArticle:self.currentArticle forceUpdate:NO onClearBlock:nil];
     }
-    
-    //[self setRightButtonTitle:nil];
+
     [self swapViewControllerFrom:self.currentVC to:newVC withAnimation:YES];
 }
 
