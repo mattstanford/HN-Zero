@@ -27,8 +27,8 @@ NS_ENUM(NSInteger, HNMainMenuSections)
 
 NS_ENUM(NSInteger, HNInfoCellTitles)
 {
-    HNInfoCellTitleGitHub,
     HNInfoCellTitleTwitter,
+    HNInfoCellTitleGitHub,
     HNInfoCellNumRows
 };
 
@@ -42,19 +42,6 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
         self.title = @"Hacker News Zero";
         
         self.aboutMeVC = [[HNAbout alloc] init];
-        /*
-        NSString *aboutMeNibName;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            aboutMeNibName = @"HNAbout_iPad";
-        }
-        else
-        {
-            aboutMeNibName = @"HNAbout_iPhone";
-        }
-        
-        self.aboutMeVC = [[HNAbout alloc] initWithNibName:aboutMeNibName bundle:nil];
-        */
         self.articleListVC = theArticleListVC;
         
         //Eliminate the the text for the "back" button in iOS7 (style choice)
@@ -151,12 +138,13 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
 {
     switch (indexPath.row) {
         case HNInfoCellTitleGitHub:
-            cell.textLabel.text = @"Check out the source";
-            //cell.imageView.image = [UIImage imageNamed:@"triangle-blue-reverse"];
+            cell.textLabel.text = @"Source Code";
+            //cell.imageView.image = [UIImage imageNamed:@"github icon"];
             break;
             
         case HNInfoCellTitleTwitter:
-            cell.textLabel.text = @"Send me a tweet";
+            cell.textLabel.text = @"Contact via Twitter";
+            //cell.imageView.image = [UIImage imageNamed:@"twitter-icon"];
             
         default:
             break;

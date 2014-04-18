@@ -59,6 +59,8 @@
 		A7A417C7184162A2001F15FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7A417C6184162A2001F15FC /* Images.xcassets */; };
 		A7DFA86D18A9910F005BC27D /* HNConnectionStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DFA86C18A9910F005BC27D /* HNConnectionStatusLabel.m */; };
 		A7F985B81826DB9900A8D404 /* triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F985B71826DB9900A8D404 /* triangle.png */; };
+		C90D132F1900BACB00BC6E4B /* github icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D132E1900BACB00BC6E4B /* github icon.png */; };
+		C90D13311900BB6600BC6E4B /* twitter-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13301900BB6600BC6E4B /* twitter-icon.png */; };
 		C934DA1E18F203A5001AA740 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C934DA1C18F20363001AA740 /* libGoogleAnalyticsServices.a */; };
 		C938E23018DBF16D00D1BD54 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C938E22F18DBF16D00D1BD54 /* AdSupport.framework */; };
 		C938E23218DBF17B00D1BD54 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C938E23118DBF17B00D1BD54 /* CoreData.framework */; };
@@ -147,6 +149,8 @@
 		A7DFA86C18A9910F005BC27D /* HNConnectionStatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNConnectionStatusLabel.m; path = Views/HNConnectionStatusLabel.m; sourceTree = "<group>"; };
 		A7F985B71826DB9900A8D404 /* triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = triangle.png; path = Resources/triangle.png; sourceTree = "<group>"; };
 		C70DA83392594FF4B0113C30 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C90D132E1900BACB00BC6E4B /* github icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "github icon.png"; path = "Resources/github icon.png"; sourceTree = "<group>"; };
+		C90D13301900BB6600BC6E4B /* twitter-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "twitter-icon.png"; path = "Resources/twitter-icon.png"; sourceTree = "<group>"; };
 		C934DA1618F20363001AA740 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = Utilities/GoogleAnalytics/GAI.h; sourceTree = "<group>"; };
 		C934DA1718F20363001AA740 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIDictionaryBuilder.h; path = Utilities/GoogleAnalytics/GAIDictionaryBuilder.h; sourceTree = "<group>"; };
 		C934DA1818F20363001AA740 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIFields.h; path = Utilities/GoogleAnalytics/GAIFields.h; sourceTree = "<group>"; };
@@ -348,6 +352,8 @@
 		78EAD07B17F8CF970023287A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C90D132E1900BACB00BC6E4B /* github icon.png */,
+				C90D13301900BB6600BC6E4B /* twitter-icon.png */,
 				A795864D1829D9AB002299C0 /* triangle-blue-reverse.png */,
 				A795864E1829D9AB002299C0 /* triangle-blue.png */,
 				A795864F1829D9AB002299C0 /* triangle-grey-reverse.png */,
@@ -438,6 +444,8 @@
 				A79F260F183F063100A237B5 /* Default-568h@2x.png in Resources */,
 				A79586541829D9AB002299C0 /* triangle-grey-reverse.png in Resources */,
 				A773338D1840455C006BF7E5 /* icon-120.png in Resources */,
+				C90D132F1900BACB00BC6E4B /* github icon.png in Resources */,
+				C90D13311900BB6600BC6E4B /* twitter-icon.png in Resources */,
 				A79F260C183F05FC00A237B5 /* Default.png in Resources */,
 				78705CF417FE7C47006D9C84 /* chat@2x.png in Resources */,
 				A7F985B81826DB9900A8D404 /* triangle.png in Resources */,
