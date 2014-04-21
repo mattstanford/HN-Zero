@@ -22,6 +22,7 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
+      "filename" : "iPad-Splash-768x1024-1.png",
       "scale" : "1x"
     },
     {
@@ -29,6 +30,7 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
+      "filename" : "iPad-Splash-1024x768.png",
       "scale" : "1x"
     },
     {
@@ -36,6 +38,7 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
+      "filename" : "iPad-Splash-1536x2048.png",
       "scale" : "2x"
     },
     {
@@ -43,6 +46,7 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
+      "filename" : "iPad-Splash-2048x1536.png",
       "scale" : "2x"
     },
     {
@@ -71,48 +75,56 @@
       "orientation" : "portrait",
       "idiom" : "ipad",
       "extent" : "to-status-bar",
+      "filename" : "iPad-Splash-768x1004.png",
       "scale" : "1x"
     },
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
       "extent" : "full-screen",
+      "filename" : "iPad-Splash-768x1024.png",
       "scale" : "1x"
     },
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
       "extent" : "to-status-bar",
+      "filename" : "iPad-Splash-1024x748-1.png",
       "scale" : "1x"
     },
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
       "extent" : "full-screen",
+      "filename" : "iPad-Splash-1024x768-1.png",
       "scale" : "1x"
     },
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
       "extent" : "to-status-bar",
+      "filename" : "iPad-Splash-1024x748.png",
       "scale" : "2x"
     },
     {
       "orientation" : "portrait",
       "idiom" : "ipad",
       "extent" : "full-screen",
+      "filename" : "iPad-Splash-1536x2048-1.png",
       "scale" : "2x"
     },
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
       "extent" : "to-status-bar",
+      "filename" : "iPad-Splash-2048x1496.png",
       "scale" : "2x"
     },
     {
       "orientation" : "landscape",
       "idiom" : "ipad",
       "extent" : "full-screen",
+      "filename" : "iPad-Splash-2048x1536-1.png",
       "scale" : "2x"
     }
   ],
