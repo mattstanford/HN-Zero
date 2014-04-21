@@ -1,0 +1,12 @@
+# Directories
+Pods/*
+
+# Single files
+HN Zero.xcodeproj/xcuserdata/matt.xcuserdatad/xcschemes/HN Zero.xcscheme
+HN Zero.xcodeproj/xcuserdata/matt.xcuserdatad/xcschemes/xcschememanagement.plist
+HN Zero.xcworkspace/contents.xcworkspacedata
+HN Zero.xcworkspace/xcshareddata/HN Zero.xccheckout
+HN Zero.xcworkspace/xcuserdata/matt.xcuserdatad/UserInterfaceState.xcuserstate
+HN Zero.xcworkspace/xcuserdata/matt.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+.DS_Store
+Podfile.lock
