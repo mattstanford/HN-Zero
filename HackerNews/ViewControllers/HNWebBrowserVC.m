@@ -343,11 +343,8 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
-    if ([self.webView.request.URL.absoluteString isEqualToString:BLANK_PAGE])
-    {
-        [connectionStatusLabel setStatusText:@"Loading..."];
-        [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING value:TRUE];
-    }
+    [connectionStatusLabel setStatusText:@"Loading..."];
+    [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING value:TRUE];
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
