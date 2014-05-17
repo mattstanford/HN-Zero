@@ -387,7 +387,15 @@
     cell.articleTitleLabel.font = self.theme.articleTitleFont;
     cell.infoLabel.font = self.theme.articleInfoFont;
     cell.numCommentsLabel.font = self.theme.articleNumCommentsFont;
-        
+    
+    if (article.domainName && ![article.domainName isEqualToString:@""])
+    {
+        NSString *iconUrl = [NSString stringWithFormat:@"http://www.google.com/s2/favicons?domain=%@", article.domainName];
+        NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:iconUrl]];
+        UIImage* image = [[UIImage alloc] initWithData:imageData];
+        cell.domainIconImageView.image = image;
+    }
+    
     return cell;
 }
 

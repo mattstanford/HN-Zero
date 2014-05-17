@@ -27,6 +27,7 @@
     UIImageView *commentBubbleIcon;
     UILabel *numCommentsLabel;
     
+    UIImageView *domainIconImageView;
    // int commentButtonWidth;
    // CGFloat articleInfoPadding;
     
@@ -43,6 +44,7 @@
 @property (strong, nonatomic) UIImageView *commentBubbleIcon;
 @property (strong, nonatomic) UILabel *numCommentsLabel;
 @property (strong, nonatomic) UILabel *infoLabel;
+@property (strong, nonatomic) UIImageView *domainIconImageView;
 
 //@property (assign, nonatomic) int commentButtonWidth;
 //@property (assign, nonatomic) CGFloat articleInfoPadding;
