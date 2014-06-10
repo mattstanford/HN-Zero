@@ -121,7 +121,24 @@
              
              This element has a single 'td' element in it that contains two more tables
              */
-            elementWithCommentsAndSubmitBox = [[mainCommentPageTableRows objectAtIndex:2] firstChildWithTagName:@"td"];
+            
+            
+            /*
+             Comment page may contain a header that indicates maintenance being done;
+             this will cause extra elements in this array; loop through the elements 
+             here to account for that
+            */
+            TFHppleElement *elementWithCommentsParentElement;
+            for (int i=2; i<mainCommentPageTableRows.count; i++)
+            {
+                elementWithCommentsParentElement = [mainCommentPageTableRows objectAtIndex:i];
+                
+                if ([elementWithCommentsParentElement hasChildren] && [elementWithCommentsParentElement firstChildWithTagName:@"td"])
+                {
+                    break;
+                }
+            }
+            elementWithCommentsAndSubmitBox = [elementWithCommentsParentElement firstChildWithTagName:@"td"];
         }
     }
     
