@@ -81,6 +81,8 @@
 		C938E23018DBF16D00D1BD54 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C938E22F18DBF16D00D1BD54 /* AdSupport.framework */; };
 		C938E23218DBF17B00D1BD54 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C938E23118DBF17B00D1BD54 /* CoreData.framework */; };
 		C938E23418DBF19C00D1BD54 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C938E23318DBF19C00D1BD54 /* libz.dylib */; };
+		C94C70DA196CDC3B005139BC /* HNIconDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = C94C70D9196CDC3B005139BC /* HNIconDownloadController.m */; };
+		C94C70DC196CE5E6005139BC /* default_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C94C70DB196CE5E6005139BC /* default_icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -193,6 +195,9 @@
 		C938E22F18DBF16D00D1BD54 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		C938E23118DBF17B00D1BD54 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C938E23318DBF19C00D1BD54 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		C94C70D8196CDC3B005139BC /* HNIconDownloadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNIconDownloadController.h; path = Controllers/HNIconDownloadController.h; sourceTree = "<group>"; };
+		C94C70D9196CDC3B005139BC /* HNIconDownloadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNIconDownloadController.m; path = Controllers/HNIconDownloadController.m; sourceTree = "<group>"; };
+		C94C70DB196CE5E6005139BC /* default_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = default_icon.png; path = Resources/default_icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +375,8 @@
 				78E570CE17D817FB00D53F99 /* HNDownloadController.m */,
 				A70B451D186202CF007348B7 /* HNLinkGetter.h */,
 				A70B451E186202CF007348B7 /* HNLinkGetter.m */,
+				C94C70D8196CDC3B005139BC /* HNIconDownloadController.h */,
+				C94C70D9196CDC3B005139BC /* HNIconDownloadController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -377,6 +384,7 @@
 		78EAD07B17F8CF970023287A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C94C70DB196CE5E6005139BC /* default_icon.png */,
 				C90D132E1900BACB00BC6E4B /* github icon.png */,
 				C90D13301900BB6600BC6E4B /* twitter-icon.png */,
 				A795864D1829D9AB002299C0 /* triangle-blue-reverse.png */,
@@ -538,6 +546,7 @@
 				C90D13311900BB6600BC6E4B /* twitter-icon.png in Resources */,
 				C90D136F1904CBC800BC6E4B /* iPad-Splash-1024x748.png in Resources */,
 				A79F260C183F05FC00A237B5 /* Default.png in Resources */,
+				C94C70DC196CE5E6005139BC /* default_icon.png in Resources */,
 				C90D13721904CBC800BC6E4B /* iPad-Splash-1536x2048.png in Resources */,
 				78705CF417FE7C47006D9C84 /* chat@2x.png in Resources */,
 				C90D13711904CBC800BC6E4B /* iPad-Splash-1536x2008.png in Resources */,
@@ -611,6 +620,7 @@
 				78393FA017E026D50003017F /* HNParser.m in Sources */,
 				78393FA317E028190003017F /* HNCommentParser.m in Sources */,
 				784FD7A717E579820053A2E4 /* HNCommentCell.m in Sources */,
+				C94C70DA196CDC3B005139BC /* HNIconDownloadController.m in Sources */,
 				789B916E17E676070027BB74 /* HNCommentBlock.m in Sources */,
 				78C7663817F7E9B6008A31F5 /* HNTouchableView.m in Sources */,
 				78705CF117FE714D006D9C84 /* HNTheme.m in Sources */,

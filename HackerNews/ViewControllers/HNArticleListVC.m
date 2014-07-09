@@ -17,12 +17,14 @@
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
+#import "HNIconDownloadController.h"
 #import <MMDrawerController/MMDrawerController.h>
 #import <MMDrawerBarButtonItem.h>
 
 @interface HNArticleListVC ()
 
 @property (nonatomic, weak) MMDrawerController *drawerControllerDelegate;
+@property (nonatomic, strong) HNIconDownloadController *iconDownloadController;
 
 @end
 
@@ -58,6 +60,7 @@
         commentVC = commVC;
         articleContainerVC = articleContainer;
         
+        self.iconDownloadController = [[HNIconDownloadController alloc] init];
         downloadController = [[HNDownloadController alloc] init];
         isDownloadAppending = NO;
         shouldScrollToTopAfterDownload = NO;
@@ -387,13 +390,23 @@
     cell.articleTitleLabel.font = self.theme.articleTitleFont;
     cell.infoLabel.font = self.theme.articleInfoFont;
     cell.numCommentsLabel.font = self.theme.articleNumCommentsFont;
+    cell.domainIconImageView.image = [UIImage imageNamed:@"default_icon.png"];
     
     if (article.domainName && ![article.domainName isEqualToString:@""])
     {
-        NSString *iconUrl = [NSString stringWithFormat:@"http://www.google.com/s2/favicons?domain=%@", article.domainName];
+       /* NSString *iconUrl = [NSString stringWithFormat:@"http://www.google.com/s2/favicons?domain=%@", article.domainName];
         NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:iconUrl]];
         UIImage* image = [[UIImage alloc] initWithData:imageData];
-        cell.domainIconImageView.image = image;
+        cell.domainIconImageView.image = image;*/
+        
+        [self.iconDownloadController downloadIcon:article.domainName
+            success:^(NSData *imageData){
+            
+                NSLog(@"Got icon!");
+                
+                UIImage* image = [[UIImage alloc] initWithData:imageData];
+                cell.domainIconImageView.image = image;
+            }];
     }
     
     return cell;
@@ -446,5 +459,12 @@
     }
     
 }
+
+     
+     
+     
+     
+
+
 
 @end
