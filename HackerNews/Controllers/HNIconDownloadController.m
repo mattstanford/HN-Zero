@@ -11,7 +11,7 @@
 
 @implementation HNIconDownloadController
 
-static const int HNMinPixelDensity = 32 * 32;
+static const int HNMinPixelDensity = 16 * 16;
 
 NSString *const HNTopLevelJsonObject = @"icons";
 NSString *const HNImageInfoUrlKey = @"url";
@@ -88,14 +88,14 @@ NSString *const HNImageInfoHeightKey = @"height";
     
     for (NSDictionary *imageInfo in [jsonData objectForKey:HNTopLevelJsonObject])
     {
-        NSNumber *iconHeight;
-        NSNumber *iconWidth;
+        NSInteger iconHeight;
+        NSInteger iconWidth;
         
         //Get icon height
         if ([imageInfo objectForKey:HNImageInfoHeightKey] &&
             [[imageInfo objectForKey:HNImageInfoHeightKey] isKindOfClass:[NSNumber class]])
         {
-            iconHeight = [imageInfo objectForKey:HNImageInfoHeightKey];
+            iconHeight = [[imageInfo objectForKey:HNImageInfoHeightKey] integerValue];
         }
         else
         {
@@ -106,9 +106,15 @@ NSString *const HNImageInfoHeightKey = @"height";
         if ([imageInfo objectForKey:HNImageInfoWidthKey] &&
             [[imageInfo objectForKey:HNImageInfoWidthKey] isKindOfClass:[NSNumber class]])
         {
-            iconWidth = [imageInfo objectForKey:HNImageInfoWidthKey];
+            iconWidth = [[imageInfo objectForKey:HNImageInfoWidthKey] integerValue];
         }
         else
+        {
+            continue;
+        }
+        
+        //Make sure icon is square
+        if (iconWidth != iconHeight)
         {
             continue;
         }
@@ -118,9 +124,7 @@ NSString *const HNImageInfoHeightKey = @"height";
         [[bestImageInfo objectForKey:HNImageInfoWidthKey] integerValue] *
         [[bestImageInfo objectForKey:HNImageInfoWidthKey] integerValue];
         
-        NSInteger candidatePixelDensity =
-        [[imageInfo objectForKey:HNImageInfoWidthKey] integerValue] *
-        [[imageInfo objectForKey:HNImageInfoWidthKey] integerValue];
+        NSInteger candidatePixelDensity = iconHeight * iconWidth;
         
         //We want to specify a minimum pixel density so icons don't look blocky
         if (candidatePixelDensity < HNMinPixelDensity)
