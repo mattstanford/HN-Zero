@@ -18,9 +18,53 @@ NSString *const HNImageInfoUrlKey = @"url";
 NSString *const HNImageInfoWidthKey = @"width";
 NSString *const HNImageInfoHeightKey = @"height";
 
+NSString *const HNGoogleIconUrl = @"http://www.google.com/s2/favicons?domain=%@";
+NSString *const HNIconServUrl = @"http://10.0.0.10:9292/%@";
+
+- (void)getGoogleIcon:(NSString *)domain success:(void (^)(UIImage *))completionBlock
+{
+    if (domain)
+    {
+    
+        NSString *urlString = [NSString stringWithFormat:HNGoogleIconUrl, domain];
+        NSLog(@"Getting google url: %@", urlString);
+        NSURL *favIconInfoUrl = [NSURL URLWithString:urlString];
+        NSURLRequest *request = [NSURLRequest requestWithURL:favIconInfoUrl];
+        
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSData *imageData = (NSData *)responseObject;
+            UIImage *responseImage = [[UIImage alloc] initWithData:imageData];
+            
+            completionBlock(responseImage);
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+           
+            completionBlock([self getDefaultImage]);
+            
+        }];
+        
+        [operation start];
+        
+    }
+    else
+    {
+        completionBlock([self getDefaultImage]);
+    }
+}
+
+- (UIImage *)getDefaultImage
+{
+     UIImage *image = [UIImage imageNamed:@"default_icon.png"];
+    
+    return image;
+}
+
 - (void) downloadIcon:(NSString *)domain success:(void (^)(NSData *))successBlock
 {
-    NSString *urlString = [NSString stringWithFormat:@"http://10.0.0.10:9292/%@", domain];
+    NSString *urlString = [NSString stringWithFormat:HNIconServUrl, domain];
     NSLog(@"Getting url: %@", urlString);
     NSURL *favIconInfoUrl = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:favIconInfoUrl];

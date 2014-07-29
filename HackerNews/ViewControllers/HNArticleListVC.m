@@ -399,14 +399,17 @@
         UIImage* image = [[UIImage alloc] initWithData:imageData];
         cell.domainIconImageView.image = image;*/
         
-        [self.iconDownloadController downloadIcon:article.domainName
-            success:^(NSData *imageData){
-            
-                NSLog(@"Got icon!");
-                
-                UIImage* image = [[UIImage alloc] initWithData:imageData];
-                cell.domainIconImageView.image = image;
-            }];
+        [self.iconDownloadController getGoogleIcon:article.domainName success:^(UIImage *image) {
+            cell.domainIconImageView.image = image;
+        }];
+//        [self.iconDownloadController downloadIcon:article.domainName
+//            success:^(NSData *imageData){
+//            
+//                NSLog(@"Got icon!");
+//                
+//                UIImage* image = [[UIImage alloc] initWithData:imageData];
+//                cell.domainIconImageView.image = image;
+//            }];
     }
     
     return cell;

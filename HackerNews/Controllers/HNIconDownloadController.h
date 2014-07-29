@@ -10,6 +10,7 @@
 
 @interface HNIconDownloadController : NSObject
 
+- (void) getGoogleIcon:(NSString *)domain success:(void (^)(UIImage *))completionBlock;
 - (void) downloadIcon:(NSString *)domain success:(void (^)(NSData *))successBlock;
 
 @end
