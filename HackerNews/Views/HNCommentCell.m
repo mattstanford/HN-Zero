@@ -15,7 +15,7 @@ static const CGFloat CELL_RIGHT_MARGIN = 10;
 static const CGFloat CELL_TOP_MARGIN = 10;
 static const CGFloat CELL_BOTTOM_MARGIN = 10;
 static const CGFloat NAME_LABEL_HEIGHT = 20;
-static const CGFloat SEPARATOR_HEIGHT = .5;
+static const CGFloat SEPARATOR_HEIGHT = 1;
 
 static const int INDENT_PER_LEVEL = 20;
 //static const int MAX_INDENT_WIDTH = 80;
@@ -40,7 +40,7 @@ static const int INDENT_PER_LEVEL = 20;
         [self.contentView addSubview:self.contentLabel];
         
         self.separatorView = [[UIView alloc] initWithFrame:CGRectZero];
-        self.separatorView.backgroundColor = [UIColor colorWithRed:.6666 green:.6666 blue:.6666 alpha:.5];
+        self.separatorView.backgroundColor = [UIColor colorWithRed:.6666 green:.6666 blue:.6666 alpha:.3];
         [self addSubview:separatorView];
 
     }
