@@ -19,7 +19,6 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
 
 @property (nonatomic, weak) UIViewController *currentVC;
 @property (nonatomic, strong) HNArticle *currentArticle;
-@property (nonatomic, weak) MGSplitViewController *splitVC;
 @property (nonatomic, strong) NSString *rightBarButtonTitle;
 
 @end

@@ -33,7 +33,6 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
 @interface HNMainMenu ()
 
 @property (nonatomic, strong) HNAbout *aboutMeVC;
-@property (nonatomic, strong) HNArticleListVC *articleListVC;
 @property (nonatomic, strong) NSArray *mainItems;
 
 @end

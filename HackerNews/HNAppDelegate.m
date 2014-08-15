@@ -14,9 +14,21 @@
 #import "GAI.h"
 #import <MMDrawerController/MMDrawerController.h>
 
-@implementation HNAppDelegate
+@interface HNAppDelegate ()
 
-@synthesize window, navController, articleListVC, webBrowserVC, commentWebBrowserVC, commentVC, theme, articleContainerVC, mainMenuVC, splitVC;
+@property (strong, nonatomic) UINavigationController *navController;
+@property (strong, nonatomic) HNArticleListVC *articleListVC;
+@property (strong, nonatomic) HNWebBrowserVC *webBrowserVC;
+@property (strong, nonatomic) HNWebBrowserVC *commentWebBrowserVC;
+@property (strong, nonatomic) HNCommentVC *commentVC;
+@property (strong, nonatomic) HNTheme *theme;
+@property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;
+@property (strong, nonatomic) HNMainMenu *mainMenuVC;
+@property (strong, nonatomic) MGSplitViewController *splitVC;
+
+@end
+
+@implementation HNAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -58,16 +70,16 @@
     {
         
         //First initialze the drawer controller with its root view controllers
-        splitVC = [[MGSplitViewController alloc] init];
-        splitVC.showsMasterInPortrait = YES;
-        splitVC.view.backgroundColor = [UIColor lightGrayColor];
-        self.articleContainerVC.splitVC = splitVC;
+        self.splitVC = [[MGSplitViewController alloc] init];
+        self.splitVC.showsMasterInPortrait = YES;
+        self.splitVC.view.backgroundColor = [UIColor lightGrayColor];
+        self.articleContainerVC.splitVC = self.splitVC;
         
         
         self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withArticleVC:nil withMenuLinks:menuLinks];
-        MMDrawerController *drawerController = [self setupDrawerControllerWithCenterVC:splitVC leftVC:self.mainMenuVC];
+        MMDrawerController *drawerController = [self setupDrawerControllerWithCenterVC:self.splitVC leftVC:self.mainMenuVC];
         
-        self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:articleContainerVC withTheme:self.theme withDrawerController:drawerController];
+        self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:self.articleContainerVC withTheme:self.theme withDrawerController:drawerController];
         
         //Finish setting up the main menu VC
         self.mainMenuVC.articleListVC = self.articleListVC;
@@ -77,16 +89,16 @@
         //[self setupMainMenuWithLinks:menuLinks withArticleListVC:self.articleListVC];
         
         //Initialze the splitVC and finish initiazing the rest of the UI
-        UINavigationController *articleListNavController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
+        UINavigationController *articleListNavController = [[UINavigationController alloc] initWithRootViewController:self.articleListVC];
         
         [self setTitleBarColors:self.theme withNavController:articleListNavController];
         
-        UINavigationController *articleContainerNavController = [[UINavigationController alloc] initWithRootViewController:articleContainerVC];
+        UINavigationController *articleContainerNavController = [[UINavigationController alloc] initWithRootViewController:self.articleContainerVC];
         
         [self setTitleBarColors:self.theme withNavController:articleContainerNavController];
         
-        splitVC.viewControllers = [NSArray arrayWithObjects:articleListNavController, articleContainerNavController, nil];
-        splitVC.delegate = articleListVC;
+        self.splitVC.viewControllers = [NSArray arrayWithObjects:articleListNavController, articleContainerNavController, nil];
+        self.splitVC.delegate = self.articleListVC;
         
         
         [self.window setRootViewController:drawerController];
@@ -94,7 +106,7 @@
     }
     else
     {
-        self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:articleContainerVC withTheme:self.theme];
+        self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:self.articleContainerVC withTheme:self.theme];
         
         
         self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withArticleVC:self.articleListVC withMenuLinks:menuLinks];
