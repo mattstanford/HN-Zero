@@ -15,17 +15,6 @@
 @class MGSplitViewController;
 
 @interface HNArticleContainerVC : UIViewController
-{
-    HNWebBrowserVC *articleVC;
-    HNCommentVC *commentsVC;
-    HNArticle *currentArticle;
-}
-
-@property (nonatomic, strong) HNWebBrowserVC *articleVC;
-@property (nonatomic, strong) HNCommentVC *commentsVC;
-@property (nonatomic, weak) UIViewController *currentVC;
-@property (nonatomic, strong) HNArticle *currentArticle;
-@property (nonatomic, weak) MGSplitViewController *splitVC;
 
 -(id) initWithArticleVC:(HNWebBrowserVC *)theArticleVC andCommentsVC:(HNCommentVC *)theCommentsVC;
 -(void) doPresentArticle:(HNArticle *)article onClearBlock:(void (^)())clearBlock;
