@@ -22,9 +22,18 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
-@implementation HNCommentVC
+@interface HNCommentVC ()
 
-@synthesize downloadController, currentArticle, postText, comments, theme, webBrowserVC;
+@property (nonatomic, strong) HNWebBrowserVC *webBrowserVC;
+@property (nonatomic, strong) HNDownloadController *downloadController;
+@property (nonatomic, strong) HNArticle *currentArticle;
+@property (nonatomic, strong) NSString *postText;
+@property (nonatomic, strong) NSArray *comments;
+@property (nonatomic, strong) HNTheme *theme;
+
+@end
+
+@implementation HNCommentVC
 
 - (id)initWithStyle:(UITableViewStyle)style withTheme:(HNTheme *)appTheme webBrowser:(HNWebBrowserVC *)webBrowser
 {
@@ -96,7 +105,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return [comments count];
+    return [self.comments count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -126,7 +135,7 @@
     }
     else
     {
-        HNComment *comment = [comments objectAtIndex:[indexPath row]];
+        HNComment *comment = [self.comments objectAtIndex:[indexPath row]];
         
         NSAttributedString *commentBlock = [comment convertToAttributedStringWithTheme:self.theme];
         
@@ -166,7 +175,7 @@
     
     //Download new comments
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", self.currentArticle.commentLinkId]];
-    [downloadController beginDownload:url];
+    [self.downloadController beginDownload:url];
     
     //Update refresh control
     if ([self.refreshControl isRefreshing]) [self.refreshControl endRefreshing];
@@ -205,7 +214,7 @@
 {
     HNCommentCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Comment" forIndexPath:indexPath];
     
-    HNComment *comment = [comments objectAtIndex:[indexPath row]];
+    HNComment *comment = [self.comments objectAtIndex:[indexPath row]];
     HNCommentString *commentString = [comment convertToCommentString];
     
     cell.nameLabel.attributedText = [comment getCommentHeaderWithTheme:self.theme forCellWidth:self.view.frame.size.width];
