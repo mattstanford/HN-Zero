@@ -10,8 +10,6 @@
 
 @implementation HNArticleCell
 
-@synthesize delegate, articleView, articleTitleLabel, commentView, numCommentsLabel, commentBubbleIcon, infoLabel, domainIconImageView;
-
 static const CGFloat CELL_TOP_MARGIN = 5;
 static const CGFloat CELL_BOTTOM_MARGIN = 5;
 static const CGFloat CELL_LEFT_MARGIN = 10;
@@ -27,38 +25,38 @@ static const CGFloat ICON_RIGHT_PADDING = 10;
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        articleView = [[HNTouchableView alloc] initWithFrame:CGRectZero];
-        articleView.viewDelegate = self;
+        self.articleView = [[HNTouchableView alloc] initWithFrame:CGRectZero];
+        self.articleView.viewDelegate = self;
         
-        articleTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        [articleTitleLabel setLineBreakMode:NSLineBreakByWordWrapping];
-		[articleTitleLabel setNumberOfLines:0];
-        articleTitleLabel.backgroundColor = [UIColor clearColor];
-        articleTitleLabel.userInteractionEnabled = TRUE;
-        [articleView addSubview:articleTitleLabel];
+        self.articleTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        [self.articleTitleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+		[self.articleTitleLabel setNumberOfLines:0];
+        self.articleTitleLabel.backgroundColor = [UIColor clearColor];
+        self.articleTitleLabel.userInteractionEnabled = TRUE;
+        [self.articleView addSubview:self.articleTitleLabel];
         
-        infoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        infoLabel.backgroundColor = [UIColor clearColor];
-        infoLabel.textColor = [UIColor lightGrayColor];
-        [articleView addSubview:infoLabel];
+        self.infoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        self.infoLabel.backgroundColor = [UIColor clearColor];
+        self.infoLabel.textColor = [UIColor lightGrayColor];
+        [self.articleView addSubview:self.infoLabel];
         
-        commentView = [[HNTouchableView alloc] initWithFrame:CGRectZero];
-        commentView.viewDelegate = self;
+        self.commentView = [[HNTouchableView alloc] initWithFrame:CGRectZero];
+        self.commentView.viewDelegate = self;
         
-        commentBubbleIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chat.png"]];
-        commentBubbleIcon.contentMode = UIViewContentModeScaleAspectFit;
-        [commentView addSubview:commentBubbleIcon];
+        self.commentBubbleIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"chat.png"]];
+        self.commentBubbleIcon.contentMode = UIViewContentModeScaleAspectFit;
+        [self.commentView addSubview:self.commentBubbleIcon];
         
-        numCommentsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        numCommentsLabel.backgroundColor = [UIColor clearColor];
-        [numCommentsLabel setTextAlignment:NSTextAlignmentCenter];
-        [commentView addSubview:numCommentsLabel];
+        self.numCommentsLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        self.numCommentsLabel.backgroundColor = [UIColor clearColor];
+        [self.numCommentsLabel setTextAlignment:NSTextAlignmentCenter];
+        [self.commentView addSubview:self.numCommentsLabel];
         
-        domainIconImageView = [[UIImageView alloc] init];
-        [self addSubview:domainIconImageView];
+        self.domainIconImageView = [[UIImageView alloc] init];
+        [self addSubview:self.domainIconImageView];
         
-        [self addSubview:articleView];
-        [self addSubview:commentView];
+        [self addSubview:self.articleView];
+        [self addSubview:self.commentView];
 
     }
     return self;
@@ -111,37 +109,37 @@ static const CGFloat ICON_RIGHT_PADDING = 10;
 	[super layoutSubviews];
     
     //Icon image view
-    [domainIconImageView setFrame:CGRectMake(CELL_LEFT_MARGIN, CELL_TOP_MARGIN, ICON_WIDTH, ICON_WIDTH)];
+    [self.domainIconImageView setFrame:CGRectMake(CELL_LEFT_MARGIN, CELL_TOP_MARGIN, ICON_WIDTH, ICON_WIDTH)];
    
     CGFloat labelWidth = [HNArticleCell getLabelWidth:self.frame.size.width];
     //Article view (contains article title and info view)
-    [articleView setFrame:CGRectMake([HNArticleCell getWidthForIconView], 0, labelWidth + CELL_LEFT_MARGIN, self.frame.size.height)];
+    [self.articleView setFrame:CGRectMake([HNArticleCell getWidthForIconView], 0, labelWidth + CELL_LEFT_MARGIN, self.frame.size.height)];
     
     //Article title label
     CGFloat articleLabelHeight = [HNArticleCell getArticleLabelHeight:self.articleTitleLabel.text withFont:self.articleTitleLabel.font forWidth:labelWidth];
-    [articleTitleLabel setFrame:CGRectMake(CELL_LEFT_MARGIN, CELL_TOP_MARGIN, labelWidth, articleLabelHeight)];
+    [self.articleTitleLabel setFrame:CGRectMake(CELL_LEFT_MARGIN, CELL_TOP_MARGIN, labelWidth, articleLabelHeight)];
     
     //Info label
     CGFloat infoLabelHeight = [HNArticleCell getInfoLabelHeight:self.infoLabel.text withFont:self.infoLabel.font forWidth:labelWidth];
-    CGFloat infoLabelY = articleTitleLabel.frame.origin.y + articleLabelHeight + ARTICLE_INFO_PADDING;
-    [infoLabel setFrame:CGRectMake(CELL_LEFT_MARGIN, infoLabelY, labelWidth, infoLabelHeight)];
+    CGFloat infoLabelY = self.articleTitleLabel.frame.origin.y + articleLabelHeight + ARTICLE_INFO_PADDING;
+    [self.infoLabel setFrame:CGRectMake(CELL_LEFT_MARGIN, infoLabelY, labelWidth, infoLabelHeight)];
     
 
     
     //Comment View
-     [commentView setFrame:CGRectMake(
+     [self.commentView setFrame:CGRectMake(
                 CELL_LEFT_MARGIN + [HNArticleCell getWidthForIconView] +labelWidth,
                 0,
                 COMMENT_BUTTON_WIDTH,
                 self.frame.size.height)];
     
-    CGSize maxNumCommentsSize = CGSizeMake(commentView.frame.size.width, CGFLOAT_MAX);
-    CGSize numCommentsSize = [numCommentsLabel sizeThatFits:maxNumCommentsSize];
-    [numCommentsLabel setFrame:CGRectMake(0, 0, commentView.frame.size.width, numCommentsSize.height)];
+    CGSize maxNumCommentsSize = CGSizeMake(self.commentView.frame.size.width, CGFLOAT_MAX);
+    CGSize numCommentsSize = [self.numCommentsLabel sizeThatFits:maxNumCommentsSize];
+    [self.numCommentsLabel setFrame:CGRectMake(0, 0, self.commentView.frame.size.width, numCommentsSize.height)];
     
-    CGFloat commentBubbleX = (commentView.frame.size.width / 2) - (COMMENT_BUBBLE_SIZE / 2);
-    CGFloat commentBubbleY = numCommentsLabel.frame.origin.y + numCommentsLabel.frame.size.height;
-    [commentBubbleIcon setFrame:CGRectMake(commentBubbleX, commentBubbleY, COMMENT_BUBBLE_SIZE, COMMENT_BUBBLE_SIZE)];
+    CGFloat commentBubbleX = (self.commentView.frame.size.width / 2) - (COMMENT_BUBBLE_SIZE / 2);
+    CGFloat commentBubbleY = self.numCommentsLabel.frame.origin.y + self.numCommentsLabel.frame.size.height;
+    [self.commentBubbleIcon setFrame:CGRectMake(commentBubbleX, commentBubbleY, COMMENT_BUBBLE_SIZE, COMMENT_BUBBLE_SIZE)];
     
 }
 
@@ -153,11 +151,11 @@ static const CGFloat ICON_RIGHT_PADDING = 10;
     
     if (viewTouched == self.commentView)
     {
-        commentView.backgroundColor = highlightColor;
+        self.commentView.backgroundColor = highlightColor;
     }
     else if (viewTouched == self.articleView)
     {
-        articleView.backgroundColor = highlightColor;
+        self.articleView.backgroundColor = highlightColor;
     }
 }
 
@@ -167,14 +165,14 @@ static const CGFloat ICON_RIGHT_PADDING = 10;
     
     if (viewTouched == self.commentView)
     {
-        [delegate didTapComment:self];
-        commentView.backgroundColor = unhighlightColor;
+        [self.delegate didTapComment:self];
+        self.commentView.backgroundColor = unhighlightColor;
 
     }
     else if (viewTouched == self.articleView)
     {
-        [delegate didTapArticle:self];
-        articleView.backgroundColor = unhighlightColor;
+        [self.delegate didTapArticle:self];
+        self.articleView.backgroundColor = unhighlightColor;
     }
     
 }
@@ -184,11 +182,11 @@ static const CGFloat ICON_RIGHT_PADDING = 10;
     UIColor *unhighlightColor = [UIColor clearColor];
     
     if (viewTouched == self.commentView) {
-        commentView.backgroundColor = unhighlightColor;
+        self.commentView.backgroundColor = unhighlightColor;
     }
     else if (viewTouched == self.articleView)
     {
-        articleView.backgroundColor = unhighlightColor;
+        self.articleView.backgroundColor = unhighlightColor;
     }
 }
 

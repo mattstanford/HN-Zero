@@ -18,20 +18,6 @@
 @end
 
 @interface HNArticleCell : UITableViewCell <HNTouchableViewDelegate>
-{
-    HNTouchableView *articleView;
-    UILabel *articleTitleLabel;
-    UILabel *infoLabel;
-    
-    HNTouchableView *commentView;
-    UIImageView *commentBubbleIcon;
-    UILabel *numCommentsLabel;
-    
-    UIImageView *domainIconImageView;
-   // int commentButtonWidth;
-   // CGFloat articleInfoPadding;
-    
-}
 
 + (CGFloat) getArticleLabelHeight:(NSString *)text withFont:(UIFont *)font forWidth:(CGFloat)width;
 + (CGFloat) getInfoLabelHeight:(NSString *)text withFont:(UIFont *)font forWidth:(CGFloat)width;
@@ -46,7 +32,5 @@
 @property (strong, nonatomic) UILabel *infoLabel;
 @property (strong, nonatomic) UIImageView *domainIconImageView;
 
-//@property (assign, nonatomic) int commentButtonWidth;
-//@property (assign, nonatomic) CGFloat articleInfoPadding;
 
 @end
