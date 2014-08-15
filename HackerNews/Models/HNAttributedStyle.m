@@ -10,8 +10,6 @@
 
 @implementation HNAttributedStyle
 
-@synthesize styleType, range, attributes;
-
 -(id) initWithStyleType:(HNSTYLETYPE)theStyleType range:(NSRange)theRange
 {
     return [self initWithStyleType:theStyleType range:theRange attributes:nil];

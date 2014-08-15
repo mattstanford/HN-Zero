@@ -15,8 +15,6 @@
 
 @implementation HNComment
 
-@synthesize commentBlock, author, dateWritten, nestedLevel;
-
 - (NSString *) getOverflowIndentStringForCellWidth:(CGFloat)cellWidth
 {
     NSMutableString *overflowString = [[NSMutableString alloc] initWithCapacity:0];

@@ -10,7 +10,5 @@
 
 @implementation HNCommentBlock
 
-@synthesize childBlocks, tagName, text, attributes;
-
 
 @end

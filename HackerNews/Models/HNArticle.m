@@ -10,8 +10,6 @@
 
 @implementation HNArticle
 
-@synthesize title, url, domainName, score, user, timePosted, numComments, commentLinkId;
-
 #pragma mark NSCoding delegate
 
 - (id) initWithCoder:(NSCoder *)aDecoder

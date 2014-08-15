@@ -13,13 +13,6 @@
 @class HNCommentString;
 
 @interface HNComment : NSObject
-{
-    HNCommentBlock *commentBlock;
-    NSString *author;
-    NSString *dateWritten;
-    NSNumber *nestedLevel;
-    
-}
 
 @property (nonatomic, strong) HNCommentBlock *commentBlock;
 @property (nonatomic, strong) NSString *author;

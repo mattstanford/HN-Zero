@@ -10,6 +10,4 @@
 
 @implementation HNMenuLink
 
-@synthesize title, url;
-
 @end

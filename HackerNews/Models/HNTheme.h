@@ -9,24 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface HNTheme : NSObject
-{
-    UIColor *titleBarColor;
-    UIColor *titleBarTextColor;
-    
-    UIFont *articleTitleFont;
-    UIFont *articleInfoFont;
-    UIFont *articleNumCommentsFont;
-    
-    UIFont *commentNormalFont;
-    UIFont *commentBoldFont;
-    UIFont *commentItalicFont;
-    UIFont *commentCodeFont;
-    UIFont *commentTitleFont;
-    UIFont *commentPostFont;
-    UIFont *commentInfoFont;
-    
-    CGFloat commentFontSize;
-}
 
 @property (nonatomic, strong) UIColor *titleBarColor;
 @property (nonatomic, strong) UIColor *titleBarTextColor;

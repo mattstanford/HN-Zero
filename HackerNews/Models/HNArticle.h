@@ -9,16 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface HNArticle : NSObject <NSCoding>
-{
-    NSString *title;
-    NSString *url;
-    NSString *domainName;
-    NSString *score;
-    NSString *user;
-    NSString *timePosted;
-    NSString *numComments;
-    NSString *commentLinkId;
-}
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *url;

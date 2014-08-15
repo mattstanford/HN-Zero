@@ -11,10 +11,6 @@
 @class HNTheme;
 
 @interface HNCommentString : NSObject
-{
-    NSMutableString *text;
-    NSMutableArray *styles;
-}
 
 @property (nonatomic, strong) NSMutableString *text;
 @property (nonatomic, strong) NSMutableArray *styles;

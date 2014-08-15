@@ -9,10 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface HNMenuLink : NSObject
-{
-    NSString *title;
-    NSURL *url;
-}
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSURL *url;

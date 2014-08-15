@@ -9,12 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface HNCommentBlock : NSObject
-{
-    NSArray *childBlocks;
-    NSString *tagName;
-    NSString *text;
-    NSDictionary *attributes;
-}
 
 @property (nonatomic, strong) NSArray *childBlocks;
 @property (nonatomic, strong) NSString *tagName;

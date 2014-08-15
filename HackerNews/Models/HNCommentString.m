@@ -12,8 +12,6 @@
 
 @implementation HNCommentString
 
-@synthesize text, styles;
-
 -(id) init
 {
     self = [super init];

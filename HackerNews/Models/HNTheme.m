@@ -10,6 +10,4 @@
 
 @implementation HNTheme
 
-@synthesize titleBarColor, titleBarTextColor, articleTitleFont, articleInfoFont, articleNumCommentsFont, commentNormalFont, commentBoldFont, commentItalicFont, commentCodeFont, commentFontSize, commentTitleFont, commentPostFont, commentInfoFont;
-
 @end
