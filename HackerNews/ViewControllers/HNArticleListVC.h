@@ -19,23 +19,6 @@
 @class MMDrawerController;
 
 @interface HNArticleListVC : UITableViewController  <downloadControllerDelegate, HNArticleCellDelegate, HNLinkGetterDelegate, MGSplitViewControllerDelegate>
-{
-    NSArray *articles;
-    HNWebBrowserVC *webBrowserVC;
-    HNCommentVC *commentVC;
-    HNDownloadController *downloadController;
-    HNArticleContainerVC *articleContainerVC;
-    
-    HNTheme *theme;
-    
-    NSURL *url;
-    NSURL *moreArticlesUrl;
-    BOOL isDownloadAppending;
-    BOOL shouldScrollToTopAfterDownload;
-    
-    HNLinkGetter *linkGetter;
-    int currentPage;
-}
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme withDrawerController:(MMDrawerController *)drawerController;
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme;
@@ -43,17 +26,6 @@
 - (void) setUrl:(NSURL *)newUrl andTitle:(NSString *)title;
 - (void) closeDrawer;
 
-@property (strong, nonatomic) NSArray *articles;
-@property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;
-@property (strong, nonatomic) HNWebBrowserVC *webBrowserVC;
-@property (strong, nonatomic) HNCommentVC *commentVC;
-@property (strong, nonatomic) HNDownloadController *downloadController;
-@property (strong, nonatomic) HNTheme *theme;
-@property (strong, nonatomic) NSURL *url;
-@property (strong, nonatomic) NSURL *moreArticlesUrl;
-@property (assign, nonatomic) BOOL isDownloadAppending;
-@property (assign, nonatomic) BOOL shouldScrollToTopAfterDownload;
-@property (strong, nonatomic) HNLinkGetter *linkGetter;
-@property (assign, nonatomic) int currentPage;
+
 
 @end

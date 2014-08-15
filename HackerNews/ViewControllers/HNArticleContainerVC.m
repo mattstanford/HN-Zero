@@ -16,8 +16,7 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
 
 @interface HNArticleContainerVC ()
 
-@property (nonatomic, strong) HNWebBrowserVC *articleVC;
-@property (nonatomic, strong) HNCommentVC *commentsVC;
+
 @property (nonatomic, weak) UIViewController *currentVC;
 @property (nonatomic, strong) HNArticle *currentArticle;
 @property (nonatomic, weak) MGSplitViewController *splitVC;
@@ -26,8 +25,6 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
 @end
 
 @implementation HNArticleContainerVC
-
-@synthesize articleVC, commentsVC, currentVC, currentArticle, splitVC;
 
 -(id) initWithArticleVC:(HNWebBrowserVC *)theArticleVC andCommentsVC:(HNCommentVC *)theCommentsVC
 {
@@ -157,12 +154,12 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
     }
     else
     {
-        if (currentVC == oldVc)
+        if (self.currentVC == oldVc)
         {
             [self removeViewController:oldVc];
         }
         
-        if (currentVC != newVc)
+        if (self.currentVC != newVc)
         {
             [self addViewController:newVc];
         }

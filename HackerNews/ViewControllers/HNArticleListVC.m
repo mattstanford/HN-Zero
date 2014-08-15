@@ -23,14 +23,24 @@
 
 @interface HNArticleListVC ()
 
+@property (strong, nonatomic) NSArray *articles;
+@property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;
+@property (strong, nonatomic) HNWebBrowserVC *webBrowserVC;
+@property (strong, nonatomic) HNCommentVC *commentVC;
+@property (strong, nonatomic) HNDownloadController *downloadController;
+@property (strong, nonatomic) HNTheme *theme;
+@property (strong, nonatomic) NSURL *url;
+@property (strong, nonatomic) NSURL *moreArticlesUrl;
+@property (assign, nonatomic) BOOL isDownloadAppending;
+@property (assign, nonatomic) BOOL shouldScrollToTopAfterDownload;
+@property (strong, nonatomic) HNLinkGetter *linkGetter;
+@property (assign, nonatomic) int currentPage;
 @property (nonatomic, weak) MMDrawerController *drawerControllerDelegate;
 @property (nonatomic, strong) HNIconDownloadController *iconDownloadController;
 
 @end
 
 @implementation HNArticleListVC
-
-@synthesize articles, webBrowserVC, commentVC, downloadController, articleContainerVC, theme, url, moreArticlesUrl, isDownloadAppending, shouldScrollToTopAfterDownload, currentPage, linkGetter;
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme withDrawerController:(MMDrawerController *)drawerController
 {
@@ -39,7 +49,7 @@
     {
         self.drawerControllerDelegate = drawerController;
         
-        self = [self initWithStyle:style withWebBrowserVC:webVC andCommentVC:commentVC articleContainer:articleContainer withTheme:theTheme];
+        self = [self initWithStyle:style withWebBrowserVC:webVC andCommentVC:self.commentVC articleContainer:articleContainer withTheme:theTheme];
     }
     
     return self;
@@ -56,23 +66,23 @@
         //Set this so custom "HNTouchableView" won't have delays when calling "touchesBegan"
         self.tableView.delaysContentTouches = NO;
         
-        webBrowserVC = webVC;
-        commentVC = commVC;
-        articleContainerVC = articleContainer;
+        self.webBrowserVC = webVC;
+        self.commentVC = commVC;
+        self.articleContainerVC = articleContainer;
         
         self.iconDownloadController = [[HNIconDownloadController alloc] init];
-        downloadController = [[HNDownloadController alloc] init];
-        isDownloadAppending = NO;
-        shouldScrollToTopAfterDownload = NO;
+        self.downloadController = [[HNDownloadController alloc] init];
+        self.isDownloadAppending = NO;
+        self.shouldScrollToTopAfterDownload = NO;
         
-        linkGetter = [[HNLinkGetter alloc] init];
-        linkGetter.linkGetterDelegate = self;
-        currentPage = 0;
+        self.linkGetter = [[HNLinkGetter alloc] init];
+        self.linkGetter.linkGetterDelegate = self;
+        self.currentPage = 0;
         
         //This is an example of the site when there is a "black bar" on the header (i.e. a famous tech person died
         //downloadController = [[HNDownloadController alloc] initWithUrl:@"http://www.waybackletter.com/archive/20111005.html"];
         
-        downloadController.downloadDelegate = self;
+        self.downloadController.downloadDelegate = self;
         self.theme = theTheme;
         
         //Get article cache
@@ -161,7 +171,7 @@
     
     [self downloadFreshArticles];
     
-    shouldScrollToTopAfterDownload = YES;
+    self.shouldScrollToTopAfterDownload = YES;
 }
 
 - (void) downloadFreshArticles
@@ -176,17 +186,17 @@
     
     if (append)
     {
-        isDownloadAppending = YES;
+        self.isDownloadAppending = YES;
         downloadUrl= self.moreArticlesUrl;
         
     }
     else
     {
-        isDownloadAppending = NO;
+        self.isDownloadAppending = NO;
         downloadUrl = self.url;
     }
    
-    [downloadController beginDownload:downloadUrl];
+    [self.downloadController beginDownload:downloadUrl];
     
 }
 
@@ -195,7 +205,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
     
-    shouldScrollToTopAfterDownload = NO;
+    self.shouldScrollToTopAfterDownload = NO;
 }
 
 #pragma mark HNDownloadControllerDelegate
@@ -215,7 +225,7 @@
         [self.tableView reloadData];
         
         //Scroll to top if necessary
-        if (shouldScrollToTopAfterDownload)
+        if (self.shouldScrollToTopAfterDownload)
         {
             [self scrollToTop];
         }
@@ -239,7 +249,7 @@
         If we successfully get a new link, the callback for this function will
         try to download again
          */
-        [linkGetter getCurrentMoreArticlesUrlForPage:currentPage];
+        [self.linkGetter getCurrentMoreArticlesUrlForPage:self.currentPage];
         
     }
 
@@ -250,7 +260,7 @@
 -(void) didGetLink:(NSURL *)linkUrl
 {
     NSLog(@"Got new link: %@", linkUrl);
-    [downloadController beginDownload:linkUrl];
+    [self.downloadController beginDownload:linkUrl];
 }
 
 -(void) didFailToGetLink
@@ -262,7 +272,7 @@
 -(void) downloadFailed
 {
     NSLog(@"Download failed!");
-    shouldScrollToTopAfterDownload = NO;
+    self.shouldScrollToTopAfterDownload = NO;
 }
 
 #pragma mark HNArticleCellDelegate
@@ -291,9 +301,9 @@
     
     NSInteger index = [cellTapped tag];
     
-    if (index >= 0 && index <= [articles count])
+    if (index >= 0 && index <= [self.articles count])
     {
-        HNArticle *article = [articles objectAtIndex:index];
+        HNArticle *article = [self.articles objectAtIndex:index];
         
         if ([self isSelfPost:article.url])
         {
@@ -301,7 +311,7 @@
         }
         else
         {
-            [articleContainerVC doPresentArticle:article onClearBlock:^{
+            [self.articleContainerVC doPresentArticle:article onClearBlock:^{
                 [self presentArticleOrComment];
                 
                 if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -319,11 +329,11 @@
 {
     NSInteger index = [cellTapped tag];
     
-    if (index >= 0 && index <= [articles count])
+    if (index >= 0 && index <= [self.articles count])
     {
-        HNArticle *article = [articles objectAtIndex:index];
+        HNArticle *article = [self.articles objectAtIndex:index];
 
-        [articleContainerVC doPresentCommentForArticle:article];
+        [self.articleContainerVC doPresentCommentForArticle:article];
         [self presentArticleOrComment];
         
     }
@@ -333,7 +343,7 @@
 {
     if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
     {
-        [self.navigationController pushViewController:articleContainerVC animated:YES];
+        [self.navigationController pushViewController:self.articleContainerVC animated:YES];
     }
 }
 
@@ -358,7 +368,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [articles count];
+    return [self.articles count];
 }
 
 
@@ -438,18 +448,18 @@
 -(void) updateArticlesInTable:(NSArray *)parsedArticles
 {
     
-    if (isDownloadAppending)
+    if (self.isDownloadAppending)
     {
         NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.articles];
         [tempArray addObjectsFromArray:parsedArticles];
         
         self.articles = tempArray;
-        currentPage++;
+        self.currentPage++;
     }
     else
     {
         self.articles = parsedArticles;
-        currentPage = 0;
+        self.currentPage = 0;
     }
 }
 

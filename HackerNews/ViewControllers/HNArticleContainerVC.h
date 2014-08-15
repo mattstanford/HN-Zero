@@ -16,6 +16,9 @@
 
 @interface HNArticleContainerVC : UIViewController
 
+@property (nonatomic, strong) HNWebBrowserVC *articleVC;
+@property (nonatomic, strong) HNCommentVC *commentsVC;
+
 -(id) initWithArticleVC:(HNWebBrowserVC *)theArticleVC andCommentsVC:(HNCommentVC *)theCommentsVC;
 -(void) doPresentArticle:(HNArticle *)article onClearBlock:(void (^)())clearBlock;
 -(void) doPresentCommentForArticle:(HNArticle *)article;
