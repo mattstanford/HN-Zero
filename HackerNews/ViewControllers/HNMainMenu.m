@@ -14,8 +14,6 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 
-@implementation HNMainMenu
-
 NSString * const kGithubLink = @"https://github.com/mds6058/HackerNews";
 NSString * const kTwitterLink = @"twitter://post?message=@MattStanford3";
 
@@ -32,7 +30,15 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
     HNInfoCellNumRows
 };
 
-@synthesize aboutMeVC, articleListVC, mainItems;
+@interface HNMainMenu ()
+
+@property (nonatomic, strong) HNAbout *aboutMeVC;
+@property (nonatomic, strong) HNArticleListVC *articleListVC;
+@property (nonatomic, strong) NSArray *mainItems;
+
+@end
+
+@implementation HNMainMenu
 
 -(id) initWithStyle:(UITableViewStyle)style withArticleVC:(HNArticleListVC *)theArticleListVC withMenuLinks:(NSArray *)menuLinks
 {
@@ -82,7 +88,7 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
     
     if (section == HNMainMenuPages)
     {
-        numRows = [mainItems count];
+        numRows = [self.mainItems count];
     }
     else
     {
