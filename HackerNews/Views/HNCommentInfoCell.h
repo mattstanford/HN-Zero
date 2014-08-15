@@ -9,12 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface HNCommentInfoCell : UITableViewCell
-{
-    UILabel *articleTitleLabel;
-    UILabel *infoLabel;
-    UILabel *postLabel;
-    UIView *separatorView;
-}
 
 @property (nonatomic, strong) UILabel *articleTitleLabel;
 @property (nonatomic, strong) UILabel *infoLabel;

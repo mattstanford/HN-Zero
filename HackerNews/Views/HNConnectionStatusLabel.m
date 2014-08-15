@@ -10,12 +10,10 @@
 
 @implementation HNConnectionStatusLabel
 
-@synthesize isShowingFinalText, finalStatusTextCounter;
-
 - (id) init
 {
-    isShowingFinalText = FALSE;
-    finalStatusTextCounter = 0;
+    self.isShowingFinalText = FALSE;
+    self.finalStatusTextCounter = 0;
     
     return [super init];
 }
@@ -23,14 +21,14 @@
 - (void) setStatusText:(NSString *)text
 {
     self.text = text;
-    isShowingFinalText = FALSE;
+    self.isShowingFinalText = FALSE;
 }
 
 - (void) setFinalStatusText:(NSString *)text duration:(CGFloat)delaySeconds
 {
     self.text = text;
-    isShowingFinalText = TRUE;
-    finalStatusTextCounter++;
+    self.isShowingFinalText = TRUE;
+    self.finalStatusTextCounter++;
     
     /*
      Clear the status text after a delay.  The bottom bar may be visible if there
@@ -43,10 +41,10 @@
 
 - (void) clearStatusText
 {
-    finalStatusTextCounter--;
-    if (finalStatusTextCounter <= 0 && isShowingFinalText) {
+    self.finalStatusTextCounter--;
+    if (self.finalStatusTextCounter <= 0 && self.isShowingFinalText) {
         self.text = @"";
-        finalStatusTextCounter = 0;
+        self.finalStatusTextCounter = 0;
     }
 }
 

@@ -8,9 +8,11 @@
 
 #import "HNCommentInfoCell.h"
 
-@implementation HNCommentInfoCell
+@interface HNCommentInfoCell ()
 
-@synthesize articleTitleLabel, infoLabel, postLabel, separatorView;
+@end
+
+@implementation HNCommentInfoCell
 
 static const int LEFT_MARGIN = 10;
 static const int RIGHT_MARGIN = 10;
@@ -30,14 +32,14 @@ static const int SEPARATOR_HEIGHT = 3;
         
         self.articleTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.articleTitleLabel.text = @"Title";
-        [articleTitleLabel setLineBreakMode:NSLineBreakByWordWrapping];
-		[articleTitleLabel setNumberOfLines:0];
-        articleTitleLabel.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:articleTitleLabel];
+        [self.articleTitleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+		[self.articleTitleLabel setNumberOfLines:0];
+        self.articleTitleLabel.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:self.articleTitleLabel];
         
         self.infoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.infoLabel.text = @"info";
-        [self.contentView addSubview:infoLabel];
+        [self.contentView addSubview:self.infoLabel];
         
         self.postLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.postLabel setLineBreakMode:NSLineBreakByWordWrapping];
@@ -46,7 +48,7 @@ static const int SEPARATOR_HEIGHT = 3;
         [self.contentView addSubview:self.postLabel];
         
         self.separatorView = [[UIView alloc] initWithFrame:CGRectZero];
-        [self addSubview:separatorView];
+        [self addSubview:self.separatorView];
     }
     
     return self;

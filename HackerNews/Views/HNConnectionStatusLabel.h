@@ -9,10 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface HNConnectionStatusLabel : UILabel
-{
-    BOOL isShowingFinalText;
-    int finalStatusTextCounter;
-}
 
 @property (nonatomic, assign) BOOL isShowingFinalText;
 @property (nonatomic, assign) int finalStatusTextCounter;

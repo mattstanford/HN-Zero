@@ -9,9 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface HNLoadingCell : UITableViewCell
-{
-    UIActivityIndicatorView *activityIndicator;
-}
 
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 

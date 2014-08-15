@@ -8,6 +8,12 @@
 
 #import "HNCommentCell.h"
 
+@interface HNCommentCell ()
+
+@property (nonatomic, strong) UIView *separatorView;
+
+@end
+
 @implementation HNCommentCell
 
 static const CGFloat CELL_LEFT_MARGIN = 10;
@@ -20,8 +26,6 @@ static const CGFloat SEPARATOR_HEIGHT = 1;
 static const int INDENT_PER_LEVEL = 20;
 //static const int MAX_INDENT_WIDTH = 80;
 
-@synthesize nestedLevel, nameLabel, contentLabel, separatorView;
-
 -(id) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
@@ -29,19 +33,19 @@ static const int INDENT_PER_LEVEL = 20;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.nestedLevel = [[NSNumber alloc] initWithInt:0];
         
-        nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        nameLabel.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:nameLabel];
+        self.nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        self.nameLabel.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:self.nameLabel];
         
-        contentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-        [contentLabel setNumberOfLines:0];
-        [contentLabel setLineBreakMode:NSLineBreakByWordWrapping];
-        contentLabel.userInteractionEnabled = TRUE;
+        self.contentLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+        [self.contentLabel setNumberOfLines:0];
+        [self.contentLabel setLineBreakMode:NSLineBreakByWordWrapping];
+        self.contentLabel.userInteractionEnabled = TRUE;
         [self.contentView addSubview:self.contentLabel];
         
         self.separatorView = [[UIView alloc] initWithFrame:CGRectZero];
         self.separatorView.backgroundColor = [UIColor colorWithRed:.6666 green:.6666 blue:.6666 alpha:.3];
-        [self addSubview:separatorView];
+        [self addSubview:self.separatorView];
 
     }
     

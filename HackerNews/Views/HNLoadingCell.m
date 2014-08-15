@@ -15,8 +15,6 @@ static const CGFloat ACTIVITY_INDICATOR_HEIGHT = 20;
 static const CGFloat TOP_MARGIN = 5;
 static const CGFloat BOTTOM_MARGIN = 5;
 
-@synthesize activityIndicator;
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -24,8 +22,8 @@ static const CGFloat BOTTOM_MARGIN = 5;
         
         self.textLabel.textAlignment = NSTextAlignmentCenter;
         
-        activityIndicator = [[UIActivityIndicatorView alloc] init];
-        [self.contentView addSubview:activityIndicator];
+        self.activityIndicator = [[UIActivityIndicatorView alloc] init];
+        [self.contentView addSubview:self.activityIndicator];
     }
     return self;
 }
