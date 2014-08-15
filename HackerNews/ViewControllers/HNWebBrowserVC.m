@@ -15,11 +15,26 @@
 
 @interface HNWebBrowserVC ()
 
+@property (strong, nonatomic) UIWebView *webView;
+@property (strong, nonatomic) NSString *currentURL;
+@property (strong, nonatomic) UIView *bottomBarView;
+@property (strong, nonatomic) UIButton *navigateBackButton;
+@property (strong, nonatomic) UIButton *navigateForwardButton;
+@property (strong, nonatomic) HNConnectionStatusLabel *connectionStatusLabel;
+@property (assign, nonatomic) bottomBarStatus bottomBarMask;
+@property (assign, nonatomic) int historyPosition;
+@property (assign, nonatomic) int historyLength;
+@property (assign, nonatomic) BOOL isLoadingNewPage;
+@property (assign, nonatomic) BOOL isForwardNavActive;
+@property (assign, nonatomic) BOOL isBackwardNavActive;
+@property (assign, nonatomic) BOOL isBottomBarShowing;
+@property (copy, nonatomic) void (^onClearBlock)(void);
+@property (assign, nonatomic) BOOL isPendingUrlRequest;
+@property (strong, nonatomic) HNTheme *theme;
+
 @end
 
 @implementation HNWebBrowserVC
-
-@synthesize webView, currentURL, bottomBarView, navigateBackButton, navigateForwardButton, connectionStatusLabel, bottomBarMask, historyPosition, historyLength, isLoadingNewPage, isBackwardNavActive, isForwardNavActive, isBottomBarShowing, onClearBlock, theme, isPendingUrlRequest;
 
 static const CGFloat BOTTOM_BAR_HEIGHT = 30;
 static const CGFloat STATUS_BAR_DELAY = 0.5;
@@ -35,45 +50,45 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
         
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
         
-        webView = [[UIWebView alloc] initWithFrame:screenBounds];
-        webView.delegate = self;
-        webView.scalesPageToFit = YES;
-        [self.view addSubview:webView];
+        self.webView = [[UIWebView alloc] initWithFrame:screenBounds];
+        self.webView.delegate = self;
+        self.webView.scalesPageToFit = YES;
+        [self.view addSubview:self.webView];
         
         self.theme = theTheme;
         
-        bottomBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
-        bottomBarView.backgroundColor = theTheme.titleBarColor;
-        [self.view addSubview:bottomBarView];
+        self.bottomBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
+        self.bottomBarView.backgroundColor = theTheme.titleBarColor;
+        [self.view addSubview:self.bottomBarView];
         
-        navigateBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [navigateBackButton addTarget:self action:@selector(backButtonTouched) forControlEvents:UIControlEventTouchDown];
-        [bottomBarView addSubview:navigateBackButton];
+        self.navigateBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.navigateBackButton addTarget:self action:@selector(backButtonTouched) forControlEvents:UIControlEventTouchDown];
+        [self.bottomBarView addSubview:self.navigateBackButton];
         
-        navigateForwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [navigateForwardButton addTarget:self action:@selector(forwardButtonTouched) forControlEvents:UIControlEventTouchDown];
-        [bottomBarView addSubview:navigateForwardButton];
+        self.navigateForwardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.navigateForwardButton addTarget:self action:@selector(forwardButtonTouched) forControlEvents:UIControlEventTouchDown];
+        [self.bottomBarView addSubview:self.navigateForwardButton];
         
-        connectionStatusLabel = [[HNConnectionStatusLabel alloc] initWithFrame:CGRectZero];
-        connectionStatusLabel.textAlignment = NSTextAlignmentCenter;
-        connectionStatusLabel.backgroundColor = [UIColor clearColor];
-        connectionStatusLabel.font =  [UIFont fontWithName:@"Helvetica" size:11];
-        connectionStatusLabel.textColor = [UIColor whiteColor];
-        [bottomBarView addSubview:connectionStatusLabel];
+        self.connectionStatusLabel = [[HNConnectionStatusLabel alloc] initWithFrame:CGRectZero];
+        self.connectionStatusLabel.textAlignment = NSTextAlignmentCenter;
+        self.connectionStatusLabel.backgroundColor = [UIColor clearColor];
+        self.connectionStatusLabel.font =  [UIFont fontWithName:@"Helvetica" size:11];
+        self.connectionStatusLabel.textColor = [UIColor whiteColor];
+        [self.bottomBarView addSubview:self.connectionStatusLabel];
         
         //Counter for the number of components requesting the bottom bar to be displayed
         // like the history buttons or the status message
-        bottomBarMask = 0;
-        isBottomBarShowing = FALSE;
+        self.bottomBarMask = 0;
+        self.isBottomBarShowing = FALSE;
         
         [self resetNavButtons];
         
-        currentURL = @"http://news.ycombinator.com";
-        isPendingUrlRequest = FALSE;
+        self.currentURL = @"http://news.ycombinator.com";
+        self.isPendingUrlRequest = FALSE;
         
-        isLoadingNewPage = FALSE;
-        isForwardNavActive = FALSE;
-        isBackwardNavActive = FALSE;
+        self.isLoadingNewPage = FALSE;
+        self.isForwardNavActive = FALSE;
+        self.isBackwardNavActive = FALSE;
         
     }
     return self;
@@ -93,7 +108,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 {
     CGFloat webViewBoundsHeight = self.view.frame.size.height;
     
-    if (isBottomBarShowing)
+    if (self.isBottomBarShowing)
     {
         webViewBoundsHeight -= BOTTOM_BAR_HEIGHT;
     }
@@ -137,18 +152,18 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
     if (isOn)
     {
-        bottomBarMask |= mask;
+        self.bottomBarMask |= mask;
     }
     else
     {
-        bottomBarMask &= ~mask;
+        self.bottomBarMask &= ~mask;
     }
     
-    if (bottomBarMask && !isBottomBarShowing)
+    if (self.bottomBarMask && !self.isBottomBarShowing)
     {
         [self animateBottomBar:TRUE];
     }
-    else if(!bottomBarMask && isBottomBarShowing)
+    else if(!self.bottomBarMask && self.isBottomBarShowing)
     {
         [self animateBottomBar:FALSE];
     }
@@ -168,10 +183,10 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     }
     
     if (shouldGoUp) {
-        isBottomBarShowing = TRUE;
+        self.isBottomBarShowing = TRUE;
     }
     else {
-        isBottomBarShowing = FALSE;
+        self.isBottomBarShowing = FALSE;
     }
 
     /*
@@ -192,8 +207,8 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 - (void) resetNavButtons
 {
-    historyPosition = 0;
-    historyLength = 0;
+    self.historyPosition = 0;
+    self.historyLength = 0;
     
     //Set images
     [self deactivateBackNavButton];
@@ -204,40 +219,40 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 - (void) activateBackNavButton
 {
-    [navigateBackButton setImage:[UIImage imageNamed:@"triangle-reverse.png"] forState:UIControlStateNormal];
-    [navigateBackButton setImage:[UIImage imageNamed:@"triangle-blue-reverse.png"] forState:UIControlStateHighlighted];
+    [self.navigateBackButton setImage:[UIImage imageNamed:@"triangle-reverse.png"] forState:UIControlStateNormal];
+    [self.navigateBackButton setImage:[UIImage imageNamed:@"triangle-blue-reverse.png"] forState:UIControlStateHighlighted];
     
-    isBackwardNavActive = TRUE;
+    self.isBackwardNavActive = TRUE;
 }
 
 - (void) activateForwardNavButton
 {
-    [navigateForwardButton setImage:[UIImage imageNamed:@"triangle"] forState:UIControlStateNormal];
-    [navigateForwardButton setImage:[UIImage imageNamed:@"triangle-blue"] forState:UIControlStateHighlighted];
+    [self.navigateForwardButton setImage:[UIImage imageNamed:@"triangle"] forState:UIControlStateNormal];
+    [self.navigateForwardButton setImage:[UIImage imageNamed:@"triangle-blue"] forState:UIControlStateHighlighted];
     
-    isForwardNavActive = TRUE;
+    self.isForwardNavActive = TRUE;
     
 }
 
 - (void) deactivateBackNavButton
 {
-    [navigateBackButton setImage:[UIImage imageNamed:@"triangle-grey-reverse.png"] forState:UIControlStateNormal];
-    [navigateBackButton setImage:[UIImage imageNamed:@"triangle-grey-reverse.png"] forState:UIControlStateHighlighted];
+    [self.navigateBackButton setImage:[UIImage imageNamed:@"triangle-grey-reverse.png"] forState:UIControlStateNormal];
+    [self.navigateBackButton setImage:[UIImage imageNamed:@"triangle-grey-reverse.png"] forState:UIControlStateHighlighted];
     
-    isBackwardNavActive = FALSE;
+    self.isBackwardNavActive = FALSE;
 }
 
 - (void) deactivateForwardNavButton
 {
-    [navigateForwardButton setImage:[UIImage imageNamed:@"triangle-grey.png"] forState:UIControlStateNormal];
-    [navigateForwardButton setImage:[UIImage imageNamed:@"triangle-grey.png"] forState:UIControlStateHighlighted];
+    [self.navigateForwardButton setImage:[UIImage imageNamed:@"triangle-grey.png"] forState:UIControlStateNormal];
+    [self.navigateForwardButton setImage:[UIImage imageNamed:@"triangle-grey.png"] forState:UIControlStateHighlighted];
     
-    isForwardNavActive = FALSE;
+    self.isForwardNavActive = FALSE;
 }
 
 - (void) backButtonTouched
 {
-    if (isBackwardNavActive)
+    if (self.isBackwardNavActive)
     {
         [self.webView goBack];
         [self moveHistoryBackward];
@@ -246,7 +261,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 - (void) forwardButtonTouched
 {
-    if(isForwardNavActive)
+    if(self.isForwardNavActive)
     {
         [self.webView goForward];
         [self moveHistoryForward];
@@ -266,12 +281,12 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 - (void) moveHistoryBackward
 {
-    if (historyPosition > 0)
+    if (self.historyPosition > 0)
     {
         [self activateForwardNavButton];
-        historyPosition--;
+        self.historyPosition--;
         
-        if (historyPosition == 0)
+        if (self.historyPosition == 0)
         {
             [self deactivateBackNavButton];
         }
@@ -283,16 +298,16 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 {
     [self activateBackNavButton];
         
-    historyPosition++;
+    self.historyPosition++;
         
     //Clicked a link, increasing history
-    if (historyPosition > historyLength)
+    if (self.historyPosition > self.historyLength)
     {
-         historyLength = historyPosition;
+         self.historyLength = self.historyPosition;
     }
         
     //Got to end of history
-    if (historyPosition == historyLength)
+    if (self.historyPosition == self.historyLength)
     {
         [self deactivateForwardNavButton];
     }
@@ -302,12 +317,12 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 - (void) setURL:(NSString *)newUrl forceUpdate:(BOOL)doForceUpdate onClearBlock:(void (^)())clearBlock
 {
-    if(doForceUpdate || historyLength > 0 || ![newUrl isEqualToString:self.currentURL])
+    if(doForceUpdate || self.historyLength > 0 || ![newUrl isEqualToString:self.currentURL])
     {
         [self resetNavButtons];
         
-        onClearBlock = clearBlock;
-        currentURL = newUrl;
+        self.onClearBlock = clearBlock;
+        self.currentURL = newUrl;
         [self loadUrl:BLANK_PAGE];
         
         self.bottomBarMask = 0;
@@ -316,9 +331,9 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 - (void) loadPendingUrl
 {
-    if (isPendingUrlRequest) {
-        [self loadUrl:currentURL];
-        isPendingUrlRequest = FALSE;
+    if (self.isPendingUrlRequest) {
+        [self loadUrl:self.currentURL];
+        self.isPendingUrlRequest = FALSE;
     }
 }
 
@@ -327,14 +342,14 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     NSURL *url = [NSURL URLWithString:newUrl];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     
-    [webView loadRequest:requestObj];
+    [self.webView loadRequest:requestObj];
 }
 
 - (BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     if (navigationType == UIWebViewNavigationTypeLinkClicked)
     {
-        isLoadingNewPage = TRUE;
+        self.isLoadingNewPage = TRUE;
         
     }
     
@@ -343,7 +358,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
-    [connectionStatusLabel setStatusText:@"Loading..."];
+    [self.connectionStatusLabel setStatusText:@"Loading..."];
     [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING value:TRUE];
 }
 
@@ -352,14 +367,14 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     
     if ([self.webView.request.URL.absoluteString isEqualToString:BLANK_PAGE]) {
         //[self loadUrl:currentURL];
-        isPendingUrlRequest = TRUE;
+        self.isPendingUrlRequest = TRUE;
         
-        if (onClearBlock) onClearBlock();
+        if (self.onClearBlock) self.onClearBlock();
     }
     else
     {
     
-        if (isLoadingNewPage)
+        if (self.isLoadingNewPage)
         {
             NSLog(@"loading new page");
             [self resetHistoryWithNewLink];
@@ -368,7 +383,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
         
         [self setBottomBarStatus:BOTTOM_BAR_STATUS_SHOWING value:FALSE];
         
-        [connectionStatusLabel setFinalStatusText:@"Finished!" duration:STATUS_BAR_DELAY];
+        [self.connectionStatusLabel setFinalStatusText:@"Finished!" duration:STATUS_BAR_DELAY];
     }
     
 }
