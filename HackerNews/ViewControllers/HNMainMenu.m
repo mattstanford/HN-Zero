@@ -13,6 +13,9 @@
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
+#import "HNSettingsVC.h"
+#import "HNUiUtils.h"
+#import "HNTheme.h"
 
 NSString * const kGithubLink = @"https://github.com/mds6058/HackerNews";
 NSString * const kTwitterLink = @"twitter://post?message=@MattStanford3";
@@ -25,6 +28,7 @@ NS_ENUM(NSInteger, HNMainMenuSections)
 
 NS_ENUM(NSInteger, HNInfoCellTitles)
 {
+    HNInfoCellSettings,
     HNInfoCellTitleTwitter,
     HNInfoCellTitleGitHub,
     HNInfoCellNumRows
@@ -33,13 +37,15 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
 @interface HNMainMenu ()
 
 @property (nonatomic, strong) HNAbout *aboutMeVC;
+@property (nonatomic, strong) HNSettingsVC *settingsVC;
+@property (nonatomic, strong) UINavigationController *settingsNavController;
 @property (nonatomic, strong) NSArray *mainItems;
 
 @end
 
 @implementation HNMainMenu
 
--(id) initWithStyle:(UITableViewStyle)style withArticleVC:(HNArticleListVC *)theArticleListVC withMenuLinks:(NSArray *)menuLinks
+-(id) initWithStyle:(UITableViewStyle)style withTheme:(HNTheme *)theme withArticleVC:(HNArticleListVC *)theArticleListVC withMenuLinks:(NSArray *)menuLinks
 {
     self = [super initWithStyle:style];
     if (self)
@@ -47,6 +53,10 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
         self.title = @"Hacker News Zero";
         
         self.aboutMeVC = [[HNAbout alloc] init];
+        self.settingsVC = [[HNSettingsVC alloc] init];
+        self.settingsNavController = [[UINavigationController alloc] initWithRootViewController:self.settingsVC];
+        [HNUiUtils setTitleBarColors:theme withNavController:self.settingsNavController];
+        
         self.articleListVC = theArticleListVC;
         
         //Eliminate the the text for the "back" button in iOS7 (style choice)
@@ -150,6 +160,11 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
         case HNInfoCellTitleTwitter:
             cell.textLabel.text = @"Contact via Twitter";
             //cell.imageView.image = [UIImage imageNamed:@"twitter-icon"];
+            break;
+            
+        case HNInfoCellSettings:
+            cell.textLabel.text = @"Settings";
+            break;
             
         default:
             break;
@@ -179,7 +194,12 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
             case HNInfoCellTitleTwitter:
                 NSLog(@"Goto twitter: %@", kTwitterLink);
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kTwitterLink]];
-                
+                break;
+            
+            case HNInfoCellSettings:
+                NSLog(@"Tapped settings");
+                [self presentViewController:self.settingsNavController animated:YES completion:nil];
+                break;
             default:
                 break;
         }

@@ -11,6 +11,7 @@
 #import "HNArticleContainerVC.h"
 #import "HNMainMenu.h"
 #import "HNMenuLink.h"
+#import "HNUiUtils.h"
 #import "GAI.h"
 #import <MMDrawerController/MMDrawerController.h>
 
@@ -76,7 +77,7 @@
         self.articleContainerVC.splitVC = self.splitVC;
         
         
-        self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withArticleVC:nil withMenuLinks:menuLinks];
+        self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withTheme:self.theme withArticleVC:nil withMenuLinks:menuLinks];
         MMDrawerController *drawerController = [self setupDrawerControllerWithCenterVC:self.splitVC leftVC:self.mainMenuVC];
         
         self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:self.articleContainerVC withTheme:self.theme withDrawerController:drawerController];
@@ -91,11 +92,11 @@
         //Initialze the splitVC and finish initiazing the rest of the UI
         UINavigationController *articleListNavController = [[UINavigationController alloc] initWithRootViewController:self.articleListVC];
         
-        [self setTitleBarColors:self.theme withNavController:articleListNavController];
+        [HNUiUtils setTitleBarColors:self.theme withNavController:articleListNavController];
         
         UINavigationController *articleContainerNavController = [[UINavigationController alloc] initWithRootViewController:self.articleContainerVC];
         
-        [self setTitleBarColors:self.theme withNavController:articleContainerNavController];
+        [HNUiUtils setTitleBarColors:self.theme withNavController:articleContainerNavController];
         
         self.splitVC.viewControllers = [NSArray arrayWithObjects:articleListNavController, articleContainerNavController, nil];
         self.splitVC.delegate = self.articleListVC;
@@ -109,14 +110,14 @@
         self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:self.articleContainerVC withTheme:self.theme];
         
         
-        self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withArticleVC:self.articleListVC withMenuLinks:menuLinks];
+        self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withTheme:self.theme withArticleVC:self.articleListVC withMenuLinks:menuLinks];
         [self setupMainMenuWithLinks:menuLinks withArticleListVC:self.articleListVC];
         
         self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuVC];
         
         [self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
         
-        [self setTitleBarColors:self.theme withNavController:self.navController];
+        [HNUiUtils setTitleBarColors:self.theme withNavController:self.navController];
         [self.window setRootViewController:self.navController];
         
     }
@@ -127,7 +128,7 @@
 
 -(void) setupMainMenuWithLinks:(NSArray *)menuLinks withArticleListVC:(HNArticleListVC *)articleList
 {
-    self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withArticleVC:articleList withMenuLinks:menuLinks];
+    self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withTheme:self.theme withArticleVC:articleList withMenuLinks:menuLinks];
     [self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
 }
 
@@ -186,27 +187,6 @@
     appTheme.commentTitleFont = [UIFont fontWithName:@"Helvetica-Bold" size:defaultTitleSize];
     appTheme.commentInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
     appTheme.commentPostFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
-    
-}
-
-- (void) setTitleBarColors:(HNTheme *)theTheme withNavController:(UINavigationController *)theNavController
-{
-    if ([theNavController.navigationBar respondsToSelector:@selector(setBarTintColor:)])
-    {
-        NSDictionary *navTextAttrs = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      [UIColor whiteColor], UITextAttributeTextColor,
-                                     nil];
-        
-        theNavController.navigationBar.titleTextAttributes = navTextAttrs;
-        theNavController.navigationBar.barTintColor = theTheme.titleBarColor;
-        theNavController.navigationBar.tintColor = theTheme.titleBarTextColor;
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        
-    }
-    else
-    {
-        theNavController.navigationBar.tintColor = theTheme.titleBarColor;
-    }
     
 }
 

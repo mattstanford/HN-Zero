@@ -83,6 +83,8 @@
 		C938E23418DBF19C00D1BD54 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C938E23318DBF19C00D1BD54 /* libz.dylib */; };
 		C94C70DA196CDC3B005139BC /* HNIconDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = C94C70D9196CDC3B005139BC /* HNIconDownloadController.m */; };
 		C94C70DC196CE5E6005139BC /* default_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C94C70DB196CE5E6005139BC /* default_icon.png */; };
+		C98AF57519C7E1800069C6F9 /* HNSettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C98AF57419C7E1800069C6F9 /* HNSettingsVC.m */; };
+		C98AF57819D044350069C6F9 /* HNUiUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C98AF57719D044350069C6F9 /* HNUiUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -198,6 +200,10 @@
 		C94C70D8196CDC3B005139BC /* HNIconDownloadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNIconDownloadController.h; path = Controllers/HNIconDownloadController.h; sourceTree = "<group>"; };
 		C94C70D9196CDC3B005139BC /* HNIconDownloadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNIconDownloadController.m; path = Controllers/HNIconDownloadController.m; sourceTree = "<group>"; };
 		C94C70DB196CE5E6005139BC /* default_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = default_icon.png; path = Resources/default_icon.png; sourceTree = "<group>"; };
+		C98AF57319C7E1800069C6F9 /* HNSettingsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNSettingsVC.h; path = ViewControllers/HNSettingsVC.h; sourceTree = "<group>"; };
+		C98AF57419C7E1800069C6F9 /* HNSettingsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNSettingsVC.m; path = ViewControllers/HNSettingsVC.m; sourceTree = "<group>"; };
+		C98AF57619D044350069C6F9 /* HNUiUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNUiUtils.h; path = Utilities/HNUiUtils.h; sourceTree = "<group>"; };
+		C98AF57719D044350069C6F9 /* HNUiUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNUiUtils.m; path = Utilities/HNUiUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,6 +311,8 @@
 				C938E22018DBEFDA00D1BD54 /* Google Analytics */,
 				789533911818CC91000462A7 /* HNUtils.h */,
 				789533921818CC91000462A7 /* HNUtils.m */,
+				C98AF57619D044350069C6F9 /* HNUiUtils.h */,
+				C98AF57719D044350069C6F9 /* HNUiUtils.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -333,18 +341,20 @@
 		78E4077017D3D1FE00DC8CE0 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A7A417C318414094001F15FC /* HNAbout.h */,
+				A7A417C418414094001F15FC /* HNAbout.m */,
 				789CC10D1800CA63004BB8E7 /* HNArticleContainerVC.h */,
 				789CC10E1800CA63004BB8E7 /* HNArticleContainerVC.m */,
 				78E4076217D04B4400DC8CE0 /* HNArticleListVC.h */,
 				78E4076317D04B4400DC8CE0 /* HNArticleListVC.m */,
 				78393F9A17E01C0B0003017F /* HNCommentVC.h */,
 				78393F9B17E01C0B0003017F /* HNCommentVC.m */,
-				78E4076617D278B100DC8CE0 /* HNWebBrowserVC.h */,
-				78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */,
 				789B4F15180E3FB800119C83 /* HNMainMenu.h */,
 				789B4F16180E3FB800119C83 /* HNMainMenu.m */,
-				A7A417C318414094001F15FC /* HNAbout.h */,
-				A7A417C418414094001F15FC /* HNAbout.m */,
+				C98AF57319C7E1800069C6F9 /* HNSettingsVC.h */,
+				C98AF57419C7E1800069C6F9 /* HNSettingsVC.m */,
+				78E4076617D278B100DC8CE0 /* HNWebBrowserVC.h */,
+				78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -625,9 +635,11 @@
 				78393FA017E026D50003017F /* HNParser.m in Sources */,
 				78393FA317E028190003017F /* HNCommentParser.m in Sources */,
 				784FD7A717E579820053A2E4 /* HNCommentCell.m in Sources */,
+				C98AF57519C7E1800069C6F9 /* HNSettingsVC.m in Sources */,
 				C94C70DA196CDC3B005139BC /* HNIconDownloadController.m in Sources */,
 				789B916E17E676070027BB74 /* HNCommentBlock.m in Sources */,
 				78C7663817F7E9B6008A31F5 /* HNTouchableView.m in Sources */,
+				C98AF57819D044350069C6F9 /* HNUiUtils.m in Sources */,
 				78705CF117FE714D006D9C84 /* HNTheme.m in Sources */,
 				789CC10F1800CA63004BB8E7 /* HNArticleContainerVC.m in Sources */,
 				780F09C018021ABD00B9C5C3 /* HNAttributedStyle.m in Sources */,
