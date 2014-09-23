@@ -22,7 +22,6 @@
 @property (strong, nonatomic) HNWebBrowserVC *webBrowserVC;
 @property (strong, nonatomic) HNWebBrowserVC *commentWebBrowserVC;
 @property (strong, nonatomic) HNCommentVC *commentVC;
-@property (strong, nonatomic) HNTheme *theme;
 @property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;
 @property (strong, nonatomic) HNMainMenu *mainMenuVC;
 @property (strong, nonatomic) MGSplitViewController *splitVC;
@@ -42,23 +41,22 @@
                                                                 diskPath:nil];
     [NSURLCache setSharedURLCache:sharedCache];
     
-    [self initializeUI];
+    HNTheme *theme = [self getDefaultTheme];
+    [self initializeUIWithTheme:theme];
     
     [self.window makeKeyAndVisible];
     return YES;
 }
 
-- (void) initializeUI
+- (void) initializeUIWithTheme:(HNTheme *)theme
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    self.theme = [[HNTheme alloc] init];
-    [self setDefaultTheme:self.theme];
     
-    self.webBrowserVC = [[HNWebBrowserVC alloc] initWithTheme:self.theme];
-    self.commentWebBrowserVC = [[HNWebBrowserVC alloc] initWithTheme:self.theme];
+    self.webBrowserVC = [[HNWebBrowserVC alloc] initWithTheme:theme];
+    self.commentWebBrowserVC = [[HNWebBrowserVC alloc] initWithTheme:theme];
     
-    self.commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStylePlain withTheme:self.theme webBrowser:self.commentWebBrowserVC];
+    self.commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStylePlain withTheme:theme webBrowser:self.commentWebBrowserVC];
     
     self.articleContainerVC = [[HNArticleContainerVC alloc] initWithArticleVC:self.webBrowserVC andCommentsVC:self.commentVC];
     
@@ -77,10 +75,10 @@
         self.articleContainerVC.splitVC = self.splitVC;
         
         
-        self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withTheme:self.theme withArticleVC:nil withMenuLinks:menuLinks];
+        self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withTheme:theme withArticleVC:nil withMenuLinks:menuLinks];
         MMDrawerController *drawerController = [self setupDrawerControllerWithCenterVC:self.splitVC leftVC:self.mainMenuVC];
         
-        self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:self.articleContainerVC withTheme:self.theme withDrawerController:drawerController];
+        self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:self.articleContainerVC withTheme:theme withDrawerController:drawerController];
         
         //Finish setting up the main menu VC
         self.mainMenuVC.articleListVC = self.articleListVC;
@@ -92,11 +90,11 @@
         //Initialze the splitVC and finish initiazing the rest of the UI
         UINavigationController *articleListNavController = [[UINavigationController alloc] initWithRootViewController:self.articleListVC];
         
-        [HNUiUtils setTitleBarColors:self.theme withNavController:articleListNavController];
+        [HNUiUtils setTitleBarColors:theme withNavController:articleListNavController];
         
         UINavigationController *articleContainerNavController = [[UINavigationController alloc] initWithRootViewController:self.articleContainerVC];
         
-        [HNUiUtils setTitleBarColors:self.theme withNavController:articleContainerNavController];
+        [HNUiUtils setTitleBarColors:theme withNavController:articleContainerNavController];
         
         self.splitVC.viewControllers = [NSArray arrayWithObjects:articleListNavController, articleContainerNavController, nil];
         self.splitVC.delegate = self.articleListVC;
@@ -107,17 +105,17 @@
     }
     else
     {
-        self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:self.articleContainerVC withTheme:self.theme];
+        self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:self.articleContainerVC withTheme:theme];
         
         
-        self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withTheme:self.theme withArticleVC:self.articleListVC withMenuLinks:menuLinks];
-        [self setupMainMenuWithLinks:menuLinks withArticleListVC:self.articleListVC];
+        self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withTheme:theme withArticleVC:self.articleListVC withMenuLinks:menuLinks];
+        [self setupMainMenuWithLinks:menuLinks withArticleListVC:self.articleListVC withTheme:theme];
         
         self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuVC];
         
         [self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
         
-        [HNUiUtils setTitleBarColors:self.theme withNavController:self.navController];
+        [HNUiUtils setTitleBarColors:theme withNavController:self.navController];
         [self.window setRootViewController:self.navController];
         
     }
@@ -126,9 +124,9 @@
     self.window.backgroundColor = [UIColor whiteColor];
 }
 
--(void) setupMainMenuWithLinks:(NSArray *)menuLinks withArticleListVC:(HNArticleListVC *)articleList
+-(void) setupMainMenuWithLinks:(NSArray *)menuLinks withArticleListVC:(HNArticleListVC *)articleList withTheme:(HNTheme *)theme
 {
-    self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withTheme:self.theme withArticleVC:articleList withMenuLinks:menuLinks];
+    self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withTheme:theme withArticleVC:articleList withMenuLinks:menuLinks];
     [self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
 }
 
@@ -166,8 +164,10 @@
     return menuLinks;
 }
 
-- (void) setDefaultTheme:(HNTheme *)appTheme
+- (HNTheme *) getDefaultTheme
 {
+    HNTheme *appTheme = [[HNTheme alloc] init];
+    
     CGFloat defaultFontSize = 13.0;
     CGFloat defaultTitleSize = 15.0;
     
@@ -188,6 +188,7 @@
     appTheme.commentInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
     appTheme.commentPostFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
     
+    return appTheme;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
