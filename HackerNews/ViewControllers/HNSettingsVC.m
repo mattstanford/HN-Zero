@@ -49,17 +49,10 @@ NS_ENUM(NSInteger, HNSettingsSections)
 {
     if(indexPath.section == HNSettingsSectionsThemes)
     {
-        [[self.tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryCheckmark];
+        self.selectedThemeIndex = indexPath.row;
+        [self.tableView reloadData];
     }
     
-}
-
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if(indexPath.section == HNSettingsSectionsThemes)
-    {
-        [[self.tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryNone];
-    }
 }
 
 #pragma mark UITableViewDataSource delegate
