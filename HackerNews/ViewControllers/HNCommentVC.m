@@ -131,7 +131,7 @@
 {
     if (indexPath.row == 0)
     {
-        return [HNCommentInfoCell getCellHeightForText:self.currentArticle.title postText:self.postText forWidth:self.view.frame.size.width titleFont:self.theme.commentTitleFont infoFont:self.theme.commentInfoFont postFont:self.theme.commentPostFont];
+        return [HNCommentInfoCell getCellHeightForText:self.currentArticle.title postText:self.postText forWidth:self.view.frame.size.width titleFont:self.theme.commentTitleFont infoText:[self.currentArticle getInfoText] infoFont:self.theme.commentInfoFont postFont:self.theme.commentPostFont];
     }
     else
     {

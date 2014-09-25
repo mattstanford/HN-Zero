@@ -15,6 +15,6 @@
 @property (nonatomic, strong) UILabel *postLabel;
 @property (nonatomic, strong) UIView *separatorView;
 
-+(CGFloat) getCellHeightForText:(NSString *)titleText postText:(NSString *)postText forWidth:(CGFloat)cellWidth titleFont:(UIFont *)titleFont infoFont:(UIFont *)infoFont postFont:(UIFont *)postFont;
++(CGFloat) getCellHeightForText:(NSString *)titleText postText:(NSString *)postText forWidth:(CGFloat)cellWidth titleFont:(UIFont *)titleFont infoText:(NSString *)infoText infoFont:(UIFont *)infoFont postFont:(UIFont *)postFont;
 
 @end

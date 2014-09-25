@@ -54,7 +54,7 @@ static const int SEPARATOR_HEIGHT = 3;
     return self;
 }
 
-+(CGFloat) getCellHeightForText:(NSString *)titleText postText:(NSString *)postText forWidth:(CGFloat)cellWidth titleFont:(UIFont *)titleFont infoFont:(UIFont *)infoFont postFont:(UIFont *)postFont
++(CGFloat) getCellHeightForText:(NSString *)titleText postText:(NSString *)postText forWidth:(CGFloat)cellWidth titleFont:(UIFont *)titleFont infoText:(NSString *)infoText infoFont:(UIFont *)infoFont postFont:(UIFont *)postFont
 {
     CGFloat width = [HNCommentInfoCell getLabelWidth:cellWidth];
     CGFloat titleHeight = [HNCommentInfoCell getHeightForText:titleText forWidth:width titleFont:titleFont];
@@ -69,8 +69,13 @@ static const int SEPARATOR_HEIGHT = 3;
     }
 
     //Sample string for info label.  The info label will always be one line
-    NSString *tempString = @"test string";
-    CGFloat infoHeight = [HNCommentInfoCell getInfoHeightForText:tempString forWidth:width infoFont:infoFont];
+    //Unless the line is zero length, then we will hide the space
+    CGFloat infoHeight = 0;
+    if(infoText != nil && infoText.length > 0)
+    {
+        NSString *tempString = @"test string";
+        infoHeight = [HNCommentInfoCell getInfoHeightForText:tempString forWidth:width infoFont:infoFont];
+    }
     
     CGFloat height = TOP_MARGIN + titleHeight + TITLE_INFO_PADDING + infoHeight + postHeight_plus_padding + BOTTOM_MARGIN;
     
@@ -107,7 +112,11 @@ static const int SEPARATOR_HEIGHT = 3;
     
     CGFloat infoLabelX = LEFT_MARGIN;
     CGFloat infoLabelY = TOP_MARGIN + titleHeight + TITLE_INFO_PADDING;
-    CGFloat infoHeight = [HNCommentInfoCell getInfoHeightForText:self.infoLabel.text forWidth:labelWidth infoFont:self.infoLabel.font];
+    CGFloat infoHeight = 0;
+    if(self.infoLabel.text.length > 0)
+    {
+        infoHeight = [HNCommentInfoCell getInfoHeightForText:self.infoLabel.text forWidth:labelWidth infoFont:self.infoLabel.font];
+    }
     
     CGFloat postLabelX = LEFT_MARGIN;
     CGFloat postLabelY = TOP_MARGIN + titleHeight + TITLE_INFO_PADDING + infoHeight + INFO_POST_PADDING;
