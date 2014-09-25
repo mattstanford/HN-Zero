@@ -24,7 +24,7 @@
     {
         TFHppleElement *moreArticlesRow = [htmlRows objectAtIndex:htmlRows.count - 3];
         
-        if (moreArticlesRow) {
+        if (moreArticlesRow && moreArticlesRow.children.count > 1) {
         
             TFHppleElement *moreArticlesElement = [[moreArticlesRow children] objectAtIndex:1];
             

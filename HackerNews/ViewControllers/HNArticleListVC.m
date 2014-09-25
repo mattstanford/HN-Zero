@@ -186,8 +186,11 @@
     
     if (append)
     {
-        self.isDownloadAppending = YES;
-        downloadUrl= self.moreArticlesUrl;
+        if(self.moreArticlesUrl)
+        {
+            self.isDownloadAppending = YES;
+            downloadUrl= self.moreArticlesUrl;
+        }
         
     }
     else
@@ -469,6 +472,10 @@
     if (newPath)
     {
         self.moreArticlesUrl = [[NSURL alloc] initWithScheme:self.url.scheme host:self.url.host path:newPath];
+    }
+    else
+    {
+        self.moreArticlesUrl = nil;
     }
     
 }

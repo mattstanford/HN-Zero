@@ -154,11 +154,19 @@
     askHN.title = @"Ask HN";
     askHN.url = [NSURL URLWithString:@"https://news.ycombinator.com/ask"];
     
+    HNMenuLink *showHN = [[HNMenuLink alloc] init];
+    showHN.title = @"Show HN";
+    showHN.url = [NSURL URLWithString:@"https://news.ycombinator.com/show"];
+    
+    HNMenuLink *jobsHN = [[HNMenuLink alloc] init];
+    jobsHN.title = @"Jobs";
+    jobsHN.url = [NSURL URLWithString:@"https://news.ycombinator.com/jobs"];
+    
     HNMenuLink *newHN = [[HNMenuLink alloc] init];
     newHN.title = @"New";
     newHN.url = [NSURL URLWithString:@"https://news.ycombinator.com/newest"];
     
-    menuLinks = [[NSArray alloc] initWithObjects:frontPage, askHN, newHN, nil];
+    menuLinks = [[NSArray alloc] initWithObjects:frontPage, askHN, showHN, jobsHN, newHN, nil];
 
     
     return menuLinks;
