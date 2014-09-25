@@ -255,7 +255,17 @@
     }
     else
     {
-        return nil;
+        NSString *zeroCommentPattern = @"(discuss)";
+        NSString *zeroCommentMatch = [self getChildFromArray:anchors withRegex:zeroCommentPattern];
+        
+        if(zeroCommentMatch)
+        {
+            return @"0";
+        }
+        else
+        {
+            return nil;
+        }
     }
 }
 
