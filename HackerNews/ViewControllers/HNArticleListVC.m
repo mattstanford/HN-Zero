@@ -378,10 +378,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HNArticle *article = [self.articles objectAtIndex:indexPath.row];
-    NSString *infoText = [article getInfoText];
     
-    return [HNArticleCell getCellHeightForWidth:self.view.frame.size.width withArticleTitle:article.title withInfoText:infoText withTitleFont:self.theme.articleTitleFont withInfoFont:self.theme.articleInfoFont];
-
+    return [HNArticleCell getCellHeightForWidth:self.view.frame.size.width withArticle:article withTitleFont:self.theme.articleTitleFont withInfoFont:self.theme.articleInfoFont];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -398,7 +396,15 @@
     cell.delegate = self;
     cell.tag = indexPath.row;
     
-    cell.numCommentsLabel.text = article.numComments;
+    if(article.numComments)
+    {
+        cell.commentViewDisabled = FALSE;
+        cell.numCommentsLabel.text = article.numComments;
+    }
+    else
+    {
+        cell.commentViewDisabled = TRUE;
+    }
     
     cell.articleTitleLabel.font = self.theme.articleTitleFont;
     cell.infoLabel.font = self.theme.articleInfoFont;

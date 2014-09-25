@@ -10,6 +10,7 @@
 #import "HNTouchableView.h"
 
 @class HNArticleCell;
+@class HNArticle;
 
 @protocol HNArticleCellDelegate
 @required
@@ -21,7 +22,7 @@
 
 + (CGFloat) getArticleLabelHeight:(NSString *)text withFont:(UIFont *)font forWidth:(CGFloat)width;
 + (CGFloat) getInfoLabelHeight:(NSString *)text withFont:(UIFont *)font forWidth:(CGFloat)width;
-+ (CGFloat) getCellHeightForWidth:(CGFloat)cellWidth withArticleTitle:(NSString *)title withInfoText:(NSString *)infoText withTitleFont:(UIFont *)cellFont withInfoFont:(UIFont *)infoFont;
++ (CGFloat) getCellHeightForWidth:(CGFloat)cellWidth withArticle:(HNArticle *)article withTitleFont:(UIFont *)titleFont withInfoFont:(UIFont *)infoFont;
 
 @property (nonatomic, assign) id<HNArticleCellDelegate> delegate;
 @property (strong, nonatomic) HNTouchableView *articleView;
@@ -31,6 +32,7 @@
 @property (strong, nonatomic) UILabel *numCommentsLabel;
 @property (strong, nonatomic) UILabel *infoLabel;
 @property (strong, nonatomic) UIImageView *domainIconImageView;
+@property (nonatomic, assign) BOOL commentViewDisabled;
 
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "HNArticleCell.h"
+#import "HNArticle.h"
 
 @implementation HNArticleCell
 
@@ -68,12 +69,13 @@ static const CGFloat ICON_RIGHT_PADDING = 10;
 
 }
 
-+ (CGFloat) getCellHeightForWidth:(CGFloat)cellWidth withArticleTitle:(NSString *)title withInfoText:(NSString *)infoText withTitleFont:(UIFont *)titleFont withInfoFont:(UIFont *)infoFont
++ (CGFloat) getCellHeightForWidth:(CGFloat)cellWidth withArticle:(HNArticle *)article withTitleFont:(UIFont *)titleFont withInfoFont:(UIFont *)infoFont
 {
-    CGFloat articleWidth = [HNArticleCell getLabelWidth:cellWidth];
+    BOOL commentsDisabled = (article.numComments == nil) ? TRUE: FALSE;
+    CGFloat articleWidth = [HNArticleCell getLabelWidth:cellWidth commentsDisabled:commentsDisabled];
     
-    CGFloat articleTextHeight = [HNArticleCell getArticleLabelHeight:title withFont:titleFont forWidth:articleWidth];
-    CGFloat infoTextHeight = [HNArticleCell getInfoLabelHeight:infoText withFont:infoFont forWidth:articleWidth];
+    CGFloat articleTextHeight = [HNArticleCell getArticleLabelHeight:article.title withFont:titleFont forWidth:articleWidth];
+    CGFloat infoTextHeight = [HNArticleCell getInfoLabelHeight:[article getInfoText] withFont:infoFont forWidth:articleWidth];
     
     return articleTextHeight + infoTextHeight + CELL_TOP_MARGIN + CELL_BOTTOM_MARGIN + ARTICLE_INFO_PADDING;
 }
@@ -95,9 +97,20 @@ static const CGFloat ICON_RIGHT_PADDING = 10;
     return ceil(labelHeight);
 }
 
-+ (CGFloat) getLabelWidth:(CGFloat)frameWidth
++ (CGFloat) getLabelWidth:(CGFloat)frameWidth commentsDisabled:(BOOL)commentsDisabled
 {
-    return frameWidth - COMMENT_BUTTON_WIDTH - CELL_LEFT_MARGIN - [HNArticleCell getWidthForIconView];
+    CGFloat commentViewWidth;
+    
+    if(commentsDisabled)
+    {
+        commentViewWidth = 10;
+    }
+    else
+    {
+        commentViewWidth = COMMENT_BUTTON_WIDTH;
+    }
+    
+    return frameWidth - commentViewWidth - CELL_LEFT_MARGIN - [HNArticleCell getWidthForIconView];
 }
 
 + (CGFloat) getWidthForIconView
@@ -111,7 +124,7 @@ static const CGFloat ICON_RIGHT_PADDING = 10;
     //Icon image view
     [self.domainIconImageView setFrame:CGRectMake(CELL_LEFT_MARGIN, CELL_TOP_MARGIN, ICON_WIDTH, ICON_WIDTH)];
    
-    CGFloat labelWidth = [HNArticleCell getLabelWidth:self.frame.size.width];
+    CGFloat labelWidth = [HNArticleCell getLabelWidth:self.frame.size.width commentsDisabled:self.commentViewDisabled];
     //Article view (contains article title and info view)
     [self.articleView setFrame:CGRectMake([HNArticleCell getWidthForIconView], 0, labelWidth + CELL_LEFT_MARGIN, self.frame.size.height)];
     
@@ -124,22 +137,30 @@ static const CGFloat ICON_RIGHT_PADDING = 10;
     CGFloat infoLabelY = self.articleTitleLabel.frame.origin.y + articleLabelHeight + ARTICLE_INFO_PADDING;
     [self.infoLabel setFrame:CGRectMake(CELL_LEFT_MARGIN, infoLabelY, labelWidth, infoLabelHeight)];
     
-
     
     //Comment View
-     [self.commentView setFrame:CGRectMake(
-                CELL_LEFT_MARGIN + [HNArticleCell getWidthForIconView] +labelWidth,
-                0,
-                COMMENT_BUTTON_WIDTH,
-                self.frame.size.height)];
-    
-    CGSize maxNumCommentsSize = CGSizeMake(self.commentView.frame.size.width, CGFLOAT_MAX);
-    CGSize numCommentsSize = [self.numCommentsLabel sizeThatFits:maxNumCommentsSize];
-    [self.numCommentsLabel setFrame:CGRectMake(0, 0, self.commentView.frame.size.width, numCommentsSize.height)];
-    
-    CGFloat commentBubbleX = (self.commentView.frame.size.width / 2) - (COMMENT_BUBBLE_SIZE / 2);
-    CGFloat commentBubbleY = self.numCommentsLabel.frame.origin.y + self.numCommentsLabel.frame.size.height;
-    [self.commentBubbleIcon setFrame:CGRectMake(commentBubbleX, commentBubbleY, COMMENT_BUBBLE_SIZE, COMMENT_BUBBLE_SIZE)];
+    if(self.commentViewDisabled)
+    {
+        [self.commentView setHidden:TRUE];
+    }
+    else
+    {
+        [self.commentView setHidden:FALSE];
+        
+         [self.commentView setFrame:CGRectMake(
+                    CELL_LEFT_MARGIN + [HNArticleCell getWidthForIconView] +labelWidth,
+                    0,
+                    COMMENT_BUTTON_WIDTH,
+                    self.frame.size.height)];
+        
+        CGSize maxNumCommentsSize = CGSizeMake(self.commentView.frame.size.width, CGFLOAT_MAX);
+        CGSize numCommentsSize = [self.numCommentsLabel sizeThatFits:maxNumCommentsSize];
+        [self.numCommentsLabel setFrame:CGRectMake(0, 0, self.commentView.frame.size.width, numCommentsSize.height)];
+        
+        CGFloat commentBubbleX = (self.commentView.frame.size.width / 2) - (COMMENT_BUBBLE_SIZE / 2);
+        CGFloat commentBubbleY = self.numCommentsLabel.frame.origin.y + self.numCommentsLabel.frame.size.height;
+        [self.commentBubbleIcon setFrame:CGRectMake(commentBubbleX, commentBubbleY, COMMENT_BUBBLE_SIZE, COMMENT_BUBBLE_SIZE)];
+    }
     
 }
 
