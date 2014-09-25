@@ -13,5 +13,6 @@
 + (NSString *) getMoreArticlesLink:(NSData *)htmlData;
 + (NSArray *) parseArticles:(NSData *)htmlData;
 + (NSString *) getMatch:(NSString *)stringToMatch fromRegex:(NSString *)pattern;
++ (BOOL)isSelfPost:(NSString *)url;
 
 @end

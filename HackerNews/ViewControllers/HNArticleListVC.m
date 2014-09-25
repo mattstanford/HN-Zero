@@ -280,25 +280,6 @@
 
 #pragma mark HNArticleCellDelegate
 
-/*
- Determine if a url is a "self" post, i.e. the "article" is just a local URL to the comments
- page, which normally includes a some text content at the header.
- */
--(BOOL)isSelfPost:(NSString *)newUrl
-{
-    NSString *selfPost = [HNParser getMatch:newUrl fromRegex:@"(^item\\?id=\\d+$)"];
-    
-    if (selfPost)
-    {
-        return TRUE;
-    }
-    else
-    {
-        return FALSE;
-    }
-    
-}
-
 -(void) didTapArticle:(HNArticleCell *)cellTapped
 {
     
@@ -308,7 +289,7 @@
     {
         HNArticle *article = [self.articles objectAtIndex:index];
         
-        if ([self isSelfPost:article.url])
+        if ([HNParser isSelfPost:article.url])
         {
             [self didTapComment:cellTapped];
         }

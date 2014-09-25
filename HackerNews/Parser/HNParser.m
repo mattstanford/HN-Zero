@@ -95,8 +95,18 @@
                     article.user = [self getUser:subtextDataElement];
                     article.score = [self getScore:subtextDataElement];
                     article.numComments = [self getNumberOfComments:subtextDataElement];
-                    article.commentLinkId = [self getCommentPageId:subtextDataElement];
                     article.timePosted = [self getTimePosted:subtextDataElement];
+                    
+                    if([self isSelfPost:article.url])
+                    {
+                        article.commentLinkId = [self getCommentPageIdFromUrl:article.url];
+                    }
+                    else
+                    {
+                       article.commentLinkId = [self getCommentPageId:subtextDataElement];
+                    }
+                    
+
                 
                     [articles addObject:article];
                     
@@ -239,7 +249,14 @@
     NSArray *anchors = [subTextElement childrenWithTagName:@"a"];
     
     return [self getAttributeFromArray:anchors withRegex:commentPagePattern];
+}
+
++ (NSString *) getCommentPageIdFromUrl:(NSString *)url
+{
+    NSString *commentPagePattern = @"\\bitem\\?id=(.*)\\b";
+    NSString *commentPageId = [HNParser getMatch:url fromRegex:commentPagePattern];
     
+    return commentPageId;
 }
 
 + (NSString *) getNumberOfComments:(TFHppleElement *)subTextElement
@@ -357,6 +374,25 @@
     }
     
     return result;
+}
+
+/*
+ Determine if a url is a "self" post, i.e. the "article" is just a local URL to the comments
+ page, which normally includes a some text content at the header.
+ */
++(BOOL)isSelfPost:(NSString *)url
+{
+    NSString *selfPost = [HNParser getMatch:url fromRegex:@"(^item\\?id=\\d+$)"];
+    
+    if (selfPost)
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
+    
 }
 
 
