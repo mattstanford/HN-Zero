@@ -18,6 +18,7 @@
 #import "HNCommentInfoCell.h"
 #import "HNArticle.h"
 #import "HNUtils.h"
+#import "HNParser.h"
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
@@ -27,7 +28,7 @@
 @property (nonatomic, strong) HNWebBrowserVC *webBrowserVC;
 @property (nonatomic, strong) HNDownloadController *downloadController;
 @property (nonatomic, strong) HNArticle *currentArticle;
-@property (nonatomic, strong) NSString *postText;
+@property (nonatomic, strong) HNComment *postComment;
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, strong) HNTheme *theme;
 
@@ -47,7 +48,7 @@
         self.downloadController.downloadDelegate = self;
         
         self.comments = [[NSArray alloc] init];
-        self.postText = nil;
+        self.postComment = nil;
         
         self.theme = appTheme;
         
@@ -82,7 +83,15 @@
 - (void) downloadDidComplete:(id)data
 {
     NSArray *parsedComments = [HNCommentParser parseComments:data];
-    self.postText = [HNCommentParser getPostFromCommentPage:data];
+
+    if([HNParser isSelfPost:self.currentArticle.url])
+    {
+        self.postComment = [HNCommentParser getPostFromCommentPage:data];
+    }
+    else
+    {
+        self.postComment = nil;
+    }
     
     self.comments = [self buildTableWithData:parsedComments];
     [self.tableView reloadData];
@@ -131,7 +140,9 @@
 {
     if (indexPath.row == 0)
     {
-        return [HNCommentInfoCell getCellHeightForText:self.currentArticle.title postText:self.postText forWidth:self.view.frame.size.width titleFont:self.theme.commentTitleFont infoText:[self.currentArticle getInfoText] infoFont:self.theme.commentInfoFont postFont:self.theme.commentPostFont];
+        NSAttributedString *commentString = [self.postComment convertToAttributedStringWithTheme:self.theme];
+        
+        return [HNCommentInfoCell getCellHeightForText:self.currentArticle.title postText:commentString forWidth:self.view.frame.size.width titleFont:self.theme.commentTitleFont infoText:[self.currentArticle getInfoText] infoFont:self.theme.commentInfoFont postFont:self.theme.commentPostFont];
     }
     else
     {
@@ -160,7 +171,7 @@
     {
         self.currentArticle = article;
         self.title = article.title;
-        self.postText = nil;
+        self.postComment = nil;
         
         [self updateComments];
     }
@@ -239,16 +250,20 @@
     cell.infoLabel.font = self.theme.commentInfoFont;
     cell.infoLabel.textColor = [UIColor lightGrayColor];
     
-    if (self.postText)
+    cell.postLabel.delegate = self;
+    if(self.postComment)
     {
-        cell.postLabel.text = self.postText;
+        HNCommentString *commentString = [self.postComment convertToCommentString];
+        cell.postLabel.attributedText =[self.postComment convertToAttributedStringWithTheme:self.theme];
+        [self addLinksToLabel:cell.postLabel withCommentString:commentString];
     }
     else
     {
-        cell.postLabel.text = @"";
+        cell.postLabel.attributedText = nil;
     }
     
-    cell.postLabel.font = self.theme.commentPostFont;
+    
+    //cell.postLabel.font = self.theme.commentPostFont;
     cell.separatorView.backgroundColor = self.theme.titleBarColor;
     
     return cell;

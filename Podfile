@@ -1,6 +1,6 @@
 platform :ios, '6.0'
 pod 'AFNetworking', '~> 1.3.2'
 pod 'hpple', '~> 0.2.0'
-pod 'TTTAttributedLabel', '~> 1.7.1'
+pod 'TTTAttributedLabel', '~> 1.10.1'
 pod 'MMDrawerController', '~> 0.5.3'
 pod 'MGSplitViewController', :git => 'https://github.com/mds6058/MGSplitViewController', :commit => '7595cbffce14a7cfe18de0dd605701e8764fc6cb'

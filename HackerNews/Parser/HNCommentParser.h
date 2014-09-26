@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class HNComment;
+
 @interface HNCommentParser : NSObject
 
 + (NSArray *)parseComments:(NSData *)htmlData;
-+ (NSString *)getPostFromCommentPage:(NSData *)htmlData;
++ (HNComment *)getPostFromCommentPage:(NSData *)htmlData;
 
 @end

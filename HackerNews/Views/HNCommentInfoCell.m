@@ -41,10 +41,11 @@ static const int SEPARATOR_HEIGHT = 3;
         self.infoLabel.text = @"info";
         [self.contentView addSubview:self.infoLabel];
         
-        self.postLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        self.postLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         [self.postLabel setLineBreakMode:NSLineBreakByWordWrapping];
 		[self.postLabel setNumberOfLines:0];
         self.postLabel.backgroundColor = [UIColor clearColor];
+        self.postLabel.userInteractionEnabled = TRUE;
         [self.contentView addSubview:self.postLabel];
         
         self.separatorView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -54,7 +55,7 @@ static const int SEPARATOR_HEIGHT = 3;
     return self;
 }
 
-+(CGFloat) getCellHeightForText:(NSString *)titleText postText:(NSString *)postText forWidth:(CGFloat)cellWidth titleFont:(UIFont *)titleFont infoText:(NSString *)infoText infoFont:(UIFont *)infoFont postFont:(UIFont *)postFont
++(CGFloat) getCellHeightForText:(NSString *)titleText postText:(NSAttributedString *)postText forWidth:(CGFloat)cellWidth titleFont:(UIFont *)titleFont infoText:(NSString *)infoText infoFont:(UIFont *)infoFont postFont:(UIFont *)postFont
 {
     CGFloat width = [HNCommentInfoCell getLabelWidth:cellWidth];
     CGFloat titleHeight = [HNCommentInfoCell getHeightForText:titleText forWidth:width titleFont:titleFont];
@@ -62,9 +63,9 @@ static const int SEPARATOR_HEIGHT = 3;
     //If there is not "post" text, we don't want the extra label to take up space, along with the extra
     //padding
     CGFloat postHeight_plus_padding = 0;
-    if (postText) {
-        
-        postHeight_plus_padding = [HNCommentInfoCell getHeightForText:postText forWidth:width titleFont:postFont];
+    if (postText)
+    {
+        postHeight_plus_padding = [HNCommentInfoCell getHeightForAttributedString:postText forWidth:width font:postFont];
         postHeight_plus_padding += INFO_POST_PADDING;
     }
 
@@ -81,6 +82,20 @@ static const int SEPARATOR_HEIGHT = 3;
     
     //Cell height cannot be a fraction
     return ceil(height);
+}
+
++(CGFloat) getHeightForAttributedString:(NSAttributedString *)text forWidth:(CGFloat)labelWidth font:(UIFont *)font
+{
+    //Create temporary label to get accurate label height
+    TTTAttributedLabel *tempLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+    tempLabel.attributedText = text;
+    [tempLabel setNumberOfLines:0];
+    CGSize constraint = CGSizeMake(labelWidth, CGFLOAT_MAX);
+    
+    //Cell height cannot be a fraction
+    CGFloat labelHeight = ceil([tempLabel sizeThatFits:constraint].height);
+
+    return labelHeight;
 }
 
 +(CGFloat) getHeightForText:(NSString *)titleText forWidth:(CGFloat)width titleFont:(UIFont *)font
@@ -122,8 +137,9 @@ static const int SEPARATOR_HEIGHT = 3;
     CGFloat postLabelY = TOP_MARGIN + titleHeight + TITLE_INFO_PADDING + infoHeight + INFO_POST_PADDING;
     CGFloat postHeight = 0;
     
-    if (![self.postLabel.text isEqualToString:@""]) {
-        postHeight = [HNCommentInfoCell getHeightForText:self.postLabel.text forWidth:labelWidth titleFont:self.postLabel.font];
+    if (self.postLabel.attributedText != nil)
+    {
+        postHeight = [HNCommentInfoCell getHeightForAttributedString:self.postLabel.attributedText forWidth:labelWidth font:self.postLabel.font];
     }
     
     CGFloat separatorY = self.frame.size.height - SEPARATOR_HEIGHT;

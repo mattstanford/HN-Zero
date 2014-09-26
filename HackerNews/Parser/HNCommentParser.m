@@ -30,7 +30,7 @@
     return parsedComments;
 }
 
-+ (NSString *)getPostFromCommentPage:(NSData *)htmlData
++ (HNComment *)getPostFromCommentPage:(NSData *)htmlData
 {
     NSMutableString *commentPost = [[NSMutableString alloc] init];
     TFHppleElement *tdWithCommentsAndSubmitBox = [self getElementWithCommentsAndSubmitBox:htmlData];
@@ -50,42 +50,11 @@
     // 1 - Post body TD
     TFHppleElement *postBodyTD = [[postBodyElement children] objectAtIndex:1];
     
-    for (int i=0; i < postBodyTD.children.count; i++)
-    {
-        //First element is raw text, proceeding elements are "p" tags
-        NSString *content = nil;
-        if (i==0)
-        {
-            content = [[postBodyTD firstTextChild] content];
-        }
-        else
-        {
-            content = [[[[postBodyTD children] objectAtIndex:i] firstTextChild] content];
-        }
-        
-        //Don't add trailing line breaks on last element
-        if (i == postBodyTD.children.count - 1)
-        {
-            if (content.length > 0)
-            {
-                [commentPost appendFormat:@"%@",content];
-            }
-        }
-        else
-        {
-            [commentPost appendFormat:@"%@\n\n",content];
-        }
-        
-    }
-    
-    NSLog(@"post: %@", commentPost);
-    
-    if (commentPost.length == 0)
-    {
-        commentPost = nil;
-    }
-    
-    return commentPost;
+    HNComment *postComment = [[HNComment alloc] init];
+    HNCommentBlock *postTextBlock = [HNCommentParser getCommentBlockFromElement:postBodyTD];
+    postComment.commentBlock = postTextBlock;
+
+    return postComment;
 }
 
 + (NSArray *) getMainCommentPageElements:(NSData *)htmlData
