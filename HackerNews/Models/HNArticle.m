@@ -48,44 +48,10 @@
 {
     NSMutableString *infoString = [[NSMutableString alloc] init];
     
-    if (self.score)
-    {
-        [infoString appendFormat:@"%@ points", self.score];
-    }
-    
-    if (self.timePosted)
-    {
-        
-        if (infoString.length > 0)
-        {
-            [infoString appendFormat:@" • "];
-        }
-        
-        [infoString appendString:self.timePosted];
-    }
-    
-    if (self.domainName)
-    {
-        
-        if (infoString.length > 0)
-        {
-            [infoString appendFormat:@" • "];
-        }
-        
-        [infoString appendFormat:@"%@", self.domainName];
-        
-    }
-    
-    if (self.user)
-    {
-        
-        if (infoString.length > 0)
-        {
-            [infoString appendFormat:@" • "];
-        }
-        
-        [infoString appendFormat:@"%@", self.user];
-    }
+    [self addInfo:self.score toInfoString:infoString];
+    [self addInfo:self.timePosted toInfoString:infoString];
+    [self addInfo:self.domainName toInfoString:infoString];
+    [self addInfo:self.user toInfoString:infoString];
     
     return infoString;
 }
@@ -94,36 +60,25 @@
 {
     NSMutableString *infoString = [[NSMutableString alloc] init];
     
-    if (self.numComments)
-    {
-        [infoString appendFormat:@"%@ comments", self.numComments];
-    }
-    
-    if (self.user)
-    {
-        
-        if (infoString.length > 0)
-        {
-            [infoString appendFormat:@" • "];
-        }
-        
-        [infoString appendString:self.user];
-    }
-    
-    if (self.domainName)
-    {
-        
-        if (infoString.length > 0)
-        {
-            [infoString appendFormat:@" • "];
-        }
-        
-        [infoString appendFormat:@"%@", self.domainName];
-        
-    }
-    
-    
+    [self addInfo:self.numComments toInfoString:infoString];
+    [self addInfo:self.user toInfoString:infoString];
+    [self addInfo:self.domainName toInfoString:infoString];
+    [self addInfo:self.timePosted toInfoString:infoString];
+
     return infoString;
+}
+
+- (void) addInfo:(NSString *)info toInfoString:(NSMutableString *)mainInfoString
+{
+    if(info)
+    {
+        if (mainInfoString.length > 0)
+        {
+            [mainInfoString appendFormat:@"  • "];
+        }
+        
+        [mainInfoString appendFormat:@"%@", info];
+    }
 }
 
 
