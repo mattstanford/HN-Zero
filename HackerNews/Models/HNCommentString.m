@@ -70,8 +70,9 @@
 
 -(NSAttributedString *) getAttributedStringWithTheme:(HNTheme *)theme
 {
+    NSString *trimmedString = [self.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSDictionary *defaultFont = [NSDictionary dictionaryWithObjectsAndKeys:theme.commentNormalFont, NSFontAttributeName, nil];
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:self.text attributes:defaultFont];
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:trimmedString attributes:defaultFont];
     
     for (HNAttributedStyle *style in self.styles)
     {

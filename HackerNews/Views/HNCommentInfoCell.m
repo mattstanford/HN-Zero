@@ -63,7 +63,7 @@ static const int SEPARATOR_HEIGHT = 3;
     //If there is not "post" text, we don't want the extra label to take up space, along with the extra
     //padding
     CGFloat postHeight_plus_padding = 0;
-    if (postText)
+    if (postText && postText.length > 0)
     {
         postHeight_plus_padding = [HNCommentInfoCell getHeightForAttributedString:postText forWidth:width font:postFont];
         postHeight_plus_padding += INFO_POST_PADDING;
@@ -137,7 +137,7 @@ static const int SEPARATOR_HEIGHT = 3;
     CGFloat postLabelY = TOP_MARGIN + titleHeight + TITLE_INFO_PADDING + infoHeight + INFO_POST_PADDING;
     CGFloat postHeight = 0;
     
-    if (self.postLabel.attributedText != nil)
+    if (self.postLabel.attributedText != nil && self.postLabel.attributedText.length > 0)
     {
         postHeight = [HNCommentInfoCell getHeightForAttributedString:self.postLabel.attributedText forWidth:labelWidth font:self.postLabel.font];
     }
