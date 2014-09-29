@@ -47,8 +47,8 @@
 - (NSString *) getInfoText
 {
     NSMutableString *infoString = [[NSMutableString alloc] init];
-    
-    [self addInfo:self.score toInfoString:infoString];
+   
+    [self addInfo:self.score withFormat:@"%@ points" toInfoString:infoString];
     [self addInfo:self.timePosted toInfoString:infoString];
     [self addInfo:self.domainName toInfoString:infoString];
     [self addInfo:self.user toInfoString:infoString];
@@ -60,7 +60,7 @@
 {
     NSMutableString *infoString = [[NSMutableString alloc] init];
     
-    [self addInfo:self.numComments toInfoString:infoString];
+    [self addInfo:self.numComments withFormat:@"%@ comments" toInfoString:infoString];
     [self addInfo:self.user toInfoString:infoString];
     [self addInfo:self.domainName toInfoString:infoString];
     [self addInfo:self.timePosted toInfoString:infoString];
@@ -68,7 +68,7 @@
     return infoString;
 }
 
-- (void) addInfo:(NSString *)info toInfoString:(NSMutableString *)mainInfoString
+- (void) addInfo:(NSString *)info withFormat:(NSString *)stringFormat toInfoString:(NSMutableString *)mainInfoString
 {
     if(info)
     {
@@ -77,8 +77,23 @@
             [mainInfoString appendFormat:@"  • "];
         }
         
-        [mainInfoString appendFormat:@"%@", info];
+        NSString *finalInfoString;
+        if (stringFormat)
+        {
+            finalInfoString = [NSString stringWithFormat:stringFormat, info];
+        }
+        else
+        {
+            finalInfoString = info;
+        }
+        
+        [mainInfoString appendFormat:@"%@", finalInfoString];
     }
+}
+
+-(void) addInfo:(NSString *)info toInfoString:(NSMutableString *)mainInfoString
+{
+    [self addInfo:info withFormat:nil toInfoString:mainInfoString];
 }
 
 
