@@ -28,7 +28,7 @@ NS_ENUM(NSInteger, HNMainMenuSections)
 
 NS_ENUM(NSInteger, HNInfoCellTitles)
 {
-    HNInfoCellSettings,
+    //HNInfoCellSettings,
     HNInfoCellTitleTwitter,
     HNInfoCellTitleGitHub,
     HNInfoCellNumRows
@@ -162,9 +162,9 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
             //cell.imageView.image = [UIImage imageNamed:@"twitter-icon"];
             break;
             
-        case HNInfoCellSettings:
-            cell.textLabel.text = @"Settings";
-            break;
+//        case HNInfoCellSettings:
+//            cell.textLabel.text = @"Settings";
+//            break;
             
         default:
             break;
@@ -196,10 +196,10 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kTwitterLink]];
                 break;
             
-            case HNInfoCellSettings:
-                NSLog(@"Tapped settings");
-                [self presentViewController:self.settingsNavController animated:YES completion:nil];
-                break;
+//            case HNInfoCellSettings:
+//                NSLog(@"Tapped settings");
+//                [self presentViewController:self.settingsNavController animated:YES completion:nil];
+//                break;
             default:
                 break;
         }
