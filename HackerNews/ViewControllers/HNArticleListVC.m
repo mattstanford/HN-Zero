@@ -23,11 +23,12 @@
 
 @interface HNArticleListVC ()
 
-@property (strong, nonatomic) NSArray *articles;
+@property (strong, nonatomic) NSMutableArray *articles;
 @property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;
 @property (strong, nonatomic) HNWebBrowserVC *webBrowserVC;
 @property (strong, nonatomic) HNCommentVC *commentVC;
-@property (strong, nonatomic) HNDownloadController *downloadController;
+@property (strong, nonatomic) HNDownloadController *articleListDownloadController;
+@property (strong, nonatomic) HNDownloadController *articleItemDownloadController;
 @property (strong, nonatomic) HNTheme *theme;
 @property (strong, nonatomic) NSURL *url;
 @property (strong, nonatomic) NSURL *moreArticlesUrl;
@@ -71,27 +72,28 @@
         self.articleContainerVC = articleContainer;
         
         self.iconDownloadController = [[HNIconDownloadController alloc] init];
-        self.downloadController = [[HNDownloadController alloc] init];
+        self.articleListDownloadController = [[HNDownloadController alloc] init];
+        self.articleItemDownloadController = [[HNDownloadController alloc] init];
         self.isDownloadAppending = NO;
         self.shouldScrollToTopAfterDownload = NO;
         
-        self.linkGetter = [[HNLinkGetter alloc] init];
-        self.linkGetter.linkGetterDelegate = self;
+//        self.linkGetter = [[HNLinkGetter alloc] init];
+//        self.linkGetter.linkGetterDelegate = self;
         self.currentPage = 0;
         
         //This is an example of the site when there is a "black bar" on the header (i.e. a famous tech person died
         //downloadController = [[HNDownloadController alloc] initWithUrl:@"http://www.waybackletter.com/archive/20111005.html"];
         
-        self.downloadController.downloadDelegate = self;
+        self.articleListDownloadController.downloadDelegate = self;
         self.theme = theTheme;
         
         //Get article cache
-        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"articles"])
-        {
-            NSData *articlesArchive = [[NSUserDefaults standardUserDefaults] objectForKey:@"articles"];
-            self.articles = [NSKeyedUnarchiver unarchiveObjectWithData:articlesArchive];
-            [self.tableView reloadData];
-        }
+//        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"articles"])
+//        {
+//            NSData *articlesArchive = [[NSUserDefaults standardUserDefaults] objectForKey:@"articles"];
+//            self.articles = [NSKeyedUnarchiver unarchiveObjectWithData:articlesArchive];
+//            [self.tableView reloadData];
+//        }
         
         
         
@@ -176,6 +178,7 @@
 
 - (void) downloadFreshArticles
 {
+    _articles = [[NSMutableArray alloc] init];
     [self downloadFrontPageArticles:NO];
 }
 
@@ -199,7 +202,7 @@
         downloadUrl = self.url;
     }
    
-    [self.downloadController beginDownload:downloadUrl];
+    [self.articleListDownloadController beginArticleDownload:downloadUrl];
     
 }
 
@@ -212,8 +215,27 @@
 }
 
 #pragma mark HNDownloadControllerDelegate
+-(void) didGetArticle:(HNArticle *)article
+{
+    NSLog(@"Got article!");
+    [_articles addObject:article];
+    [self.tableView reloadData];
+}
 
--(void) downloadDidComplete:(id)data
+-(void) didGetArticle:(HNArticle *)article withComments:(NSArray *)comments
+{
+    NSLog(@"Got article and comment!");
+}
+
+//-(void) downloadDidComplete:(id)data downloadController:(HNDownloadController *)downloadController
+//{
+//    if (downloadController == self.articleListDownloadController)
+//    {
+//        [self articleListDownloadComplete:data];
+//    }
+//}
+
+-(void) allArticlesDownloaded:(id)data
 {
     NSArray *parsedArticles = [HNParser parseArticles:data];
     
@@ -258,25 +280,25 @@
 
 }
 
-#pragma mark LinkGetter Delegate
-
--(void) didGetLink:(NSURL *)linkUrl
-{
-    NSLog(@"Got new link: %@", linkUrl);
-    [self.downloadController beginDownload:linkUrl];
-}
-
--(void) didFailToGetLink
-{
-    NSLog(@"Link getter failed to get more articles URL!");
-}
-
-
--(void) downloadFailed
-{
-    NSLog(@"Download failed!");
-    self.shouldScrollToTopAfterDownload = NO;
-}
+//#pragma mark LinkGetter Delegate
+//
+//-(void) didGetLink:(NSURL *)linkUrl
+//{
+//    NSLog(@"Got new link: %@", linkUrl);
+//    [self.articleListDownloadController beginDownload:linkUrl];
+//}
+//
+//-(void) didFailToGetLink
+//{
+//    NSLog(@"Link getter failed to get more articles URL!");
+//}
+//
+//
+//-(void) downloadFailed
+//{
+//    NSLog(@"Download failed!");
+//    self.shouldScrollToTopAfterDownload = NO;
+//}
 
 #pragma mark HNArticleCellDelegate
 
@@ -420,18 +442,18 @@
     NSLog(@"selcted!!");
 }
 
--(void) scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    NSInteger currentOffset = scrollView.contentOffset.y;
-    NSInteger maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
-    
-    if (maximumOffset - currentOffset < 200 && !self.downloadController.isDownloading && ![self.linkGetter isGettingNewLink])
-    {
-        NSLog(@"load MOAR!");
-        
-        [self downloadFrontPageArticles:YES];
-    }
-}
+//-(void) scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    NSInteger currentOffset = scrollView.contentOffset.y;
+//    NSInteger maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+//    
+//    if (maximumOffset - currentOffset < 200 && !self.articleListDownloadController.isDownloading && ![self.linkGetter isGettingNewLink])
+//    {
+//        NSLog(@"load MOAR!");
+//        
+//        [self downloadFrontPageArticles:YES];
+//    }
+//}
 
 #pragma mark Helper functions
 

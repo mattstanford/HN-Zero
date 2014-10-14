@@ -144,13 +144,16 @@
 
 - (NSArray *) initializeMenuLinks
 {
+    NSString *urlBase = @"https://hacker-news.firebaseio.com/v0";
     NSArray *menuLinks = nil;
     
     HNMenuLink *frontPage = [[HNMenuLink alloc] init];
     frontPage.title = @"Front Page";
-    frontPage.url = [NSURL URLWithString:@"https://news.ycombinator.com"];
+    //frontPage.url = [NSURL URLWithString:@"https://news.ycombinator.com"];
+    NSString *frontPageUrlString = [NSString stringWithFormat:@"%@/topstories", urlBase];
+    frontPage.url = [NSURL URLWithString:frontPageUrlString];
     
-    HNMenuLink *askHN = [[HNMenuLink alloc] init];
+  /*  HNMenuLink *askHN = [[HNMenuLink alloc] init];
     askHN.title = @"Ask HN";
     askHN.url = [NSURL URLWithString:@"https://news.ycombinator.com/ask"];
     
@@ -164,9 +167,10 @@
     
     HNMenuLink *newHN = [[HNMenuLink alloc] init];
     newHN.title = @"New";
-    newHN.url = [NSURL URLWithString:@"https://news.ycombinator.com/newest"];
+    newHN.url = [NSURL URLWithString:@"https://news.ycombinator.com/newest"];*/
     
-    menuLinks = [[NSArray alloc] initWithObjects:frontPage, askHN, showHN, jobsHN, newHN, nil];
+    //menuLinks = [[NSArray alloc] initWithObjects:frontPage, askHN, showHN, jobsHN, newHN, nil];
+    menuLinks = [[NSArray alloc] initWithObjects:frontPage, nil];
 
     
     return menuLinks;

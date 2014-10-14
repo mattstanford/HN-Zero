@@ -17,7 +17,7 @@
 -(void) didFailToGetLink;
 @end
 
-@interface HNLinkGetter : NSObject <downloadControllerDelegate>
+@interface HNLinkGetter : NSObject
 {
     NSString *baseUrlString;
     int currentPage;

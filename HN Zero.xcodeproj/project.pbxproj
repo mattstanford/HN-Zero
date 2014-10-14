@@ -383,10 +383,10 @@
 			children = (
 				78E570CD17D817FB00D53F99 /* HNDownloadController.h */,
 				78E570CE17D817FB00D53F99 /* HNDownloadController.m */,
-				A70B451D186202CF007348B7 /* HNLinkGetter.h */,
-				A70B451E186202CF007348B7 /* HNLinkGetter.m */,
 				C94C70D8196CDC3B005139BC /* HNIconDownloadController.h */,
 				C94C70D9196CDC3B005139BC /* HNIconDownloadController.m */,
+				A70B451D186202CF007348B7 /* HNLinkGetter.h */,
+				A70B451E186202CF007348B7 /* HNLinkGetter.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -737,7 +737,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "HN Zero";
 				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EEF2849C-20E8-47E4-AFAB-9867FB7861F2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

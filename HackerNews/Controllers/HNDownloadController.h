@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@class HNArticle;
+
 @protocol downloadControllerDelegate
 @required
--(void) downloadDidComplete:(id)data;
--(void) downloadFailed;
+-(void) didGetArticle:(HNArticle *)article;
+-(void) didGetArticle:(HNArticle *)article withComments:(NSArray *)comments;
 @end
 
 @interface HNDownloadController : NSObject
@@ -22,6 +24,7 @@
 @property (nonatomic, assign)  id<downloadControllerDelegate> downloadDelegate;
 @property (nonatomic, assign) BOOL isDownloading;
 
-- (void) beginDownload:(NSURL *)url;
+- (void) beginArticleDownload:(NSURL *)url;
+- (void) startCommentDownloadForArticleId:(NSInteger)articleId;
 
 @end

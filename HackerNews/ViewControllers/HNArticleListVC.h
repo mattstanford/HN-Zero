@@ -18,7 +18,7 @@
 @class HNTheme;
 @class MMDrawerController;
 
-@interface HNArticleListVC : UITableViewController  <downloadControllerDelegate, HNArticleCellDelegate, HNLinkGetterDelegate, MGSplitViewControllerDelegate>
+@interface HNArticleListVC : UITableViewController  <downloadControllerDelegate, HNArticleCellDelegate, MGSplitViewControllerDelegate>
 
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme withDrawerController:(MMDrawerController *)drawerController;
 - (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme;

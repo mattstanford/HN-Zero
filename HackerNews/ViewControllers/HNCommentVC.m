@@ -186,7 +186,7 @@
     
     //Download new comments
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", self.currentArticle.commentLinkId]];
-    [self.downloadController beginDownload:url];
+    //[self.downloadController beginDownload:url];
     
     //Update refresh control
     if ([self.refreshControl isRefreshing]) [self.refreshControl endRefreshing];

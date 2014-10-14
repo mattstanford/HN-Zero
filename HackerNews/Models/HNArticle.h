@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSString *numComments;
 @property (nonatomic, strong) NSString *commentLinkId;
 
+-(id) initWithFirebaseData:(NSDictionary *)data;
 -(NSString *) getInfoText;
 -(NSString *) getCommentInfoText;
 

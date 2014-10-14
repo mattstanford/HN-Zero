@@ -12,6 +12,28 @@
 
 #pragma mark NSCoding delegate
 
+-(id) initWithFirebaseData:(NSDictionary *)data
+{
+    self = [super init];
+    
+    if (self)
+    {
+        self.title = [data objectForKey:@"title"];
+        self.url = [data objectForKey:@"url"];
+        
+        //No data yet for domain name!
+        self.domainName = @"";
+        
+        self.score = [data objectForKey:@"score"];
+        self.user = [data objectForKey:@"by"];
+        self.timePosted = @"Today"; //[data objectForKey:@"time"];
+        self.numComments = 0; //Have to get this asynchronously!!!
+        self.commentLinkId = [[NSString alloc] initWithFormat:@"%@", [data objectForKey:@"id"]];
+    }
+    
+    return self;
+}
+
 - (id) initWithCoder:(NSCoder *)aDecoder
 {
     self = [super init];

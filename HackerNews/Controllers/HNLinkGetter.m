@@ -30,14 +30,14 @@
     return self;
 }
 
--(void) getCurrentMoreArticlesUrlForPage:(int)page
-{
-    currentPage = 0;
-    self.goalPage = page;
-    
-    [downloadController beginDownload:[NSURL URLWithString:baseUrlString]];
-    
-}
+//-(void) getCurrentMoreArticlesUrlForPage:(int)page
+//{
+//    currentPage = 0;
+//    self.goalPage = page;
+//    
+//    [downloadController beginDownload:[NSURL URLWithString:baseUrlString]];
+//    
+//}
 
 -(BOOL) isGettingNewLink
 {
@@ -63,7 +63,7 @@
         {
             //Get link on next page
             currentPage++;
-            [downloadController beginDownload:url];
+            //[downloadController beginDownload:url];
         }
     }
     else
