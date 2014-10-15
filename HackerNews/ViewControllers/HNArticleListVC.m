@@ -217,14 +217,28 @@
 #pragma mark HNDownloadControllerDelegate
 -(void) didGetArticle:(HNArticle *)article
 {
-    NSLog(@"Got article!");
+    //NSLog(@"Got article!");
     [_articles addObject:article];
     [self.tableView reloadData];
 }
 
--(void) didGetArticle:(HNArticle *)article withComments:(NSArray *)comments
+-(void) didGetArticleWithComments:(HNArticle *)article
 {
-    NSLog(@"Got article and comment!");
+    NSLog(@"Got article id %li: %@",[article.objectId intValue], article.title);
+    NSLog(@"Num comments: %@", article.numComments);
+    
+    //Find the index of the article
+    NSInteger articleIndex = 0;
+    for (NSInteger j=0; j < article.comments.count; j++)
+    {
+        HNArticle *articleCandidate = [_articles objectAtIndex:j];
+        if ([article.objectId isEqualToNumber:articleCandidate.objectId])
+        {
+            [_articles replaceObjectAtIndex:j withObject:article];
+            [self.tableView reloadData];
+            break;
+        }
+    }
 }
 
 //-(void) downloadDidComplete:(id)data downloadController:(HNDownloadController *)downloadController

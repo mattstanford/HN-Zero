@@ -13,7 +13,7 @@
 @protocol downloadControllerDelegate
 @required
 -(void) didGetArticle:(HNArticle *)article;
--(void) didGetArticle:(HNArticle *)article withComments:(NSArray *)comments;
+-(void) didGetArticleWithComments:(HNArticle *)article;
 @end
 
 @interface HNDownloadController : NSObject

@@ -18,6 +18,7 @@
     
     if (self)
     {
+        self.objectId = [data objectForKey:@"id"];
         self.title = [data objectForKey:@"title"];
         self.url = [data objectForKey:@"url"];
         
@@ -29,6 +30,8 @@
         self.timePosted = @"Today"; //[data objectForKey:@"time"];
         self.numComments = 0; //Have to get this asynchronously!!!
         self.commentLinkId = [[NSString alloc] initWithFormat:@"%@", [data objectForKey:@"id"]];
+        self.comments = [[NSMutableArray alloc] init];
+        self.commentsToDownload = 0;
     }
     
     return self;
@@ -62,6 +65,14 @@
     [aCoder encodeObject:self.timePosted forKey:@"timePosted"];
     [aCoder encodeObject:self.numComments forKey:@"numComments"];
     [aCoder encodeObject:self.commentLinkId forKey:@"commentLinkId"];
+}
+
+- (void)writeNumComments
+{
+    NSInteger numComments = _comments.count;
+    NSString *numCommentString = [[NSString alloc] initWithFormat:@"%li", numComments];
+    
+    _numComments = numCommentString;
 }
 
 #pragma mark Helper functions

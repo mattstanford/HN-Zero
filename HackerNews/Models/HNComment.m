@@ -15,6 +15,17 @@
 
 @implementation HNComment
 
+-(void)setFirebaseData:(NSDictionary *)data nestedLevel:(NSNumber *)nestedLevel
+{
+    _objectId = [data objectForKey:@"id"];
+    _author = [data objectForKey:@"by"];
+    
+    NSNumber *dateWrittenValue = (NSNumber *)[data objectForKey:@"time"];
+    _dateWritten = [[NSString alloc] initWithFormat:@"%li", [dateWrittenValue integerValue]];
+    
+    _nestedLevel = nestedLevel;
+}
+
 - (NSString *) getOverflowIndentStringForCellWidth:(CGFloat)cellWidth
 {
     NSMutableString *overflowString = [[NSMutableString alloc] initWithCapacity:0];

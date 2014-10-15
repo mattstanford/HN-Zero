@@ -10,6 +10,7 @@
 
 @interface HNArticle : NSObject <NSCoding>
 
+@property (nonatomic, strong) NSNumber *objectId;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *domainName;
@@ -18,8 +19,11 @@
 @property (nonatomic, strong) NSString *timePosted;
 @property (nonatomic, strong) NSString *numComments;
 @property (nonatomic, strong) NSString *commentLinkId;
+@property (nonatomic, strong) NSMutableArray *comments;
+@property (nonatomic, assign) NSInteger commentsToDownload;
 
 -(id) initWithFirebaseData:(NSDictionary *)data;
+-(void)writeNumComments;
 -(NSString *) getInfoText;
 -(NSString *) getCommentInfoText;
 
