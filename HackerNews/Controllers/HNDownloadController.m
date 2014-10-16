@@ -16,10 +16,14 @@
 static const NSString *HNApiBaseUrl = @"https://hacker-news.firebaseio.com/v0";
 static const NSString *HNApiItem = @"item";
 
+static const NSInteger HNMaxCommentDownloads = 1000;
+
 @interface HNDownloadController ()
 
 @property (nonatomic, strong) NSMutableArray *articlesToDownloadQueue;
 @property (nonatomic, strong) NSMutableArray *commentsToDownloadQueue;
+@property (nonatomic, assign) NSInteger numCommentsDownloading;
+@property (nonatomic, strong) NSMutableDictionary *commentsToDownload;
 
 @end
 
@@ -33,6 +37,7 @@ static const NSString *HNApiItem = @"item";
     if (self)
     {
         _articlesToDownloadQueue = [[NSMutableArray alloc] init];
+        _commentsToDownload = [[NSMutableDictionary alloc] init];
     }
     
     return self;
@@ -85,6 +90,7 @@ static const NSString *HNApiItem = @"item";
         
         //Start downloading comments
         NSArray *childComments = [data objectForKey:@"kids"];
+        [_commentsToDownload setObject:[NSNumber numberWithInt:0] forKey:objectId];
         [self downloadCommentsForArticle:article withChildren:childComments parentComment:nil nestedLevel:0];
         
         if (_articlesToDownloadQueue.count > 0)
@@ -111,7 +117,8 @@ static const NSString *HNApiItem = @"item";
     }
     
     //Increment the comment counter in the article to keep track of when to fire off the delegate method
-    article.commentsToDownload += childComments.count;
+    NSLog(@"Current total: %li", [[_commentsToDownload objectForKey:article.objectId] integerValue]);
+    [self incrementCommentsToDownloadForArticle:article.objectId byAmount:childComments.count];
     
     //Insert the placeholder array into its proper place
     if (parentComment == nil)
@@ -156,15 +163,15 @@ static const NSString *HNApiItem = @"item";
         
         [self downloadCommentWithId:commentId successBlock:^(NSDictionary *commentData) {
             
-            article.commentsToDownload -= 1;
-            NSLog(@"Comments remaining: %li", article.commentsToDownload);
+            [self incrementCommentsToDownloadForArticle:article.objectId byAmount:-1];
+            NSLog(@"Removed 1, total: %li", [[_commentsToDownload objectForKey:article.objectId] integerValue]);
             
             //Set the data for the download comment
             [targetComment setFirebaseData:commentData nestedLevel:nestedLevel];
             targetComment.nestedLevel = nestedLevel;
             
             //Check and see if we're done
-            if (article.commentsToDownload <= 0)
+            if ([[_commentsToDownload objectForKey:article.objectId] integerValue] <= 0)
             {
                 [article writeNumComments];
                 [downloadDelegate didGetArticleWithComments:article];
@@ -190,21 +197,51 @@ static const NSString *HNApiItem = @"item";
     }
 }
 
+
 -(void) downloadCommentWithId:(NSNumber *)objectId successBlock:(void (^)(NSDictionary * commentData))success
 {
+    //First save off a copy of the comment ID and its success block for later
+    NSMutableDictionary *commentDownloadData = [[NSMutableDictionary alloc] init];
+    [commentDownloadData setObject:success forKey:@"successBlock"];
+    [commentDownloadData setObject:objectId forKey:@"objectId"];
 
-    Firebase *firebase = [self getFirebaseDownloaderForObject:objectId];
     
-    [firebase observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot)
-     {
-         NSDictionary *data = snapshot.value;
+    if (_numCommentsDownloading < HNMaxCommentDownloads)
+    {
+        Firebase *firebase = [self getFirebaseDownloaderForObject:objectId];
         
-         success(data);
-         
-         
-     } withCancelBlock:^(NSError *error) {
-         //Nothing yet
-     }];
+        _numCommentsDownloading++;
+        [firebase observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot)
+         {
+             NSDictionary *data = snapshot.value;
+             success(data);
+             _numCommentsDownloading--;
+             
+             //Download the next element in the queue if one exists
+             if (_commentsToDownloadQueue.count > 0)
+             {
+                 //Pop the first element
+                 NSDictionary *nextDownloadObject = [_commentsToDownloadQueue firstObject];
+                 [_commentsToDownloadQueue removeObjectAtIndex:0];
+                 
+                 if (nextDownloadObject != nil)
+                 {
+                     void (^nextSuccessBlock)(NSDictionary *) = [nextDownloadObject objectForKey:@"successBlock"];
+                     NSNumber *nextObjectId = [nextDownloadObject objectForKey:@"objectId"];
+                     [self downloadCommentWithId:nextObjectId successBlock:nextSuccessBlock];
+                 }
+             }
+             
+             
+         } withCancelBlock:^(NSError *error) {
+             //Nothing yet
+         }];
+    }
+    else
+    {
+        //Too many elements downloading right now, add it to the queue
+        [_commentsToDownloadQueue addObject:commentDownloadData];
+    }
 
 }
 
@@ -218,6 +255,17 @@ static const NSString *HNApiItem = @"item";
     Firebase *firebase = [[Firebase alloc] initWithUrl:objectDownloadString];
     
     return firebase;
+}
+
+-(void)incrementCommentsToDownloadForArticle:(NSNumber *)objectId byAmount:(NSInteger)incrementCount
+{
+    NSInteger currentCount = [[self.commentsToDownload objectForKey:objectId] integerValue];
+    NSNumber *newCount = [[NSNumber alloc] initWithInteger:currentCount + incrementCount];
+    
+    [_commentsToDownload setObject:newCount forKey:objectId];
+
+    //NSLog(@"Added %li, total: %li", incrementCount, [[_commentsToDownload objectForKey:objectId] integerValue]);
+    
 }
 
 @end

@@ -127,7 +127,7 @@
 -(void) setupMainMenuWithLinks:(NSArray *)menuLinks withArticleListVC:(HNArticleListVC *)articleList withTheme:(HNTheme *)theme
 {
     self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withTheme:theme withArticleVC:articleList withMenuLinks:menuLinks];
-    [self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
+    //[self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
 }
 
 -(MMDrawerController *) setupDrawerControllerWithCenterVC:(UIViewController *)centerVC leftVC:(UIViewController *)leftVC
