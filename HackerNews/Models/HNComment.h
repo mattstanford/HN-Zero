@@ -19,7 +19,6 @@
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) NSString *dateWritten;
 @property (nonatomic, strong) NSNumber *nestedLevel;
-@property (nonatomic, strong) NSString *commentText;
 
 - (void)setFirebaseData:(NSDictionary *)data nestedLevel:(NSNumber *)nestedLevel;
 - (NSAttributedString *) getCommentHeaderWithTheme:(HNTheme *)theme forCellWidth:(CGFloat)cellWidth;

@@ -9,10 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @class HNComment;
+@class HNCommentBlock;
+@class TFHppleElement;
 
 @interface HNCommentParser : NSObject
 
 + (NSArray *)parseComments:(NSData *)htmlData;
 + (HNComment *)getPostFromCommentPage:(NSData *)htmlData;
+
++ (HNCommentBlock *) getCommentBlockFromElement:(TFHppleElement *)commentElement;
 
 @end

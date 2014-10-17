@@ -142,7 +142,13 @@
     {
         NSAttributedString *commentString = [self.postComment convertToAttributedStringWithTheme:self.theme];
         
-        return [HNCommentInfoCell getCellHeightForText:self.currentArticle.title postText:commentString forWidth:self.view.frame.size.width titleFont:self.theme.commentTitleFont infoText:[self.currentArticle getInfoText] infoFont:self.theme.commentInfoFont postFont:self.theme.commentPostFont];
+        return [HNCommentInfoCell getCellHeightForText:self.currentArticle.title
+                                              postText:commentString
+                                              forWidth:self.view.frame.size.width
+                                             titleFont:self.theme.commentTitleFont
+                                              infoText:[self.currentArticle getInfoText]
+                                              infoFont:self.theme.commentInfoFont
+                                              postFont:self.theme.commentPostFont];
     }
     else
     {
@@ -150,7 +156,9 @@
         
         NSAttributedString *commentBlock = [comment convertToAttributedStringWithTheme:self.theme];
         
-        return [HNCommentCell getCellHeightForText:commentBlock width:self.view.frame.size.width nestLevel:comment.nestedLevel];
+        return [HNCommentCell getCellHeightForText:commentBlock
+                                             width:self.view.frame.size.width
+                                         nestLevel:comment.nestedLevel];
     }
 }
 
@@ -185,11 +193,15 @@
     [self.tableView reloadData];
     
     //Download new comments
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", self.currentArticle.commentLinkId]];
+    //NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", self.currentArticle.commentLinkId]];
     //[self.downloadController beginDownload:url];
     
+    
     //Update refresh control
-    if ([self.refreshControl isRefreshing]) [self.refreshControl endRefreshing];
+    //if ([self.refreshControl isRefreshing]) [self.refreshControl endRefreshing];
+    
+    self.comments = [self buildTableWithData:self.currentArticle.comments];
+    [self.tableView reloadData];
     
 }
 
@@ -230,6 +242,7 @@
     
     cell.nameLabel.attributedText = [comment getCommentHeaderWithTheme:self.theme forCellWidth:self.view.frame.size.width];
     cell.contentLabel.text = [comment convertToAttributedStringWithTheme:self.theme];
+    
     cell.nestedLevel = comment.nestedLevel;
     
     [self addLinksToLabel:cell.contentLabel withCommentString:commentString];

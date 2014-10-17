@@ -12,6 +12,8 @@
 #import "HNTheme.h"
 #import "HNAttributedStyle.h"
 #import "HNCommentString.h"
+#import "HNCommentParser.h"
+#import "TFHpple.h"
 
 @implementation HNComment
 
@@ -24,6 +26,29 @@
     _dateWritten = [[NSString alloc] initWithFormat:@"%li", [dateWrittenValue integerValue]];
     
     _nestedLevel = nestedLevel;
+
+    _commentBlock = [self getCommentBlockFromStringData:[data objectForKey:@"text"]];
+}
+
+-(HNCommentBlock *)getCommentBlockFromStringData:(NSString *)stringData
+{
+    NSData *commentData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
+    TFHpple *commentParser = [TFHpple hppleWithHTMLData:commentData];
+    HNCommentBlock *commentBlock = nil;
+    
+    NSArray *commentElements = [commentParser searchWithXPathQuery:@"//*"];
+    
+    for (TFHppleElement *element in commentElements)
+    {
+        if ([[element tagName] isEqualToString:@"body"])
+        {
+            commentBlock = [HNCommentParser getCommentBlockFromElement:element];
+        }
+    }
+    
+    NSLog(@"done parsing!");
+    
+    return commentBlock;
 }
 
 - (NSString *) getOverflowIndentStringForCellWidth:(CGFloat)cellWidth

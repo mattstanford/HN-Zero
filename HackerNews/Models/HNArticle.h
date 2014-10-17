@@ -20,7 +20,6 @@
 @property (nonatomic, strong) NSString *numComments;
 @property (nonatomic, strong) NSString *commentLinkId;
 @property (nonatomic, strong) NSMutableArray *comments;
-@property (nonatomic, assign) NSInteger commentsToDownload;
 
 -(id) initWithFirebaseData:(NSDictionary *)data;
 -(void)writeNumComments;

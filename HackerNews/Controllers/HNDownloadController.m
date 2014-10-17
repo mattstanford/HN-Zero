@@ -182,7 +182,6 @@ static const NSInteger HNMaxCommentDownloads = 1000;
                 NSArray *commentChildren = [commentData objectForKey:@"kids"];
                 if(commentChildren && commentChildren.count > 0)
                 {
-                    article.commentsToDownload += commentChildren.count;
                     NSNumber *incrementedNestedLevel = [[NSNumber alloc] initWithInteger:[nestedLevel integerValue] + 1];
                     [self downloadCommentsForArticle:article
                                         withChildren:commentChildren

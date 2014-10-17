@@ -31,7 +31,6 @@
         self.numComments = 0; //Have to get this asynchronously!!!
         self.commentLinkId = [[NSString alloc] initWithFormat:@"%@", [data objectForKey:@"id"]];
         self.comments = [[NSMutableArray alloc] init];
-        self.commentsToDownload = 0;
     }
     
     return self;
