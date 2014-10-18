@@ -68,11 +68,28 @@
     [self.text appendString:commentString.text];
 }
 
+-(void) trimWhiteSpaceFromTop
+{
+    NSInteger oldLength = self.text.length;
+    
+    NSRange range = [self.text rangeOfString:@"^\\s*" options:NSRegularExpressionSearch];
+    self.text = (NSMutableString *)[self.text stringByReplacingCharactersInRange:range withString:@""];
+   
+    NSInteger charDifference = oldLength - self.text.length;
+    
+    for (HNAttributedStyle *style in self.styles)
+    {
+        NSRange newRange = NSMakeRange(style.range.location - charDifference, style.range.length);
+        style.range = newRange;
+    }
+}
+
 -(NSAttributedString *) getAttributedStringWithTheme:(HNTheme *)theme
 {
-    NSString *trimmedString = [self.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    //NSString *trimmedString = [self.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    [self trimWhiteSpaceFromTop];
     NSDictionary *defaultFont = [NSDictionary dictionaryWithObjectsAndKeys:theme.commentNormalFont, NSFontAttributeName, nil];
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:trimmedString attributes:defaultFont];
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:self.text attributes:defaultFont];
     
     for (HNAttributedStyle *style in self.styles)
     {

@@ -46,8 +46,6 @@
         }
     }
     
-    NSLog(@"done parsing!");
-    
     return commentBlock;
 }
 
@@ -111,7 +109,10 @@
 
 - (HNCommentString *) convertToCommentString
 {
-    return [self convertToCommentString:self.commentBlock];
+    HNCommentString *commentString = [self convertToCommentString:self.commentBlock];
+    [commentString trimWhiteSpaceFromTop];
+    
+    return commentString;
 }
 
 - (HNCommentString *) convertToCommentString:(HNCommentBlock *)block

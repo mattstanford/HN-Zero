@@ -19,5 +19,6 @@
 -(void) appendCommentString:(HNCommentString *)commentString;
 -(NSAttributedString *) getAttributedStringWithTheme:(HNTheme *)theme;
 -(NSArray *) getLinks;
+-(void) trimWhiteSpaceFromTop;
 
 @end

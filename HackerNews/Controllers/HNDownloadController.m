@@ -45,7 +45,7 @@ static const NSInteger HNMaxCommentDownloads = 1000;
 
 - (void) beginArticleDownload:(NSURL *)url
 {
-    NSLog(@"downloading: %@", [url absoluteString]);
+    //NSLog(@"downloading: %@", [url absoluteString]);
     
     Firebase* firebase = [[Firebase alloc] initWithUrl:[url absoluteString]];
     
@@ -89,9 +89,20 @@ static const NSInteger HNMaxCommentDownloads = 1000;
         [downloadDelegate didGetArticle:article];
         
         //Start downloading comments
-        NSArray *childComments = [data objectForKey:@"kids"];
-        [_commentsToDownload setObject:[NSNumber numberWithInt:0] forKey:objectId];
-        [self downloadCommentsForArticle:article withChildren:childComments parentComment:nil nestedLevel:0];
+        if([data objectForKey:@"kids"])
+        {
+            NSArray *childComments = [data objectForKey:@"kids"];
+            [_commentsToDownload setObject:[NSNumber numberWithInt:0] forKey:objectId];
+            [self downloadCommentsForArticle:article withChildren:childComments parentComment:nil nestedLevel:0];
+        }
+        else
+        {
+            if ([[data objectForKey:@"type"] isEqualToString:@"story"])
+            {
+                [article writeNumComments];
+                [downloadDelegate didGetArticleWithComments:article];
+            }
+        }
         
         if (_articlesToDownloadQueue.count > 0)
         {
@@ -117,7 +128,7 @@ static const NSInteger HNMaxCommentDownloads = 1000;
     }
     
     //Increment the comment counter in the article to keep track of when to fire off the delegate method
-    NSLog(@"Current total: %li", [[_commentsToDownload objectForKey:article.objectId] integerValue]);
+    //NSLog(@"Current total: %li", [[_commentsToDownload objectForKey:article.objectId] integerValue]);
     [self incrementCommentsToDownloadForArticle:article.objectId byAmount:childComments.count];
     
     //Insert the placeholder array into its proper place
@@ -164,7 +175,7 @@ static const NSInteger HNMaxCommentDownloads = 1000;
         [self downloadCommentWithId:commentId successBlock:^(NSDictionary *commentData) {
             
             [self incrementCommentsToDownloadForArticle:article.objectId byAmount:-1];
-            NSLog(@"Removed 1, total: %li", [[_commentsToDownload objectForKey:article.objectId] integerValue]);
+            //NSLog(@"Removed 1, total: %li", [[_commentsToDownload objectForKey:article.objectId] integerValue]);
             
             //Set the data for the download comment
             [targetComment setFirebaseData:commentData nestedLevel:nestedLevel];
