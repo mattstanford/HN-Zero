@@ -32,6 +32,11 @@
         self.commentLinkId = [[NSString alloc] initWithFormat:@"%@", [data objectForKey:@"id"]];
         self.comments = [[NSMutableArray alloc] init];
         self.type = [data objectForKey:@"type"];
+        
+        
+        NSURL *tempUrl = [NSURL URLWithString:self.url];
+        self.domainName = [tempUrl host];
+        self.image = nil;
     }
     
     return self;

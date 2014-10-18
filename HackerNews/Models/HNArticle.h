@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSString *commentLinkId;
 @property (nonatomic, strong) NSMutableArray *comments;
 @property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) UIImage *image;
 
 -(id) initWithFirebaseData:(NSDictionary *)data;
 -(void)writeNumComments;
