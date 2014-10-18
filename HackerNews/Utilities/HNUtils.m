@@ -27,4 +27,44 @@
     return returnString;
 }
 
++(NSString *)getStringFromTimeStamp:(NSNumber *)timestamp
+{
+    NSString *timeTemplate;
+    NSDate *currentTime = [NSDate date];
+    NSDate *objectTime = [NSDate dateWithTimeIntervalSince1970:[timestamp integerValue]];
+    
+    NSTimeInterval difference = [currentTime timeIntervalSinceDate:objectTime];
+    
+    difference = difference / 60;
+    
+    if (difference > 60)
+    {
+        difference = difference / 60;
+        
+        if (difference > 24)
+        {
+            difference = difference / 24;
+            timeTemplate = @"%li day";
+        }
+        else
+        {
+            timeTemplate = @"%li hour";
+        }
+    }
+    else
+    {
+        
+        timeTemplate = @"%li minute";
+    }
+    
+    NSMutableString *timeString = [[NSMutableString alloc] initWithFormat:timeTemplate, (NSInteger)difference];
+    
+    if (((NSInteger) difference) > 1)
+    {
+        [timeString appendString:@"s"];
+    }
+    
+    return timeString;
+}
+
 @end

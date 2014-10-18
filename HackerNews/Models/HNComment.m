@@ -14,6 +14,7 @@
 #import "HNCommentString.h"
 #import "HNCommentParser.h"
 #import "TFHpple.h"
+#import "HNUtils.h"
 
 @implementation HNComment
 
@@ -21,9 +22,7 @@
 {
     _objectId = [data objectForKey:@"id"];
     _author = [data objectForKey:@"by"];
-    
-    NSNumber *dateWrittenValue = (NSNumber *)[data objectForKey:@"time"];
-    _dateWritten = [[NSString alloc] initWithFormat:@"%li", [dateWrittenValue integerValue]];
+    _dateWritten = [HNUtils getStringFromTimeStamp:[data objectForKey:@"time"]];
     
     _nestedLevel = nestedLevel;
 
