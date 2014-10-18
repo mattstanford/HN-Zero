@@ -227,8 +227,16 @@
     {
         if (link.attributes && [link.attributes objectForKey:@"href"])
         {
-            NSString *urlString = [link.attributes objectForKey:@"href"];
-            [label addLinkToURL:[NSURL URLWithString:urlString] withRange:link.range];
+            //REMOVE Try block later
+            
+            @try {
+                NSString *urlString = [link.attributes objectForKey:@"href"];
+                [label addLinkToURL:[NSURL URLWithString:urlString] withRange:link.range];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"Exception adding link!!!");
+            }
+            
         }
     }
 }
