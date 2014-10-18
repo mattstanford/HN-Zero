@@ -32,14 +32,26 @@
         self.commentLinkId = [[NSString alloc] initWithFormat:@"%@", [data objectForKey:@"id"]];
         self.comments = [[NSMutableArray alloc] init];
         self.type = [data objectForKey:@"type"];
-        
-        
-        NSURL *tempUrl = [NSURL URLWithString:self.url];
-        self.domainName = [tempUrl host];
+        self.domainName = [self getDomainFromUrl:self.url];
         self.image = nil;
     }
     
     return self;
+}
+
+-(NSString *)getDomainFromUrl:(NSString *)url
+{
+    NSURL *tempUrl = [NSURL URLWithString:self.url];
+    NSString *hostString = [tempUrl host];
+    
+    //Remove 'www' from the domain name string if it's there
+    NSString *wwwPrefix = @"www.";
+    if ([hostString hasPrefix:wwwPrefix])
+    {
+        hostString = [hostString substringFromIndex:[wwwPrefix length]];
+    }
+    
+    return hostString;
 }
 
 - (id) initWithCoder:(NSCoder *)aDecoder
