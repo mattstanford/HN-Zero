@@ -28,7 +28,6 @@
 @property (strong, nonatomic) HNWebBrowserVC *webBrowserVC;
 @property (strong, nonatomic) HNCommentVC *commentVC;
 @property (strong, nonatomic) HNDownloadController *articleListDownloadController;
-@property (strong, nonatomic) HNDownloadController *articleItemDownloadController;
 @property (strong, nonatomic) HNTheme *theme;
 @property (strong, nonatomic) NSURL *url;
 @property (strong, nonatomic) NSURL *moreArticlesUrl;
@@ -43,20 +42,37 @@
 
 @implementation HNArticleListVC
 
-- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme withDrawerController:(MMDrawerController *)drawerController
+- (id)initWithStyle:(UITableViewStyle)style
+   withWebBrowserVC:(HNWebBrowserVC *)webVC
+       andCommentVC:(HNCommentVC *)commVC
+   articleContainer:(HNArticleContainerVC *)articleContainer
+          withTheme:(HNTheme *)theTheme
+withDrawerController:(MMDrawerController *)drawerController
+withDownloadController:(HNDownloadController *)downloadController
 {
     self = [super init];
     if (self)
     {
         self.drawerControllerDelegate = drawerController;
         
-        self = [self initWithStyle:style withWebBrowserVC:webVC andCommentVC:self.commentVC articleContainer:articleContainer withTheme:theTheme];
+        self = [self initWithStyle:style
+                  withWebBrowserVC:webVC
+                      andCommentVC:self.commentVC
+                  articleContainer:articleContainer
+                         withTheme:theTheme
+            withDownloadController:downloadController];
+        
     }
     
     return self;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme
+- (id)initWithStyle:(UITableViewStyle)style
+   withWebBrowserVC:(HNWebBrowserVC *)webVC
+       andCommentVC:(HNCommentVC *)commVC
+   articleContainer:(HNArticleContainerVC *)articleContainer
+          withTheme:(HNTheme *)theTheme
+withDownloadController:(HNDownloadController *)downloadController
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -72,8 +88,7 @@
         self.articleContainerVC = articleContainer;
         
         self.iconDownloadController = [[HNIconDownloadController alloc] init];
-        self.articleListDownloadController = [[HNDownloadController alloc] init];
-        self.articleItemDownloadController = [[HNDownloadController alloc] init];
+        self.articleListDownloadController = downloadController;
         self.isDownloadAppending = NO;
         self.shouldScrollToTopAfterDownload = NO;
         
@@ -84,7 +99,7 @@
         //This is an example of the site when there is a "black bar" on the header (i.e. a famous tech person died
         //downloadController = [[HNDownloadController alloc] initWithUrl:@"http://www.waybackletter.com/archive/20111005.html"];
         
-        self.articleListDownloadController.downloadDelegate = self;
+        self.articleListDownloadController.articleDownloadDelegate = self;
         self.theme = theTheme;
         
         //Get article cache
@@ -353,6 +368,7 @@
     {
         HNArticle *article = [self.articles objectAtIndex:index];
 
+        self.articleListDownloadController.currentArticleBeingViewed = article.objectId;
         [self.articleContainerVC doPresentCommentForArticle:article];
         [self presentArticleOrComment];
         
@@ -413,7 +429,7 @@
     cell.delegate = self;
     cell.tag = indexPath.row;
     
-    if(article.numComments)
+    if([article.type isEqualToString:@"story"])
     {
         cell.commentViewDisabled = FALSE;
         cell.numCommentsLabel.text = article.numComments;

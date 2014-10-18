@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSString *numComments;
 @property (nonatomic, strong) NSString *commentLinkId;
 @property (nonatomic, strong) NSMutableArray *comments;
+@property (nonatomic, strong) NSString *type;
 
 -(id) initWithFirebaseData:(NSDictionary *)data;
 -(void)writeNumComments;

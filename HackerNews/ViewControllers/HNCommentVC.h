@@ -14,10 +14,14 @@
 @class HNWebBrowserVC;
 @class HNArticle;
 
-@interface HNCommentVC : UITableViewController <downloadControllerDelegate, TTTAttributedLabelDelegate>
+@interface HNCommentVC : UITableViewController <commentViewerDelegate, TTTAttributedLabelDelegate>
 
 
-- (id)initWithStyle:(UITableViewStyle)style withTheme:(HNTheme *)appTheme webBrowser:(HNWebBrowserVC *)webBrowser;
+- (id)initWithStyle:(UITableViewStyle)style
+          withTheme:(HNTheme *)appTheme
+         webBrowser:(HNWebBrowserVC *)webBrowser
+withDownloadController:(HNDownloadController *)downloadController;;
+
 -(void) setArticle:(HNArticle *)article forceUpdate:(BOOL)doForceUpdate;
 
 @end

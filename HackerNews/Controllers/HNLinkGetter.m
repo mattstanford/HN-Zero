@@ -24,7 +24,7 @@
         goalPage = 0;
         
         downloadController = [[HNDownloadController alloc] init];
-        downloadController.downloadDelegate = self;
+        //downloadController.downloadDelegate = self;
     }
     
     return self;

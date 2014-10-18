@@ -10,19 +10,27 @@
 
 @class HNArticle;
 
-@protocol downloadControllerDelegate
+@protocol articleDownloadDelegate
 @required
 -(void) didGetArticle:(HNArticle *)article;
 -(void) didGetArticleWithComments:(HNArticle *)article;
 @end
+
+
+@protocol commentViewerDelegate
+@required
+-(void) didGetArticleWithComments:(HNArticle *)article;
+@end;
 
 @interface HNDownloadController : NSObject
 {
     BOOL isDownloading;
 }
 
-@property (nonatomic, assign)  id<downloadControllerDelegate> downloadDelegate;
+@property (nonatomic, assign)  id<articleDownloadDelegate> articleDownloadDelegate;
+@property (nonatomic, assign)  id<commentViewerDelegate> commentViewerDelegate;
 @property (nonatomic, assign) BOOL isDownloading;
+@property (nonatomic, assign) NSNumber *currentArticleBeingViewed;
 
 - (void) beginArticleDownload:(NSURL *)url;
 - (void) startCommentDownloadForArticleId:(NSInteger)articleId;

@@ -29,7 +29,7 @@ static const NSInteger HNMaxCommentDownloads = 1000;
 
 @implementation HNDownloadController
 
-@synthesize downloadDelegate, isDownloading;
+@synthesize articleDownloadDelegate, commentViewerDelegate, isDownloading;
 
 - (id) init
 {
@@ -38,6 +38,7 @@ static const NSInteger HNMaxCommentDownloads = 1000;
     {
         _articlesToDownloadQueue = [[NSMutableArray alloc] init];
         _commentsToDownload = [[NSMutableDictionary alloc] init];
+        _currentArticleBeingViewed = nil;
     }
     
     return self;
@@ -86,7 +87,7 @@ static const NSInteger HNMaxCommentDownloads = 1000;
         NSDictionary *data = snapshot.value;
         HNArticle *article = [[HNArticle alloc] initWithFirebaseData:data];
         
-        [downloadDelegate didGetArticle:article];
+        [articleDownloadDelegate didGetArticle:article];
         
         //Start downloading comments
         if([data objectForKey:@"kids"])
@@ -99,8 +100,7 @@ static const NSInteger HNMaxCommentDownloads = 1000;
         {
             if ([[data objectForKey:@"type"] isEqualToString:@"story"])
             {
-                [article writeNumComments];
-                [downloadDelegate didGetArticleWithComments:article];
+                [self didFinishDownloadingCommentsForArticle:article];
             }
         }
         
@@ -112,6 +112,18 @@ static const NSInteger HNMaxCommentDownloads = 1000;
     } withCancelBlock:^(NSError *error) {
         //Nothing yet
     }];
+}
+
+-(void)didFinishDownloadingCommentsForArticle:(HNArticle *)article
+{
+    [article writeNumComments];
+    [articleDownloadDelegate didGetArticleWithComments:article];
+    
+    if ([_currentArticleBeingViewed isEqualToNumber:article.objectId])
+    {
+        [commentViewerDelegate didGetArticleWithComments:article];
+    }
+    
 }
 
 -(void) downloadCommentsForArticle:(HNArticle *)article
@@ -181,11 +193,11 @@ static const NSInteger HNMaxCommentDownloads = 1000;
             [targetComment setFirebaseData:commentData nestedLevel:nestedLevel];
             targetComment.nestedLevel = nestedLevel;
             
+            
             //Check and see if we're done
             if ([[_commentsToDownload objectForKey:article.objectId] integerValue] <= 0)
             {
-                [article writeNumComments];
-                [downloadDelegate didGetArticleWithComments:article];
+                [self didFinishDownloadingCommentsForArticle:article];
             }
             else
             {

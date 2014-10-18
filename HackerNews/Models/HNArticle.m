@@ -28,9 +28,10 @@
         self.score = [data objectForKey:@"score"];
         self.user = [data objectForKey:@"by"];
         self.timePosted = @"Today"; //[data objectForKey:@"time"];
-        self.numComments = 0; //Have to get this asynchronously!!!
+        self.numComments = nil; //Have to get this asynchronously!!!
         self.commentLinkId = [[NSString alloc] initWithFormat:@"%@", [data objectForKey:@"id"]];
         self.comments = [[NSMutableArray alloc] init];
+        self.type = [data objectForKey:@"type"];
     }
     
     return self;

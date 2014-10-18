@@ -18,10 +18,23 @@
 @class HNTheme;
 @class MMDrawerController;
 
-@interface HNArticleListVC : UITableViewController  <downloadControllerDelegate, HNArticleCellDelegate, MGSplitViewControllerDelegate>
+@interface HNArticleListVC : UITableViewController  <articleDownloadDelegate, HNArticleCellDelegate, MGSplitViewControllerDelegate>
 
-- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme withDrawerController:(MMDrawerController *)drawerController;
-- (id)initWithStyle:(UITableViewStyle)style withWebBrowserVC:(HNWebBrowserVC *)webVC andCommentVC:(HNCommentVC *)commVC articleContainer:(HNArticleContainerVC *)articleContainer withTheme:(HNTheme *)theTheme;
+- (id)initWithStyle:(UITableViewStyle)style
+   withWebBrowserVC:(HNWebBrowserVC *)webVC
+       andCommentVC:(HNCommentVC *)commVC
+   articleContainer:(HNArticleContainerVC *)articleContainer
+          withTheme:(HNTheme *)theTheme
+withDrawerController:(MMDrawerController *)drawerController
+withDownloadController:(HNDownloadController *)downloadController;
+
+- (id)initWithStyle:(UITableViewStyle)style
+   withWebBrowserVC:(HNWebBrowserVC *)webVC
+       andCommentVC:(HNCommentVC *)commVC
+   articleContainer:(HNArticleContainerVC *)articleContainer
+          withTheme:(HNTheme *)theTheme
+withDownloadController:(HNDownloadController *)downloadController;
+
 - (void) downloadFreshArticles;
 - (void) setUrl:(NSURL *)newUrl andTitle:(NSString *)title;
 - (void) closeDrawer;

@@ -36,7 +36,10 @@
 
 @implementation HNCommentVC
 
-- (id)initWithStyle:(UITableViewStyle)style withTheme:(HNTheme *)appTheme webBrowser:(HNWebBrowserVC *)webBrowser
+- (id)initWithStyle:(UITableViewStyle)style
+          withTheme:(HNTheme *)appTheme
+         webBrowser:(HNWebBrowserVC *)webBrowser
+withDownloadController:(HNDownloadController *)downloadController;
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -44,8 +47,8 @@
         
         self.webBrowserVC = webBrowser;
         
-        self.downloadController = [[HNDownloadController alloc] init];
-        self.downloadController.downloadDelegate = self;
+        self.downloadController = downloadController;
+        self.downloadController.commentViewerDelegate = self;
         
         self.comments = [[NSArray alloc] init];
         self.postComment = nil;
@@ -76,6 +79,14 @@
     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating..."];
     [refresh addTarget:self action:@selector(updateComments) forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refresh;
+}
+
+#pragma mark CommentViewer delegate
+
+-(void) didGetArticleWithComments:(HNArticle *)article
+{
+    self.currentArticle = article;
+    [self updateComments];
 }
 
 #pragma mark HNDownloadController delgate
@@ -188,6 +199,7 @@
 
 -(void) updateComments
 {
+    
     //blank out the comments
     self.comments = [self buildTableWithData:nil];
     [self.tableView reloadData];
@@ -200,8 +212,11 @@
     //Update refresh control
     //if ([self.refreshControl isRefreshing]) [self.refreshControl endRefreshing];
     
-    self.comments = [self buildTableWithData:self.currentArticle.comments];
-    [self.tableView reloadData];
+    if (self.currentArticle.numComments != nil)
+    {
+        self.comments = [self buildTableWithData:self.currentArticle.comments];
+        [self.tableView reloadData];
+    }
     
 }
 
