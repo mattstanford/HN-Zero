@@ -184,6 +184,13 @@ withDownloadController:(HNDownloadController *)downloadController;
 
 #pragma mark Helper functions
 
+-(void)resetDownloadController:(HNDownloadController *)downloadController
+{
+    _downloadController.commentViewerDelegate = nil;
+    _downloadController = downloadController;
+    _downloadController.commentViewerDelegate = self;
+}
+
 -(void) setArticle:(HNArticle *)article forceUpdate:(BOOL)doForceUpdate
 {
     if (doForceUpdate || ![article.commentLinkId isEqualToString:self.currentArticle.commentLinkId])

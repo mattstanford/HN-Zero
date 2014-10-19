@@ -197,6 +197,12 @@ withDownloadController:(HNDownloadController *)downloadController
 
 - (void) downloadFreshArticles
 {
+    //Reset download controller so pending downloads won't try to update on our "fresh" list
+    self.articleListDownloadController.articleDownloadDelegate = nil;
+    self.articleListDownloadController = [[HNDownloadController alloc] init];
+    self.articleListDownloadController.articleDownloadDelegate = self;
+    [self.commentVC resetDownloadController:self.articleListDownloadController];
+    
     [self downloadFrontPageArticles:NO];
 }
 

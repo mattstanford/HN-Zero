@@ -23,5 +23,6 @@
 withDownloadController:(HNDownloadController *)downloadController;;
 
 -(void) setArticle:(HNArticle *)article forceUpdate:(BOOL)doForceUpdate;
+-(void)resetDownloadController:(HNDownloadController *)downloadController;
 
 @end
