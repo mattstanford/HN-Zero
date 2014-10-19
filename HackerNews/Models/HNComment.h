@@ -24,6 +24,7 @@
 - (NSAttributedString *) getCommentHeaderWithTheme:(HNTheme *)theme forCellWidth:(CGFloat)cellWidth;
 - (NSAttributedString *) convertToAttributedStringWithTheme:(HNTheme *)theme;
 - (HNCommentString *) convertToCommentString;
+-(void) setWithPostText:(NSString *)postTextString;
 
 
 @end

@@ -8,6 +8,7 @@
 
 #import "HNArticle.h"
 #import "HNUtils.h"
+#import "HNComment.h"
 
 @implementation HNArticle
 
@@ -32,6 +33,17 @@
         self.type = [data objectForKey:@"type"];
         self.domainName = [self getDomainFromUrl:self.url];
         self.image = nil;
+        
+        if ([data objectForKey:@"text"])
+        {
+            self.postComment = [[HNComment alloc] init];
+            [self.postComment setWithPostText:[data objectForKey:@"text"]];
+        }
+        else
+        {
+            self.postComment = nil;
+        }
+       
     }
     
     return self;
@@ -142,6 +154,18 @@
 -(void) addInfo:(NSString *)info toInfoString:(NSMutableString *)mainInfoString
 {
     [self addInfo:info withFormat:nil toInfoString:mainInfoString];
+}
+
+-(BOOL) isSelfPost
+{
+    if ([self.url isEqualToString:@""] || self.url == nil)
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
 }
 
 

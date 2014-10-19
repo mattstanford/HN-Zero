@@ -28,7 +28,7 @@
 @property (nonatomic, strong) HNWebBrowserVC *webBrowserVC;
 @property (nonatomic, strong) HNDownloadController *downloadController;
 @property (nonatomic, strong) HNArticle *currentArticle;
-@property (nonatomic, strong) HNComment *postComment;
+//@property (nonatomic, strong) HNComment *postComment;
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, strong) HNTheme *theme;
 
@@ -51,7 +51,6 @@ withDownloadController:(HNDownloadController *)downloadController;
         self.downloadController.commentViewerDelegate = self;
         
         self.comments = [[NSArray alloc] init];
-        self.postComment = nil;
         
         self.theme = appTheme;
         
@@ -95,13 +94,13 @@ withDownloadController:(HNDownloadController *)downloadController;
 {
     NSArray *parsedComments = [HNCommentParser parseComments:data];
 
-    if([HNParser isSelfPost:self.currentArticle.url])
+    if (self.currentArticle.postComment != nil)
     {
-        self.postComment = [HNCommentParser getPostFromCommentPage:data];
+        //self.postComment = (NSAttributedString)self.currentArticle.postText;
     }
     else
     {
-        self.postComment = nil;
+       // self.postComment = nil;
     }
     
     self.comments = [self buildTableWithData:parsedComments];
@@ -151,7 +150,7 @@ withDownloadController:(HNDownloadController *)downloadController;
 {
     if (indexPath.row == 0)
     {
-        NSAttributedString *commentString = [self.postComment convertToAttributedStringWithTheme:self.theme];
+        NSAttributedString *commentString = [self.currentArticle.postComment convertToAttributedStringWithTheme:self.theme];
         
         return [HNCommentInfoCell getCellHeightForText:self.currentArticle.title
                                               postText:commentString
@@ -197,7 +196,7 @@ withDownloadController:(HNDownloadController *)downloadController;
     {
         self.currentArticle = article;
         self.title = article.title;
-        self.postComment = nil;
+        //self.postComment = nil;
         
         [self updateComments];
     }
@@ -294,10 +293,11 @@ withDownloadController:(HNDownloadController *)downloadController;
     cell.infoLabel.textColor = [UIColor lightGrayColor];
     
     cell.postLabel.delegate = self;
-    if(self.postComment)
+    if(self.currentArticle.postComment)
     {
-        HNCommentString *commentString = [self.postComment convertToCommentString];
-        cell.postLabel.attributedText =[self.postComment convertToAttributedStringWithTheme:self.theme];
+        HNCommentString *commentString = [self.currentArticle.postComment convertToCommentString];
+        cell.postLabel.attributedText =[self.currentArticle.postComment convertToAttributedStringWithTheme:self.theme];
+        cell.postLabel.attributedText = [self.currentArticle.postComment convertToAttributedStringWithTheme:self.theme];
         [self addLinksToLabel:cell.postLabel withCommentString:commentString];
     }
     else

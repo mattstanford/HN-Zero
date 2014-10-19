@@ -364,7 +364,8 @@ withDownloadController:(HNDownloadController *)downloadController
     {
         HNArticle *article = [self.articles objectAtIndex:index];
         
-        if ([HNParser isSelfPost:article.url])
+        //if ([HNParser isSelfPost:article.url])
+        if ([article isSelfPost])
         {
             [self didTapComment:cellTapped];
         }
@@ -481,7 +482,11 @@ withDownloadController:(HNDownloadController *)downloadController
     cell.numCommentsLabel.font = self.theme.articleNumCommentsFont;
     
     
-    if (article.domainName && ![article.domainName isEqualToString:@""] && article.image == nil)
+    if ([article isSelfPost])
+    {
+        cell.domainIconImageView.image = [UIImage imageNamed:@"default_icon.png"];
+    }
+    else if (article.domainName && ![article.domainName isEqualToString:@""] && article.image == nil)
     {
        /* NSString *iconUrl = [NSString stringWithFormat:@"http://www.google.com/s2/favicons?domain=%@", article.domainName];
         NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:iconUrl]];

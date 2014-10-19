@@ -48,6 +48,11 @@
     return commentBlock;
 }
 
+-(void) setWithPostText:(NSString *)postTextString
+{
+    _commentBlock = [self getCommentBlockFromStringData:postTextString];
+}
+
 - (NSString *) getOverflowIndentStringForCellWidth:(CGFloat)cellWidth
 {
     NSMutableString *overflowString = [[NSMutableString alloc] initWithCapacity:0];

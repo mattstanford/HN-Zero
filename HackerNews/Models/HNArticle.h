@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class HNComment;
+
 @interface HNArticle : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSNumber *objectId;
@@ -22,10 +24,12 @@
 @property (nonatomic, strong) NSMutableArray *comments;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) HNComment *postComment;
 
 -(id) initWithFirebaseData:(NSDictionary *)data;
 -(void)writeNumComments;
 -(NSString *) getInfoText;
 -(NSString *) getCommentInfoText;
+-(BOOL) isSelfPost;
 
 @end
