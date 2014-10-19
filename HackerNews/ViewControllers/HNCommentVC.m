@@ -75,10 +75,10 @@ withDownloadController:(HNDownloadController *)downloadController;
     [self.tableView registerClass:[HNCommentCell class] forCellReuseIdentifier:@"Comment"];
     
     //Setup the pull-to-refresh control
-    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating..."];
-    [refresh addTarget:self action:@selector(updateComments) forControlEvents:UIControlEventValueChanged];
-    self.refreshControl = refresh;
+//    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+//    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating..."];
+//    [refresh addTarget:self action:@selector(updateComments) forControlEvents:UIControlEventValueChanged];
+//    self.refreshControl = refresh;
 }
 
 #pragma mark CommentViewer delegate
