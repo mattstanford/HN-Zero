@@ -426,7 +426,7 @@ withDownloadController:(HNDownloadController *)downloadController
     _isScrolling = TRUE;
 }
 
--(void) scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+-(void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     _isScrolling = FALSE;
     [self.tableView reloadData];
