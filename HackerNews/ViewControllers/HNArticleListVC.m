@@ -37,6 +37,7 @@
 @property (assign, nonatomic) int currentPage;
 @property (nonatomic, weak) MMDrawerController *drawerControllerDelegate;
 @property (nonatomic, strong) HNIconDownloadController *iconDownloadController;
+@property (assign, nonatomic) BOOL isScrolling;
 
 @end
 
@@ -82,6 +83,9 @@ withDownloadController:(HNDownloadController *)downloadController
         
         //Set this so custom "HNTouchableView" won't have delays when calling "touchesBegan"
         self.tableView.delaysContentTouches = NO;
+        
+        //Delegate for UIScrollViewDelegate
+        self.tableView.delegate = self;
         
         self.webBrowserVC = webVC;
         self.commentVC = commVC;
@@ -244,7 +248,11 @@ withDownloadController:(HNDownloadController *)downloadController
 {
     //NSLog(@"Got article!");
     [_articles addObject:article];
-    [self.tableView reloadData];
+    
+    if (_isScrolling == FALSE)
+    {
+        [self.tableView reloadData];
+    }
 }
 
 -(void) didGetArticleWithComments:(HNArticle *)article
@@ -255,7 +263,12 @@ withDownloadController:(HNDownloadController *)downloadController
         if ([article.objectId isEqualToNumber:articleCandidate.objectId])
         {
             [_articles replaceObjectAtIndex:j withObject:article];
-            [self.tableView reloadData];
+            
+            if (_isScrolling == FALSE)
+            {
+                [self.tableView reloadData];
+            }
+
             break;
         }
     }
@@ -398,6 +411,19 @@ withDownloadController:(HNDownloadController *)downloadController
 -(void)splitViewController:(MGSplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
 {
     NSLog(@"will hide splitvc");
+}
+
+#pragma mark - UIScrollView delegate
+
+-(void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    _isScrolling = TRUE;
+}
+
+-(void) scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    _isScrolling = FALSE;
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
