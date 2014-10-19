@@ -12,6 +12,7 @@
 
 @protocol articleDownloadDelegate
 @required
+-(void) didGetArticleIds;
 -(void) didGetArticle:(HNArticle *)article;
 -(void) didGetArticleWithComments:(HNArticle *)article;
 @end

@@ -193,7 +193,6 @@ withDownloadController:(HNDownloadController *)downloadController
 
 - (void) downloadFreshArticles
 {
-    _articles = [[NSMutableArray alloc] init];
     [self downloadFrontPageArticles:NO];
 }
 
@@ -230,6 +229,17 @@ withDownloadController:(HNDownloadController *)downloadController
 }
 
 #pragma mark HNDownloadControllerDelegate
+
+-(void) didGetArticleIds
+{
+    //Update refresh control
+    _articles = [[NSMutableArray alloc] init];
+    [self.tableView reloadData];
+    
+    [self.refreshControl endRefreshing];
+    self.refreshControl.attributedTitle = [HNUtils getTimeUpdatedString];
+}
+
 -(void) didGetArticle:(HNArticle *)article
 {
     //NSLog(@"Got article!");
@@ -239,11 +249,6 @@ withDownloadController:(HNDownloadController *)downloadController
 
 -(void) didGetArticleWithComments:(HNArticle *)article
 {
-    NSLog(@"Got article id %li: %@",[article.objectId intValue], article.title);
-    NSLog(@"Num comments: %@", article.numComments);
-    
-    //Find the index of the article
-    NSInteger articleIndex = 0;
     for (NSInteger j=0; j < article.comments.count; j++)
     {
         HNArticle *articleCandidate = [_articles objectAtIndex:j];

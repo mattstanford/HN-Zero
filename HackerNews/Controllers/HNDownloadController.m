@@ -53,6 +53,7 @@ static const NSInteger HNMaxCommentDownloads = 1000;
     [firebase observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot)
     {
         NSArray *articleObjects = (NSArray *)snapshot.value;
+        [self.articleDownloadDelegate didGetArticleIds];
         
         [self beginDownloadingArticleObjects:articleObjects];
         isDownloading = NO;
