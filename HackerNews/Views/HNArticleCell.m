@@ -71,7 +71,7 @@ static const CGFloat ICON_RIGHT_PADDING = 10;
 
 + (CGFloat) getCellHeightForWidth:(CGFloat)cellWidth withArticle:(HNArticle *)article withTitleFont:(UIFont *)titleFont withInfoFont:(UIFont *)infoFont
 {
-    BOOL commentsDisabled = (article.numComments == nil) ? TRUE: FALSE;
+    BOOL commentsDisabled = ([article.type isEqualToString:@"story"]) ? FALSE: TRUE;
     CGFloat articleWidth = [HNArticleCell getLabelWidth:cellWidth commentsDisabled:commentsDisabled];
     
     CGFloat articleTextHeight = [HNArticleCell getArticleLabelHeight:article.title withFont:titleFont forWidth:articleWidth];
