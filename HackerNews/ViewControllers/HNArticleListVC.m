@@ -479,7 +479,15 @@ withDownloadController:(HNDownloadController *)downloadController
     if([article.type isEqualToString:@"story"])
     {
         cell.commentViewDisabled = FALSE;
-        cell.numCommentsLabel.text = article.numComments;
+        
+        if (article.numComments == nil)
+        {
+            cell.numCommentsLabel.text = @" ";
+        }
+        else
+        {
+            cell.numCommentsLabel.text = article.numComments;
+        }
     }
     else
     {
