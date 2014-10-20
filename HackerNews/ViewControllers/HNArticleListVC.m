@@ -402,7 +402,6 @@ withDownloadController:(HNDownloadController *)downloadController
     {
         HNArticle *article = [self.articles objectAtIndex:index];
 
-        self.articleListDownloadController.currentArticleBeingViewed = article.objectId;
         [self.articleContainerVC doPresentCommentForArticle:article];
         [self presentArticleOrComment];
         

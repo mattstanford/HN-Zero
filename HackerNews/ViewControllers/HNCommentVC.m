@@ -29,7 +29,6 @@
 @property (nonatomic, strong) HNWebBrowserVC *webBrowserVC;
 @property (nonatomic, strong) HNDownloadController *downloadController;
 @property (nonatomic, strong) HNArticle *currentArticle;
-//@property (nonatomic, strong) HNComment *postComment;
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, strong) HNTheme *theme;
 @property (nonatomic, strong) HNSettings *settings;
@@ -200,7 +199,7 @@ withDownloadController:(HNDownloadController *)downloadController
     {
         self.currentArticle = article;
         self.title = article.title;
-        //self.postComment = nil;
+        self.downloadController.currentArticleBeingViewed = article.objectId;
         
         if (_settings.doPreLoadComments == FALSE)
         {
