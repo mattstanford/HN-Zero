@@ -55,8 +55,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    self.settings = [[HNSettings alloc] init];
-    self.settings.doPreLoadComments = TRUE;
+    self.settings = [self getSettings];
     
     self.webBrowserVC = [[HNWebBrowserVC alloc] initWithTheme:theme];
     self.commentWebBrowserVC = [[HNWebBrowserVC alloc] initWithTheme:theme];
@@ -160,6 +159,23 @@
 
     
     self.window.backgroundColor = [UIColor whiteColor];
+}
+
+-(HNSettings *)getSettings
+{
+    HNSettings *settings;
+    HNSettings *cachedSettings = [HNSettings getCachedSettings];
+    if (cachedSettings)
+    {
+        settings = cachedSettings;
+    }
+    else
+    {
+        settings = [[HNSettings alloc] init];
+        settings.doPreLoadComments = TRUE;
+    }
+    
+    return settings;
 }
 
 -(void) setupMainMenuWithLinks:(NSArray *)menuLinks withArticleListVC:(HNArticleListVC *)articleList withTheme:(HNTheme *)theme

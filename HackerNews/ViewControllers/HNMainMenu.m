@@ -235,6 +235,7 @@ NS_ENUM(NSInteger, HNMenuSettings)
     else if([indexPath section] == HNMainMenuSettings)
     {
         _settings.doPreLoadComments = !_settings.doPreLoadComments;
+        [_settings saveToCache];
         [self.tableView reloadData];
     }
     else

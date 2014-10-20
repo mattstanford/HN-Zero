@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HNSettings : NSObject
+@interface HNSettings : NSObject <NSCoding>
 
 @property (nonatomic, assign) BOOL doPreLoadComments;
+
+- (void)saveToCache;
++ (HNSettings *)getCachedSettings;
 
 @end
