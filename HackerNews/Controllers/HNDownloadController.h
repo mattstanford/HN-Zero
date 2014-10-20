@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class HNArticle;
+@class HNSettings;
 
 @protocol articleDownloadDelegate
 @required
@@ -32,8 +33,9 @@
 @property (nonatomic, assign)  id<commentViewerDelegate> commentViewerDelegate;
 @property (nonatomic, assign) BOOL isDownloading;
 @property (nonatomic, assign) NSNumber *currentArticleBeingViewed;
+@property (nonatomic, strong) HNSettings* settings;
 
 - (void) beginArticleDownload:(NSURL *)url;
-- (void) startCommentDownloadForArticleId:(NSInteger)articleId;
+- (void) startDownloadingCommentsForArticle:(HNArticle *)article;
 
 @end

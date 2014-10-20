@@ -13,6 +13,7 @@
 @class HNTheme;
 @class HNWebBrowserVC;
 @class HNArticle;
+@class HNSettings;
 
 @interface HNCommentVC : UITableViewController <commentViewerDelegate, TTTAttributedLabelDelegate>
 
@@ -20,7 +21,8 @@
 - (id)initWithStyle:(UITableViewStyle)style
           withTheme:(HNTheme *)appTheme
          webBrowser:(HNWebBrowserVC *)webBrowser
-withDownloadController:(HNDownloadController *)downloadController;;
+withDownloadController:(HNDownloadController *)downloadController
+        andSettings:(HNSettings *)settings;
 
 -(void) setArticle:(HNArticle *)article forceUpdate:(BOOL)doForceUpdate;
 -(void)resetDownloadController:(HNDownloadController *)downloadController;

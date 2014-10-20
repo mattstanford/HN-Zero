@@ -22,6 +22,7 @@
 #import "GAI.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
+#import "HNSettings.h"
 
 @interface HNCommentVC ()
 
@@ -31,6 +32,7 @@
 //@property (nonatomic, strong) HNComment *postComment;
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, strong) HNTheme *theme;
+@property (nonatomic, strong) HNSettings *settings;
 
 @end
 
@@ -39,7 +41,8 @@
 - (id)initWithStyle:(UITableViewStyle)style
           withTheme:(HNTheme *)appTheme
          webBrowser:(HNWebBrowserVC *)webBrowser
-withDownloadController:(HNDownloadController *)downloadController;
+withDownloadController:(HNDownloadController *)downloadController
+        andSettings:(HNSettings *)settings;
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -53,6 +56,7 @@ withDownloadController:(HNDownloadController *)downloadController;
         self.comments = [[NSArray alloc] init];
         
         self.theme = appTheme;
+        self.settings = settings;
         
     }
     return self;
@@ -197,6 +201,11 @@ withDownloadController:(HNDownloadController *)downloadController;
         self.currentArticle = article;
         self.title = article.title;
         //self.postComment = nil;
+        
+        if (_settings.doPreLoadComments == FALSE)
+        {
+            [self.downloadController startDownloadingCommentsForArticle:article];
+        }
         
         [self updateComments];
     }

@@ -14,6 +14,7 @@
 #import "HNUiUtils.h"
 #import "GAI.h"
 #import <MMDrawerController/MMDrawerController.h>
+#import "HNSettings.h"
 
 @interface HNAppDelegate ()
 
@@ -26,6 +27,7 @@
 @property (strong, nonatomic) HNMainMenu *mainMenuVC;
 @property (strong, nonatomic) MGSplitViewController *splitVC;
 @property (strong, nonatomic) HNDownloadController *downloadController;
+@property (strong, nonatomic) HNSettings *settings;
 
 @end
 
@@ -53,20 +55,24 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    self.settings = [[HNSettings alloc] init];
+    self.settings.doPreLoadComments = TRUE;
     
     self.webBrowserVC = [[HNWebBrowserVC alloc] initWithTheme:theme];
     self.commentWebBrowserVC = [[HNWebBrowserVC alloc] initWithTheme:theme];
     self.downloadController = [[HNDownloadController alloc] init];
+    self.downloadController.settings = self.settings;
+    
+    
     
     self.commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStylePlain
                                               withTheme:theme
                                              webBrowser:self.commentWebBrowserVC
-                                 withDownloadController:self.downloadController];
+                                 withDownloadController:self.downloadController
+                                            andSettings:self.settings];
     
     self.articleContainerVC = [[HNArticleContainerVC alloc] initWithArticleVC:self.webBrowserVC
                                                                 andCommentsVC:self.commentVC];
-    
-         //self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain withWebBrowserVC:self.webBrowserVC andCommentVC:self.commentVC articleContainer:articleContainerVC withTheme:self.theme];
     
     //[self setupMainMenu];
     NSArray *menuLinks = [self initializeMenuLinks];
@@ -85,7 +91,8 @@
                            initWithStyle:UITableViewStyleGrouped
                            withTheme:theme
                            withArticleVC:nil
-                           withMenuLinks:menuLinks];
+                           withMenuLinks:menuLinks
+                           andSettings:self.settings];
         
         MMDrawerController *drawerController = [self setupDrawerControllerWithCenterVC:self.splitVC
                                                                                 leftVC:self.mainMenuVC];
@@ -96,7 +103,8 @@
                                                    articleContainer:self.articleContainerVC
                                                           withTheme:theme
                                                withDrawerController:drawerController
-                                             withDownloadController:self.downloadController];
+                                             withDownloadController:self.downloadController
+                                                        andSettings:self.settings];
         
         //Finish setting up the main menu VC
         self.mainMenuVC.articleListVC = self.articleListVC;
@@ -119,7 +127,6 @@
         
         
         [self.window setRootViewController:drawerController];
-        //[self.window setRootViewController:articleListNavController];
     }
     else
     {
@@ -128,13 +135,15 @@
                                                        andCommentVC:self.commentVC
                                                    articleContainer:self.articleContainerVC
                                                           withTheme:theme
-                                             withDownloadController:self.downloadController];
+                                             withDownloadController:self.downloadController
+                                                        andSettings:self.settings];
         
         
         self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped
                                                   withTheme:theme
                                               withArticleVC:self.articleListVC
-                                              withMenuLinks:menuLinks];
+                                              withMenuLinks:menuLinks
+                                                andSettings:self.settings];
         
         [self setupMainMenuWithLinks:menuLinks
                    withArticleListVC:self.articleListVC
@@ -155,8 +164,11 @@
 
 -(void) setupMainMenuWithLinks:(NSArray *)menuLinks withArticleListVC:(HNArticleListVC *)articleList withTheme:(HNTheme *)theme
 {
-    self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped withTheme:theme withArticleVC:articleList withMenuLinks:menuLinks];
-    //[self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
+    self.mainMenuVC = [[HNMainMenu alloc] initWithStyle:UITableViewStyleGrouped
+                                              withTheme:theme
+                                          withArticleVC:articleList
+                                          withMenuLinks:menuLinks
+                                            andSettings:self.settings];
 }
 
 -(MMDrawerController *) setupDrawerControllerWithCenterVC:(UIViewController *)centerVC leftVC:(UIViewController *)leftVC

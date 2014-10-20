@@ -20,6 +20,7 @@
 #import "HNIconDownloadController.h"
 #import <MMDrawerController/MMDrawerController.h>
 #import <MMDrawerBarButtonItem.h>
+#import "HNSettings.h"
 
 @interface HNArticleListVC ()
 
@@ -38,6 +39,7 @@
 @property (nonatomic, weak) MMDrawerController *drawerControllerDelegate;
 @property (nonatomic, strong) HNIconDownloadController *iconDownloadController;
 @property (assign, nonatomic) BOOL isScrolling;
+@property (nonatomic, strong) HNSettings *settings;
 
 @end
 
@@ -50,6 +52,7 @@
           withTheme:(HNTheme *)theTheme
 withDrawerController:(MMDrawerController *)drawerController
 withDownloadController:(HNDownloadController *)downloadController
+        andSettings:(HNSettings *)settings
 {
     self = [super init];
     if (self)
@@ -61,7 +64,8 @@ withDownloadController:(HNDownloadController *)downloadController
                       andCommentVC:self.commentVC
                   articleContainer:articleContainer
                          withTheme:theTheme
-            withDownloadController:downloadController];
+            withDownloadController:downloadController
+                andSettings:settings];
         
     }
     
@@ -74,6 +78,7 @@ withDownloadController:(HNDownloadController *)downloadController
    articleContainer:(HNArticleContainerVC *)articleContainer
           withTheme:(HNTheme *)theTheme
 withDownloadController:(HNDownloadController *)downloadController
+        andSettings:(HNSettings *)settings
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -124,6 +129,8 @@ withDownloadController:(HNDownloadController *)downloadController
             //Also make sure "scroll to top" functionality doesn't scroll too far
             self.edgesForExtendedLayout = UIRectEdgeNone;
         }
+        
+        self.settings = settings;
         
     }
     return self;
@@ -201,6 +208,8 @@ withDownloadController:(HNDownloadController *)downloadController
     self.articleListDownloadController.articleDownloadDelegate = nil;
     self.articleListDownloadController = [[HNDownloadController alloc] init];
     self.articleListDownloadController.articleDownloadDelegate = self;
+    self.articleListDownloadController.settings = _settings;
+    
     [self.commentVC resetDownloadController:self.articleListDownloadController];
     
     [self downloadFrontPageArticles:NO];

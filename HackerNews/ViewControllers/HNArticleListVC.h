@@ -17,6 +17,7 @@
 @class HNArticleContainerVC;
 @class HNTheme;
 @class MMDrawerController;
+@class HNSettings;
 
 @interface HNArticleListVC : UITableViewController  <articleDownloadDelegate, HNArticleCellDelegate, MGSplitViewControllerDelegate, UIScrollViewDelegate>
 
@@ -26,14 +27,16 @@
    articleContainer:(HNArticleContainerVC *)articleContainer
           withTheme:(HNTheme *)theTheme
 withDrawerController:(MMDrawerController *)drawerController
-withDownloadController:(HNDownloadController *)downloadController;
+withDownloadController:(HNDownloadController *)downloadController
+        andSettings:(HNSettings *)settings;
 
 - (id)initWithStyle:(UITableViewStyle)style
    withWebBrowserVC:(HNWebBrowserVC *)webVC
        andCommentVC:(HNCommentVC *)commVC
    articleContainer:(HNArticleContainerVC *)articleContainer
           withTheme:(HNTheme *)theTheme
-withDownloadController:(HNDownloadController *)downloadController;
+withDownloadController:(HNDownloadController *)downloadController
+        andSettings:(HNSettings *)settings;
 
 - (void) downloadFreshArticles;
 - (void) setUrl:(NSURL *)newUrl andTitle:(NSString *)title;

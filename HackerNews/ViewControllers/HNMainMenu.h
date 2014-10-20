@@ -12,12 +12,17 @@
 @class HNAbout;
 @class HNMenuLink;
 @class HNTheme;
+@class HNSettings;
 
 @interface HNMainMenu : UITableViewController
 
 @property (nonatomic, strong) HNArticleListVC *articleListVC;
 
--(id) initWithStyle:(UITableViewStyle)style withTheme:(HNTheme *)theme withArticleVC:(HNArticleListVC *)theArticleListVC withMenuLinks:(NSArray *)menuLinks;
+-(id) initWithStyle:(UITableViewStyle)style
+          withTheme:(HNTheme *)theme
+      withArticleVC:(HNArticleListVC *)theArticleListVC
+      withMenuLinks:(NSArray *)menuLinks
+        andSettings:(HNSettings *)settings;
 - (void) goToMenuLink:(HNMenuLink *)link;
 
 @end

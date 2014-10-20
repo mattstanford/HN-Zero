@@ -12,6 +12,7 @@
 #import "HNArticle.h"
 #import "HNComment.h"
 #import <Firebase/Firebase.h>
+#import "HNSettings.h"
 
 static const NSString *HNApiBaseUrl = @"https://hacker-news.firebaseio.com/v0";
 static const NSString *HNApiItem = @"item";
@@ -91,15 +92,16 @@ static const NSInteger HNMaxCommentDownloads = 1000;
         [articleDownloadDelegate didGetArticle:article];
         
         //Start downloading comments
-        if([data objectForKey:@"kids"])
+        if(article.childComments)
         {
-            NSArray *childComments = [data objectForKey:@"kids"];
-            [_commentsToDownload setObject:[NSNumber numberWithInt:0] forKey:objectId];
-            [self downloadCommentsForArticle:article withChildren:childComments parentComment:nil nestedLevel:0];
+            if (_settings.doPreLoadComments)
+            {
+                [self startDownloadingCommentsForArticle:article];
+            }
         }
         else
         {
-            if ([[data objectForKey:@"type"] isEqualToString:@"story"])
+            if ([article.type isEqualToString:@"story"])
             {
                 [self didFinishDownloadingCommentsForArticle:article];
             }
@@ -125,6 +127,16 @@ static const NSInteger HNMaxCommentDownloads = 1000;
         [commentViewerDelegate didGetArticleWithComments:article];
     }
     
+}
+
+-(void) startDownloadingCommentsForArticle:(HNArticle *)article
+{
+    [_commentsToDownload setObject:[NSNumber numberWithInt:0] forKey:article.objectId];
+    
+    [self downloadCommentsForArticle:article
+                        withChildren:article.childComments
+                       parentComment:nil
+                         nestedLevel:0];
 }
 
 -(void) downloadCommentsForArticle:(HNArticle *)article

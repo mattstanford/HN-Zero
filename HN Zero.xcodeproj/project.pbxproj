@@ -85,6 +85,7 @@
 		C94C70DC196CE5E6005139BC /* default_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C94C70DB196CE5E6005139BC /* default_icon.png */; };
 		C98AF57519C7E1800069C6F9 /* HNSettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C98AF57419C7E1800069C6F9 /* HNSettingsVC.m */; };
 		C98AF57819D044350069C6F9 /* HNUiUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C98AF57719D044350069C6F9 /* HNUiUtils.m */; };
+		C9C6F3FB19F4880600EA481B /* HNSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C6F3FA19F4880600EA481B /* HNSettings.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -204,6 +205,8 @@
 		C98AF57419C7E1800069C6F9 /* HNSettingsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNSettingsVC.m; path = ViewControllers/HNSettingsVC.m; sourceTree = "<group>"; };
 		C98AF57619D044350069C6F9 /* HNUiUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNUiUtils.h; path = Utilities/HNUiUtils.h; sourceTree = "<group>"; };
 		C98AF57719D044350069C6F9 /* HNUiUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNUiUtils.m; path = Utilities/HNUiUtils.m; sourceTree = "<group>"; };
+		C9C6F3F919F4880600EA481B /* HNSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNSettings.h; path = Models/HNSettings.h; sourceTree = "<group>"; };
+		C9C6F3FA19F4880600EA481B /* HNSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNSettings.m; path = Models/HNSettings.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -332,6 +335,8 @@
 				780F09BF18021ABD00B9C5C3 /* HNCommentString.m */,
 				A792DDFD184307080048E053 /* HNMenuLink.h */,
 				A792DDFE184307080048E053 /* HNMenuLink.m */,
+				C9C6F3F919F4880600EA481B /* HNSettings.h */,
+				C9C6F3FA19F4880600EA481B /* HNSettings.m */,
 				78705CEF17FE714D006D9C84 /* HNTheme.h */,
 				78705CF017FE714D006D9C84 /* HNTheme.m */,
 			);
@@ -634,6 +639,7 @@
 				78393F9C17E01C0B0003017F /* HNCommentVC.m in Sources */,
 				78393FA017E026D50003017F /* HNParser.m in Sources */,
 				78393FA317E028190003017F /* HNCommentParser.m in Sources */,
+				C9C6F3FB19F4880600EA481B /* HNSettings.m in Sources */,
 				784FD7A717E579820053A2E4 /* HNCommentCell.m in Sources */,
 				C98AF57519C7E1800069C6F9 /* HNSettingsVC.m in Sources */,
 				C94C70DA196CDC3B005139BC /* HNIconDownloadController.m in Sources */,

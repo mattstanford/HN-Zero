@@ -16,6 +16,7 @@
 #import "HNSettingsVC.h"
 #import "HNUiUtils.h"
 #import "HNTheme.h"
+#import "HNSettings.h"
 
 NSString * const kGithubLink = @"https://github.com/mds6058/HackerNews";
 NSString * const kTwitterLink = @"twitter://post?message=@MattStanford3";
@@ -23,7 +24,9 @@ NSString * const kTwitterLink = @"twitter://post?message=@MattStanford3";
 NS_ENUM(NSInteger, HNMainMenuSections)
 {
     HNMainMenuPages,
-    HNMainMenuInfo
+    HNMainMenuSettings,
+    HNMainMenuInfo,
+    HNMainMenuNumSections
 };
 
 NS_ENUM(NSInteger, HNInfoCellTitles)
@@ -34,18 +37,29 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
     HNInfoCellNumRows
 };
 
+NS_ENUM(NSInteger, HNMenuSettings)
+{
+    HNMenuSettingPreLoadComments,
+    HNMenuSettingNumRows
+};
+
 @interface HNMainMenu ()
 
 @property (nonatomic, strong) HNAbout *aboutMeVC;
 @property (nonatomic, strong) HNSettingsVC *settingsVC;
 @property (nonatomic, strong) UINavigationController *settingsNavController;
 @property (nonatomic, strong) NSArray *mainItems;
+@property (nonatomic, strong) HNSettings *settings;
 
 @end
 
 @implementation HNMainMenu
 
--(id) initWithStyle:(UITableViewStyle)style withTheme:(HNTheme *)theme withArticleVC:(HNArticleListVC *)theArticleListVC withMenuLinks:(NSArray *)menuLinks
+-(id) initWithStyle:(UITableViewStyle)style
+          withTheme:(HNTheme *)theme
+      withArticleVC:(HNArticleListVC *)theArticleListVC
+      withMenuLinks:(NSArray *)menuLinks
+        andSettings:(HNSettings *)settings
 {
     self = [super initWithStyle:style];
     if (self)
@@ -69,6 +83,7 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
         
         
         self.mainItems = menuLinks;
+        self.settings = settings;
     }
     
     return self;
@@ -88,7 +103,7 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return HNMainMenuNumSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -98,6 +113,10 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
     if (section == HNMainMenuPages)
     {
         numRows = [self.mainItems count];
+    }
+    else if(section == HNMainMenuSettings)
+    {
+        numRows = HNMenuSettingNumRows;
     }
     else
     {
@@ -114,6 +133,9 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
     switch (section) {
         case HNMainMenuInfo:
             returnString = @"Contact/Info";
+            break;
+        case HNMainMenuSettings:
+            returnString = @"Settings";
             break;
         case HNMainMenuPages:
         default:
@@ -133,12 +155,15 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    
+    NSLog(@"section: %li", [indexPath section]);
     if (indexPath.section == HNMainMenuPages)
     {
-    
         HNMenuLink *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
         cell.textLabel.text = menuItem.title;
+    }
+    else if (indexPath.section == HNMainMenuSettings)
+    {
+        cell = [self setupSettingCell:cell indexPath:indexPath];
     }
     else
     {
@@ -147,6 +172,31 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
     
     return cell;
 
+}
+
+- (UITableViewCell *)setupSettingCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row)
+    {
+        case HNMenuSettingPreLoadComments:
+            cell.textLabel.text = @"Pre-load comments";
+            
+            if (_settings.doPreLoadComments == TRUE)
+            {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
+            else
+            {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    return cell;
 }
 
 - (UITableViewCell *)setupInfoCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath
@@ -177,10 +227,15 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if ([indexPath section] == 0)
+    if ([indexPath section] == HNMainMenuPages)
     {
         HNMenuLink *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
         [self goToMenuLink:menuItem];
+    }
+    else if([indexPath section] == HNMainMenuSettings)
+    {
+        _settings.doPreLoadComments = !_settings.doPreLoadComments;
+        [self.tableView reloadData];
     }
     else
     {

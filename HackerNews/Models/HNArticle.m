@@ -33,6 +33,7 @@
         self.type = [data objectForKey:@"type"];
         self.domainName = [self getDomainFromUrl:self.url];
         self.image = nil;
+        self.childComments = [data objectForKey:@"kids"];
         
         if ([data objectForKey:@"text"])
         {

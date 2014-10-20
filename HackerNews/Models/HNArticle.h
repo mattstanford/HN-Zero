@@ -25,6 +25,7 @@
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) HNComment *postComment;
+@property (nonatomic, strong) NSArray *childComments;
 
 -(id) initWithFirebaseData:(NSDictionary *)data;
 -(void)writeNumComments;
