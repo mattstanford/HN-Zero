@@ -24,7 +24,7 @@ NSString * const kTwitterLink = @"twitter://post?message=@MattStanford3";
 NS_ENUM(NSInteger, HNMainMenuSections)
 {
     HNMainMenuPages,
-//    HNMainMenuSettings,
+    HNMainMenuSettings,
     HNMainMenuInfo,
     HNMainMenuNumSections
 };
@@ -114,10 +114,10 @@ NS_ENUM(NSInteger, HNMenuSettings)
     {
         numRows = [self.mainItems count];
     }
-//    else if(section == HNMainMenuSettings)
-//    {
-//        numRows = HNMenuSettingNumRows;
-//    }
+    else if(section == HNMainMenuSettings)
+    {
+        numRows = HNMenuSettingNumRows;
+    }
     else
     {
         numRows = HNInfoCellNumRows;
@@ -134,9 +134,9 @@ NS_ENUM(NSInteger, HNMenuSettings)
         case HNMainMenuInfo:
             returnString = @"Contact/Info";
             break;
-//        case HNMainMenuSettings:
-//            returnString = @"Settings";
-//            break;
+        case HNMainMenuSettings:
+            returnString = @"Settings";
+            break;
         case HNMainMenuPages:
         default:
             returnString = @"";
@@ -161,10 +161,10 @@ NS_ENUM(NSInteger, HNMenuSettings)
         HNMenuLink *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
         cell.textLabel.text = menuItem.title;
     }
-//    else if (indexPath.section == HNMainMenuSettings)
-//    {
-//        cell = [self setupSettingCell:cell indexPath:indexPath];
-//    }
+    else if (indexPath.section == HNMainMenuSettings)
+    {
+        cell = [self setupSettingCell:cell indexPath:indexPath];
+    }
     else
     {
         cell = [self setupInfoCell:cell indexPath:indexPath];
@@ -232,11 +232,11 @@ NS_ENUM(NSInteger, HNMenuSettings)
         HNMenuLink *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
         [self goToMenuLink:menuItem];
     }
-//    else if([indexPath section] == HNMainMenuSettings)
-//    {
-//        _settings.doPreLoadComments = !_settings.doPreLoadComments;
-//        [self.tableView reloadData];
-//    }
+    else if([indexPath section] == HNMainMenuSettings)
+    {
+        _settings.doPreLoadComments = !_settings.doPreLoadComments;
+        [self.tableView reloadData];
+    }
     else
     {
         switch (indexPath.row) {
