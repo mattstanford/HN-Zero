@@ -27,7 +27,7 @@ NSString *const HNIconServUrl = @"http://10.0.0.10:9292/%@";
     {
     
         NSString *urlString = [NSString stringWithFormat:HNGoogleIconUrl, domain];
-        NSLog(@"Getting google url: %@", urlString);
+        //NSLog(@"Getting google url: %@", urlString);
         NSURL *favIconInfoUrl = [NSURL URLWithString:urlString];
         NSURLRequest *request = [NSURLRequest requestWithURL:favIconInfoUrl];
         

@@ -155,7 +155,6 @@ NS_ENUM(NSInteger, HNMenuSettings)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    NSLog(@"section: %li", [indexPath section]);
     if (indexPath.section == HNMainMenuPages)
     {
         HNMenuLink *menuItem = [self.mainItems objectAtIndex:[indexPath row]];

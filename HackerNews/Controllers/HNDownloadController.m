@@ -197,7 +197,7 @@ static const NSInteger HNMaxCommentDownloads = 1000;
         NSNumber *commentId = [childComments objectAtIndex:k];
         HNComment *targetComment = [commentArray objectAtIndex:k];
         
-        [self downloadCommentWithId:commentId successBlock:^(NSDictionary *commentData) {
+        [self downloadCommentWithId:commentId completionBlock:^(NSDictionary *commentData) {
             
             [self incrementCommentsToDownloadForArticle:article.objectId byAmount:-1];
             
@@ -234,11 +234,11 @@ static const NSInteger HNMaxCommentDownloads = 1000;
 }
 
 
--(void) downloadCommentWithId:(NSNumber *)objectId successBlock:(void (^)(NSDictionary * commentData))success
+-(void) downloadCommentWithId:(NSNumber *)objectId completionBlock:(void (^)(NSDictionary * commentData))completionBlock
 {
     //First save off a copy of the comment ID and its success block for later
     NSMutableDictionary *commentDownloadData = [[NSMutableDictionary alloc] init];
-    [commentDownloadData setObject:success forKey:@"successBlock"];
+    [commentDownloadData setObject:completionBlock forKey:@"successBlock"];
     [commentDownloadData setObject:objectId forKey:@"objectId"];
 
     
@@ -247,6 +247,15 @@ static const NSInteger HNMaxCommentDownloads = 1000;
         Firebase *firebase = [self getFirebaseDownloaderForObject:objectId];
         
         _numCommentsDownloading++;
+        
+        void (^downloadFinishBlock)(NSDictionary *) = ^(NSDictionary *data)
+            {
+                completionBlock(data);
+                _numCommentsDownloading--;
+                
+                [self downloadNextCommentInQueue];
+            };
+        
         [firebase observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot)
          {
              NSDictionary *data = nil;
@@ -255,27 +264,12 @@ static const NSInteger HNMaxCommentDownloads = 1000;
              {
                  data = snapshot.value;
              }
-             success(data);
-             _numCommentsDownloading--;
+             downloadFinishBlock(data);
              
-             //Download the next element in the queue if one exists
-             if (_commentsToDownloadQueue.count > 0)
-             {
-                 //Pop the first element
-                 NSDictionary *nextDownloadObject = [_commentsToDownloadQueue firstObject];
-                 [_commentsToDownloadQueue removeObjectAtIndex:0];
-                 
-                 if (nextDownloadObject != nil)
-                 {
-                     void (^nextSuccessBlock)(NSDictionary *) = [nextDownloadObject objectForKey:@"successBlock"];
-                     NSNumber *nextObjectId = [nextDownloadObject objectForKey:@"objectId"];
-                     [self downloadCommentWithId:nextObjectId successBlock:nextSuccessBlock];
-                 }
-             }
-             
-             
-         } withCancelBlock:^(NSError *error) {
-             //Nothing yet
+         }
+        withCancelBlock:^(NSError *error) {
+             NSLog(@"Firebase error!!!");
+             downloadFinishBlock(nil);
          }];
     }
     else
@@ -284,6 +278,24 @@ static const NSInteger HNMaxCommentDownloads = 1000;
         [_commentsToDownloadQueue addObject:commentDownloadData];
     }
 
+}
+
+-(void)downloadNextCommentInQueue
+{
+    //Download the next element in the queue if one exists
+    if (_commentsToDownloadQueue.count > 0)
+    {
+        //Pop the first element
+        NSDictionary *nextDownloadObject = [_commentsToDownloadQueue firstObject];
+        [_commentsToDownloadQueue removeObjectAtIndex:0];
+        
+        if (nextDownloadObject != nil)
+        {
+            void (^nextSuccessBlock)(NSDictionary *) = [nextDownloadObject objectForKey:@"successBlock"];
+            NSNumber *nextObjectId = [nextDownloadObject objectForKey:@"objectId"];
+            [self downloadCommentWithId:nextObjectId completionBlock:nextSuccessBlock];
+        }
+    }
 }
 
 -(Firebase *)getFirebaseDownloaderForObject:(NSNumber *)objectId
