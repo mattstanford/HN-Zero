@@ -16,17 +16,37 @@
 #import "TFHpple.h"
 #import "HNUtils.h"
 
+NSString *const HNCommentObjectId = @"id";
+NSString *const HNCommentAuthor = @"by";
+NSString *const HNCommentDateWritten = @"time";
+NSString *const HNCommentText = @"text";
+
 @implementation HNComment
 
 -(void)setFirebaseData:(NSDictionary *)data nestedLevel:(NSNumber *)nestedLevel
 {
-    _objectId = [data objectForKey:@"id"];
+    _objectId = [data objectForKey:HNCommentObjectId];
     _author = [data objectForKey:@"by"];
-    _dateWritten = [HNUtils getStringFromTimeStamp:[data objectForKey:@"time"]];
     
+    if ([data objectForKey:@"time"])
+    {
+         _dateWritten = [HNUtils getStringFromTimeStamp:[data objectForKey:@"time"]];
+    }
+    else
+    {
+        _dateWritten = @"Time Unknown";
+    }
+   
     _nestedLevel = nestedLevel;
 
-    _commentBlock = [self getCommentBlockFromStringData:[data objectForKey:@"text"]];
+    NSString *commentText = @"";
+    if ([data objectForKey:@"text"])
+    {
+        commentText = [data objectForKey:@"text"];
+    }
+    _commentBlock = [self getCommentBlockFromStringData:commentText];
+    
+   
 }
 
 -(HNCommentBlock *)getCommentBlockFromStringData:(NSString *)stringData
