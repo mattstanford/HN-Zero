@@ -200,12 +200,13 @@ static const NSInteger HNMaxCommentDownloads = 1000;
         [self downloadCommentWithId:commentId successBlock:^(NSDictionary *commentData) {
             
             [self incrementCommentsToDownloadForArticle:article.objectId byAmount:-1];
-            //NSLog(@"Removed 1, total: %li", [[_commentsToDownload objectForKey:article.objectId] integerValue]);
             
             //Set the data for the download comment
-            [targetComment setFirebaseData:commentData nestedLevel:nestedLevel];
-            targetComment.nestedLevel = nestedLevel;
-            
+            if (commentData)
+            {
+                [targetComment setFirebaseData:commentData nestedLevel:nestedLevel];
+                targetComment.nestedLevel = nestedLevel;
+            }
             
             //Check and see if we're done
             if ([[_commentsToDownload objectForKey:article.objectId] integerValue] <= 0)
@@ -248,7 +249,12 @@ static const NSInteger HNMaxCommentDownloads = 1000;
         _numCommentsDownloading++;
         [firebase observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot)
          {
-             NSDictionary *data = snapshot.value;
+             NSDictionary *data = nil;
+             
+             if (snapshot.value != [NSNull null])
+             {
+                 data = snapshot.value;
+             }
              success(data);
              _numCommentsDownloading--;
              
@@ -283,7 +289,7 @@ static const NSInteger HNMaxCommentDownloads = 1000;
 -(Firebase *)getFirebaseDownloaderForObject:(NSNumber *)objectId
 {
     NSString *objectDownloadString =
-    [NSString stringWithFormat:@"%@/%@/%li", HNApiBaseUrl, HNApiItem, [objectId integerValue]];
+    [NSString stringWithFormat:@"%@/%@/%li", HNApiBaseUrl, HNApiItem, (long)[objectId integerValue]];
     
     //NSLog(@"Getting item url: %@", objectDownloadString);
     
