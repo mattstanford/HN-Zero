@@ -25,7 +25,7 @@
 @property (strong, nonatomic) HNCommentVC *commentVC;
 @property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;
 @property (strong, nonatomic) HNMainMenu *mainMenuVC;
-@property (strong, nonatomic) MGSplitViewController *splitVC;
+@property (strong, nonatomic) UISplitViewController *splitVC;
 @property (strong, nonatomic) HNDownloadController *downloadController;
 @property (strong, nonatomic) HNSettings *settings;
 
@@ -80,8 +80,9 @@
     {
         
         //First initialze the drawer controller with its root view controllers
-        self.splitVC = [[MGSplitViewController alloc] init];
-        self.splitVC.showsMasterInPortrait = YES;
+        self.splitVC = [[UISplitViewController alloc] init];
+        //self.splitVC.showsMasterInPortrait = YES;
+        self.splitVC.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
         self.splitVC.view.backgroundColor = [UIColor lightGrayColor];
         self.articleContainerVC.splitVC = self.splitVC;
         

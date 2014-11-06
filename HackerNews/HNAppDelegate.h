@@ -10,7 +10,6 @@
 #import "HNArticleListVC.h"
 #import "HNWebBrowserVC.h"
 #import "HNCommentVC.h"
-#import <MGSplitViewController/MGSplitViewController.h>
 
 //@class HNArticleListVC;
 //@class HNWebBrowserVC;
