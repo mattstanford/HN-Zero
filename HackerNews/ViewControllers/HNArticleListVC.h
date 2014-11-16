@@ -18,7 +18,7 @@
 @class MMDrawerController;
 @class HNSettings;
 
-@interface HNArticleListVC : UITableViewController  <articleDownloadDelegate, HNArticleCellDelegate, UISplitViewControllerDelegate, UIScrollViewDelegate>
+@interface HNArticleListVC : UITableViewController  <articleDownloadDelegate, HNArticleCellDelegate, UIScrollViewDelegate>
 
 - (id)initWithStyle:(UITableViewStyle)style
    withWebBrowserVC:(HNWebBrowserVC *)webVC

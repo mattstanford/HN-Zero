@@ -416,18 +416,6 @@ withDownloadController:(HNDownloadController *)downloadController
     }
 }
 
-#pragma mark - SplitViewController delegate
-
--(void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
-{
-    NSLog(@"will show splitvc");
-}
-
--(void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
-{
-    NSLog(@"will hide splitvc");
-}
-
 #pragma mark - UIScrollView delegate
 
 -(void) scrollViewWillBeginDragging:(UIScrollView *)scrollView

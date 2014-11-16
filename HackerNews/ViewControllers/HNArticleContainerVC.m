@@ -10,9 +10,12 @@
 #import "HNArticle.h"
 #import "HNWebBrowserVC.h"
 #import "HNCommentVC.h"
+#import <MGSplitViewController/MGSplitViewController.h>
 
 NSString static *HNGoToArticleButtonText = @"Go To Article";
 NSString static *HNGoToCommentsButtonText = @"Go To Comments";
+NSString static *HNSplitVCShowFullScreenText = @"Full Screen";
+NSString static *HNSplitVCShowArticleList = @"Show Article List";
 
 @interface HNArticleContainerVC ()
 
@@ -61,7 +64,7 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
         if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
             UIBarButtonItem *splitButton = [[UIBarButtonItem alloc]
-                                            initWithTitle:@"Full Screen"
+                                            initWithTitle:HNSplitVCShowFullScreenText
                                             style:UIBarButtonItemStylePlain
                                             target:self
                                             action:@selector(splitButtonPressed)];
@@ -81,17 +84,65 @@ NSString static *HNGoToCommentsButtonText = @"Go To Comments";
 {
     if (self.splitVC)
     {
-        if (self.splitVC.displayMode == UISplitViewControllerDisplayModePrimaryHidden)
+        //iOS 8 iPads use the new UISplitViewController
+        if ([self.splitVC isKindOfClass:[UISplitViewController class]])
         {
-            self.navigationItem.leftBarButtonItem.title = @"Full Screen";
-            self.splitVC.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+            [self splitButtonPressed_ios8];
         }
-        else
+        
+        //iOS 7 iPads have to use the old custom MGSplitViewController custom library
+        else if([self.splitVC isKindOfClass:[MGSplitViewController class]])
         {
-            self.navigationItem.leftBarButtonItem.title = @"Show article list";
-            self.splitVC.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
+            [self splitButtonPressed_ios7];
         }
+        
     }
+}
+
+-(void) splitButtonPressed_ios8
+{
+
+    if (((UISplitViewController *)self.splitVC).displayMode == UISplitViewControllerDisplayModePrimaryHidden)
+    {
+        self.navigationItem.leftBarButtonItem.title = HNSplitVCShowFullScreenText;
+        ((UISplitViewController *)self.splitVC).preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+    }
+    else
+    {
+        self.navigationItem.leftBarButtonItem.title = HNSplitVCShowArticleList;
+        ((UISplitViewController *)self.splitVC).preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
+    }
+}
+
+-(void) splitButtonPressed_ios7
+{
+    MGSplitViewController *mgSplitPtr = (MGSplitViewController *)self.splitVC;
+    
+    if (![mgSplitPtr isShowingMaster])
+    {
+        self.navigationItem.leftBarButtonItem.title = HNSplitVCShowFullScreenText;
+    }
+    else
+    {
+        self.navigationItem.leftBarButtonItem.title = HNSplitVCShowArticleList;
+    }
+    [mgSplitPtr toggleMasterView:nil];
+    
+    /*
+     Need to make sure rotation won't cause the master view to be shown
+     (which will also mess up the state of the bar buttons)
+     */
+    if (![mgSplitPtr isShowingMaster])
+    {
+        mgSplitPtr.showsMasterInLandscape = NO;
+        mgSplitPtr.showsMasterInPortrait = NO;
+    }
+    else
+    {
+        mgSplitPtr.showsMasterInPortrait = YES;
+        mgSplitPtr.showsMasterInLandscape = YES;
+    }
+
 }
 
 -(void)swapButtonPressed

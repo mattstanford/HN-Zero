@@ -17,7 +17,7 @@
 
 @property (nonatomic, strong) HNWebBrowserVC *articleVC;
 @property (nonatomic, strong) HNCommentVC *commentsVC;
-@property (nonatomic, weak) UISplitViewController *splitVC;
+@property (nonatomic, weak) UIViewController *splitVC;
 
 -(id) initWithArticleVC:(HNWebBrowserVC *)theArticleVC andCommentsVC:(HNCommentVC *)theCommentsVC;
 -(void) doPresentArticle:(HNArticle *)article onClearBlock:(void (^)())clearBlock;

@@ -7,16 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HNArticleListVC.h"
-#import "HNWebBrowserVC.h"
-#import "HNCommentVC.h"
-
-//@class HNArticleListVC;
-//@class HNWebBrowserVC;
-//@class HNCommentVC;
-//@class HNTheme;
-//@class HNArticleContainerVC;
-//@class HNMainMenu;
 
 @interface HNAppDelegate : UIResponder <UIApplicationDelegate>
 

@@ -15,6 +15,10 @@
 #import "GAI.h"
 #import <MMDrawerController/MMDrawerController.h>
 #import "HNSettings.h"
+#import "HNArticleListVC.h"
+#import "HNWebBrowserVC.h"
+#import "HNCommentVC.h"
+#import <MGSplitViewController/MGSplitViewController.h>
 
 @interface HNAppDelegate ()
 
@@ -25,7 +29,6 @@
 @property (strong, nonatomic) HNCommentVC *commentVC;
 @property (strong, nonatomic) HNArticleContainerVC *articleContainerVC;
 @property (strong, nonatomic) HNMainMenu *mainMenuVC;
-@property (strong, nonatomic) UISplitViewController *splitVC;
 @property (strong, nonatomic) HNDownloadController *downloadController;
 @property (strong, nonatomic) HNSettings *settings;
 
@@ -76,15 +79,24 @@
     //[self setupMainMenu];
     NSArray *menuLinks = [self initializeMenuLinks];
     
-    if (NSClassFromString(@"UISplitViewController") != nil && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         
         //First initialze the drawer controller with its root view controllers
-        self.splitVC = [[UISplitViewController alloc] init];
-        //self.splitVC.showsMasterInPortrait = YES;
-        self.splitVC.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
-        self.splitVC.view.backgroundColor = [UIColor lightGrayColor];
-        self.articleContainerVC.splitVC = self.splitVC;
+        UIViewController *splitVC = [[UISplitViewController alloc] init];
+        UISplitViewController *splitVCptr;
+        MGSplitViewController *mgSplitVCptr;
+        if ([splitVC respondsToSelector:@selector(setPreferredDisplayMode:)])
+        {
+            splitVCptr = (UISplitViewController *)splitVC;
+            splitVCptr.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+        }
+        else
+        {
+            splitVC = [[MGSplitViewController alloc] init];
+            mgSplitVCptr = (MGSplitViewController *)splitVC;
+            mgSplitVCptr.showsMasterInPortrait = YES;
+        }
         
         
         self.mainMenuVC = [[HNMainMenu alloc]
@@ -94,7 +106,7 @@
                            withMenuLinks:menuLinks
                            andSettings:self.settings];
         
-        MMDrawerController *drawerController = [self setupDrawerControllerWithCenterVC:self.splitVC
+        MMDrawerController *drawerController = [self setupDrawerControllerWithCenterVC:splitVC
                                                                                 leftVC:self.mainMenuVC];
         
         self.articleListVC = [[HNArticleListVC alloc] initWithStyle:UITableViewStylePlain
@@ -122,9 +134,18 @@
         
         [HNUiUtils setTitleBarColors:theme withNavController:articleContainerNavController];
         
-        self.splitVC.viewControllers = [NSArray arrayWithObjects:articleListNavController, articleContainerNavController, nil];
-        self.splitVC.delegate = self.articleListVC;
+        NSArray *splitVCArray = [NSArray arrayWithObjects:articleListNavController, articleContainerNavController, nil];
+        if ([splitVC isKindOfClass:[MGSplitViewController class]])
+        {
+            [(MGSplitViewController *)splitVC setViewControllers:splitVCArray];
+        }
+        else
+        {
+            [(UISplitViewController *)splitVC setViewControllers:splitVCArray];
+        }
         
+        splitVC.view.backgroundColor = [UIColor lightGrayColor];
+        self.articleContainerVC.splitVC = splitVC;
         
         [self.window setRootViewController:drawerController];
     }
