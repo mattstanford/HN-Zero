@@ -139,7 +139,7 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     
     //Google analytics tracking
     id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Article List"];
+    [tracker set:kGAIScreenName value:@"Web Browser"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
     
     [self loadPendingUrl];

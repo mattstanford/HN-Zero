@@ -95,7 +95,7 @@ NS_ENUM(NSInteger, HNMenuSettings)
     
     //Google analytics tracking
     id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Article List"];
+    [tracker set:kGAIScreenName value:@"Main Menu"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 

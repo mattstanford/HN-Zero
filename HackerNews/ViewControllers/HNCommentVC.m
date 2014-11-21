@@ -67,7 +67,7 @@ withDownloadController:(HNDownloadController *)downloadController
     
     //Google analytics tracking
     id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Article List"];
+    [tracker set:kGAIScreenName value:@"Comments"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
