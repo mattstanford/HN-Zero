@@ -232,6 +232,9 @@ withDownloadController:(HNDownloadController *)downloadController
         [self.tableView reloadData];
     }
     
+    //Scroll to top
+    [self.tableView setContentOffset:CGPointZero animated:NO];
+    
 }
 
 -(NSArray *) buildTableWithData:(NSArray *)data
