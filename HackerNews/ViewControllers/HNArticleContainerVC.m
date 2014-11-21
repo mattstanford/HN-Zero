@@ -50,9 +50,13 @@ NSString static *HNSplitVCShowArticleList = @"Show Article List";
 
 -(void) loadBarButtons
 {
-    if (!self.navigationItem.rightBarButtonItem || !self.navigationItem.leftBarButtonItem)
+    //We want to hide the "show comments/article" button if its a self or job post
+    if (self.currentArticle.isSelfPost || ![self.currentArticle.type isEqualToString:@"story"])
     {
-    
+        self.navigationItem.rightBarButtonItems = nil;
+    }
+    else if (!self.navigationItem.rightBarButtonItem)
+    {
         UIBarButtonItem *swapButton = [[UIBarButtonItem alloc]
                                        initWithTitle:@""
                                        style:UIBarButtonItemStylePlain
@@ -60,18 +64,24 @@ NSString static *HNSplitVCShowArticleList = @"Show Article List";
                                        action:@selector(swapButtonPressed)];
         
         self.navigationItem.rightBarButtonItem = swapButton;
+    }
+
+    //Setup the "full screen/article list" button for iPad
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
         
-        if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        if (!self.navigationItem.leftBarButtonItem)
         {
             UIBarButtonItem *splitButton = [[UIBarButtonItem alloc]
                                             initWithTitle:HNSplitVCShowFullScreenText
                                             style:UIBarButtonItemStylePlain
                                             target:self
                                             action:@selector(splitButtonPressed)];
-            
+
             self.navigationItem.leftBarButtonItem = splitButton;
         }
     }
+    
 
 }
 
@@ -224,11 +234,15 @@ NSString static *HNSplitVCShowArticleList = @"Show Article List";
     self.currentVC = nil;
 }
 
+-(void) loadNewArticle:(HNArticle *)article
+{
+    self.currentArticle = article;
+    [self loadBarButtons];
+}
+
 -(void) doPresentArticle:(HNArticle *)article onClearBlock:(void (^)())clearBlock
 {
-    [self loadBarButtons];
-    
-    self.currentArticle = article;
+    [self loadNewArticle:article];
     
     [self loadArticle:article forceUpdate:YES onClearBlock:clearBlock];
     
@@ -236,15 +250,11 @@ NSString static *HNSplitVCShowArticleList = @"Show Article List";
     {
         [self swapViewControllerFrom:self.commentsVC to:self.articleVC withAnimation:NO];
     }
-
-    
 }
 
 -(void) doPresentCommentForArticle:(HNArticle *)article
 {
-    [self loadBarButtons];
-    
-    self.currentArticle = article;
+    [self loadNewArticle:article];
     
     [self loadComments:article forceUpdate:YES];
     
