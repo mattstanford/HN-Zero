@@ -25,26 +25,26 @@ NSString *const HNCommentText = @"text";
 
 -(void)setFirebaseData:(NSDictionary *)data nestedLevel:(NSNumber *)nestedLevel
 {
-    _objectId = [data objectForKey:HNCommentObjectId];
-    _author = [data objectForKey:@"by"];
+    if([data objectForKey:HNCommentObjectId]) self.objectId = [data objectForKey:HNCommentObjectId];
+    if([data objectForKey:HNCommentAuthor]) self.author = [data objectForKey:HNCommentAuthor];
     
-    if ([data objectForKey:@"time"])
+    if ([data objectForKey:HNCommentDateWritten])
     {
-         _dateWritten = [HNUtils getStringFromTimeStamp:[data objectForKey:@"time"]];
+         self.dateWritten = [HNUtils getStringFromTimeStamp:[data objectForKey:HNCommentAuthor]];
     }
     else
     {
-        _dateWritten = @"Time Unknown";
+        self.dateWritten = @"Time Unknown";
     }
    
-    _nestedLevel = nestedLevel;
+    self.nestedLevel = nestedLevel;
 
     NSString *commentText = @"";
-    if ([data objectForKey:@"text"])
+    if ([data objectForKey:HNCommentText])
     {
-        commentText = [data objectForKey:@"text"];
+        commentText = [data objectForKey:HNCommentText];
     }
-    _commentBlock = [self getCommentBlockFromStringData:commentText];
+    self.commentBlock = [self getCommentBlockFromStringData:commentText];
     
    
 }
