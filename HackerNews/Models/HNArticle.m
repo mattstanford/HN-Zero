@@ -14,37 +14,59 @@
 
 #pragma mark NSCoding delegate
 
+NSString * const HNArticleId = @"id";
+NSString * const HNArticleTitle = @"title";
+NSString * const HNArticleUrl = @"url";
+NSString * const HNArticleScore = @"score";
+NSString * const HNArticleBy = @"by";
+NSString * const HNArticleTimestamp = @"time";
+NSString * const HNArticleType = @"type";
+NSString * const HNArticleComments = @"kids";
+NSString * const HNArticlePostComment = @"text";
+
+NSString * const HNArticleDomainName = @"domainName";
+NSString * const HNArticleUser = @"user";
+NSString * const HNArticleTimePosted = @"timePosted";
+NSString * const HNArticleNumComments = @"numComments";
+NSString * const HNArticleCommentLinkId = @"commentLinkId";
+
+
 -(id) initWithFirebaseData:(NSDictionary *)data
 {
     self = [super init];
     
     if (self)
     {
-        self.objectId = [data objectForKey:@"id"];
-        self.title = [data objectForKey:@"title"];
-        self.url = [data objectForKey:@"url"];
+
+        if([data objectForKey:HNArticleId]) self.objectId = [data objectForKey:HNArticleId];
+        if([data objectForKey:HNArticleTitle]) self.title = [data objectForKey:HNArticleTitle];
+        if([data objectForKey:HNArticleUrl]) self.url = [data objectForKey:HNArticleUrl];
+        if([data objectForKey:HNArticleScore]) self.score = [data objectForKey:HNArticleScore];
+        if([data objectForKey:HNArticleBy]) self.user = [data objectForKey:HNArticleBy];
         
-        self.score = [data objectForKey:@"score"];
-        self.user = [data objectForKey:@"by"];
-        self.timePosted = [HNUtils getStringFromTimeStamp:[data objectForKey:@"time"]];
+        if([data objectForKey:HNArticleTimestamp]) self.timePosted = [HNUtils getStringFromTimeStamp:[data objectForKey:HNArticleTimestamp]];
+        
         self.numComments = nil; //Have to get this asynchronously!!!
-        self.commentLinkId = [[NSString alloc] initWithFormat:@"%@", [data objectForKey:@"id"]];
+        
+        if([data objectForKey:HNArticleId]) self.commentLinkId = [[NSString alloc] initWithFormat:@"%@", [data objectForKey:HNArticleId]];
+        
         self.comments = [[NSMutableArray alloc] init];
-        self.type = [data objectForKey:@"type"];
+        
+        if([data objectForKey:HNArticleType]) self.type = [data objectForKey:HNArticleType];
         self.domainName = [self getDomainFromUrl:self.url];
         self.image = nil;
-        self.childComments = [data objectForKey:@"kids"];
         
-        if ([data objectForKey:@"text"])
+        if([data objectForKey:HNArticleComments]) self.childComments = [data objectForKey:HNArticleComments];
+        
+        if ([data objectForKey:HNArticlePostComment])
         {
             self.postComment = [[HNComment alloc] init];
-            [self.postComment setWithPostText:[data objectForKey:@"text"]];
+            [self.postComment setWithPostText:[data objectForKey:HNArticlePostComment]];
         }
         else
         {
             self.postComment = nil;
         }
-       
     }
     
     return self;
@@ -70,14 +92,14 @@
     self = [super init];
     if (self)
     {
-        self.title = [aDecoder decodeObjectForKey:@"title"];
-        self.url = [aDecoder decodeObjectForKey:@"url"];
-        self.domainName = [aDecoder decodeObjectForKey:@"domainName"];
-        self.score = [aDecoder decodeObjectForKey:@"score"];
-        self.user = [aDecoder decodeObjectForKey:@"user"];
-        self.timePosted = [aDecoder decodeObjectForKey:@"timePosted"];
-        self.numComments = [aDecoder decodeObjectForKey:@"numComments"];
-        self.commentLinkId = [aDecoder decodeObjectForKey:@"commentLinkId"];
+        self.title = [aDecoder decodeObjectForKey:HNArticleTitle];
+        self.url = [aDecoder decodeObjectForKey:HNArticleUrl];
+        self.domainName = [aDecoder decodeObjectForKey:HNArticleDomainName];
+        self.score = [aDecoder decodeObjectForKey:HNArticleScore];
+        self.user = [aDecoder decodeObjectForKey:HNArticleUser];
+        self.timePosted = [aDecoder decodeObjectForKey:HNArticleTimePosted];
+        self.numComments = [aDecoder decodeObjectForKey:HNArticleNumComments];
+        self.commentLinkId = [aDecoder decodeObjectForKey:HNArticleCommentLinkId];
     }
     
     return self;
@@ -85,20 +107,20 @@
 
 - (void) encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:self.title forKey:@"title"];
-    [aCoder encodeObject:self.url forKey:@"url"];
-    [aCoder encodeObject:self.domainName forKey:@"domainName"];
-    [aCoder encodeObject:self.score forKey:@"score"];
-    [aCoder encodeObject:self.user forKey:@"user"];
-    [aCoder encodeObject:self.timePosted forKey:@"timePosted"];
-    [aCoder encodeObject:self.numComments forKey:@"numComments"];
-    [aCoder encodeObject:self.commentLinkId forKey:@"commentLinkId"];
+    [aCoder encodeObject:self.title forKey:HNArticleTitle];
+    [aCoder encodeObject:self.url forKey:HNArticleUrl];
+    [aCoder encodeObject:self.domainName forKey:HNArticleDomainName];
+    [aCoder encodeObject:self.score forKey:HNArticleScore];
+    [aCoder encodeObject:self.user forKey:HNArticleUser];
+    [aCoder encodeObject:self.timePosted forKey:HNArticleTimePosted];
+    [aCoder encodeObject:self.numComments forKey:HNArticleNumComments];
+    [aCoder encodeObject:self.commentLinkId forKey:HNArticleCommentLinkId];
 }
 
 - (void)writeNumComments
 {
     NSInteger numComments = _comments.count;
-    NSString *numCommentString = [[NSString alloc] initWithFormat:@"%li", numComments];
+    NSString *numCommentString = [[NSString alloc] initWithFormat:@"%d", numComments];
     
     _numComments = numCommentString;
 }
