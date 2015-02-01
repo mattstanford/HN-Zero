@@ -86,32 +86,39 @@ static const NSInteger HNMaxCommentDownloads = 1000;
     
     [firebase observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot)
     {
-        NSDictionary *data = snapshot.value;
-        HNArticle *article = [[HNArticle alloc] initWithFirebaseData:data];
-        
-        [articleDownloadDelegate didGetArticle:article];
-        
-        //Start downloading comments
-        if(article.childComments)
+        if (snapshot.value != [NSNull null])
         {
-            if (_settings.doPreLoadComments)
+            NSDictionary *data = snapshot.value;
+            
+            HNArticle *article = [[HNArticle alloc] initWithFirebaseData:data];
+            
+            [articleDownloadDelegate didGetArticle:article];
+            
+            //Start downloading comments
+            if(article.childComments)
             {
-                [self startDownloadingCommentsForArticle:article];
+                if (_settings.doPreLoadComments)
+                {
+                    [self startDownloadingCommentsForArticle:article];
+                }
+            }
+            else
+            {
+                if ([article.type isEqualToString:@"story"])
+                {
+                    [self didFinishDownloadingCommentsForArticle:article];
+                }
+            }
+            
+            if (_articlesToDownloadQueue.count > 0)
+            {
+                [self downloadArticleWithId:[_articlesToDownloadQueue firstObject]];
             }
         }
         else
         {
-            if ([article.type isEqualToString:@"story"])
-            {
-                [self didFinishDownloadingCommentsForArticle:article];
-            }
+            NSLog(@"data is null");
         }
-        
-        if (_articlesToDownloadQueue.count > 0)
-        {
-            [self downloadArticleWithId:[_articlesToDownloadQueue firstObject]];
-        }
-        
     } withCancelBlock:^(NSError *error) {
         //Nothing yet
     }];
