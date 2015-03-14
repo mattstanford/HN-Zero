@@ -30,7 +30,7 @@ NSString *const HNCommentText = @"text";
     
     if ([data objectForKey:HNCommentDateWritten])
     {
-         self.dateWritten = [HNUtils getStringFromTimeStamp:[data objectForKey:HNCommentAuthor]];
+         self.dateWritten = [HNUtils getStringFromTimeStamp:[data objectForKey:HNCommentDateWritten]];
     }
     else
     {
