@@ -18,16 +18,17 @@ NSString * const HNArticleId = @"id";
 NSString * const HNArticleTitle = @"title";
 NSString * const HNArticleUrl = @"url";
 NSString * const HNArticleScore = @"score";
-NSString * const HNArticleBy = @"by";
-NSString * const HNArticleTimestamp = @"time";
+NSString * const HNArticleUser = @"by";
+NSString * const HNArticleTimePosted = @"time";
 NSString * const HNArticleType = @"type";
 NSString * const HNArticleComments = @"kids";
 NSString * const HNArticlePostComment = @"text";
+NSString * const HNArticleNumComments = @"descendants";
 
 NSString * const HNArticleDomainName = @"domainName";
-NSString * const HNArticleUser = @"user";
-NSString * const HNArticleTimePosted = @"timePosted";
-NSString * const HNArticleNumComments = @"numComments";
+//NSString * const HNArticleUser = @"user";
+//NSString * const HNArticleTimePosted = @"timePosted";
+//NSString * const HNArticleNumComments = @"numComments";
 NSString * const HNArticleCommentLinkId = @"commentLinkId";
 
 
@@ -42,11 +43,18 @@ NSString * const HNArticleCommentLinkId = @"commentLinkId";
         if([data objectForKey:HNArticleTitle]) self.title = [data objectForKey:HNArticleTitle];
         if([data objectForKey:HNArticleUrl]) self.url = [data objectForKey:HNArticleUrl];
         if([data objectForKey:HNArticleScore]) self.score = [data objectForKey:HNArticleScore];
-        if([data objectForKey:HNArticleBy]) self.user = [data objectForKey:HNArticleBy];
+        if([data objectForKey:HNArticleUser]) self.user = [data objectForKey:HNArticleUser];
         
-        if([data objectForKey:HNArticleTimestamp]) self.timePosted = [HNUtils getStringFromTimeStamp:[data objectForKey:HNArticleTimestamp]];
+        if([data objectForKey:HNArticleNumComments])
+        {
+            NSNumber *numCommentsNumber = [data objectForKey:HNArticleNumComments];
+            self.numComments = [[NSString alloc] initWithFormat:@"%li", (long)[numCommentsNumber integerValue]];
+        }
         
-        self.numComments = nil; //Have to get this asynchronously!!!
+        if([data objectForKey:HNArticleTimePosted]) self.timePosted = [HNUtils getStringFromTimeStamp:[data objectForKey:HNArticleTimePosted]];
+        
+
+        //self.numComments = nil; //Have to get this asynchronously!!!
         
         if([data objectForKey:HNArticleId]) self.commentLinkId = [[NSString alloc] initWithFormat:@"%@", [data objectForKey:HNArticleId]];
         
@@ -120,7 +128,7 @@ NSString * const HNArticleCommentLinkId = @"commentLinkId";
 - (void)writeNumComments
 {
     NSInteger numComments = _comments.count;
-    NSString *numCommentString = [[NSString alloc] initWithFormat:@"%d", numComments];
+    NSString *numCommentString = [[NSString alloc] initWithFormat:@"%li", (long)numComments];
     
     _numComments = numCommentString;
 }

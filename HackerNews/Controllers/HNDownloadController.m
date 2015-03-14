@@ -126,7 +126,7 @@ static const NSInteger HNMaxCommentDownloads = 1000;
 
 -(void)didFinishDownloadingCommentsForArticle:(HNArticle *)article
 {
-    [article writeNumComments];
+    //[article writeNumComments];
     [articleDownloadDelegate didGetArticleWithComments:article];
     
     if ([_currentArticleBeingViewed isEqualToNumber:article.objectId])
