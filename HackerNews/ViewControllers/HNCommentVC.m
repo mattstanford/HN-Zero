@@ -32,7 +32,7 @@
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, strong) HNTheme *theme;
 @property (nonatomic, strong) HNSettings *settings;
-@property (nonatomic, strong) NSMutableDictionary *rowHeightCache;
+//@property (nonatomic, strong) NSMutableDictionary *rowHeightCache;
 
 @end
 
@@ -58,7 +58,7 @@ withDownloadController:(HNDownloadController *)downloadController
         self.theme = appTheme;
         self.settings = settings;
         
-        self.rowHeightCache = [[NSMutableDictionary alloc] init];
+        //self.rowHeightCache = [[NSMutableDictionary alloc] init];
         
     }
     return self;
@@ -170,23 +170,14 @@ withDownloadController:(HNDownloadController *)downloadController
     {
         CGFloat rowHeight;
         NSNumber *cellIndexNumber = [[NSNumber alloc] initWithInteger:[indexPath row]];
-        if ([self.rowHeightCache objectForKey:cellIndexNumber])
-        {
-            NSNumber *rowHeightNumber = (NSNumber *)[self.rowHeightCache objectForKey:cellIndexNumber];
-            rowHeight = rowHeightNumber.floatValue;
-        }
-        else
-        {
-            HNComment *comment = [self.comments objectAtIndex:[indexPath row]];
-            
-            NSAttributedString *commentBlock = [comment convertToAttributedStringWithTheme:self.theme];
-            
-            rowHeight = [HNCommentCell getCellHeightForText:commentBlock
-                                                 width:self.view.frame.size.width
-                                             nestLevel:comment.nestedLevel];
-            
-            [self.rowHeightCache setObject:[NSNumber numberWithFloat:rowHeight] forKey:cellIndexNumber];
-        }
+
+        HNComment *comment = [self.comments objectAtIndex:[indexPath row]];
+        
+        NSAttributedString *commentBlock = [comment convertToAttributedStringWithTheme:self.theme];
+        
+        rowHeight = [HNCommentCell getCellHeightForText:commentBlock
+                                             width:self.view.frame.size.width
+                                         nestLevel:comment.nestedLevel];
         
         return rowHeight;
     }
@@ -257,8 +248,6 @@ withDownloadController:(HNDownloadController *)downloadController
 -(NSArray *) buildTableWithData:(NSArray *)data
 {
     NSMutableArray *returnData = [[NSMutableArray alloc] init];
-    
-    self.rowHeightCache = [[NSMutableDictionary alloc] init];
     
     //The first element is the article info
     [returnData addObject:@"test"];
