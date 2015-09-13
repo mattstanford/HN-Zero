@@ -1,5 +1,5 @@
 platform :ios, '6.0'
-pod 'AFNetworking', '~> 1.3.2'
+pod 'AFNetworking', '~> 2.5.2'
 pod 'hpple', '~> 0.2.0'
 pod 'TTTAttributedLabel', '~> 1.10.1'
 pod 'MMDrawerController', '~> 0.5.7'

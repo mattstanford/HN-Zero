@@ -89,7 +89,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		095A44AB58404E64A01006F0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		780F09B11801B88F00B9C5C3 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		780F09BC18021ABD00B9C5C3 /* HNAttributedStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNAttributedStyle.h; path = Models/HNAttributedStyle.h; sourceTree = "<group>"; };
 		780F09BD18021ABD00B9C5C3 /* HNAttributedStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNAttributedStyle.m; path = Models/HNAttributedStyle.m; sourceTree = "<group>"; };
@@ -145,6 +144,7 @@
 		78E570CE17D817FB00D53F99 /* HNDownloadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNDownloadController.m; path = Controllers/HNDownloadController.m; sourceTree = "<group>"; };
 		78E570D217D81C2C00D53F99 /* HNArticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNArticle.h; path = Models/HNArticle.h; sourceTree = "<group>"; };
 		78E570D317D81C2C00D53F99 /* HNArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNArticle.m; path = Models/HNArticle.m; sourceTree = "<group>"; };
+		7AB072EA729429F17149299C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A70B451D186202CF007348B7 /* HNLinkGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNLinkGetter.h; path = Controllers/HNLinkGetter.h; sourceTree = "<group>"; };
 		A70B451E186202CF007348B7 /* HNLinkGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNLinkGetter.m; path = Controllers/HNLinkGetter.m; sourceTree = "<group>"; };
 		A77333861840455C006BF7E5 /* icon-80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-80.png"; path = "Resources/icon-80.png"; sourceTree = "<group>"; };
@@ -165,6 +165,7 @@
 		A7DFA86B18A9910F005BC27D /* HNConnectionStatusLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNConnectionStatusLabel.h; path = Views/HNConnectionStatusLabel.h; sourceTree = "<group>"; };
 		A7DFA86C18A9910F005BC27D /* HNConnectionStatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNConnectionStatusLabel.m; path = Views/HNConnectionStatusLabel.m; sourceTree = "<group>"; };
 		A7F985B71826DB9900A8D404 /* triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = triangle.png; path = Resources/triangle.png; sourceTree = "<group>"; };
+		A9A102B562681B0AAA5C56E4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C70DA83392594FF4B0113C30 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C90D132E1900BACB00BC6E4B /* github icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "github icon.png"; path = "Resources/github icon.png"; sourceTree = "<group>"; };
 		C90D13301900BB6600BC6E4B /* twitter-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "twitter-icon.png"; path = "Resources/twitter-icon.png"; sourceTree = "<group>"; };
@@ -231,6 +232,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D3C2C3974F8C70F934C3F76 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A9A102B562681B0AAA5C56E4 /* Pods.debug.xcconfig */,
+				7AB072EA729429F17149299C /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		782784B217C9814400CAD559 = {
 			isa = PBXGroup;
 			children = (
@@ -238,7 +248,7 @@
 				782784C717C9814500CAD559 /* HackerNews */,
 				782784C017C9814500CAD559 /* Frameworks */,
 				782784BE17C9814500CAD559 /* Products */,
-				095A44AB58404E64A01006F0 /* Pods.xcconfig */,
+				3D3C2C3974F8C70F934C3F76 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -598,7 +608,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6A2566923C8044479C7136DC /* Check Pods Manifest.lock */ = {
@@ -726,7 +736,7 @@
 		};
 		782784DC17C9814500CAD559 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 095A44AB58404E64A01006F0 /* Pods.xcconfig */;
+			baseConfigurationReference = A9A102B562681B0AAA5C56E4 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -752,7 +762,7 @@
 		};
 		782784DD17C9814500CAD559 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 095A44AB58404E64A01006F0 /* Pods.xcconfig */;
+			baseConfigurationReference = 7AB072EA729429F17149299C /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
