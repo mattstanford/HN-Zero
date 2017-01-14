@@ -19,10 +19,12 @@
 #import "HNWebBrowserVC.h"
 #import "HNCommentVC.h"
 #import <MGSplitViewController/MGSplitViewController.h>
+#import "HNNavigationViewController.h"
+#import "HNThemeChanger.h"
 
 @interface HNAppDelegate ()
 
-@property (strong, nonatomic) UINavigationController *navController;
+@property (strong, nonatomic) HNNavigationViewController *navController;
 @property (strong, nonatomic) HNArticleListVC *articleListVC;
 @property (strong, nonatomic) HNWebBrowserVC *webBrowserVC;
 @property (strong, nonatomic) HNWebBrowserVC *commentWebBrowserVC;
@@ -64,6 +66,8 @@
     self.commentWebBrowserVC = [[HNWebBrowserVC alloc] initWithTheme:theme];
     self.downloadController = [[HNDownloadController alloc] init];
     self.downloadController.settings = self.settings;
+    
+    HNThemeChanger *themeChanger = [[HNThemeChanger alloc] init];
     
     
     
@@ -126,13 +130,15 @@
         //[self setupMainMenuWithLinks:menuLinks withArticleListVC:self.articleListVC];
         
         //Initialze the splitVC and finish initiazing the rest of the UI
-        UINavigationController *articleListNavController = [[UINavigationController alloc] initWithRootViewController:self.articleListVC];
+        HNNavigationViewController *articleListNavController = [[HNNavigationViewController alloc] initWithRootViewController:self.articleListVC];
         
-        [HNUiUtils setTitleBarColors:theme withNavController:articleListNavController];
+        //[HNUiUtils setTitleBarColors:theme withNavController:articleListNavController];
+        [themeChanger addThemedViewController:articleListNavController];
         
-        UINavigationController *articleContainerNavController = [[UINavigationController alloc] initWithRootViewController:self.articleContainerVC];
+        HNNavigationViewController *articleContainerNavController = [[HNNavigationViewController alloc] initWithRootViewController:self.articleContainerVC];
         
-        [HNUiUtils setTitleBarColors:theme withNavController:articleContainerNavController];
+       // [HNUiUtils setTitleBarColors:theme withNavController:articleContainerNavController];
+        [themeChanger addThemedViewController:articleContainerNavController];
         
         NSArray *splitVCArray = [NSArray arrayWithObjects:articleListNavController, articleContainerNavController, nil];
         if ([splitVC isKindOfClass:[MGSplitViewController class]])
@@ -170,15 +176,20 @@
                    withArticleListVC:self.articleListVC
                            withTheme:theme];
         
-        self.navController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuVC];
+        self.navController = [[HNNavigationViewController alloc] initWithRootViewController:self.mainMenuVC];
         
         [self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
         
-        [HNUiUtils setTitleBarColors:theme withNavController:self.navController];
+       // [HNUiUtils setTitleBarColors:theme withNavController:self.navController];
+        [themeChanger addThemedViewController:self.navController];
+        
         [self.window setRootViewController:self.navController];
         
     }
 
+    [themeChanger switchViewsToTheme:[self getDefaultTheme]];
+    self.mainMenuVC.themeChanger = themeChanger;
+    
     
     self.window.backgroundColor = [UIColor whiteColor];
 }

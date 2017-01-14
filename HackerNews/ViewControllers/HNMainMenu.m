@@ -17,6 +17,8 @@
 #import "HNUiUtils.h"
 #import "HNTheme.h"
 #import "HNSettings.h"
+#import "HNThemeChanger.h"
+#import "HNTheme+Themes.h"
 
 NSString * const kGithubLink = @"https://github.com/mds6058/HackerNews";
 NSString * const kTwitterLink = @"twitter://post?message=@MattStanford3";
@@ -25,6 +27,7 @@ NS_ENUM(NSInteger, HNMainMenuSections)
 {
     HNMainMenuPages,
     HNMainMenuSettings,
+    HNMainMenuThemes,
     HNMainMenuInfo,
     HNMainMenuNumSections
 };
@@ -45,11 +48,11 @@ NS_ENUM(NSInteger, HNMenuSettings)
 
 @interface HNMainMenu ()
 
-@property (nonatomic, strong) HNAbout *aboutMeVC;
 @property (nonatomic, strong) HNSettingsVC *settingsVC;
 @property (nonatomic, strong) UINavigationController *settingsNavController;
 @property (nonatomic, strong) NSArray *mainItems;
 @property (nonatomic, strong) HNSettings *settings;
+@property (nonatomic, strong) NSArray *themes;
 
 @end
 
@@ -66,7 +69,6 @@ NS_ENUM(NSInteger, HNMenuSettings)
     {
         self.title = @"Hacker News Zero";
         
-        self.aboutMeVC = [[HNAbout alloc] init];
         self.settingsVC = [[HNSettingsVC alloc] init];
         self.settingsNavController = [[UINavigationController alloc] initWithRootViewController:self.settingsVC];
         [HNUiUtils setTitleBarColors:theme withNavController:self.settingsNavController];
@@ -74,7 +76,7 @@ NS_ENUM(NSInteger, HNMenuSettings)
         self.articleListVC = theArticleListVC;
         
         //Eliminate the the text for the "back" button in iOS7 (style choice)
-        int sysVer = [[[UIDevice currentDevice] systemVersion] integerValue];
+        long sysVer = [[[UIDevice currentDevice] systemVersion] integerValue];
         if (sysVer >= 7)
         {
             self.navigationItem.backBarButtonItem =
@@ -84,6 +86,9 @@ NS_ENUM(NSInteger, HNMenuSettings)
         
         self.mainItems = menuLinks;
         self.settings = settings;
+        
+        self.themes = @[[HNTheme classicTheme], [HNTheme testTheme]];
+        
     }
     
     return self;
@@ -108,7 +113,7 @@ NS_ENUM(NSInteger, HNMenuSettings)
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    int numRows = 0;
+    NSUInteger numRows = 0;
     
     if (section == HNMainMenuPages)
     {
@@ -117,6 +122,10 @@ NS_ENUM(NSInteger, HNMenuSettings)
     else if(section == HNMainMenuSettings)
     {
         numRows = HNMenuSettingNumRows;
+    }
+    else if(section == HNMainMenuThemes)
+    {
+        numRows = self.themes.count;
     }
     else
     {
@@ -136,6 +145,9 @@ NS_ENUM(NSInteger, HNMenuSettings)
             break;
         case HNMainMenuSettings:
             returnString = @"Settings";
+            break;
+        case HNMainMenuThemes:
+            returnString = @"Themes";
             break;
         case HNMainMenuPages:
         default:
@@ -163,6 +175,11 @@ NS_ENUM(NSInteger, HNMenuSettings)
     else if (indexPath.section == HNMainMenuSettings)
     {
         cell = [self setupSettingCell:cell indexPath:indexPath];
+    }
+    else if(indexPath.section == HNMainMenuThemes)
+    {
+        HNTheme *theme = [self.themes objectAtIndex:indexPath.row];
+        cell.textLabel.text = theme.name;
     }
     else
     {
@@ -233,9 +250,22 @@ NS_ENUM(NSInteger, HNMenuSettings)
     }
     else if([indexPath section] == HNMainMenuSettings)
     {
-        _settings.doPreLoadComments = !_settings.doPreLoadComments;
-        [_settings saveToCache];
-        [self.tableView reloadData];
+        switch (indexPath.row)
+        {
+            case HNMenuSettingPreLoadComments:
+            {
+                _settings.doPreLoadComments = !_settings.doPreLoadComments;
+                [_settings saveToCache];
+                [self.tableView reloadData];
+                break;
+            }
+        }
+      
+    }
+    else if(indexPath.section == HNMainMenuThemes)
+    {
+        HNTheme *theme = [self.themes objectAtIndex:indexPath.row];
+        [self.themeChanger switchViewsToTheme:theme];
     }
     else
     {

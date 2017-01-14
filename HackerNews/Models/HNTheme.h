@@ -10,6 +10,7 @@
 
 @interface HNTheme : NSObject
 
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) UIColor *titleBarColor;
 @property (nonatomic, strong) UIColor *titleBarTextColor;
 @property (nonatomic, strong) UIFont *articleTitleFont;

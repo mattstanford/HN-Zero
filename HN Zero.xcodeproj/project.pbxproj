@@ -85,6 +85,9 @@
 		C94C70DC196CE5E6005139BC /* default_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C94C70DB196CE5E6005139BC /* default_icon.png */; };
 		C98AF57519C7E1800069C6F9 /* HNSettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C98AF57419C7E1800069C6F9 /* HNSettingsVC.m */; };
 		C98AF57819D044350069C6F9 /* HNUiUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C98AF57719D044350069C6F9 /* HNUiUtils.m */; };
+		C98C27F31E29BA35003EF11C /* HNThemeChanger.m in Sources */ = {isa = PBXBuildFile; fileRef = C98C27F21E29BA35003EF11C /* HNThemeChanger.m */; };
+		C98C27F71E29BF06003EF11C /* HNNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C98C27F61E29BF06003EF11C /* HNNavigationViewController.m */; };
+		C98C27FA1E29D1E2003EF11C /* HNTheme+Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = C98C27F91E29D1E2003EF11C /* HNTheme+Themes.m */; };
 		C9C6F3FB19F4880600EA481B /* HNSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C6F3FA19F4880600EA481B /* HNSettings.m */; };
 /* End PBXBuildFile section */
 
@@ -206,6 +209,13 @@
 		C98AF57419C7E1800069C6F9 /* HNSettingsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNSettingsVC.m; path = ViewControllers/HNSettingsVC.m; sourceTree = "<group>"; };
 		C98AF57619D044350069C6F9 /* HNUiUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNUiUtils.h; path = Utilities/HNUiUtils.h; sourceTree = "<group>"; };
 		C98AF57719D044350069C6F9 /* HNUiUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNUiUtils.m; path = Utilities/HNUiUtils.m; sourceTree = "<group>"; };
+		C98C27F11E29BA35003EF11C /* HNThemeChanger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNThemeChanger.h; sourceTree = "<group>"; };
+		C98C27F21E29BA35003EF11C /* HNThemeChanger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNThemeChanger.m; sourceTree = "<group>"; };
+		C98C27F41E29BA8F003EF11C /* HNThemedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNThemedViewController.h; sourceTree = "<group>"; };
+		C98C27F51E29BF06003EF11C /* HNNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNNavigationViewController.h; sourceTree = "<group>"; };
+		C98C27F61E29BF06003EF11C /* HNNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNNavigationViewController.m; sourceTree = "<group>"; };
+		C98C27F81E29D1E2003EF11C /* HNTheme+Themes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HNTheme+Themes.h"; sourceTree = "<group>"; };
+		C98C27F91E29D1E2003EF11C /* HNTheme+Themes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HNTheme+Themes.m"; sourceTree = "<group>"; };
 		C9C6F3F919F4880600EA481B /* HNSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HNSettings.h; path = Models/HNSettings.h; sourceTree = "<group>"; };
 		C9C6F3FA19F4880600EA481B /* HNSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNSettings.m; path = Models/HNSettings.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -326,6 +336,8 @@
 				789533921818CC91000462A7 /* HNUtils.m */,
 				C98AF57619D044350069C6F9 /* HNUiUtils.h */,
 				C98AF57719D044350069C6F9 /* HNUiUtils.m */,
+				C98C27F81E29D1E2003EF11C /* HNTheme+Themes.h */,
+				C98C27F91E29D1E2003EF11C /* HNTheme+Themes.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -370,6 +382,8 @@
 				C98AF57419C7E1800069C6F9 /* HNSettingsVC.m */,
 				78E4076617D278B100DC8CE0 /* HNWebBrowserVC.h */,
 				78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */,
+				C98C27F51E29BF06003EF11C /* HNNavigationViewController.h */,
+				C98C27F61E29BF06003EF11C /* HNNavigationViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -402,6 +416,9 @@
 				C94C70D9196CDC3B005139BC /* HNIconDownloadController.m */,
 				A70B451D186202CF007348B7 /* HNLinkGetter.h */,
 				A70B451E186202CF007348B7 /* HNLinkGetter.m */,
+				C98C27F11E29BA35003EF11C /* HNThemeChanger.h */,
+				C98C27F21E29BA35003EF11C /* HNThemeChanger.m */,
+				C98C27F41E29BA8F003EF11C /* HNThemedViewController.h */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -633,6 +650,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C98C27FA1E29D1E2003EF11C /* HNTheme+Themes.m in Sources */,
 				A792DDFF184307080048E053 /* HNMenuLink.m in Sources */,
 				782784CE17C9814500CAD559 /* main.m in Sources */,
 				782784D217C9814500CAD559 /* HNAppDelegate.m in Sources */,
@@ -649,6 +667,7 @@
 				78393F9C17E01C0B0003017F /* HNCommentVC.m in Sources */,
 				78393FA017E026D50003017F /* HNParser.m in Sources */,
 				78393FA317E028190003017F /* HNCommentParser.m in Sources */,
+				C98C27F31E29BA35003EF11C /* HNThemeChanger.m in Sources */,
 				C9C6F3FB19F4880600EA481B /* HNSettings.m in Sources */,
 				784FD7A717E579820053A2E4 /* HNCommentCell.m in Sources */,
 				C98AF57519C7E1800069C6F9 /* HNSettingsVC.m in Sources */,
@@ -660,6 +679,7 @@
 				789CC10F1800CA63004BB8E7 /* HNArticleContainerVC.m in Sources */,
 				780F09C018021ABD00B9C5C3 /* HNAttributedStyle.m in Sources */,
 				780F09C118021ABD00B9C5C3 /* HNCommentString.m in Sources */,
+				C98C27F71E29BF06003EF11C /* HNNavigationViewController.m in Sources */,
 				789533931818CC91000462A7 /* HNUtils.m in Sources */,
 				78981A4A18074E8C000A44A8 /* HNCommentInfoCell.m in Sources */,
 				789B4F17180E3FB800119C83 /* HNMainMenu.m in Sources */,

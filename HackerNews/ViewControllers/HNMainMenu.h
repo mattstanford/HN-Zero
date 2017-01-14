@@ -9,14 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @class HNArticleListVC;
-@class HNAbout;
 @class HNMenuLink;
 @class HNTheme;
 @class HNSettings;
+@class HNThemeChanger;
 
 @interface HNMainMenu : UITableViewController
 
 @property (nonatomic, strong) HNArticleListVC *articleListVC;
+@property (nonatomic, strong) HNThemeChanger *themeChanger;
+
 
 -(id) initWithStyle:(UITableViewStyle)style
           withTheme:(HNTheme *)theme
