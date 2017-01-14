@@ -21,6 +21,7 @@
 #import <MGSplitViewController/MGSplitViewController.h>
 #import "HNNavigationViewController.h"
 #import "HNThemeChanger.h"
+#import "HNTheme+Themes.h"
 
 @interface HNAppDelegate ()
 
@@ -49,7 +50,7 @@
                                                                 diskPath:nil];
     [NSURLCache setSharedURLCache:sharedCache];
     
-    HNTheme *theme = [self getDefaultTheme];
+    HNTheme *theme = [HNTheme classicTheme];
     [self initializeUIWithTheme:theme];
     
     [self.window makeKeyAndVisible];
@@ -192,7 +193,7 @@
     [themeChanger addThemedViewController:self.webBrowserVC];
     [themeChanger addThemedViewController:self.mainMenuVC];
 
-    [themeChanger switchViewsToTheme:[self getDefaultTheme]];
+    [themeChanger switchViewsToTheme:[HNTheme classicTheme]];
     self.mainMenuVC.themeChanger = themeChanger;
     
     
@@ -275,31 +276,31 @@
     return menuLinks;
 }
 
-- (HNTheme *) getDefaultTheme
-{
-    HNTheme *appTheme = [[HNTheme alloc] init];
-    
-    CGFloat defaultFontSize = 13.0;
-    CGFloat defaultTitleSize = 15.0;
-    
-    appTheme.titleBarColor = [UIColor colorWithRed:1.0 green:.4 blue:0.0 alpha:1.0];
-    appTheme.titleBarTextColor = [UIColor whiteColor];
-    
-    appTheme.articleTitleFont = [UIFont fontWithName:@"Helvetica" size:defaultTitleSize];
-    appTheme.articleInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
-    appTheme.articleNumCommentsFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
-    
-    appTheme.commentFontSize = defaultFontSize;
-    appTheme.commentNormalFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
-    appTheme.commentBoldFont = [UIFont fontWithName:@"Helvetica-Bold" size:defaultFontSize];
-    appTheme.commentItalicFont = [UIFont fontWithName:@"Helvetica-Oblique" size:defaultFontSize];
-    appTheme.commentCodeFont = [UIFont fontWithName:@"Courier" size:defaultFontSize];
-    
-    appTheme.commentTitleFont = [UIFont fontWithName:@"Helvetica-Bold" size:defaultTitleSize];
-    appTheme.commentInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
-    appTheme.commentPostFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
-    
-    return appTheme;
-}
+//- (HNTheme *) getDefaultTheme
+//{
+//    HNTheme *appTheme = [[HNTheme alloc] init];
+//    
+//    CGFloat defaultFontSize = 13.0;
+//    CGFloat defaultTitleSize = 15.0;
+//    
+//    appTheme.titleBarColor = [UIColor colorWithRed:1.0 green:.4 blue:0.0 alpha:1.0];
+//    appTheme.titleBarTextColor = [UIColor whiteColor];
+//    
+//    appTheme.articleTitleFont = [UIFont fontWithName:@"Helvetica" size:defaultTitleSize];
+//    appTheme.articleInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
+//    appTheme.articleNumCommentsFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
+//    
+//    appTheme.commentFontSize = defaultFontSize;
+//    appTheme.commentNormalFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
+//    appTheme.commentBoldFont = [UIFont fontWithName:@"Helvetica-Bold" size:defaultFontSize];
+//    appTheme.commentItalicFont = [UIFont fontWithName:@"Helvetica-Oblique" size:defaultFontSize];
+//    appTheme.commentCodeFont = [UIFont fontWithName:@"Courier" size:defaultFontSize];
+//    
+//    appTheme.commentTitleFont = [UIFont fontWithName:@"Helvetica-Bold" size:defaultTitleSize];
+//    appTheme.commentInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
+//    appTheme.commentPostFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
+//    
+//    return appTheme;
+//}
 
 @end

@@ -10,7 +10,7 @@
 
 @interface HNUtils : NSObject
 
-+(NSAttributedString *)getTimeUpdatedString;
++(NSString *)getTimeUpdatedString;
 +(NSString *)getStringFromTimeStamp:(NSNumber *)timestamp;
 
 @end

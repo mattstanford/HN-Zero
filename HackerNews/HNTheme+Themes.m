@@ -22,6 +22,12 @@
     appTheme.titleBarColor = [UIColor colorWithRed:1.0 green:.4 blue:0.0 alpha:1.0];
     appTheme.titleBarTextColor = [UIColor whiteColor];
     
+    appTheme.cellBackgroundColor = [UIColor whiteColor];
+    appTheme.titleTextColor = [UIColor blackColor];
+    appTheme.infoColor = [UIColor lightGrayColor];
+    appTheme.normalTextColor = [UIColor blackColor];
+    appTheme.commentLinkColor = [UIColor blueColor];
+    
     appTheme.articleTitleFont = [UIFont fontWithName:@"Helvetica" size:defaultTitleSize];
     appTheme.articleInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
     appTheme.articleNumCommentsFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
@@ -45,11 +51,17 @@
     
     appTheme.name = @"Test Theme";
     
-    CGFloat defaultFontSize = 20.0;
-    CGFloat defaultTitleSize = 25.0;
+    CGFloat defaultFontSize = 13.0;
+    CGFloat defaultTitleSize = 15.0;
     
-    appTheme.titleBarColor = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:1.0];
+    appTheme.titleBarColor = [UIColor blackColor];
     appTheme.titleBarTextColor = [UIColor whiteColor];
+    
+    appTheme.cellBackgroundColor = [UIColor blackColor];
+    appTheme.titleTextColor = [UIColor whiteColor];
+    appTheme.infoColor = [UIColor grayColor];
+    appTheme.normalTextColor = [UIColor whiteColor];
+    appTheme.commentLinkColor = [UIColor greenColor];
     
     appTheme.articleTitleFont = [UIFont fontWithName:@"Helvetica" size:defaultTitleSize];
     appTheme.articleInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];

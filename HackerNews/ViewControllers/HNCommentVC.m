@@ -58,6 +58,8 @@ withDownloadController:(HNDownloadController *)downloadController
         self.theme = appTheme;
         self.settings = settings;
         
+        self.tableView.backgroundColor = self.theme.cellBackgroundColor;
+        
         //self.rowHeightCache = [[NSMutableDictionary alloc] init];
         
     }
@@ -112,7 +114,10 @@ withDownloadController:(HNDownloadController *)downloadController
     self.comments = [self buildTableWithData:parsedComments];
     [self.tableView reloadData];
     
-    self.refreshControl.attributedTitle = [HNUtils getTimeUpdatedString];
+    NSString *updateString = [HNUtils getTimeUpdatedString];
+    NSDictionary *attributes = @{NSForegroundColorAttributeName: self.theme.titleTextColor};
+    NSAttributedString *titleString = [[NSAttributedString alloc] initWithString:updateString attributes:attributes];
+    self.refreshControl.attributedTitle = titleString;
 }
 
 - (void) downloadFailed
@@ -285,6 +290,8 @@ withDownloadController:(HNDownloadController *)downloadController
 {
     HNCommentCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Comment" forIndexPath:indexPath];
     
+    cell.backgroundColor = self.theme.cellBackgroundColor;
+    
     HNComment *comment = [self.comments objectAtIndex:[indexPath row]];
     HNCommentString *commentString = [comment convertToCommentString];
     
@@ -304,18 +311,20 @@ withDownloadController:(HNDownloadController *)downloadController
 {
     HNCommentInfoCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Info" forIndexPath:indexPath];
     
+    cell.backgroundColor = self.theme.cellBackgroundColor;
+    
     cell.articleTitleLabel.text = self.currentArticle.title;
     cell.articleTitleLabel.font = self.theme.commentTitleFont;
+    cell.articleTitleLabel.textColor = self.theme.titleTextColor;
     
     cell.infoLabel.text = [self.currentArticle getCommentInfoText];
     cell.infoLabel.font = self.theme.commentInfoFont;
-    cell.infoLabel.textColor = [UIColor lightGrayColor];
+    cell.infoLabel.textColor = self.theme.infoColor;
     
     cell.postLabel.delegate = self;
     if(self.currentArticle.postComment)
     {
         HNCommentString *commentString = [self.currentArticle.postComment convertToCommentString];
-        cell.postLabel.attributedText =[self.currentArticle.postComment convertToAttributedStringWithTheme:self.theme];
         cell.postLabel.attributedText = [self.currentArticle.postComment convertToAttributedStringWithTheme:self.theme];
         [self addLinksToLabel:cell.postLabel withCommentString:commentString];
     }
@@ -337,6 +346,7 @@ withDownloadController:(HNDownloadController *)downloadController
 -(void)changeTheme:(HNTheme *)theme
 {
     self.theme = theme;
+    self.tableView.backgroundColor = self.theme.cellBackgroundColor;
     [self.tableView reloadData];
 }
 

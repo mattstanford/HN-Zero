@@ -130,6 +130,9 @@ withDownloadController:(HNDownloadController *)downloadController
             self.edgesForExtendedLayout = UIRectEdgeNone;
         }
         
+        self.tableView.backgroundColor = self.theme.cellBackgroundColor;
+        self.tableView.separatorColor = self.theme.infoColor;
+        
         self.settings = settings;
         
     }
@@ -218,7 +221,10 @@ withDownloadController:(HNDownloadController *)downloadController
 - (void) downloadFrontPageArticles:(BOOL)append
 {
     NSURL *downloadUrl = nil;
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating..."];
+    NSDictionary *attributes = @ {NSForegroundColorAttributeName : self.theme.titleTextColor};
+
+    NSAttributedString *titleString = [[NSAttributedString alloc] initWithString:@"Updating..." attributes:attributes];
+    self.refreshControl.attributedTitle = titleString;
     
     if (append)
     {
@@ -256,7 +262,11 @@ withDownloadController:(HNDownloadController *)downloadController
     [self.tableView reloadData];
     
     [self.refreshControl endRefreshing];
-    self.refreshControl.attributedTitle = [HNUtils getTimeUpdatedString];
+    
+    NSString *updateString = [HNUtils getTimeUpdatedString];
+    NSDictionary *attributes = @{NSForegroundColorAttributeName: self.theme.titleTextColor};
+    NSAttributedString *titleString = [[NSAttributedString alloc] initWithString:updateString attributes:attributes];
+    self.refreshControl.attributedTitle = titleString;
 }
 
 -(void) didGetArticle:(HNArticle *)article
@@ -326,7 +336,11 @@ withDownloadController:(HNDownloadController *)downloadController
         
         //Update refresh control
         [self.refreshControl endRefreshing];
-        self.refreshControl.attributedTitle = [HNUtils getTimeUpdatedString];
+        
+        NSString *updateString = [HNUtils getTimeUpdatedString];
+        NSDictionary *attributes = @{NSForegroundColorAttributeName: self.theme.titleTextColor};
+        NSAttributedString *titleString = [[NSAttributedString alloc] initWithString:updateString attributes:attributes];
+        self.refreshControl.attributedTitle = titleString;
         
     }
     else
@@ -458,6 +472,7 @@ withDownloadController:(HNDownloadController *)downloadController
         cell = [[HNArticleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     HNArticle *article = [self.articles objectAtIndex:indexPath.row];
+    cell.backgroundColor = self.theme.cellBackgroundColor;
     cell.articleTitleLabel.text = article.title;
     cell.infoLabel.text = [article getInfoText];
     cell.delegate = self;
@@ -482,8 +497,11 @@ withDownloadController:(HNDownloadController *)downloadController
     }
     
     cell.articleTitleLabel.font = self.theme.articleTitleFont;
+    cell.articleTitleLabel.textColor = self.theme.titleTextColor;
     cell.infoLabel.font = self.theme.articleInfoFont;
+    cell.infoLabel.textColor = self.theme.infoColor;
     cell.numCommentsLabel.font = self.theme.articleNumCommentsFont;
+    cell.numCommentsLabel.textColor = self.theme.titleTextColor;
     
     
     if ([article isSelfPost])
@@ -578,6 +596,8 @@ withDownloadController:(HNDownloadController *)downloadController
 -(void)changeTheme:(HNTheme *)theme
 {
     self.theme = theme;
+    self.tableView.backgroundColor = self.theme.cellBackgroundColor;
+    self.tableView.separatorColor = self.theme.infoColor;
     [self.tableView reloadData];
 }
      

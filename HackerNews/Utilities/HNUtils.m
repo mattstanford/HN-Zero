@@ -10,7 +10,7 @@
 
 @implementation HNUtils
 
-+(NSAttributedString *)getTimeUpdatedString
++(NSString *)getTimeUpdatedString
 {
     NSAttributedString *returnString = nil;
     
@@ -21,10 +21,10 @@
     
     NSString *dateString = [[NSString alloc] initWithFormat:@"Updated at %@",[dateFormatter stringFromDate:currentDateTime]];
     
-    returnString = [[NSAttributedString alloc] initWithString:dateString];
+   // returnString = [[NSAttributedString alloc] initWithString:dateString];
     
     
-    return returnString;
+    return dateString;
 }
 
 +(NSString *)getStringFromTimeStamp:(NSNumber *)timestamp

@@ -88,8 +88,9 @@
 {
     //NSString *trimmedString = [self.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     [self trimWhiteSpaceFromTop];
-    NSDictionary *defaultFont = [NSDictionary dictionaryWithObjectsAndKeys:theme.commentNormalFont, NSFontAttributeName, nil];
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:self.text attributes:defaultFont];
+    
+    NSDictionary *attributes = @{NSFontAttributeName: theme.commentNormalFont, NSForegroundColorAttributeName: theme.normalTextColor};
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:self.text attributes:attributes];
     
     for (HNAttributedStyle *style in self.styles)
     {
@@ -123,7 +124,7 @@
             break;
             
         case HNSTYLE_LINK:
-            [string addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:style.range];
+            [string addAttribute:NSForegroundColorAttributeName value:theme.commentLinkColor range:style.range];
             [string addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:style.range];
             break;
             

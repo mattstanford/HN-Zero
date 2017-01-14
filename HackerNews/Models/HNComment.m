@@ -103,6 +103,7 @@ NSString *const HNCommentText = @"text";
         NSRange deletedRange = NSMakeRange(0, baseString.length);
         headerString = [[NSMutableAttributedString alloc] initWithString:baseString];
         [headerString addAttribute:NSFontAttributeName value:theme.commentBoldFont range:deletedRange];
+        [headerString addAttribute:NSForegroundColorAttributeName value:theme.titleTextColor range:deletedRange];
     }
     else
     {
@@ -115,7 +116,9 @@ NSString *const HNCommentText = @"text";
         
         headerString = [[NSMutableAttributedString alloc] initWithString:baseString];
         [headerString addAttribute:NSFontAttributeName value:theme.commentNormalFont range:overflowStringRange];
+        [headerString addAttribute:NSForegroundColorAttributeName value:theme.titleTextColor range:overflowStringRange];
         [headerString addAttribute:NSFontAttributeName value:theme.commentBoldFont range:userStringRange];
+        [headerString addAttribute:NSForegroundColorAttributeName value:theme.titleTextColor range:userStringRange];
         [headerString addAttribute:NSFontAttributeName value:theme.commentNormalFont range:timeStringRange];
         [headerString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:timeStringRange];
     }
