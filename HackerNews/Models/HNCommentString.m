@@ -124,8 +124,8 @@
             break;
             
         case HNSTYLE_LINK:
-            [string addAttribute:NSForegroundColorAttributeName value:theme.commentLinkColor range:style.range];
-            [string addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:style.range];
+           // [string addAttribute:NSForegroundColorAttributeName value:theme.commentLinkColor range:style.range];
+           // [string addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInt:NSUnderlineStyleSingle] range:style.range];
             break;
             
     }

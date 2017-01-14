@@ -266,6 +266,13 @@ withDownloadController:(HNDownloadController *)downloadController
 
 - (void) addLinksToLabel:(TTTAttributedLabel *)label withCommentString:(HNCommentString *)commentString
 {
+    NSMutableDictionary *mutableLinkAttributes = [[NSMutableDictionary alloc] init];
+    
+    [mutableLinkAttributes setObject:self.theme.commentLinkColor forKey:NSForegroundColorAttributeName];
+    [mutableLinkAttributes setObject:[NSNumber numberWithBool:YES] forKey:NSUnderlineStyleAttributeName];
+    
+    label.linkAttributes = [mutableLinkAttributes copy];
+    
     NSArray *links = [commentString getLinks];
     
     for (HNAttributedStyle *link in links)
