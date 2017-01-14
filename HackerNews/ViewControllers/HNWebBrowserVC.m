@@ -393,4 +393,12 @@ static const CGFloat STATUS_BAR_DELAY = 0.5;
     NSLog(@"loading paged FAILED");
 }
 
+#pragma mark HNThemedViewController
+
+-(void)changeTheme:(HNTheme *)theme
+{
+    self.theme = theme;
+    self.bottomBarView.backgroundColor = theme.titleBarColor;
+}
+
 @end

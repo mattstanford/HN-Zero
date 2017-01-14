@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "HNDownloadController.h"
 #import <TTTAttributedLabel.h>
+#import "HNThemedViewController.h"
 
 @class HNTheme;
 @class HNWebBrowserVC;
 @class HNArticle;
 @class HNSettings;
 
-@interface HNCommentVC : UITableViewController <commentViewerDelegate, TTTAttributedLabelDelegate>
+@interface HNCommentVC : UITableViewController <commentViewerDelegate, TTTAttributedLabelDelegate, HNThemedViewController>
 
 
 - (id)initWithStyle:(UITableViewStyle)style

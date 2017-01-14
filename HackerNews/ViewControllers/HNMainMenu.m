@@ -47,11 +47,10 @@ NS_ENUM(NSInteger, HNMenuSettings)
 
 @interface HNMainMenu ()
 
-@property (nonatomic, strong) HNSettingsVC *settingsVC;
-@property (nonatomic, strong) UINavigationController *settingsNavController;
 @property (nonatomic, strong) NSArray *mainItems;
 @property (nonatomic, strong) HNSettings *settings;
 @property (nonatomic, strong) NSArray *themes;
+@property (nonatomic, strong) HNTheme *theme;
 
 @end
 
@@ -61,16 +60,13 @@ NS_ENUM(NSInteger, HNMenuSettings)
           withTheme:(HNTheme *)theme
       withArticleVC:(HNArticleListVC *)theArticleListVC
       withMenuLinks:(NSArray *)menuLinks
-        andSettings:(HNSettings *)settings
+        andSettings:(HNSettings *)settings;
 {
     self = [super initWithStyle:style];
     if (self)
     {
         self.title = @"Hacker News Zero";
-        
-        self.settingsVC = [[HNSettingsVC alloc] init];
-        self.settingsNavController = [[UINavigationController alloc] initWithRootViewController:self.settingsVC];
-        [HNUiUtils setTitleBarColors:theme withNavController:self.settingsNavController];
+        self.theme = theme;
         
         self.articleListVC = theArticleListVC;
         
@@ -303,6 +299,12 @@ NS_ENUM(NSInteger, HNMenuSettings)
     {
         [self.navigationController pushViewController:self.articleListVC animated:YES];
     }
+}
+
+-(void)changeTheme:(HNTheme *)theme
+{
+    self.theme = theme;
+    [self.tableView reloadData];
 }
 
 @end

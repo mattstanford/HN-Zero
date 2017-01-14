@@ -332,5 +332,13 @@ withDownloadController:(HNDownloadController *)downloadController
     
 }
 
+#pragma mark HNThemedViewController
+
+-(void)changeTheme:(HNTheme *)theme
+{
+    self.theme = theme;
+    [self.tableView reloadData];
+}
+
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HNThemedViewController.h"
 
 @class HNArticleListVC;
 @class HNMenuLink;
@@ -14,7 +15,7 @@
 @class HNSettings;
 @class HNThemeChanger;
 
-@interface HNMainMenu : UITableViewController
+@interface HNMainMenu : UITableViewController <HNThemedViewController>
 
 @property (nonatomic, strong) HNArticleListVC *articleListVC;
 @property (nonatomic, strong) HNThemeChanger *themeChanger;

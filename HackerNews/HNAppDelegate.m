@@ -186,6 +186,11 @@
         [self.window setRootViewController:self.navController];
         
     }
+    
+    [themeChanger addThemedViewController:self.articleListVC];
+    [themeChanger addThemedViewController:self.commentVC];
+    [themeChanger addThemedViewController:self.webBrowserVC];
+    [themeChanger addThemedViewController:self.mainMenuVC];
 
     [themeChanger switchViewsToTheme:[self getDefaultTheme]];
     self.mainMenuVC.themeChanger = themeChanger;

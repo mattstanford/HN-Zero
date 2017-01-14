@@ -45,8 +45,8 @@
     
     appTheme.name = @"Test Theme";
     
-    CGFloat defaultFontSize = 13.0;
-    CGFloat defaultTitleSize = 15.0;
+    CGFloat defaultFontSize = 20.0;
+    CGFloat defaultTitleSize = 25.0;
     
     appTheme.titleBarColor = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:1.0];
     appTheme.titleBarTextColor = [UIColor whiteColor];

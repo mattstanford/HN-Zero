@@ -12,13 +12,14 @@
 #import "HNArticleCell.h"
 #import "HNCommentVC.h"
 #import "HNLinkGetter.h"
+#import "HNThemedViewController.h"
 
 @class HNArticleContainerVC;
 @class HNTheme;
 @class MMDrawerController;
 @class HNSettings;
 
-@interface HNArticleListVC : UITableViewController  <articleDownloadDelegate, HNArticleCellDelegate, UIScrollViewDelegate>
+@interface HNArticleListVC : UITableViewController  <articleDownloadDelegate, HNArticleCellDelegate, UIScrollViewDelegate, HNThemedViewController>
 
 - (id)initWithStyle:(UITableViewStyle)style
    withWebBrowserVC:(HNWebBrowserVC *)webVC
