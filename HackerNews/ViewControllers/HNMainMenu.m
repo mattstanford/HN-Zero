@@ -8,7 +8,6 @@
 
 #import "HNMainMenu.h"
 #import "HNArticleListVC.h"
-#import "HNAbout.h"
 #import "HNMenuLink.h"
 #import "GAI.h"
 #import "GAIFields.h"
