@@ -10,4 +10,7 @@
 
 @interface HNTheme (Themes)
 
++(HNTheme *)classicTheme;
++(HNTheme *)testTheme;
+
 @end

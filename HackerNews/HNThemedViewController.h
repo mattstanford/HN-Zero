@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HNTheme.h"
 
 @protocol HNThemedViewController <NSObject>
+
+@required
+-(void)changeTheme:(HNTheme *)theme;
+
 
 @end

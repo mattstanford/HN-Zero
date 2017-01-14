@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HNThemedViewController.h"
+
+@class HNTheme;
 
 @interface HNThemeChanger : UIView
+
+-(void)switchViewsToTheme:(HNTheme *)theme;
+-(void)addThemedViewController:(UIViewController<HNThemedViewController> *)viewController;
 
 @end

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HNThemedViewController.h"
 
-@interface HNNavigationViewController : UINavigationController
+@interface HNNavigationViewController : UINavigationController<HNThemedViewController>
 
 @end

@@ -7,15 +7,43 @@
 //
 
 #import "HNThemeChanger.h"
+#import "HNTheme.h"
+#import "HNThemedViewController.h"
+
+@interface HNThemeChanger ()
+
+@property (nonatomic, strong) NSMutableArray *themedVCs;
+
+@end
 
 @implementation HNThemeChanger
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+-(id) init
+{
+    self = [super init];
+    if (self)
+    {
+        self.themedVCs = [[NSMutableArray alloc] init];
+    }
+    
+    return self;
 }
-*/
+
+-(void)switchViewsToTheme:(HNTheme *)theme
+{
+    if (self.themedVCs != nil)
+    {
+        for(UIViewController<HNThemedViewController> *viewController in self.themedVCs)
+        {
+            NSLog(@"changing view!");
+            [viewController changeTheme:theme];
+        }
+    }
+}
+
+-(void)addThemedViewController:(UIViewController<HNThemedViewController> *)viewController
+{
+    [self.themedVCs addObject:viewController];
+}
 
 @end
