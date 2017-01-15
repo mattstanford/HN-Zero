@@ -10,6 +10,8 @@
 #import "HNTheme.h"
 #import "HNThemedViewController.h"
 
+NSString * const kThemeSelectionKey = @"ThemeSelection";
+
 @interface HNThemeChanger ()
 
 @property (nonatomic, strong) NSMutableArray *themedVCs;
@@ -39,11 +41,50 @@
             [viewController changeTheme:theme];
         }
     }
+    
+    [self saveSelection:theme];
+    self.selectedTheme = theme;
 }
 
 -(void)addThemedViewController:(UIViewController<HNThemedViewController> *)viewController
 {
     [self.themedVCs addObject:viewController];
 }
+
+-(void)saveSelection:(HNTheme *)theme
+{
+    NSString *valueToSave = theme.name;
+    [[NSUserDefaults standardUserDefaults] setObject:valueToSave forKey:kThemeSelectionKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(void)loadSavedTheme
+{
+    HNTheme *savedTheme;
+    NSString *savedThemeName = [[NSUserDefaults standardUserDefaults] stringForKey:kThemeSelectionKey];
+    
+    if (self.themes != nil && self.themes.count > 0)
+    {
+        if (savedThemeName != nil && savedThemeName.length > 0)
+        {
+            for (HNTheme *theme in self.themes)
+            {
+                if ([theme.name isEqualToString:savedThemeName])
+                {
+                    savedTheme = theme;
+                    break;
+                }
+            }
+        }
+        
+        if (savedTheme == nil)
+        {
+            savedTheme = [self.themes objectAtIndex:0];
+        }
+        
+        [self switchViewsToTheme:savedTheme];
+    }
+}
+
 
 @end

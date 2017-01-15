@@ -15,5 +15,9 @@
 
 -(void)switchViewsToTheme:(HNTheme *)theme;
 -(void)addThemedViewController:(UIViewController<HNThemedViewController> *)viewController;
+-(void)loadSavedTheme;
+
+@property (nonatomic, strong) HNTheme *selectedTheme;
+@property (nonatomic, strong) NSArray *themes;
 
 @end

@@ -48,7 +48,6 @@ NS_ENUM(NSInteger, HNMenuSettings)
 
 @property (nonatomic, strong) NSArray *mainItems;
 @property (nonatomic, strong) HNSettings *settings;
-@property (nonatomic, strong) NSArray *themes;
 @property (nonatomic, strong) HNTheme *theme;
 
 @end
@@ -80,9 +79,6 @@ NS_ENUM(NSInteger, HNMenuSettings)
         
         self.mainItems = menuLinks;
         self.settings = settings;
-        
-        self.themes = @[[HNTheme classicTheme], [HNTheme darkTheme]];
-        
     }
     
     return self;
@@ -119,7 +115,7 @@ NS_ENUM(NSInteger, HNMenuSettings)
     }
     else if(section == HNMainMenuThemes)
     {
-        numRows = self.themes.count;
+        numRows = self.themeChanger.themes.count;
     }
     else
     {
@@ -186,8 +182,7 @@ NS_ENUM(NSInteger, HNMenuSettings)
     }
     else if(indexPath.section == HNMainMenuThemes)
     {
-        HNTheme *theme = [self.themes objectAtIndex:indexPath.row];
-        cell.textLabel.text = theme.name;
+        cell = [self setupThemeCell:cell indexPath:indexPath];
     }
     else
     {
@@ -247,6 +242,23 @@ NS_ENUM(NSInteger, HNMenuSettings)
     return cell;
 }
 
+- (UITableViewCell *)setupThemeCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath
+{
+    HNTheme *theme = [self.themeChanger.themes objectAtIndex:indexPath.row];
+    cell.textLabel.text = theme.name;
+    
+    if ([theme.name isEqualToString:self.themeChanger.selectedTheme.name])
+    {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else
+    {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    return cell;
+}
+
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -272,8 +284,9 @@ NS_ENUM(NSInteger, HNMenuSettings)
     }
     else if(indexPath.section == HNMainMenuThemes)
     {
-        HNTheme *theme = [self.themes objectAtIndex:indexPath.row];
+        HNTheme *theme = [self.themeChanger.themes objectAtIndex:indexPath.row];
         [self.themeChanger switchViewsToTheme:theme];
+        [self.tableView reloadData];
     }
     else
     {
