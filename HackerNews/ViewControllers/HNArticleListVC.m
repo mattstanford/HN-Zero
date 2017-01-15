@@ -130,7 +130,7 @@ withDownloadController:(HNDownloadController *)downloadController
             self.edgesForExtendedLayout = UIRectEdgeNone;
         }
         
-        self.tableView.backgroundColor = self.theme.cellBackgroundColor;
+        self.tableView.backgroundColor = self.theme.tableViewBackgroundColor;
         self.tableView.separatorColor = self.theme.infoColor;
         
         self.settings = settings;
@@ -596,7 +596,7 @@ withDownloadController:(HNDownloadController *)downloadController
 -(void)changeTheme:(HNTheme *)theme
 {
     self.theme = theme;
-    self.tableView.backgroundColor = self.theme.cellBackgroundColor;
+    self.tableView.backgroundColor = self.theme.tableViewBackgroundColor;
     self.tableView.separatorColor = self.theme.infoColor;
     [self.tableView reloadData];
 }

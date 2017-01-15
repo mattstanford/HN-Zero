@@ -353,7 +353,7 @@ withDownloadController:(HNDownloadController *)downloadController
 -(void)changeTheme:(HNTheme *)theme
 {
     self.theme = theme;
-    self.tableView.backgroundColor = self.theme.cellBackgroundColor;
+    self.tableView.backgroundColor = self.theme.tableViewBackgroundColor;
     [self.tableView reloadData];
 }
 

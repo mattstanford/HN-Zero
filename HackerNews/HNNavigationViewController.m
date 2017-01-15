@@ -19,7 +19,7 @@
     if ([self.navigationBar respondsToSelector:@selector(setBarTintColor:)])
     {
         NSDictionary *navTextAttrs = [NSDictionary dictionaryWithObjectsAndKeys:
-                                      [UIColor whiteColor], UITextAttributeTextColor,
+                                      theme.titleBarTextColor, NSForegroundColorAttributeName,
                                       nil];
         
         self.navigationBar.titleTextAttributes = navTextAttrs;

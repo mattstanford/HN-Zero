@@ -11,6 +11,6 @@
 @interface HNTheme (Themes)
 
 +(HNTheme *)classicTheme;
-+(HNTheme *)testTheme;
++(HNTheme *)darkTheme;
 
 @end

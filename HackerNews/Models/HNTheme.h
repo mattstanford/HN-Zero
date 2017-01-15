@@ -13,8 +13,8 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) UIColor *titleBarColor;
 @property (nonatomic, strong) UIColor *titleBarTextColor;
-@property (nonatomic, strong) UIColor *cellBackgroundColor;
 @property (nonatomic, strong) UIColor *titleTextColor;
+@property (nonatomic, strong) UIColor *cellBackgroundColor;
 @property (nonatomic, strong) UIColor *infoColor;
 @property (nonatomic, strong) UIColor *normalTextColor;
 @property (nonatomic, strong) UIFont *articleTitleFont;
@@ -29,6 +29,7 @@
 @property (nonatomic, strong) UIFont *commentPostFont;
 @property (nonatomic, strong) UIFont *commentInfoFont;
 @property (nonatomic, strong) UIColor *commentLinkColor;
+@property (nonatomic, strong) UIColor *tableViewBackgroundColor;
 
 
 @end

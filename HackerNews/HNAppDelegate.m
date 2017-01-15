@@ -11,7 +11,6 @@
 #import "HNArticleContainerVC.h"
 #import "HNMainMenu.h"
 #import "HNMenuLink.h"
-#import "HNUiUtils.h"
 #import "GAI.h"
 #import <MMDrawerController/MMDrawerController.h>
 #import "HNSettings.h"
@@ -133,12 +132,10 @@
         //Initialze the splitVC and finish initiazing the rest of the UI
         HNNavigationViewController *articleListNavController = [[HNNavigationViewController alloc] initWithRootViewController:self.articleListVC];
         
-        //[HNUiUtils setTitleBarColors:theme withNavController:articleListNavController];
         [themeChanger addThemedViewController:articleListNavController];
         
         HNNavigationViewController *articleContainerNavController = [[HNNavigationViewController alloc] initWithRootViewController:self.articleContainerVC];
         
-       // [HNUiUtils setTitleBarColors:theme withNavController:articleContainerNavController];
         [themeChanger addThemedViewController:articleContainerNavController];
         
         NSArray *splitVCArray = [NSArray arrayWithObjects:articleListNavController, articleContainerNavController, nil];
@@ -181,7 +178,6 @@
         
         [self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
         
-       // [HNUiUtils setTitleBarColors:theme withNavController:self.navController];
         [themeChanger addThemedViewController:self.navController];
         
         [self.window setRootViewController:self.navController];
@@ -191,6 +187,7 @@
     [themeChanger addThemedViewController:self.articleListVC];
     [themeChanger addThemedViewController:self.commentVC];
     [themeChanger addThemedViewController:self.webBrowserVC];
+    [themeChanger addThemedViewController:self.commentWebBrowserVC];
     [themeChanger addThemedViewController:self.mainMenuVC];
 
     [themeChanger switchViewsToTheme:[HNTheme classicTheme]];
@@ -275,32 +272,5 @@
     
     return menuLinks;
 }
-
-//- (HNTheme *) getDefaultTheme
-//{
-//    HNTheme *appTheme = [[HNTheme alloc] init];
-//    
-//    CGFloat defaultFontSize = 13.0;
-//    CGFloat defaultTitleSize = 15.0;
-//    
-//    appTheme.titleBarColor = [UIColor colorWithRed:1.0 green:.4 blue:0.0 alpha:1.0];
-//    appTheme.titleBarTextColor = [UIColor whiteColor];
-//    
-//    appTheme.articleTitleFont = [UIFont fontWithName:@"Helvetica" size:defaultTitleSize];
-//    appTheme.articleInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
-//    appTheme.articleNumCommentsFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
-//    
-//    appTheme.commentFontSize = defaultFontSize;
-//    appTheme.commentNormalFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
-//    appTheme.commentBoldFont = [UIFont fontWithName:@"Helvetica-Bold" size:defaultFontSize];
-//    appTheme.commentItalicFont = [UIFont fontWithName:@"Helvetica-Oblique" size:defaultFontSize];
-//    appTheme.commentCodeFont = [UIFont fontWithName:@"Courier" size:defaultFontSize];
-//    
-//    appTheme.commentTitleFont = [UIFont fontWithName:@"Helvetica-Bold" size:defaultTitleSize];
-//    appTheme.commentInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
-//    appTheme.commentPostFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
-//    
-//    return appTheme;
-//}
 
 @end

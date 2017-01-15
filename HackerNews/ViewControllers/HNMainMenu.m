@@ -13,7 +13,6 @@
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
 #import "HNSettingsVC.h"
-#import "HNUiUtils.h"
 #import "HNTheme.h"
 #import "HNSettings.h"
 #import "HNThemeChanger.h"
@@ -82,7 +81,7 @@ NS_ENUM(NSInteger, HNMenuSettings)
         self.mainItems = menuLinks;
         self.settings = settings;
         
-        self.themes = @[[HNTheme classicTheme], [HNTheme testTheme]];
+        self.themes = @[[HNTheme classicTheme], [HNTheme darkTheme]];
         
     }
     
@@ -153,6 +152,16 @@ NS_ENUM(NSInteger, HNMenuSettings)
     return returnString;
 }
 
+- (void) tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    if ([view isKindOfClass:[UITableViewHeaderFooterView class]])
+    {
+        UITableViewHeaderFooterView *headerView = (UITableViewHeaderFooterView *)view;
+        headerView.textLabel.textColor = self.theme.titleTextColor;
+    }
+    
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -161,6 +170,10 @@ NS_ENUM(NSInteger, HNMenuSettings)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    
+    cell.backgroundColor = self.theme.cellBackgroundColor;
+    cell.textLabel.textColor = self.theme.titleTextColor;
+    cell.tintColor = self.theme.titleTextColor;
     
     if (indexPath.section == HNMainMenuPages)
     {
@@ -304,6 +317,7 @@ NS_ENUM(NSInteger, HNMenuSettings)
 -(void)changeTheme:(HNTheme *)theme
 {
     self.theme = theme;
+    self.tableView.backgroundColor = self.theme.tableViewBackgroundColor;
     [self.tableView reloadData];
 }
 

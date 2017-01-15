@@ -32,6 +32,8 @@
     appTheme.articleInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
     appTheme.articleNumCommentsFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
     
+    appTheme.tableViewBackgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.00];
+    
     appTheme.commentFontSize = defaultFontSize;
     appTheme.commentNormalFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
     appTheme.commentBoldFont = [UIFont fontWithName:@"Helvetica-Bold" size:defaultFontSize];
@@ -45,11 +47,11 @@
     return appTheme;
 }
 
-+(HNTheme *)testTheme
++(HNTheme *)darkTheme
 {
     HNTheme *appTheme = [[HNTheme alloc] init];
     
-    appTheme.name = @"Test Theme";
+    appTheme.name = @"Dark Mode";
     
     CGFloat defaultFontSize = 13.0;
     CGFloat defaultTitleSize = 15.0;
@@ -57,11 +59,13 @@
     appTheme.titleBarColor = [UIColor blackColor];
     appTheme.titleBarTextColor = [UIColor whiteColor];
     
-    appTheme.cellBackgroundColor = [UIColor blackColor];
-    appTheme.titleTextColor = [UIColor whiteColor];
+    appTheme.cellBackgroundColor = [UIColor colorWithRed:0.18 green:0.18 blue:0.18 alpha:1.00];
+    appTheme.titleTextColor = [UIColor colorWithRed:0.92 green:0.96 blue:0.97 alpha:1.00];
     appTheme.infoColor = [UIColor grayColor];
-    appTheme.normalTextColor = [UIColor whiteColor];
-    appTheme.commentLinkColor = [UIColor greenColor];
+    appTheme.normalTextColor =  [UIColor colorWithRed:0.92 green:0.96 blue:0.97 alpha:1.00];
+    appTheme.commentLinkColor = [UIColor colorWithRed:0.13 green:0.78 blue:0.98 alpha:1.00];
+    
+    appTheme.tableViewBackgroundColor = [UIColor blackColor];
     
     appTheme.articleTitleFont = [UIFont fontWithName:@"Helvetica" size:defaultTitleSize];
     appTheme.articleInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
