@@ -190,7 +190,9 @@
     [themeChanger addThemedViewController:self.commentWebBrowserVC];
     [themeChanger addThemedViewController:self.mainMenuVC];
 
-    [themeChanger switchViewsToTheme:[HNTheme classicTheme]];
+    themeChanger.themes = @[[HNTheme classicTheme], [HNTheme darkTheme]];
+    [themeChanger loadSavedTheme];
+
     self.mainMenuVC.themeChanger = themeChanger;
     
     

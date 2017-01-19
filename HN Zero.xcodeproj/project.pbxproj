@@ -76,6 +76,86 @@
 		C90D13831904CE1200BC6E4B /* icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D137F1904CE1200BC6E4B /* icon-60.png */; };
 		C90D13841904CE1200BC6E4B /* icon-100.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13801904CE1200BC6E4B /* icon-100.png */; };
 		C90D13861904CF0D00BC6E4B /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13851904CF0D00BC6E4B /* icon-72.png */; };
+		C91A41871E2C421C0053E572 /* HNTheme+Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = C98C27F91E29D1E2003EF11C /* HNTheme+Themes.m */; };
+		C91A41881E2C421C0053E572 /* HNMenuLink.m in Sources */ = {isa = PBXBuildFile; fileRef = A792DDFE184307080048E053 /* HNMenuLink.m */; };
+		C91A41891E2C421C0053E572 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 782784CD17C9814500CAD559 /* main.m */; };
+		C91A418A1E2C421C0053E572 /* HNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 782784D117C9814500CAD559 /* HNAppDelegate.m */; };
+		C91A418B1E2C421C0053E572 /* HNArticleListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076317D04B4400DC8CE0 /* HNArticleListVC.m */; };
+		C91A418C1E2C421C0053E572 /* HNLinkGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = A70B451E186202CF007348B7 /* HNLinkGetter.m */; };
+		C91A418D1E2C421C0053E572 /* HNWebBrowserVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */; };
+		C91A418E1E2C421C0053E572 /* HNLoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7890293C181A110300FA8CE0 /* HNLoadingCell.m */; };
+		C91A418F1E2C421C0053E572 /* HNConnectionStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DFA86C18A9910F005BC27D /* HNConnectionStatusLabel.m */; };
+		C91A41901E2C421C0053E572 /* HNArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E4076A17D2D11700DC8CE0 /* HNArticleCell.m */; };
+		C91A41911E2C421C0053E572 /* HNDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E570CE17D817FB00D53F99 /* HNDownloadController.m */; };
+		C91A41921E2C421C0053E572 /* HNArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E570D317D81C2C00D53F99 /* HNArticle.m */; };
+		C91A41931E2C421C0053E572 /* HNComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 78DF55E317D9513000FC3014 /* HNComment.m */; };
+		C91A41941E2C421C0053E572 /* HNCommentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 78393F9B17E01C0B0003017F /* HNCommentVC.m */; };
+		C91A41951E2C421C0053E572 /* HNParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78393F9F17E026D50003017F /* HNParser.m */; };
+		C91A41961E2C421C0053E572 /* HNCommentParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78393FA217E028190003017F /* HNCommentParser.m */; };
+		C91A41971E2C421C0053E572 /* HNThemeChanger.m in Sources */ = {isa = PBXBuildFile; fileRef = C98C27F21E29BA35003EF11C /* HNThemeChanger.m */; };
+		C91A41981E2C421C0053E572 /* HNSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C6F3FA19F4880600EA481B /* HNSettings.m */; };
+		C91A41991E2C421C0053E572 /* HNCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 784FD7A617E579820053A2E4 /* HNCommentCell.m */; };
+		C91A419A1E2C421C0053E572 /* HNSettingsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C98AF57419C7E1800069C6F9 /* HNSettingsVC.m */; };
+		C91A419B1E2C421C0053E572 /* HNIconDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = C94C70D9196CDC3B005139BC /* HNIconDownloadController.m */; };
+		C91A419C1E2C421C0053E572 /* HNCommentBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 789B916D17E676070027BB74 /* HNCommentBlock.m */; };
+		C91A419D1E2C421C0053E572 /* HNTouchableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C7663717F7E9B6008A31F5 /* HNTouchableView.m */; };
+		C91A419E1E2C421C0053E572 /* HNTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 78705CF017FE714D006D9C84 /* HNTheme.m */; };
+		C91A419F1E2C421C0053E572 /* HNArticleContainerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 789CC10E1800CA63004BB8E7 /* HNArticleContainerVC.m */; };
+		C91A41A01E2C421C0053E572 /* HNAttributedStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 780F09BD18021ABD00B9C5C3 /* HNAttributedStyle.m */; };
+		C91A41A11E2C421C0053E572 /* HNCommentString.m in Sources */ = {isa = PBXBuildFile; fileRef = 780F09BF18021ABD00B9C5C3 /* HNCommentString.m */; };
+		C91A41A21E2C421C0053E572 /* HNNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C98C27F61E29BF06003EF11C /* HNNavigationViewController.m */; };
+		C91A41A31E2C421C0053E572 /* HNUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 789533921818CC91000462A7 /* HNUtils.m */; };
+		C91A41A41E2C421C0053E572 /* HNCommentInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78981A4918074E8C000A44A8 /* HNCommentInfoCell.m */; };
+		C91A41A51E2C421C0053E572 /* HNMainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 789B4F16180E3FB800119C83 /* HNMainMenu.m */; };
+		C91A41A71E2C421C0053E572 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C934DA1C18F20363001AA740 /* libGoogleAnalyticsServices.a */; };
+		C91A41A81E2C421C0053E572 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C938E23318DBF19C00D1BD54 /* libz.dylib */; };
+		C91A41A91E2C421C0053E572 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7893910918145C7B004E1E6F /* SystemConfiguration.framework */; };
+		C91A41AA1E2C421C0053E572 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C938E23118DBF17B00D1BD54 /* CoreData.framework */; };
+		C91A41AB1E2C421C0053E572 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C938E22F18DBF16D00D1BD54 /* AdSupport.framework */; };
+		C91A41AC1E2C421C0053E572 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7893910718145C74004E1E6F /* MobileCoreServices.framework */; };
+		C91A41AD1E2C421C0053E572 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 780F09B11801B88F00B9C5C3 /* CoreText.framework */; };
+		C91A41AE1E2C421C0053E572 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 782784C117C9814500CAD559 /* UIKit.framework */; };
+		C91A41AF1E2C421C0053E572 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 782784C317C9814500CAD559 /* Foundation.framework */; };
+		C91A41B01E2C421C0053E572 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 782784C517C9814500CAD559 /* CoreGraphics.framework */; };
+		C91A41B11E2C421C0053E572 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C70DA83392594FF4B0113C30 /* libPods.a */; };
+		C91A41B31E2C421C0053E572 /* triangle-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = A795864E1829D9AB002299C0 /* triangle-blue.png */; };
+		C91A41B41E2C421C0053E572 /* triangle-blue-reverse.png in Resources */ = {isa = PBXBuildFile; fileRef = A795864D1829D9AB002299C0 /* triangle-blue-reverse.png */; };
+		C91A41B51E2C421C0053E572 /* icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13751904CDA500BC6E4B /* icon-29.png */; };
+		C91A41B61E2C421C0053E572 /* triangle-reverse.png in Resources */ = {isa = PBXBuildFile; fileRef = A79586511829D9AB002299C0 /* triangle-reverse.png */; };
+		C91A41B71E2C421C0053E572 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 782784CA17C9814500CAD559 /* InfoPlist.strings */; };
+		C91A41B81E2C421C0053E572 /* iPad-Splash-2048x1536.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D136C1904CBC800BC6E4B /* iPad-Splash-2048x1536.png */; };
+		C91A41B91E2C421C0053E572 /* icon-80.png in Resources */ = {isa = PBXBuildFile; fileRef = A77333861840455C006BF7E5 /* icon-80.png */; };
+		C91A41BA1E2C421C0053E572 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A79F260B183F05FC00A237B5 /* Default@2x.png */; };
+		C91A41BB1E2C421C0053E572 /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13851904CF0D00BC6E4B /* icon-72.png */; };
+		C91A41BC1E2C421C0053E572 /* Icon-114.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13791904CDB900BC6E4B /* Icon-114.png */; };
+		C91A41BD1E2C421C0053E572 /* Icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13781904CDB900BC6E4B /* Icon-58.png */; };
+		C91A41BE1E2C421C0053E572 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A79F260E183F063100A237B5 /* Default-568h@2x.png */; };
+		C91A41BF1E2C421C0053E572 /* iPad-Splash-768x1024.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13661904CBC800BC6E4B /* iPad-Splash-768x1024.png */; };
+		C91A41C01E2C421C0053E572 /* icon-100.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13801904CE1200BC6E4B /* icon-100.png */; };
+		C91A41C11E2C421C0053E572 /* icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13771904CDB900BC6E4B /* icon-57.png */; };
+		C91A41C21E2C421C0053E572 /* iPad-Splash-768x1004.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13651904CBC800BC6E4B /* iPad-Splash-768x1004.png */; };
+		C91A41C31E2C421C0053E572 /* icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D137D1904CE1200BC6E4B /* icon-40.png */; };
+		C91A41C41E2C421C0053E572 /* icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13441902E78B00BC6E4B /* icon-76.png */; };
+		C91A41C51E2C421C0053E572 /* triangle-grey-reverse.png in Resources */ = {isa = PBXBuildFile; fileRef = A795864F1829D9AB002299C0 /* triangle-grey-reverse.png */; };
+		C91A41C61E2C421C0053E572 /* icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = A77333871840455C006BF7E5 /* icon-120.png */; };
+		C91A41C71E2C421C0053E572 /* github icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D132E1900BACB00BC6E4B /* github icon.png */; };
+		C91A41C81E2C421C0053E572 /* twitter-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13301900BB6600BC6E4B /* twitter-icon.png */; };
+		C91A41C91E2C421C0053E572 /* iPad-Splash-1024x748.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13671904CBC800BC6E4B /* iPad-Splash-1024x748.png */; };
+		C91A41CA1E2C421C0053E572 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A79F260A183F05FC00A237B5 /* Default.png */; };
+		C91A41CB1E2C421C0053E572 /* default_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C94C70DB196CE5E6005139BC /* default_icon.png */; };
+		C91A41CC1E2C421C0053E572 /* iPad-Splash-1536x2048.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D136A1904CBC800BC6E4B /* iPad-Splash-1536x2048.png */; };
+		C91A41CD1E2C421C0053E572 /* chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 78705CF317FE7C47006D9C84 /* chat@2x.png */; };
+		C91A41CE1E2C421C0053E572 /* iPad-Splash-1536x2008.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13691904CBC800BC6E4B /* iPad-Splash-1536x2008.png */; };
+		C91A41CF1E2C421C0053E572 /* triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F985B71826DB9900A8D404 /* triangle.png */; };
+		C91A41D01E2C421C0053E572 /* icon-152.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13461902E78B00BC6E4B /* icon-152.png */; };
+		C91A41D11E2C421C0053E572 /* iPad-Splash-2048x1496.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D136B1904CBC800BC6E4B /* iPad-Splash-2048x1496.png */; };
+		C91A41D21E2C421C0053E572 /* triangle-grey.png in Resources */ = {isa = PBXBuildFile; fileRef = A79586501829D9AB002299C0 /* triangle-grey.png */; };
+		C91A41D31E2C421C0053E572 /* icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13451902E78B00BC6E4B /* icon-144.png */; };
+		C91A41D41E2C421C0053E572 /* icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D137F1904CE1200BC6E4B /* icon-60.png */; };
+		C91A41D51E2C421C0053E572 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7A417C6184162A2001F15FC /* Images.xcassets */; };
+		C91A41D61E2C421C0053E572 /* chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 78705CF917FE7DAA006D9C84 /* chat.png */; };
+		C91A41D71E2C421C0053E572 /* iPad-Splash-1024x768.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13681904CBC800BC6E4B /* iPad-Splash-1024x768.png */; };
+		C91A41D81E2C421C0053E572 /* icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D137E1904CE1200BC6E4B /* icon-50.png */; };
 		C934DA1E18F203A5001AA740 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C934DA1C18F20363001AA740 /* libGoogleAnalyticsServices.a */; };
 		C938E23018DBF16D00D1BD54 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C938E22F18DBF16D00D1BD54 /* AdSupport.framework */; };
 		C938E23218DBF17B00D1BD54 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C938E23118DBF17B00D1BD54 /* CoreData.framework */; };
@@ -188,6 +268,8 @@
 		C90D137F1904CE1200BC6E4B /* icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-60.png"; path = "Resources/icon-60.png"; sourceTree = "<group>"; };
 		C90D13801904CE1200BC6E4B /* icon-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-100.png"; path = "Resources/icon-100.png"; sourceTree = "<group>"; };
 		C90D13851904CF0D00BC6E4B /* icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-72.png"; path = "Resources/icon-72.png"; sourceTree = "<group>"; };
+		C91A41DD1E2C421C0053E572 /* HN Zero Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HN Zero Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C91A41DE1E2C421C0053E572 /* HN Zero-pro-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "HN Zero-pro-Info.plist"; path = "/Users/matt/dev/personal/HN-Zero/HN Zero-pro-Info.plist"; sourceTree = "<absolute>"; };
 		C934DA1618F20363001AA740 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = Utilities/GoogleAnalytics/GAI.h; sourceTree = "<group>"; };
 		C934DA1718F20363001AA740 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIDictionaryBuilder.h; path = Utilities/GoogleAnalytics/GAIDictionaryBuilder.h; sourceTree = "<group>"; };
 		C934DA1818F20363001AA740 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAIFields.h; path = Utilities/GoogleAnalytics/GAIFields.h; sourceTree = "<group>"; };
@@ -233,6 +315,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C91A41A61E2C421C0053E572 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C91A41A71E2C421C0053E572 /* libGoogleAnalyticsServices.a in Frameworks */,
+				C91A41A81E2C421C0053E572 /* libz.dylib in Frameworks */,
+				C91A41A91E2C421C0053E572 /* SystemConfiguration.framework in Frameworks */,
+				C91A41AA1E2C421C0053E572 /* CoreData.framework in Frameworks */,
+				C91A41AB1E2C421C0053E572 /* AdSupport.framework in Frameworks */,
+				C91A41AC1E2C421C0053E572 /* MobileCoreServices.framework in Frameworks */,
+				C91A41AD1E2C421C0053E572 /* CoreText.framework in Frameworks */,
+				C91A41AE1E2C421C0053E572 /* UIKit.framework in Frameworks */,
+				C91A41AF1E2C421C0053E572 /* Foundation.framework in Frameworks */,
+				C91A41B01E2C421C0053E572 /* CoreGraphics.framework in Frameworks */,
+				C91A41B11E2C421C0053E572 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -260,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				782784BD17C9814500CAD559 /* HN Zero.app */,
+				C91A41DD1E2C421C0053E572 /* HN Zero Pro.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -304,6 +405,7 @@
 				C90D13601904C8BD00BC6E4B /* Splash */,
 				C90D135F1904C89A00BC6E4B /* Icons */,
 				782784C917C9814500CAD559 /* HN Zero-Info.plist */,
+				C91A41DE1E2C421C0053E572 /* HN Zero-pro-Info.plist */,
 				782784CA17C9814500CAD559 /* InfoPlist.strings */,
 				782784CD17C9814500CAD559 /* main.m */,
 				782784CF17C9814500CAD559 /* HN Zero-Prefix.pch */,
@@ -522,6 +624,25 @@
 			productReference = 782784BD17C9814500CAD559 /* HN Zero.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C91A41841E2C421C0053E572 /* HN Zero Pro */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C91A41DA1E2C421C0053E572 /* Build configuration list for PBXNativeTarget "HN Zero Pro" */;
+			buildPhases = (
+				C91A41851E2C421C0053E572 /* Check Pods Manifest.lock */,
+				C91A41861E2C421C0053E572 /* Sources */,
+				C91A41A61E2C421C0053E572 /* Frameworks */,
+				C91A41B21E2C421C0053E572 /* Resources */,
+				C91A41D91E2C421C0053E572 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HN Zero Pro";
+			productName = HackerNews;
+			productReference = C91A41DD1E2C421C0053E572 /* HN Zero Pro.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -535,6 +656,10 @@
 					782784BC17C9814500CAD559 = {
 						DevelopmentTeam = 735H4JCR7N;
 						ProvisioningStyle = Automatic;
+					};
+					C91A41841E2C421C0053E572 = {
+						DevelopmentTeam = 735H4JCR7N;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -551,6 +676,7 @@
 			projectRoot = "";
 			targets = (
 				782784BC17C9814500CAD559 /* HN Zero */,
+				C91A41841E2C421C0053E572 /* HN Zero Pro */,
 			);
 		};
 /* End PBXProject section */
@@ -601,6 +727,51 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C91A41B21E2C421C0053E572 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C91A41B31E2C421C0053E572 /* triangle-blue.png in Resources */,
+				C91A41B41E2C421C0053E572 /* triangle-blue-reverse.png in Resources */,
+				C91A41B51E2C421C0053E572 /* icon-29.png in Resources */,
+				C91A41B61E2C421C0053E572 /* triangle-reverse.png in Resources */,
+				C91A41B71E2C421C0053E572 /* InfoPlist.strings in Resources */,
+				C91A41B81E2C421C0053E572 /* iPad-Splash-2048x1536.png in Resources */,
+				C91A41B91E2C421C0053E572 /* icon-80.png in Resources */,
+				C91A41BA1E2C421C0053E572 /* Default@2x.png in Resources */,
+				C91A41BB1E2C421C0053E572 /* icon-72.png in Resources */,
+				C91A41BC1E2C421C0053E572 /* Icon-114.png in Resources */,
+				C91A41BD1E2C421C0053E572 /* Icon-58.png in Resources */,
+				C91A41BE1E2C421C0053E572 /* Default-568h@2x.png in Resources */,
+				C91A41BF1E2C421C0053E572 /* iPad-Splash-768x1024.png in Resources */,
+				C91A41C01E2C421C0053E572 /* icon-100.png in Resources */,
+				C91A41C11E2C421C0053E572 /* icon-57.png in Resources */,
+				C91A41C21E2C421C0053E572 /* iPad-Splash-768x1004.png in Resources */,
+				C91A41C31E2C421C0053E572 /* icon-40.png in Resources */,
+				C91A41C41E2C421C0053E572 /* icon-76.png in Resources */,
+				C91A41C51E2C421C0053E572 /* triangle-grey-reverse.png in Resources */,
+				C91A41C61E2C421C0053E572 /* icon-120.png in Resources */,
+				C91A41C71E2C421C0053E572 /* github icon.png in Resources */,
+				C91A41C81E2C421C0053E572 /* twitter-icon.png in Resources */,
+				C91A41C91E2C421C0053E572 /* iPad-Splash-1024x748.png in Resources */,
+				C91A41CA1E2C421C0053E572 /* Default.png in Resources */,
+				C91A41CB1E2C421C0053E572 /* default_icon.png in Resources */,
+				C91A41CC1E2C421C0053E572 /* iPad-Splash-1536x2048.png in Resources */,
+				C91A41CD1E2C421C0053E572 /* chat@2x.png in Resources */,
+				C91A41CE1E2C421C0053E572 /* iPad-Splash-1536x2008.png in Resources */,
+				C91A41CF1E2C421C0053E572 /* triangle.png in Resources */,
+				C91A41D01E2C421C0053E572 /* icon-152.png in Resources */,
+				C91A41D11E2C421C0053E572 /* iPad-Splash-2048x1496.png in Resources */,
+				C91A41D21E2C421C0053E572 /* triangle-grey.png in Resources */,
+				C91A41D31E2C421C0053E572 /* icon-144.png in Resources */,
+				C91A41D41E2C421C0053E572 /* icon-60.png in Resources */,
+				C91A41D51E2C421C0053E572 /* Images.xcassets in Resources */,
+				C91A41D61E2C421C0053E572 /* chat.png in Resources */,
+				C91A41D71E2C421C0053E572 /* iPad-Splash-1024x768.png in Resources */,
+				C91A41D81E2C421C0053E572 /* icon-50.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -632,6 +803,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C91A41851E2C421C0053E572 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C91A41D91E2C421C0053E572 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -672,6 +873,44 @@
 				789533931818CC91000462A7 /* HNUtils.m in Sources */,
 				78981A4A18074E8C000A44A8 /* HNCommentInfoCell.m in Sources */,
 				789B4F17180E3FB800119C83 /* HNMainMenu.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C91A41861E2C421C0053E572 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C91A41871E2C421C0053E572 /* HNTheme+Themes.m in Sources */,
+				C91A41881E2C421C0053E572 /* HNMenuLink.m in Sources */,
+				C91A41891E2C421C0053E572 /* main.m in Sources */,
+				C91A418A1E2C421C0053E572 /* HNAppDelegate.m in Sources */,
+				C91A418B1E2C421C0053E572 /* HNArticleListVC.m in Sources */,
+				C91A418C1E2C421C0053E572 /* HNLinkGetter.m in Sources */,
+				C91A418D1E2C421C0053E572 /* HNWebBrowserVC.m in Sources */,
+				C91A418E1E2C421C0053E572 /* HNLoadingCell.m in Sources */,
+				C91A418F1E2C421C0053E572 /* HNConnectionStatusLabel.m in Sources */,
+				C91A41901E2C421C0053E572 /* HNArticleCell.m in Sources */,
+				C91A41911E2C421C0053E572 /* HNDownloadController.m in Sources */,
+				C91A41921E2C421C0053E572 /* HNArticle.m in Sources */,
+				C91A41931E2C421C0053E572 /* HNComment.m in Sources */,
+				C91A41941E2C421C0053E572 /* HNCommentVC.m in Sources */,
+				C91A41951E2C421C0053E572 /* HNParser.m in Sources */,
+				C91A41961E2C421C0053E572 /* HNCommentParser.m in Sources */,
+				C91A41971E2C421C0053E572 /* HNThemeChanger.m in Sources */,
+				C91A41981E2C421C0053E572 /* HNSettings.m in Sources */,
+				C91A41991E2C421C0053E572 /* HNCommentCell.m in Sources */,
+				C91A419A1E2C421C0053E572 /* HNSettingsVC.m in Sources */,
+				C91A419B1E2C421C0053E572 /* HNIconDownloadController.m in Sources */,
+				C91A419C1E2C421C0053E572 /* HNCommentBlock.m in Sources */,
+				C91A419D1E2C421C0053E572 /* HNTouchableView.m in Sources */,
+				C91A419E1E2C421C0053E572 /* HNTheme.m in Sources */,
+				C91A419F1E2C421C0053E572 /* HNArticleContainerVC.m in Sources */,
+				C91A41A01E2C421C0053E572 /* HNAttributedStyle.m in Sources */,
+				C91A41A11E2C421C0053E572 /* HNCommentString.m in Sources */,
+				C91A41A21E2C421C0053E572 /* HNNavigationViewController.m in Sources */,
+				C91A41A31E2C421C0053E572 /* HNUtils.m in Sources */,
+				C91A41A41E2C421C0053E572 /* HNCommentInfoCell.m in Sources */,
+				C91A41A51E2C421C0053E572 /* HNMainMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -800,6 +1039,65 @@
 			};
 			name = Release;
 		};
+		C91A41DB1E2C421C0053E572 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A9A102B562681B0AAA5C56E4 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 735H4JCR7N;
+				ENABLE_BITCODE = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HackerNews/HN Zero-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/HN Zero-pro-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HackerNews/Utilities/GoogleAnalytics",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hnzero.pro;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ddb58a19-3503-4bca-90c4-b63d1aa19dc2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE_SPECIFIER = "HN Zero Pro Development (2017)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C91A41DC1E2C421C0053E572 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AB072EA729429F17149299C /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Matthew Stanford (735H4JCR7N)";
+				DEVELOPMENT_TEAM = 735H4JCR7N;
+				ENABLE_BITCODE = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HackerNews/HN Zero-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/HN Zero-pro-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HackerNews/Utilities/GoogleAnalytics",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hnzero.pro;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f3b0b3d1-87f7-49d8-8ac1-689c724d6c02";
+				PROVISIONING_PROFILE_SPECIFIER = "HN Zero Pro App Store";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -817,6 +1115,15 @@
 			buildConfigurations = (
 				782784DC17C9814500CAD559 /* Debug */,
 				782784DD17C9814500CAD559 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C91A41DA1E2C421C0053E572 /* Build configuration list for PBXNativeTarget "HN Zero Pro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C91A41DB1E2C421C0053E572 /* Debug */,
+				C91A41DC1E2C421C0053E572 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
