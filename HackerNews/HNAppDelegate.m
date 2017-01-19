@@ -123,9 +123,7 @@
                                                         andSettings:self.settings];
         
         //Finish setting up the main menu VC
-        self.mainMenuVC.articleListVC = self.articleListVC;
-        [self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
-        
+        self.mainMenuVC.articleListVC = self.articleListVC;        
         
         //[self setupMainMenuWithLinks:menuLinks withArticleListVC:self.articleListVC];
         
@@ -176,13 +174,15 @@
         
         self.navController = [[HNNavigationViewController alloc] initWithRootViewController:self.mainMenuVC];
         
-        [self.mainMenuVC goToMenuLink:[menuLinks objectAtIndex:0]];
         
         [themeChanger addThemedViewController:self.navController];
         
         [self.window setRootViewController:self.navController];
         
     }
+    
+    [self.mainMenuVC changeMenuLink:[menuLinks objectAtIndex:0]];
+
     
     [themeChanger addThemedViewController:self.articleListVC];
     [themeChanger addThemedViewController:self.commentVC];

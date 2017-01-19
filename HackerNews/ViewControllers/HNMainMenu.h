@@ -26,6 +26,6 @@
       withArticleVC:(HNArticleListVC *)theArticleListVC
       withMenuLinks:(NSArray *)menuLinks
         andSettings:(HNSettings *)settings;
-- (void) goToMenuLink:(HNMenuLink *)link;
+- (void) changeMenuLink:(HNMenuLink *)link;
 
 @end

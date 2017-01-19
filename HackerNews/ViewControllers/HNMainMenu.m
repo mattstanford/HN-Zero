@@ -21,7 +21,7 @@
 NSString * const kGithubLink = @"https://github.com/mds6058/HackerNews";
 NSString * const kTwitterLink = @"twitter://post?message=@MattStanford3";
 
-NS_ENUM(NSInteger, HNMainMenuSections)
+typedef NS_ENUM(NSInteger, HNMainMenuSection)
 {
     HNMainMenuPages,
     HNMainMenuSettings,
@@ -49,6 +49,7 @@ NS_ENUM(NSInteger, HNMenuSettings)
 @property (nonatomic, strong) NSArray *mainItems;
 @property (nonatomic, strong) HNSettings *settings;
 @property (nonatomic, strong) HNTheme *theme;
+@property (nonatomic, assign) HNMainMenuSection selectedSection;
 
 @end
 
@@ -158,6 +159,24 @@ NS_ENUM(NSInteger, HNMenuSettings)
     
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -173,8 +192,7 @@ NS_ENUM(NSInteger, HNMenuSettings)
     
     if (indexPath.section == HNMainMenuPages)
     {
-        HNMenuLink *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
-        cell.textLabel.text = menuItem.title;
+        cell = [self setupPageCell:cell indexPath:indexPath];
     }
     else if (indexPath.section == HNMainMenuSettings)
     {
@@ -191,6 +209,23 @@ NS_ENUM(NSInteger, HNMenuSettings)
     
     return cell;
 
+}
+
+- (UITableViewCell *)setupPageCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath
+{
+    HNMenuLink *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
+    cell.textLabel.text = menuItem.title;
+    
+    if (indexPath.row == self.selectedSection)
+    {
+        cell.backgroundColor = self.theme.infoColor;
+    }
+    else
+    {
+        cell.backgroundColor = self.theme.cellBackgroundColor;
+    }
+    
+    return cell;
 }
 
 - (UITableViewCell *)setupSettingCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath
@@ -266,7 +301,18 @@ NS_ENUM(NSInteger, HNMenuSettings)
     if ([indexPath section] == HNMainMenuPages)
     {
         HNMenuLink *menuItem = [self.mainItems objectAtIndex:[indexPath row]];
-        [self goToMenuLink:menuItem];
+        
+        if (self.selectedSection == indexPath.row)
+        {
+            [self goToArticleList];
+        }
+        else
+        {
+            [self.tableView reloadData];
+            [self changeMenuLink:menuItem];
+            self.selectedSection = indexPath.row;
+            
+        }
     }
     else if([indexPath section] == HNMainMenuSettings)
     {
@@ -314,10 +360,15 @@ NS_ENUM(NSInteger, HNMenuSettings)
     
 }
 
-- (void) goToMenuLink:(HNMenuLink *)link
+- (void) changeMenuLink:(HNMenuLink *)link
 {
     [self.articleListVC setUrl:link.url andTitle:link.title];
     
+    [self goToArticleList];
+}
+
+-(void) goToArticleList
+{
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         [self.articleListVC closeDrawer];
     }
