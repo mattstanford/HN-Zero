@@ -19,7 +19,11 @@
 #import "HNTheme+Themes.h"
 
 NSString * const kGithubLink = @"https://github.com/mds6058/HackerNews";
-NSString * const kTwitterLink = @"twitter://post?message=@MattStanford3";
+NSString * const kTwitterAppLink = @"twitter://user?screen_name=hackernewszero";
+NSString * const kTwitterBrowserLink = @"https://twitter.com/hackernewszero";
+NSString * const kFacebookAppLink = @"fb://profile/1080017705457038";
+NSString * const kFacebookBrowserLink = @"https://www.facebook.com/1080017705457038";
+
 
 typedef NS_ENUM(NSInteger, HNMainMenuSection)
 {
@@ -34,7 +38,7 @@ NS_ENUM(NSInteger, HNInfoCellTitles)
 {
     //HNInfoCellSettings,
     HNInfoCellTitleTwitter,
-    HNInfoCellTitleGitHub,
+    HNInfoCellTitleFacebook,
     HNInfoCellNumRows
 };
 
@@ -132,7 +136,7 @@ NS_ENUM(NSInteger, HNMenuSettings)
     
     switch (section) {
         case HNMainMenuInfo:
-            returnString = @"Contact/Info";
+            returnString = @"Social Media";
             break;
         case HNMainMenuSettings:
             returnString = @"Settings";
@@ -256,13 +260,13 @@ NS_ENUM(NSInteger, HNMenuSettings)
 - (UITableViewCell *)setupInfoCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.row) {
-        case HNInfoCellTitleGitHub:
-            cell.textLabel.text = @"Source Code";
+        case HNInfoCellTitleFacebook:
+            cell.textLabel.text = @"HNZero on Facebook";
             //cell.imageView.image = [UIImage imageNamed:@"github icon"];
             break;
             
         case HNInfoCellTitleTwitter:
-            cell.textLabel.text = @"Contact via Twitter";
+            cell.textLabel.text = @"HNZero on Twitter";
             //cell.imageView.image = [UIImage imageNamed:@"twitter-icon"];
             break;
             
@@ -273,6 +277,8 @@ NS_ENUM(NSInteger, HNMenuSettings)
         default:
             break;
     }
+    
+    cell.selected = false;
     
     return cell;
 }
@@ -337,24 +343,43 @@ NS_ENUM(NSInteger, HNMenuSettings)
     else
     {
         switch (indexPath.row) {
-            case HNInfoCellTitleGitHub:
-                NSLog(@"Goto github");
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kGithubLink]];
+            case HNInfoCellTitleFacebook:
+                NSLog(@"Goto facebook");
+                
+                if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"fb://"]]) {
+                    // Safe to launch the facebook app
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kFacebookAppLink]];
+                }
+                else
+                {
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kFacebookBrowserLink]];
+                }
 
                 break;
             
             case HNInfoCellTitleTwitter:
-                NSLog(@"Goto twitter: %@", kTwitterLink);
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kTwitterLink]];
+                
+                if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"twitter://"]]) {
+                    // Safe to launch the facebook app
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kTwitterAppLink]];
+                }
+                else
+                {
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kTwitterBrowserLink]];
+                }
+        
                 break;
             
-//            case HNInfoCellSettings:
-//                NSLog(@"Tapped settings");
-//                [self presentViewController:self.settingsNavController animated:YES completion:nil];
-//                break;
+
             default:
                 break;
         }
+        
+        [tableView reloadData];
+        
+        
+        
+        
         
     }
     
