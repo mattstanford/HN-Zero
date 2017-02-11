@@ -27,6 +27,7 @@
     appTheme.infoColor = [UIColor lightGrayColor];
     appTheme.normalTextColor = [UIColor blackColor];
     appTheme.commentLinkColor = [UIColor blueColor];
+    appTheme.opColor = [UIColor blueColor];
     
     appTheme.articleTitleFont = [UIFont fontWithName:@"Helvetica" size:defaultTitleSize];
     appTheme.articleInfoFont = [UIFont fontWithName:@"Helvetica" size:defaultFontSize];
@@ -64,6 +65,7 @@
     appTheme.infoColor = [UIColor grayColor];
     appTheme.normalTextColor =  [UIColor colorWithRed:0.92 green:0.96 blue:0.97 alpha:1.00];
     appTheme.commentLinkColor = [UIColor colorWithRed:0.13 green:0.78 blue:0.98 alpha:1.00];
+    appTheme.opColor = [UIColor colorWithRed:0.13 green:0.78 blue:0.98 alpha:1.00];
     
     appTheme.tableViewBackgroundColor = [UIColor blackColor];
     

@@ -30,6 +30,7 @@
 @property (nonatomic, strong) UIFont *commentInfoFont;
 @property (nonatomic, strong) UIColor *commentLinkColor;
 @property (nonatomic, strong) UIColor *tableViewBackgroundColor;
+@property (nonatomic, strong) UIColor *opColor;
 
 
 @end

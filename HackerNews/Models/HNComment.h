@@ -21,7 +21,7 @@
 @property (nonatomic, strong) NSNumber *nestedLevel;
 
 - (void)setFirebaseData:(NSDictionary *)data nestedLevel:(NSNumber *)nestedLevel;
-- (NSAttributedString *) getCommentHeaderWithTheme:(HNTheme *)theme forCellWidth:(CGFloat)cellWidth;
+- (NSAttributedString *) getCommentHeaderWithTheme:(HNTheme *)theme isOP:(BOOL)isOP forCellWidth:(CGFloat)cellWidth;
 - (NSAttributedString *) convertToAttributedStringWithTheme:(HNTheme *)theme;
 - (HNCommentString *) convertToCommentString;
 -(void) setWithPostText:(NSString *)postTextString;

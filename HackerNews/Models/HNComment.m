@@ -87,7 +87,7 @@ NSString *const HNCommentText = @"text";
     
 }
 
-- (NSAttributedString *) getCommentHeaderWithTheme:(HNTheme *)theme forCellWidth:(CGFloat)cellWidth
+- (NSAttributedString *) getCommentHeaderWithTheme:(HNTheme *)theme isOP:(BOOL)isOP forCellWidth:(CGFloat)cellWidth
 {
     NSMutableAttributedString *headerString = nil;
     NSString *baseString;
@@ -108,7 +108,15 @@ NSString *const HNCommentText = @"text";
     else
     {
         NSString *timeString = self.dateWritten;
-        baseString = [NSString stringWithFormat:@"%@%@ • %@", indentOverflowString, user, timeString];
+        
+        if (isOP)
+        {
+            baseString = [NSString stringWithFormat:@"%@%@ (OP) • %@", indentOverflowString, user, timeString];
+        }
+        else
+        {
+            baseString = [NSString stringWithFormat:@"%@%@ • %@", indentOverflowString, user, timeString];
+        }
         
         NSRange overflowStringRange = NSMakeRange(0, indentOverflowString.length);
         NSRange userStringRange = NSMakeRange(indentOverflowString.length, user.length);
@@ -117,8 +125,19 @@ NSString *const HNCommentText = @"text";
         headerString = [[NSMutableAttributedString alloc] initWithString:baseString];
         [headerString addAttribute:NSFontAttributeName value:theme.commentNormalFont range:overflowStringRange];
         [headerString addAttribute:NSForegroundColorAttributeName value:theme.titleTextColor range:overflowStringRange];
+        
         [headerString addAttribute:NSFontAttributeName value:theme.commentBoldFont range:userStringRange];
         [headerString addAttribute:NSForegroundColorAttributeName value:theme.titleTextColor range:userStringRange];
+        
+        if (isOP)
+        {
+            NSUInteger opStart = indentOverflowString.length + user.length + 1;
+            NSRange opRange = NSMakeRange(opStart, 4);
+            
+            [headerString addAttribute:NSFontAttributeName value:theme.commentBoldFont range:opRange];
+            [headerString addAttribute:NSForegroundColorAttributeName value:theme.opColor range:opRange];
+        }
+        
         [headerString addAttribute:NSFontAttributeName value:theme.commentNormalFont range:timeStringRange];
         [headerString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:timeStringRange];
     }
