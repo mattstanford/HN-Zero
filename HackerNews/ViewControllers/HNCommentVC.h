@@ -18,13 +18,6 @@
 
 @interface HNCommentVC : UIViewController <commentViewerDelegate, TTTAttributedLabelDelegate, HNThemedViewController, UITableViewDelegate, UITableViewDataSource>
 
-
-//- (id)initWithStyle:(UITableViewStyle)style
-//          withTheme:(HNTheme *)appTheme
-//         webBrowser:(HNWebBrowserVC *)webBrowser
-//withDownloadController:(HNDownloadController *)downloadController
-//        andSettings:(HNSettings *)settings;
-
 - (id)initWithTheme:(HNTheme *)appTheme
          webBrowser:(HNWebBrowserVC *)webBrowser
 withDownloadController:(HNDownloadController *)downloadController
