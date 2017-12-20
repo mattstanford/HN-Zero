@@ -46,6 +46,7 @@
 		A79F260F183F063100A237B5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A79F260E183F063100A237B5 /* Default-568h@2x.png */; };
 		A7A417C7184162A2001F15FC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7A417C6184162A2001F15FC /* Images.xcassets */; };
 		A7DFA86D18A9910F005BC27D /* HNConnectionStatusLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DFA86C18A9910F005BC27D /* HNConnectionStatusLabel.m */; };
+		C9093B131FEB0FD2005F72D8 /* HNCommentVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9093B121FEB0FD2005F72D8 /* HNCommentVC.xib */; };
 		C90D13471902E78B00BC6E4B /* icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13441902E78B00BC6E4B /* icon-76.png */; };
 		C90D13481902E78B00BC6E4B /* icon-144.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13451902E78B00BC6E4B /* icon-144.png */; };
 		C90D13491902E78B00BC6E4B /* icon-152.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13461902E78B00BC6E4B /* icon-152.png */; };
@@ -217,6 +218,7 @@
 		A7DFA86C18A9910F005BC27D /* HNConnectionStatusLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HNConnectionStatusLabel.m; path = Views/HNConnectionStatusLabel.m; sourceTree = "<group>"; };
 		A9A102B562681B0AAA5C56E4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C70DA83392594FF4B0113C30 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9093B121FEB0FD2005F72D8 /* HNCommentVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HNCommentVC.xib; sourceTree = "<group>"; };
 		C90D13441902E78B00BC6E4B /* icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-76.png"; path = "Resources/icon-76.png"; sourceTree = "<group>"; };
 		C90D13451902E78B00BC6E4B /* icon-144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-144.png"; path = "Resources/icon-144.png"; sourceTree = "<group>"; };
 		C90D13461902E78B00BC6E4B /* icon-152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-152.png"; path = "Resources/icon-152.png"; sourceTree = "<group>"; };
@@ -433,18 +435,19 @@
 			children = (
 				789CC10D1800CA63004BB8E7 /* HNArticleContainerVC.h */,
 				789CC10E1800CA63004BB8E7 /* HNArticleContainerVC.m */,
-				78E4076317D04B4400DC8CE0 /* HNArticleListVC.m */,
 				78E4076217D04B4400DC8CE0 /* HNArticleListVC.h */,
+				78E4076317D04B4400DC8CE0 /* HNArticleListVC.m */,
 				78393F9A17E01C0B0003017F /* HNCommentVC.h */,
 				78393F9B17E01C0B0003017F /* HNCommentVC.m */,
+				C9093B121FEB0FD2005F72D8 /* HNCommentVC.xib */,
 				789B4F15180E3FB800119C83 /* HNMainMenu.h */,
 				789B4F16180E3FB800119C83 /* HNMainMenu.m */,
+				C98C27F51E29BF06003EF11C /* HNNavigationViewController.h */,
+				C98C27F61E29BF06003EF11C /* HNNavigationViewController.m */,
 				C98AF57319C7E1800069C6F9 /* HNSettingsVC.h */,
 				C98AF57419C7E1800069C6F9 /* HNSettingsVC.m */,
 				78E4076617D278B100DC8CE0 /* HNWebBrowserVC.h */,
 				78E4076717D278B100DC8CE0 /* HNWebBrowserVC.m */,
-				C98C27F51E29BF06003EF11C /* HNNavigationViewController.h */,
-				C98C27F61E29BF06003EF11C /* HNNavigationViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -657,6 +660,7 @@
 				C90D136E1904CBC800BC6E4B /* iPad-Splash-768x1024.png in Resources */,
 				C90D13841904CE1200BC6E4B /* icon-100.png in Resources */,
 				C90D137A1904CDB900BC6E4B /* icon-57.png in Resources */,
+				C9093B131FEB0FD2005F72D8 /* HNCommentVC.xib in Resources */,
 				C90D136D1904CBC800BC6E4B /* iPad-Splash-768x1004.png in Resources */,
 				C90D13811904CE1200BC6E4B /* icon-40.png in Resources */,
 				C90D13471902E78B00BC6E4B /* icon-76.png in Resources */,
@@ -933,7 +937,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HackerNews/HN Zero-Prefix.pch";
 				INFOPLIST_FILE = "HackerNews/HN Zero-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HackerNews/Utilities/GoogleAnalytics",
@@ -962,7 +966,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HackerNews/HN Zero-Prefix.pch";
 				INFOPLIST_FILE = "HackerNews/HN Zero-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HackerNews/Utilities/GoogleAnalytics",

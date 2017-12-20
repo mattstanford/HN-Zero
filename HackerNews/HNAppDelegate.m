@@ -69,10 +69,7 @@
     
     HNThemeChanger *themeChanger = [[HNThemeChanger alloc] init];
     
-    
-    
-    self.commentVC = [[HNCommentVC alloc] initWithStyle:UITableViewStylePlain
-                                              withTheme:theme
+    self.commentVC = [[HNCommentVC alloc] initWithTheme:theme
                                              webBrowser:self.commentWebBrowserVC
                                  withDownloadController:self.downloadController
                                             andSettings:self.settings];

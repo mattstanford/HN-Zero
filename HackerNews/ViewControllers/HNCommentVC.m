@@ -32,19 +32,19 @@
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, strong) HNTheme *theme;
 @property (nonatomic, strong) HNSettings *settings;
-//@property (nonatomic, strong) NSMutableDictionary *rowHeightCache;
+@property (nonatomic, strong) UIView *bottomBarView;
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation HNCommentVC
 
-- (id)initWithStyle:(UITableViewStyle)style
-          withTheme:(HNTheme *)appTheme
+- (id)initWithTheme:(HNTheme *)appTheme
          webBrowser:(HNWebBrowserVC *)webBrowser
 withDownloadController:(HNDownloadController *)downloadController
-        andSettings:(HNSettings *)settings;
+        andSettings:(HNSettings *)settings
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:@"HNCommentVC" bundle:nil];
     if (self) {
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
@@ -59,12 +59,18 @@ withDownloadController:(HNDownloadController *)downloadController
         self.settings = settings;
         
         self.tableView.backgroundColor = self.theme.cellBackgroundColor;
+        self.view.backgroundColor = self.theme.cellBackgroundColor;
+        
+        //        self.bottomBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
+        //        self.bottomBarView.backgroundColor = appTheme.titleBarColor;
+        //        [self.view addSubview:self.bottomBarView];
         
         //self.rowHeightCache = [[NSMutableDictionary alloc] init];
         
     }
     return self;
 }
+
 
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -116,8 +122,8 @@ withDownloadController:(HNDownloadController *)downloadController
     
     NSString *updateString = [HNUtils getTimeUpdatedString];
     NSDictionary *attributes = @{NSForegroundColorAttributeName: self.theme.titleTextColor};
-    NSAttributedString *titleString = [[NSAttributedString alloc] initWithString:updateString attributes:attributes];
-    self.refreshControl.attributedTitle = titleString;
+  //  NSAttributedString *titleString = [[NSAttributedString alloc] initWithString:updateString attributes:attributes];
+  //  self.refreshControl.attributedTitle = titleString;
 }
 
 - (void) downloadFailed

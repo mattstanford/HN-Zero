@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HNCommentVC" customModule="HN_Zero" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="Viw-GO-dUN" id="kwu-ST-I0d"/>
+                <outlet property="view" destination="8O4-KA-Pxx" id="5Oq-xr-rCy"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="8O4-KA-Pxx">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Viw-GO-dUN">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="HiG-dx-KxK"/>
+                        <outlet property="delegate" destination="-1" id="GGL-rJ-4X5"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Viw-GO-dUN" firstAttribute="leading" secondItem="WmS-Zv-kOe" secondAttribute="leading" id="Fk6-W0-X3g"/>
+                <constraint firstItem="Viw-GO-dUN" firstAttribute="bottom" secondItem="WmS-Zv-kOe" secondAttribute="bottom" id="GDw-R5-ew0"/>
+                <constraint firstItem="Viw-GO-dUN" firstAttribute="trailing" secondItem="WmS-Zv-kOe" secondAttribute="trailing" id="Rb1-o9-wHr"/>
+                <constraint firstItem="Viw-GO-dUN" firstAttribute="top" secondItem="8O4-KA-Pxx" secondAttribute="top" id="Yay-BX-dLV"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="WmS-Zv-kOe"/>
+            <point key="canvasLocation" x="-37.5" y="199.5"/>
+        </view>
+    </objects>
+</document>
