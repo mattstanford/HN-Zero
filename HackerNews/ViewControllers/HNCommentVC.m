@@ -24,6 +24,12 @@
 #import "GAIDictionaryBuilder.h"
 #import "HNSettings.h"
 
+NS_ENUM(NSInteger, HNScrollDirection)
+{
+    HNSCrollDirectionUp,
+    HnSCrollDirectionDown
+};
+
 @interface HNCommentVC ()
 
 @property (nonatomic, strong) HNWebBrowserVC *webBrowserVC;
@@ -32,8 +38,11 @@
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, strong) HNTheme *theme;
 @property (nonatomic, strong) HNSettings *settings;
-@property (nonatomic, strong) UIView *bottomBarView;
+@property (nonatomic, strong) IBOutlet UIView *bottomBarView;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
+
+@property (nonatomic, assign) CGFloat lastScrollOffset;
+@property (nonatomic, assign) enum HNScrollDirection lastScrollDirection;
 
 @end
 
@@ -46,8 +55,6 @@ withDownloadController:(HNDownloadController *)downloadController
 {
     self = [super initWithNibName:@"HNCommentVC" bundle:nil];
     if (self) {
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
         self.webBrowserVC = webBrowser;
         
         self.downloadController = downloadController;
@@ -61,6 +68,8 @@ withDownloadController:(HNDownloadController *)downloadController
         self.tableView.backgroundColor = self.theme.cellBackgroundColor;
         self.view.backgroundColor = self.theme.cellBackgroundColor;
         
+        self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+                
         //        self.bottomBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
         //        self.bottomBarView.backgroundColor = appTheme.titleBarColor;
         //        [self.view addSubview:self.bottomBarView];
@@ -80,6 +89,8 @@ withDownloadController:(HNDownloadController *)downloadController
     id tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Comments"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    
+    self.lastScrollOffset = self.tableView.contentOffset.y;
 }
 
 - (void) viewDidLoad
@@ -120,8 +131,8 @@ withDownloadController:(HNDownloadController *)downloadController
     self.comments = [self buildTableWithData:parsedComments];
     [self.tableView reloadData];
     
-    NSString *updateString = [HNUtils getTimeUpdatedString];
-    NSDictionary *attributes = @{NSForegroundColorAttributeName: self.theme.titleTextColor};
+   // NSString *updateString = [HNUtils getTimeUpdatedString];
+ //   NSDictionary *attributes = @{NSForegroundColorAttributeName: self.theme.titleTextColor};
   //  NSAttributedString *titleString = [[NSAttributedString alloc] initWithString:updateString attributes:attributes];
   //  self.refreshControl.attributedTitle = titleString;
 }
@@ -192,6 +203,43 @@ withDownloadController:(HNDownloadController *)downloadController
         
         return rowHeight;
     }
+}
+
+#pragma mark UITableViewDelegate
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat currentScrollOffset = scrollView.contentOffset.y;
+    
+    if (currentScrollOffset < self.lastScrollOffset)
+    {
+  
+        if (self.lastScrollDirection != HNSCrollDirectionUp)
+        {
+         
+            self.lastScrollDirection = HNSCrollDirectionUp;
+        }
+    }
+    else
+    {
+        if (self.lastScrollDirection != HnSCrollDirectionDown)
+        {
+            
+            self.lastScrollDirection = HnSCrollDirectionDown;
+        }
+    }
+    
+    self.lastScrollOffset = currentScrollOffset;
+}
+
+-(void) didScrollUp
+{
+    NSLog(@"Scrolled up!");
+}
+
+-(void) didScrollDown
+{
+    NSLog(@"scrolled down!");
 }
 
 #pragma mark TTTAttributedLabel functions
