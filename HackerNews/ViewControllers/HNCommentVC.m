@@ -24,6 +24,9 @@
 #import "GAIDictionaryBuilder.h"
 #import "HNSettings.h"
 
+static const CGFloat BOTTOM_BAR_HEIGHT = 44;
+static const CGFloat SHARE_BUTTON_ANIMATION_LENGTH = 0.5;
+
 NS_ENUM(NSInteger, HNScrollDirection)
 {
     HNSCrollDirectionUp,
@@ -40,9 +43,6 @@ NS_ENUM(NSInteger, HNScrollDirection)
 @property (nonatomic, strong) HNSettings *settings;
 @property (nonatomic, strong) IBOutlet UIToolbar *bottomBarView;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
-
-@property (nonatomic, assign) CGFloat lastScrollOffset;
-@property (nonatomic, assign) enum HNScrollDirection lastScrollDirection;
 
 @end
 
@@ -79,8 +79,6 @@ withDownloadController:(HNDownloadController *)downloadController
     id tracker = [[GAI sharedInstance] defaultTracker];
     [tracker set:kGAIScreenName value:@"Comments"];
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
-    
-    self.lastScrollOffset = self.tableView.contentOffset.y;
 }
 
 - (void) viewDidLoad
@@ -146,7 +144,6 @@ withDownloadController:(HNDownloadController *)downloadController
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
     return [self.comments count];
 }
 
@@ -204,37 +201,41 @@ withDownloadController:(HNDownloadController *)downloadController
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat currentScrollOffset = scrollView.contentOffset.y;
+    CGFloat offset = self.tableView.contentOffset.y;
     
-    if (currentScrollOffset < self.lastScrollOffset)
+    if (offset <= 0)
     {
-  
-        if (self.lastScrollDirection != HNSCrollDirectionUp)
-        {
-         
-            self.lastScrollDirection = HNSCrollDirectionUp;
-        }
+        [self showBottomBar];
     }
     else
     {
-        if (self.lastScrollDirection != HnSCrollDirectionDown)
-        {
-            
-            self.lastScrollDirection = HnSCrollDirectionDown;
-        }
+        [self hideBottomBar];
     }
-    
-    self.lastScrollOffset = currentScrollOffset;
 }
 
--(void) didScrollUp
+-(void)showBottomBar
 {
-    NSLog(@"Scrolled up!");
+    [UIView animateWithDuration:SHARE_BUTTON_ANIMATION_LENGTH animations:^{
+        
+        CGFloat barPos = self.view.frame.size.height - BOTTOM_BAR_HEIGHT;
+        
+        self.bottomBarView.frame = CGRectMake(self.bottomBarView.frame.origin.x, barPos, self.bottomBarView.frame.size.width, self.bottomBarView.frame.size.height);
+        
+        self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - BOTTOM_BAR_HEIGHT);
+    }];
 }
 
--(void) didScrollDown
+-(void)hideBottomBar
 {
-    NSLog(@"scrolled down!");
+    [UIView animateWithDuration:SHARE_BUTTON_ANIMATION_LENGTH animations:^{
+        
+        CGFloat barPos = self.view.frame.size.height;
+        
+        self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        
+        self.bottomBarView.frame = CGRectMake(self.bottomBarView.frame.origin.x, barPos, self.bottomBarView.frame.size.width, self.bottomBarView.frame.size.height);
+        
+    }];
 }
 
 #pragma mark TTTAttributedLabel functions
