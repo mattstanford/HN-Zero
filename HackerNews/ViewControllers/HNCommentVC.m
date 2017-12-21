@@ -70,7 +70,6 @@ withDownloadController:(HNDownloadController *)downloadController
     return self;
 }
 
-
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -296,8 +295,9 @@ withDownloadController:(HNDownloadController *)downloadController
     }
     
     //Scroll to top
-    [self.tableView setContentOffset:CGPointZero animated:NO];
-    
+    NSIndexPath *topRow = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:topRow atScrollPosition:UITableViewScrollPositionTop animated:NO];
+
 }
 
 -(NSArray *) buildTableWithData:(NSArray *)data
