@@ -38,7 +38,7 @@ NS_ENUM(NSInteger, HNScrollDirection)
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, strong) HNTheme *theme;
 @property (nonatomic, strong) HNSettings *settings;
-@property (nonatomic, strong) IBOutlet UIView *bottomBarView;
+@property (nonatomic, strong) IBOutlet UIToolbar *bottomBarView;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @property (nonatomic, assign) CGFloat lastScrollOffset;
@@ -61,21 +61,11 @@ withDownloadController:(HNDownloadController *)downloadController
         self.downloadController.commentViewerDelegate = self;
         
         self.comments = [[NSArray alloc] init];
-        
-        self.theme = appTheme;
         self.settings = settings;
         
-        self.tableView.backgroundColor = self.theme.cellBackgroundColor;
-        self.view.backgroundColor = self.theme.cellBackgroundColor;
+        [self applyTheme:appTheme];
         
         self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-                
-        //        self.bottomBarView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height)];
-        //        self.bottomBarView.backgroundColor = appTheme.titleBarColor;
-        //        [self.view addSubview:self.bottomBarView];
-        
-        //self.rowHeightCache = [[NSMutableDictionary alloc] init];
-        
     }
     return self;
 }
@@ -103,6 +93,11 @@ withDownloadController:(HNDownloadController *)downloadController
 //    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating..."];
 //    [refresh addTarget:self action:@selector(updateComments) forControlEvents:UIControlEventValueChanged];
 //    self.refreshControl = refresh;
+}
+
+- (IBAction)shareButtonClicked:(id)sender
+{
+    NSLog(@"Share button clicked!");
 }
 
 #pragma mark CommentViewer delegate
@@ -408,10 +403,17 @@ withDownloadController:(HNDownloadController *)downloadController
 
 -(void)changeTheme:(HNTheme *)theme
 {
+    [self applyTheme:theme];
+    [self.tableView reloadData];
+}
+
+-(void) applyTheme:(HNTheme *)theme
+{
     self.theme = theme;
     self.tableView.backgroundColor = self.theme.tableViewBackgroundColor;
     self.view.backgroundColor = self.theme.tableViewBackgroundColor;
-    [self.tableView reloadData];
+    self.bottomBarView.barTintColor = self.theme.titleBarColor;
+    self.bottomBarView.tintColor = self.theme.titleBarTextColor;
 }
 
 
