@@ -32,5 +32,6 @@
 -(NSString *) getInfoText;
 -(NSString *) getCommentInfoText;
 -(BOOL) isSelfPost;
+-(NSString *) getShareText;
 
 @end

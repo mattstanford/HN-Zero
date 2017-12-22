@@ -95,6 +95,12 @@ withDownloadController:(HNDownloadController *)downloadController
 - (IBAction)shareButtonClicked:(id)sender
 {
     NSLog(@"Share button clicked!");
+    NSString *msg = [self.currentArticle getShareText];
+    UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[ msg ]
+                                      applicationActivities:nil];
+    
+    [shareSheet popoverPresentationController].sourceView = self.view;
+    [self presentViewController:shareSheet animated:YES completion:nil];
 }
 
 #pragma mark CommentViewer delegate
