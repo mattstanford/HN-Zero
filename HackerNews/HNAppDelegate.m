@@ -17,7 +17,6 @@
 #import "HNArticleListVC.h"
 #import "HNWebBrowserVC.h"
 #import "HNCommentVC.h"
-#import <MGSplitViewController/MGSplitViewController.h>
 #import "HNNavigationViewController.h"
 #import "HNThemeChanger.h"
 #import "HNTheme+Themes.h"
@@ -86,19 +85,8 @@
         //First initialze the drawer controller with its root view controllers
         UIViewController *splitVC = [[UISplitViewController alloc] init];
         UISplitViewController *splitVCptr;
-        MGSplitViewController *mgSplitVCptr;
-        if ([splitVC respondsToSelector:@selector(setPreferredDisplayMode:)])
-        {
-            splitVCptr = (UISplitViewController *)splitVC;
-            splitVCptr.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
-        }
-        else
-        {
-            splitVC = [[MGSplitViewController alloc] init];
-            mgSplitVCptr = (MGSplitViewController *)splitVC;
-            mgSplitVCptr.showsMasterInPortrait = YES;
-        }
-        
+        splitVCptr = (UISplitViewController *)splitVC;
+        splitVCptr.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
         
         self.mainMenuVC = [[HNMainMenu alloc]
                            initWithStyle:UITableViewStyleGrouped
@@ -134,14 +122,7 @@
         [themeChanger addThemedViewController:articleContainerNavController];
         
         NSArray *splitVCArray = [NSArray arrayWithObjects:articleListNavController, articleContainerNavController, nil];
-        if ([splitVC isKindOfClass:[MGSplitViewController class]])
-        {
-            [(MGSplitViewController *)splitVC setViewControllers:splitVCArray];
-        }
-        else
-        {
-            [(UISplitViewController *)splitVC setViewControllers:splitVCArray];
-        }
+        [(UISplitViewController *)splitVC setViewControllers:splitVCArray];
         
         splitVC.view.backgroundColor = [UIColor lightGrayColor];
         self.articleContainerVC.splitVC = splitVC;
