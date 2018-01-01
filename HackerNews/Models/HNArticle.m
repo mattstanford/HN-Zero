@@ -214,6 +214,9 @@ NSString * const HNArticleCommentLinkId = @"commentLinkId";
     NSString *commentString = [NSString stringWithFormat:@"\n\nHN Discussion: %@", commentPageUrl];
     [shareString appendString:commentString];
     
+    NSString *adString = [NSString stringWithFormat:@"\n\nShared with www.hackernewszero.com"];
+    [shareString appendString:adString];
+    
     return [shareString copy];
 }
 
