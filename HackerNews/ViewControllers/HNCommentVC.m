@@ -24,6 +24,15 @@
 #import "GAIDictionaryBuilder.h"
 #import "HNSettings.h"
 
+static const CGFloat BOTTOM_BAR_HEIGHT = 44;
+static const CGFloat SHARE_BUTTON_ANIMATION_LENGTH = 0.5;
+
+NS_ENUM(NSInteger, HNScrollDirection)
+{
+    HNSCrollDirectionUp,
+    HnSCrollDirectionDown
+};
+
 @interface HNCommentVC ()
 
 @property (nonatomic, strong) HNWebBrowserVC *webBrowserVC;
@@ -32,36 +41,31 @@
 @property (nonatomic, strong) NSArray *comments;
 @property (nonatomic, strong) HNTheme *theme;
 @property (nonatomic, strong) HNSettings *settings;
-//@property (nonatomic, strong) NSMutableDictionary *rowHeightCache;
+@property (nonatomic, strong) IBOutlet UIToolbar *bottomBarView;
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @end
 
 @implementation HNCommentVC
 
-- (id)initWithStyle:(UITableViewStyle)style
-          withTheme:(HNTheme *)appTheme
+- (id)initWithTheme:(HNTheme *)appTheme
          webBrowser:(HNWebBrowserVC *)webBrowser
 withDownloadController:(HNDownloadController *)downloadController
-        andSettings:(HNSettings *)settings;
+        andSettings:(HNSettings *)settings
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:@"HNCommentVC" bundle:nil];
     if (self) {
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
         self.webBrowserVC = webBrowser;
         
         self.downloadController = downloadController;
         self.downloadController.commentViewerDelegate = self;
         
         self.comments = [[NSArray alloc] init];
-        
-        self.theme = appTheme;
         self.settings = settings;
         
-        self.tableView.backgroundColor = self.theme.cellBackgroundColor;
+        [self applyTheme:appTheme];
         
-        //self.rowHeightCache = [[NSMutableDictionary alloc] init];
-        
+        self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     return self;
 }
@@ -86,6 +90,17 @@ withDownloadController:(HNDownloadController *)downloadController
 //    refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating..."];
 //    [refresh addTarget:self action:@selector(updateComments) forControlEvents:UIControlEventValueChanged];
 //    self.refreshControl = refresh;
+}
+
+- (IBAction)shareButtonClicked:(id)sender
+{
+    NSLog(@"Share button clicked!");
+    NSString *msg = [self.currentArticle getShareText];
+    UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[ msg ]
+                                      applicationActivities:nil];
+    
+    [shareSheet popoverPresentationController].sourceView = self.view;
+    [self presentViewController:shareSheet animated:YES completion:nil];
 }
 
 #pragma mark CommentViewer delegate
@@ -114,10 +129,10 @@ withDownloadController:(HNDownloadController *)downloadController
     self.comments = [self buildTableWithData:parsedComments];
     [self.tableView reloadData];
     
-    NSString *updateString = [HNUtils getTimeUpdatedString];
-    NSDictionary *attributes = @{NSForegroundColorAttributeName: self.theme.titleTextColor};
-    NSAttributedString *titleString = [[NSAttributedString alloc] initWithString:updateString attributes:attributes];
-    self.refreshControl.attributedTitle = titleString;
+   // NSString *updateString = [HNUtils getTimeUpdatedString];
+ //   NSDictionary *attributes = @{NSForegroundColorAttributeName: self.theme.titleTextColor};
+  //  NSAttributedString *titleString = [[NSAttributedString alloc] initWithString:updateString attributes:attributes];
+  //  self.refreshControl.attributedTitle = titleString;
 }
 
 - (void) downloadFailed
@@ -134,7 +149,6 @@ withDownloadController:(HNDownloadController *)downloadController
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
     return [self.comments count];
 }
 
@@ -186,6 +200,47 @@ withDownloadController:(HNDownloadController *)downloadController
         
         return rowHeight;
     }
+}
+
+#pragma mark UITableViewDelegate
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat offset = self.tableView.contentOffset.y;
+    
+    if (offset <= 0)
+    {
+        [self showBottomBar];
+    }
+    else
+    {
+        [self hideBottomBar];
+    }
+}
+
+-(void)showBottomBar
+{
+    [UIView animateWithDuration:SHARE_BUTTON_ANIMATION_LENGTH animations:^{
+        
+        CGFloat barPos = self.view.frame.size.height - BOTTOM_BAR_HEIGHT;
+        
+        self.bottomBarView.frame = CGRectMake(self.bottomBarView.frame.origin.x, barPos, self.bottomBarView.frame.size.width, self.bottomBarView.frame.size.height);
+        
+        self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - BOTTOM_BAR_HEIGHT);
+    }];
+}
+
+-(void)hideBottomBar
+{
+    [UIView animateWithDuration:SHARE_BUTTON_ANIMATION_LENGTH animations:^{
+        
+        CGFloat barPos = self.view.frame.size.height;
+        
+        self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        
+        self.bottomBarView.frame = CGRectMake(self.bottomBarView.frame.origin.x, barPos, self.bottomBarView.frame.size.width, self.bottomBarView.frame.size.height);
+        
+    }];
 }
 
 #pragma mark TTTAttributedLabel functions
@@ -246,8 +301,9 @@ withDownloadController:(HNDownloadController *)downloadController
     }
     
     //Scroll to top
-    [self.tableView setContentOffset:CGPointZero animated:NO];
-    
+    NSIndexPath *topRow = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:topRow atScrollPosition:UITableViewScrollPositionTop animated:NO];
+
 }
 
 -(NSArray *) buildTableWithData:(NSArray *)data
@@ -354,9 +410,17 @@ withDownloadController:(HNDownloadController *)downloadController
 
 -(void)changeTheme:(HNTheme *)theme
 {
+    [self applyTheme:theme];
+    [self.tableView reloadData];
+}
+
+-(void) applyTheme:(HNTheme *)theme
+{
     self.theme = theme;
     self.tableView.backgroundColor = self.theme.tableViewBackgroundColor;
-    [self.tableView reloadData];
+    self.view.backgroundColor = self.theme.tableViewBackgroundColor;
+    self.bottomBarView.barTintColor = self.theme.titleBarColor;
+    self.bottomBarView.tintColor = self.theme.titleBarTextColor;
 }
 
 

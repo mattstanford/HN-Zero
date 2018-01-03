@@ -16,11 +16,9 @@
 @class HNArticle;
 @class HNSettings;
 
-@interface HNCommentVC : UITableViewController <commentViewerDelegate, TTTAttributedLabelDelegate, HNThemedViewController>
+@interface HNCommentVC : UIViewController <commentViewerDelegate, TTTAttributedLabelDelegate, HNThemedViewController, UITableViewDelegate, UITableViewDataSource>
 
-
-- (id)initWithStyle:(UITableViewStyle)style
-          withTheme:(HNTheme *)appTheme
+- (id)initWithTheme:(HNTheme *)appTheme
          webBrowser:(HNWebBrowserVC *)webBrowser
 withDownloadController:(HNDownloadController *)downloadController
         andSettings:(HNSettings *)settings;

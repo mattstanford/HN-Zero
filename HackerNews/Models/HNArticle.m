@@ -199,5 +199,26 @@ NSString * const HNArticleCommentLinkId = @"commentLinkId";
     }
 }
 
+-(NSString *) getShareText
+{
+    NSMutableString *shareString = [[NSMutableString alloc] init];
+    [shareString appendString:self.title];
+    
+    NSString *commentPageUrl = [NSString stringWithFormat:@"https://news.ycombinator.com/item?id=%@", self.commentLinkId];
+    if (!self.isSelfPost)
+    {
+        NSString *urlString = [NSString stringWithFormat:@": %@", self.url];
+        [shareString appendString:urlString];
+    }
+    
+    NSString *commentString = [NSString stringWithFormat:@"\n\nHN Discussion: %@", commentPageUrl];
+    [shareString appendString:commentString];
+    
+    NSString *adString = [NSString stringWithFormat:@"\n\nShared with www.hackernewszero.com"];
+    [shareString appendString:adString];
+    
+    return [shareString copy];
+}
+
 
 @end

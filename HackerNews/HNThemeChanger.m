@@ -37,7 +37,6 @@ NSString * const kThemeSelectionKey = @"ThemeSelection";
     {
         for(UIViewController<HNThemedViewController> *viewController in self.themedVCs)
         {
-            NSLog(@"changing view!");
             [viewController changeTheme:theme];
         }
     }
