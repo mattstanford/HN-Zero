@@ -11,7 +11,6 @@
 #import "HNArticleContainerVC.h"
 #import "HNMainMenu.h"
 #import "HNMenuLink.h"
-#import "GAI.h"
 #import <MMDrawerController/MMDrawerController.h>
 #import "HNSettings.h"
 #import "HNArticleListVC.h"
@@ -39,9 +38,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Google Analytics
-    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-49248907-1"];
-    
     //Enable URL on-disk caching
     NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:2 * 1024 * 1024
                                                             diskCapacity:100 * 1024 * 1024

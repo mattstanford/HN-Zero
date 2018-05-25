@@ -68,8 +68,6 @@
 		C90D13841904CE1200BC6E4B /* icon-100.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13801904CE1200BC6E4B /* icon-100.png */; };
 		C90D13861904CF0D00BC6E4B /* icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = C90D13851904CF0D00BC6E4B /* icon-72.png */; };
 		C91A41E21E35BC6F0053E572 /* HNZero.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C91A41E11E35BC6F0053E572 /* HNZero.xcassets */; };
-		C934DA1E18F203A5001AA740 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C934DA1C18F20363001AA740 /* libGoogleAnalyticsServices.a */; };
-		C938E23018DBF16D00D1BD54 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C938E22F18DBF16D00D1BD54 /* AdSupport.framework */; };
 		C938E23218DBF17B00D1BD54 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C938E23118DBF17B00D1BD54 /* CoreData.framework */; };
 		C938E23418DBF19C00D1BD54 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C938E23318DBF19C00D1BD54 /* libz.dylib */; };
 		C94C70DA196CDC3B005139BC /* HNIconDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = C94C70D9196CDC3B005139BC /* HNIconDownloadController.m */; };
@@ -202,11 +200,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C934DA1E18F203A5001AA740 /* libGoogleAnalyticsServices.a in Frameworks */,
 				C938E23418DBF19C00D1BD54 /* libz.dylib in Frameworks */,
 				7893910A18145C7B004E1E6F /* SystemConfiguration.framework in Frameworks */,
 				C938E23218DBF17B00D1BD54 /* CoreData.framework in Frameworks */,
-				C938E23018DBF16D00D1BD54 /* AdSupport.framework in Frameworks */,
 				7893910818145C74004E1E6F /* MobileCoreServices.framework in Frameworks */,
 				780F09B21801B88F00B9C5C3 /* CoreText.framework in Frameworks */,
 				782784C217C9814500CAD559 /* UIKit.framework in Frameworks */,

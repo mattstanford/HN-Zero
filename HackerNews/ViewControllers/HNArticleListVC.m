@@ -14,9 +14,6 @@
 #import "HNTheme.h"
 #import "HNUtils.h"
 #import "HNWebBrowserVC.h"
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
 #import "HNIconDownloadController.h"
 #import <MMDrawerController/MMDrawerController.h>
 #import <MMDrawerBarButtonItem.h>
@@ -140,16 +137,6 @@ withDownloadController:(HNDownloadController *)downloadController
 }
 
 #pragma mark View lifecycle
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    //Google analytics tracking
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Article List"];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
-}
 
 - (void)viewDidLoad
 {

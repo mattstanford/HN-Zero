@@ -9,9 +9,6 @@
 #import "HNMainMenu.h"
 #import "HNArticleListVC.h"
 #import "HNMenuLink.h"
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
 #import "HNSettingsVC.h"
 #import "HNTheme.h"
 #import "HNSettings.h"
@@ -87,16 +84,6 @@ NS_ENUM(NSInteger, HNMenuSettings)
     }
     
     return self;
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    //Google analytics tracking
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Main Menu"];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 #pragma mark - Table view data source

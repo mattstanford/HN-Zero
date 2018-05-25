@@ -19,9 +19,6 @@
 #import "HNArticle.h"
 #import "HNUtils.h"
 #import "HNParser.h"
-#import "GAI.h"
-#import "GAIFields.h"
-#import "GAIDictionaryBuilder.h"
 #import "HNSettings.h"
 
 static const CGFloat BOTTOM_BAR_HEIGHT = 44;
@@ -68,16 +65,6 @@ withDownloadController:(HNDownloadController *)downloadController
         self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     return self;
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    //Google analytics tracking
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    [tracker set:kGAIScreenName value:@"Comments"];
-    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (void) viewDidLoad
